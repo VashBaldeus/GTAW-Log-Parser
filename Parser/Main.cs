@@ -69,13 +69,12 @@ namespace Parser
                     string log = sr.ReadToEnd();
                     sr.Close();
 
-                    log = log.Remove(0, 2);
-                    log = log.Remove(log.Length - 2, 2);
+                    log = log.Remove(0, 1);
 
-                    log = Regex.Replace(log, "{endl}\",\"", Environment.NewLine);
+                    log = Regex.Replace(log, "{endl}", Environment.NewLine);
                     log = Regex.Replace(log, "~[a-zA-Z]~", "");
 
-                    log = log.Remove(log.Length - 6, 6);
+                    log = log.Remove(log.Length - 3, 3);
 
                     SetText(log);
                 }
@@ -163,13 +162,13 @@ namespace Parser
                     if (currentVersion > installedVersion)
                         MessageBox.Show($"A new version of the chat log parser is now available on the GTA World forums.\n\nCurrent Version: {installedVersion}\nNew Version: {currentVersion}", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else if (checking)
-                        MessageBox.Show("You are running the latest version of the parser.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("No updates can be found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 }
                 catch
                 {
                     if (checking)
-                        MessageBox.Show("You are running the latest version of the parser.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("No updates can be found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
             }).Start();
