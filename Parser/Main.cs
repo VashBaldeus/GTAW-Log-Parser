@@ -32,6 +32,8 @@ namespace Parser
         {
             Path.Text = Properties.Settings.Default.Path;
             CheckForUpdatesOnStartup.Checked = Properties.Settings.Default.CheckForUpdates;
+
+            Version.Text = $"Version: {Properties.Settings.Default.Version}";
         }
 
         private void Browse_Click(object sender, EventArgs e)
@@ -160,9 +162,17 @@ namespace Parser
                     float currentVersion = Convert.ToSingle(match.Groups[1].Value);
 
                     if (currentVersion > installedVersion)
-                        MessageBox.Show($"A new version of the chat log parser is now available on the GTA World forums.\n\nCurrent Version: {installedVersion}\nNew Version: {currentVersion}", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    {
+                        if (MessageBox.Show($"A new version of the chat log parser is now available on GitHub.\n\nInstalled Version: {installedVersion}\nAvailable Version: {currentVersion}\n\nWould you like to visit the releases page now?", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                            System.Diagnostics.Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases");
+                    }
+                    else if (currentVersion < installedVersion && checking)
+                    {
+                        if (MessageBox.Show($"You are using a newer version of the chat log parser than is recommended. You may encounter unwated errors, continue at your own discretion.\n\nInstalled Version: {installedVersion}\nRecommended Version: {currentVersion}\n\nWould you like to visit the releases page now?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                            System.Diagnostics.Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases");
+                    }
                     else if (checking)
-                        MessageBox.Show("No updates can be found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show($"You are running the latest version of the chat log parser.\n\nInstalled Version: {installedVersion}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 }
                 catch
@@ -200,7 +210,8 @@ namespace Parser
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"This chat log parser was created by Maple.\n\nInstalled Version: {Properties.Settings.Default.Version}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (MessageBox.Show($"RAGEMP Chat Log Parser created by Maple for GTA World.\n\nInstalled Version: {Properties.Settings.Default.Version}\n\nWould you like to visit the repository page on GitHub?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                System.Diagnostics.Process.Start("https://github.com/MapleToo/GTAW-Log-Parser");
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -211,6 +222,12 @@ namespace Parser
         private void CheckForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CheckForUpdates(true);
+        }
+
+        private void Logo_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show($"Would you like to open the documentation page for the chat log parser found on the GTA World forums?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                System.Diagnostics.Process.Start(Data.versionLocation);
         }
     }
 }
