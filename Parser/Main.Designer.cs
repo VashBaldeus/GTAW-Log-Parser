@@ -43,6 +43,7 @@
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PathLabel = new System.Windows.Forms.Label();
+            this.Version = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -56,6 +57,7 @@
             this.Logo.Size = new System.Drawing.Size(292, 143);
             this.Logo.TabIndex = 0;
             this.Logo.TabStop = false;
+            this.Logo.Click += new System.EventHandler(this.Logo_Click);
             // 
             // Path
             // 
@@ -165,17 +167,27 @@
             // PathLabel
             // 
             this.PathLabel.AutoSize = true;
-            this.PathLabel.Location = new System.Drawing.Point(307, 27);
+            this.PathLabel.Location = new System.Drawing.Point(310, 27);
             this.PathLabel.Name = "PathLabel";
             this.PathLabel.Size = new System.Drawing.Size(88, 13);
             this.PathLabel.TabIndex = 8;
             this.PathLabel.Text = "RAGEMP Folder:";
+            // 
+            // Version
+            // 
+            this.Version.AutoSize = true;
+            this.Version.Location = new System.Drawing.Point(241, 181);
+            this.Version.Name = "Version";
+            this.Version.Size = new System.Drawing.Size(63, 13);
+            this.Version.TabIndex = 9;
+            this.Version.Text = "Version: 1.0";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 201);
+            this.Controls.Add(this.Version);
             this.Controls.Add(this.PathLabel);
             this.Controls.Add(this.Parse);
             this.Controls.Add(this.SaveParsed);
@@ -194,7 +206,7 @@
             this.MinimumSize = new System.Drawing.Size(640, 240);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "GTAW Log Parser";
+            this.Text = "GTA World Chat Log Parser";
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
@@ -219,6 +231,7 @@
         private System.Windows.Forms.ToolStripMenuItem ExitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem CheckForUpdatesToolStripMenuItem;
         private System.Windows.Forms.Label PathLabel;
+        private System.Windows.Forms.Label Version;
     }
 }
 
