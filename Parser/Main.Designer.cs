@@ -167,7 +167,7 @@
             // PathLabel
             // 
             this.PathLabel.AutoSize = true;
-            this.PathLabel.Location = new System.Drawing.Point(310, 27);
+            this.PathLabel.Location = new System.Drawing.Point(307, 27);
             this.PathLabel.Name = "PathLabel";
             this.PathLabel.Size = new System.Drawing.Size(88, 13);
             this.PathLabel.TabIndex = 8;

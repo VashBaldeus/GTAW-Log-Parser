@@ -89,7 +89,6 @@ namespace Parser
         }
 
         delegate void SetTextCallback(string text);
-
         private void SetText(string text)
         {
             if (Parsed.InvokeRequired)
@@ -178,7 +177,7 @@ namespace Parser
                 catch
                 {
                     if (checking)
-                        MessageBox.Show("No updates can be found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("No updates could be found, try checking your internet connection.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
             }).Start();
@@ -200,17 +199,16 @@ namespace Parser
 
             if (SaveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                StreamWriter sw = new StreamWriter(SaveFileDialog.OpenFile());
-                sw.Write(Parsed.Text);
-
-                sw.Dispose();
-                sw.Close();
+                using (StreamWriter sw = new StreamWriter(SaveFileDialog.OpenFile()))
+                {
+                    sw.Write(Parsed.Text);
+                }
             }
         }
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show($"RAGEMP Chat Log Parser created by Maple for GTA World.\n\nInstalled Version: {Properties.Settings.Default.Version}\n\nWould you like to visit the repository page on GitHub?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            if (MessageBox.Show($"Chat Log Parser created by Maple for GTA World.\n\nInstalled Version: {Properties.Settings.Default.Version}\n\nWould you like to visit the repository page on GitHub?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 System.Diagnostics.Process.Start("https://github.com/MapleToo/GTAW-Log-Parser");
         }
 
