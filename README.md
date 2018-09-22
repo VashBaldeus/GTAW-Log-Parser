@@ -2,7 +2,7 @@
 
 This program can be used to parse the chat logs generated while playing on GTA World.
 
-You should always use the "Current Version" seen at the top of https://forum.gta.world/en/index.php?/topic/11003-ragemp-chat-logs/&tab=comments#comment-84073.
+You should always use the "Current Version" seen at the top of https://forum.gta.world/en/index.php?/topic/11003-chat-logs/.
 
 Getting started:
 - Grab the suitable release from https://github.com/MapleToo/GTAW-Log-Parser/releases
