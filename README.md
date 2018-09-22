@@ -11,7 +11,7 @@ Getting started:
 - Save as a separate text file or copy to clipboard
 
 Packages used and their respective licenses:
-- [Fody](https://github.com/Fody/Fody) — [MIT License](https://github.com/Fody/Fody/blob/master/License.txt)
-- [Costura.Fody](https://github.com/Fody/Costura) — [MIT License](https://github.com/Fody/Costura/blob/master/license.txt)
-- [HtmlAgilityPack](https://github.com/zzzprojects/html-agility-pack) — [MIT License](https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE)
-- [WindowsAPICodePack](https://github.com/aybe/Windows-API-Code-Pack-1.1) — [Custom License](https://github.com/aybe/Windows-API-Code-Pack-1.1/blob/master/LICENCE)
+- [Fody](https://github.com/Fody/Fody) — [MIT License](https://raw.githubusercontent.com/Fody/Fody/master/License.txt)
+- [Costura.Fody](https://github.com/Fody/Costura) — [MIT License](https://raw.githubusercontent.com/Fody/Costura/master/license.txt)
+- [HtmlAgilityPack](https://github.com/zzzprojects/html-agility-pack) — [MIT License](https://raw.githubusercontent.com/zzzprojects/html-agility-pack/master/LICENSE)
+- [WindowsAPICodePack](https://github.com/aybe/Windows-API-Code-Pack-1.1) — [Custom License](https://raw.githubusercontent.com/aybe/Windows-API-Code-Pack-1.1/master/LICENCE)
