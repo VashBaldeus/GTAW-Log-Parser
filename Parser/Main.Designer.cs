@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.Logo = new System.Windows.Forms.PictureBox();
-            this.Path = new System.Windows.Forms.RichTextBox();
+            this.FolderPath = new System.Windows.Forms.RichTextBox();
             this.Browse = new System.Windows.Forms.Button();
             this.Parsed = new System.Windows.Forms.RichTextBox();
             this.CopyParsedToClipboard = new System.Windows.Forms.Button();
@@ -59,17 +59,17 @@
             this.Logo.TabStop = false;
             this.Logo.Click += new System.EventHandler(this.Logo_Click);
             // 
-            // Path
+            // FolderPath
             // 
-            this.Path.Location = new System.Drawing.Point(310, 43);
-            this.Path.MaxLength = 1024;
-            this.Path.Multiline = false;
-            this.Path.Name = "Path";
-            this.Path.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.Path.Size = new System.Drawing.Size(221, 22);
-            this.Path.TabIndex = 5;
-            this.Path.Text = "";
-            this.Path.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Path_MouseClick);
+            this.FolderPath.Location = new System.Drawing.Point(310, 43);
+            this.FolderPath.MaxLength = 1024;
+            this.FolderPath.Multiline = false;
+            this.FolderPath.Name = "FolderPath";
+            this.FolderPath.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.FolderPath.Size = new System.Drawing.Size(221, 22);
+            this.FolderPath.TabIndex = 5;
+            this.FolderPath.Text = "";
+            this.FolderPath.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FolderPath_MouseClick);
             // 
             // Browse
             // 
@@ -103,7 +103,7 @@
             // CheckForUpdatesOnStartup
             // 
             this.CheckForUpdatesOnStartup.AutoSize = true;
-            this.CheckForUpdatesOnStartup.Location = new System.Drawing.Point(12, 182);
+            this.CheckForUpdatesOnStartup.Location = new System.Drawing.Point(12, 180);
             this.CheckForUpdatesOnStartup.Name = "CheckForUpdatesOnStartup";
             this.CheckForUpdatesOnStartup.Size = new System.Drawing.Size(183, 17);
             this.CheckForUpdatesOnStartup.TabIndex = 6;
@@ -195,7 +195,7 @@
             this.Controls.Add(this.CopyParsedToClipboard);
             this.Controls.Add(this.Parsed);
             this.Controls.Add(this.Browse);
-            this.Controls.Add(this.Path);
+            this.Controls.Add(this.FolderPath);
             this.Controls.Add(this.Logo);
             this.Controls.Add(this.MenuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -207,6 +207,7 @@
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GTA World Chat Log Parser";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
@@ -218,7 +219,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox Logo;
-        private System.Windows.Forms.RichTextBox Path;
+        private System.Windows.Forms.RichTextBox FolderPath;
         private System.Windows.Forms.Button Browse;
         private System.Windows.Forms.RichTextBox Parsed;
         private System.Windows.Forms.Button CopyParsedToClipboard;

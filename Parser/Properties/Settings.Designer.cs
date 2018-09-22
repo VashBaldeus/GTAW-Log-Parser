@@ -25,7 +25,7 @@ namespace Parser.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.6")]
         public float Version {
             get {
                 return ((float)(this["Version"]));
