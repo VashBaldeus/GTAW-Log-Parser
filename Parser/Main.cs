@@ -57,9 +57,7 @@ namespace Parser
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 FolderPath.Text = dialog.FileName;
-                FolderPath.Focus();
-                FolderPath.SelectionStart = FolderPath.Text.Length;
-                SaveSettings();
+                Parse.Focus();
             }
         }
 
@@ -76,16 +74,19 @@ namespace Parser
                 return;
             }
 
-            TryToParseLog(FolderPath.Text);
+            ParseChatLog(FolderPath.Text);
         }
 
-        private void TryToParseLog(string folderPath)
+        private void ParseChatLog(string folderPath)
         {
             try
             {
-                StreamReader sr = new StreamReader(folderPath + Data.logLogation);
-                string log = sr.ReadToEnd();
-                sr.Close();
+                string log;
+
+                using (StreamReader sr = new StreamReader(folderPath + Data.logLogation))
+                {
+                    log = sr.ReadToEnd();
+                }
 
                 log = log.Remove(0, 1);
 

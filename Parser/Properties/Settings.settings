@@ -8,16 +8,16 @@
     <Setting Name="AutomaticallyCheckForUpdates" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="AutomaticallyBackupChatLog" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="RemoveTimestamps" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="FolderPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="AutomaticallyBackupChatLog" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="BackupPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FolderPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

@@ -47,18 +47,6 @@ namespace Parser.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AutomaticallyBackupChatLog {
-            get {
-                return ((bool)(this["AutomaticallyBackupChatLog"]));
-            }
-            set {
-                this["AutomaticallyBackupChatLog"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool RemoveTimestamps {
             get {
                 return ((bool)(this["RemoveTimestamps"]));
@@ -70,13 +58,13 @@ namespace Parser.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FolderPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutomaticallyBackupChatLog {
             get {
-                return ((string)(this["FolderPath"]));
+                return ((bool)(this["AutomaticallyBackupChatLog"]));
             }
             set {
-                this["FolderPath"] = value;
+                this["AutomaticallyBackupChatLog"] = value;
             }
         }
         
@@ -89,6 +77,18 @@ namespace Parser.Properties {
             }
             set {
                 this["BackupPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FolderPath {
+            get {
+                return ((string)(this["FolderPath"]));
+            }
+            set {
+                this["FolderPath"] = value;
             }
         }
     }
