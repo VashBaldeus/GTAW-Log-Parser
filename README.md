@@ -10,7 +10,7 @@ Getting started:
 - Click on Parse
 - Save as a separate text file or copy to clipboard
 
-Packages used and their respective license:
+Packages used and their respective licenses:
 - [Fody](https://github.com/Fody/Fody) — [MIT License](https://github.com/Fody/Fody/blob/master/License.txt)
 - [Costura.Fody](https://github.com/Fody/Costura) — [MIT License](https://github.com/Fody/Costura/blob/master/license.txt)
 - [HtmlAgilityPack](https://github.com/zzzprojects/html-agility-pack) — [MIT License](https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE)
