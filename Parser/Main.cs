@@ -177,7 +177,7 @@ namespace Parser
                 catch
                 {
                     if (checking)
-                        MessageBox.Show("No updates could be found, try checking your internet connection.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show($"No updates could be found, try checking your internet connection.\n\nInstalled Version: {Properties.Settings.Default.Version}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
             }).Start();
@@ -186,7 +186,7 @@ namespace Parser
         private void CopyParsedToClipboard_Click(object sender, EventArgs e)
         {
             if (Parsed.Text.Length != 0)
-                Clipboard.SetText(Parsed.Text);
+                Clipboard.SetText(Parsed.Text.Replace("\n", Environment.NewLine));
         }
 
         private void SaveParsed_Click(object sender, EventArgs e)
@@ -201,7 +201,7 @@ namespace Parser
             {
                 using (StreamWriter sw = new StreamWriter(SaveFileDialog.OpenFile()))
                 {
-                    sw.Write(Parsed.Text);
+                    sw.Write(Parsed.Text.Replace("\n", Environment.NewLine));
                 }
             }
         }
