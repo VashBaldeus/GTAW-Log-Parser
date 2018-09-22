@@ -24,16 +24,16 @@ namespace Parser
 
         private void SaveSettings()
         {
-            Properties.Settings.Default.Path = FolderPath.Text;
-            Properties.Settings.Default.CheckForUpdates = CheckForUpdatesOnStartup.Checked;
+            Properties.Settings.Default.FolderPath = FolderPath.Text;
+            Properties.Settings.Default.AutomaticallyCheckForUpdates = CheckForUpdatesOnStartup.Checked;
 
             Properties.Settings.Default.Save();
         }
 
         private void LoadSettings()
         {
-            FolderPath.Text = Properties.Settings.Default.Path;
-            CheckForUpdatesOnStartup.Checked = Properties.Settings.Default.CheckForUpdates;
+            FolderPath.Text = Properties.Settings.Default.FolderPath;
+            CheckForUpdatesOnStartup.Checked = Properties.Settings.Default.AutomaticallyCheckForUpdates;
 
             Version.Text = $"Version: {Properties.Settings.Default.Version}";
         }
@@ -96,9 +96,7 @@ namespace Parser
 
                 Parsed.Text = log;
 
-                int numLines = log.Split('\n').Length;
-
-                MessageBox.Show($"{numLines}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //int lineCount = log.Split('\n').Length;
             }
             catch
             {

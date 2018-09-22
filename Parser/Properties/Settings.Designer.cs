@@ -34,37 +34,49 @@ namespace Parser.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutomaticallyCheckForUpdates {
+            get {
+                return ((bool)(this["AutomaticallyCheckForUpdates"]));
+            }
+            set {
+                this["AutomaticallyCheckForUpdates"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutomaticallyBackupChatLog {
+            get {
+                return ((bool)(this["AutomaticallyBackupChatLog"]));
+            }
+            set {
+                this["AutomaticallyBackupChatLog"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RemoveTimestamps {
+            get {
+                return ((bool)(this["RemoveTimestamps"]));
+            }
+            set {
+                this["RemoveTimestamps"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Path {
+        public string FolderPath {
             get {
-                return ((string)(this["Path"]));
+                return ((string)(this["FolderPath"]));
             }
             set {
-                this["Path"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool CheckForUpdates {
-            get {
-                return ((bool)(this["CheckForUpdates"]));
-            }
-            set {
-                this["CheckForUpdates"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AutoBackUp {
-            get {
-                return ((bool)(this["AutoBackUp"]));
-            }
-            set {
-                this["AutoBackUp"] = value;
+                this["FolderPath"] = value;
             }
         }
         

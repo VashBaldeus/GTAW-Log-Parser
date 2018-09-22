@@ -51,17 +51,19 @@
             // Logo
             // 
             this.Logo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.Logo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.Logo.Image = ((System.Drawing.Image)(resources.GetObject("Logo.Image")));
-            this.Logo.Location = new System.Drawing.Point(12, 33);
+            this.Logo.Location = new System.Drawing.Point(12, 27);
             this.Logo.Name = "Logo";
-            this.Logo.Size = new System.Drawing.Size(292, 143);
+            this.Logo.Size = new System.Drawing.Size(288, 140);
+            this.Logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Logo.TabIndex = 0;
             this.Logo.TabStop = false;
             this.Logo.Click += new System.EventHandler(this.Logo_Click);
             // 
             // FolderPath
             // 
-            this.FolderPath.Location = new System.Drawing.Point(310, 43);
+            this.FolderPath.Location = new System.Drawing.Point(309, 43);
             this.FolderPath.MaxLength = 1024;
             this.FolderPath.Multiline = false;
             this.FolderPath.Name = "FolderPath";
@@ -73,9 +75,9 @@
             // 
             // Browse
             // 
-            this.Browse.Location = new System.Drawing.Point(537, 42);
+            this.Browse.Location = new System.Drawing.Point(536, 41);
             this.Browse.Name = "Browse";
-            this.Browse.Size = new System.Drawing.Size(75, 23);
+            this.Browse.Size = new System.Drawing.Size(76, 25);
             this.Browse.TabIndex = 4;
             this.Browse.Text = "Browse";
             this.Browse.UseVisualStyleBackColor = true;
@@ -83,18 +85,18 @@
             // 
             // Parsed
             // 
-            this.Parsed.Location = new System.Drawing.Point(310, 71);
+            this.Parsed.Location = new System.Drawing.Point(309, 72);
             this.Parsed.Name = "Parsed";
             this.Parsed.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.Parsed.Size = new System.Drawing.Size(302, 99);
+            this.Parsed.Size = new System.Drawing.Size(303, 95);
             this.Parsed.TabIndex = 3;
             this.Parsed.Text = "";
             // 
             // CopyParsedToClipboard
             // 
-            this.CopyParsedToClipboard.Location = new System.Drawing.Point(472, 176);
+            this.CopyParsedToClipboard.Location = new System.Drawing.Point(471, 173);
             this.CopyParsedToClipboard.Name = "CopyParsedToClipboard";
-            this.CopyParsedToClipboard.Size = new System.Drawing.Size(140, 23);
+            this.CopyParsedToClipboard.Size = new System.Drawing.Size(141, 25);
             this.CopyParsedToClipboard.TabIndex = 2;
             this.CopyParsedToClipboard.Text = "Copy To Clipboard";
             this.CopyParsedToClipboard.UseVisualStyleBackColor = true;
@@ -103,7 +105,7 @@
             // CheckForUpdatesOnStartup
             // 
             this.CheckForUpdatesOnStartup.AutoSize = true;
-            this.CheckForUpdatesOnStartup.Location = new System.Drawing.Point(12, 180);
+            this.CheckForUpdatesOnStartup.Location = new System.Drawing.Point(12, 178);
             this.CheckForUpdatesOnStartup.Name = "CheckForUpdatesOnStartup";
             this.CheckForUpdatesOnStartup.Size = new System.Drawing.Size(183, 17);
             this.CheckForUpdatesOnStartup.TabIndex = 6;
@@ -113,9 +115,9 @@
             // 
             // SaveParsed
             // 
-            this.SaveParsed.Location = new System.Drawing.Point(391, 176);
+            this.SaveParsed.Location = new System.Drawing.Point(390, 173);
             this.SaveParsed.Name = "SaveParsed";
-            this.SaveParsed.Size = new System.Drawing.Size(75, 23);
+            this.SaveParsed.Size = new System.Drawing.Size(75, 25);
             this.SaveParsed.TabIndex = 1;
             this.SaveParsed.Text = "Save As";
             this.SaveParsed.UseVisualStyleBackColor = true;
@@ -123,9 +125,9 @@
             // 
             // Parse
             // 
-            this.Parse.Location = new System.Drawing.Point(310, 176);
+            this.Parse.Location = new System.Drawing.Point(309, 173);
             this.Parse.Name = "Parse";
-            this.Parse.Size = new System.Drawing.Size(75, 23);
+            this.Parse.Size = new System.Drawing.Size(75, 25);
             this.Parse.TabIndex = 0;
             this.Parse.Text = "Parse";
             this.Parse.UseVisualStyleBackColor = true;
@@ -167,7 +169,7 @@
             // PathLabel
             // 
             this.PathLabel.AutoSize = true;
-            this.PathLabel.Location = new System.Drawing.Point(307, 27);
+            this.PathLabel.Location = new System.Drawing.Point(306, 27);
             this.PathLabel.Name = "PathLabel";
             this.PathLabel.Size = new System.Drawing.Size(88, 13);
             this.PathLabel.TabIndex = 8;
@@ -176,7 +178,7 @@
             // Version
             // 
             this.Version.AutoSize = true;
-            this.Version.Location = new System.Drawing.Point(241, 181);
+            this.Version.Location = new System.Drawing.Point(240, 179);
             this.Version.Name = "Version";
             this.Version.Size = new System.Drawing.Size(63, 13);
             this.Version.TabIndex = 9;
@@ -202,8 +204,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MenuStrip;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(640, 240);
-            this.MinimumSize = new System.Drawing.Size(640, 240);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GTA World Chat Log Parser";
