@@ -101,6 +101,9 @@ namespace Parser
 
                 log = log.Remove(log.Length - 2, 2);
 
+                if (RemoveTimestamps.Checked)
+                    log = Regex.Replace(log, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", "");
+
                 Parsed.Text = log;
             }
             catch
