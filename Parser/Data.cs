@@ -11,6 +11,5 @@ namespace Parser
         #endif
 
         public static readonly string logLogation = $"\\client_resources\\{serverIP}\\.storage";
-        public static readonly string versionLocation = "https://forum.gta.world/en/index.php?/topic/11003-chat-logs/";
     }
 }

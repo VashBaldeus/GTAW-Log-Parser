@@ -5,13 +5,15 @@ using System.IO;
 using System.Threading;
 using System.Text.RegularExpressions;
 
+using Octokit;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using HtmlAgilityPack;
 
 namespace Parser
 {
     public partial class Main : Form
     {
+        private static GitHubClient client = new GitHubClient(new ProductHeaderValue("GTAW-Log-Parser"));
+
         private Thread parseThread;
         private Thread updateThread;
 
@@ -117,35 +119,11 @@ namespace Parser
         {
             try
             {
-                float installedVersion = Properties.Settings.Default.Version;
-                string unparsedWebVersion = "";
+                string installedVersion = Properties.Settings.Default.Version;
 
-                string url = Data.versionLocation;
-                HtmlWeb web = new HtmlWeb();
-                HtmlAgilityPack.HtmlDocument doc = web.Load(url);
+                string currentVersion = client.Repository.Release.GetAll("MapleToo", "GTAW-Log-Parser").Result[0].TagName;
 
-                var metaTags = doc.DocumentNode.SelectNodes("//meta");
-                foreach (var tag in metaTags)
-                {
-                    var tagName = tag.Attributes["name"];
-                    var tagContent = tag.Attributes["content"];
-                    var tagProperty = tag.Attributes["property"];
-
-                    if (tagProperty != null && tagContent != null)
-                    {
-                        switch (tagProperty.Value.ToLower())
-                        {
-                            case "og:description":
-                                unparsedWebVersion = tagContent.Value;
-                                break;
-                        }
-                    }
-                }
-
-                var match = Regex.Match(unparsedWebVersion, @"([-+]?[0-9]*\.?[0-9]+)");
-                float currentVersion = Convert.ToSingle(match.Groups[1].Value);
-
-                if (currentVersion > installedVersion)
+                if (string.Compare(installedVersion, currentVersion) < 0)
                 {
                     if (MessageBox.Show($"A new version of the chat log parser is now available on GitHub.\n\nInstalled Version: {installedVersion}\nAvailable Version: {currentVersion}\n\nWould you like to visit the releases page now?", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                         System.Diagnostics.Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases");
@@ -202,13 +180,13 @@ namespace Parser
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            System.Windows.Forms.Application.Exit();
         }
 
         private void Logo_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show($"Would you like to open the documentation page for the chat log parser found on the GTA World forums?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                System.Diagnostics.Process.Start(Data.versionLocation);
+                System.Diagnostics.Process.Start("https://forum.gta.world/en/index.php?/topic/11003-chat-logs/");
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
