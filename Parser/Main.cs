@@ -98,8 +98,6 @@ namespace Parser
                 log = log.Remove(log.Length - 2, 2);
 
                 Parsed.Text = log;
-
-                //int lineCount = log.Split('\n').Length;
             }
             catch
             {
@@ -192,6 +190,17 @@ namespace Parser
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveSettings();
+        }
+
+        private void Parsed_TextChanged(object sender, EventArgs e)
+        {
+            if (Parsed.Text == "")
+            {
+                Counter.Text = "0 characters and 0 lines";
+                return;
+            }
+
+            Counter.Text = Parsed.Text.Length + " characters and " + Parsed.Text.Split('\n').Length + " lines";
         }
     }
 }

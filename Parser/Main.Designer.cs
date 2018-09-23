@@ -44,6 +44,7 @@
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PathLabel = new System.Windows.Forms.Label();
             this.Version = new System.Windows.Forms.Label();
+            this.Counter = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -91,6 +92,7 @@
             this.Parsed.Size = new System.Drawing.Size(303, 95);
             this.Parsed.TabIndex = 3;
             this.Parsed.Text = "";
+            this.Parsed.TextChanged += new System.EventHandler(this.Parsed_TextChanged);
             // 
             // CopyParsedToClipboard
             // 
@@ -184,11 +186,21 @@
             this.Version.TabIndex = 9;
             this.Version.Text = "Version: 1.0";
             // 
+            // Counter
+            // 
+            this.Counter.Location = new System.Drawing.Point(403, 27);
+            this.Counter.Name = "Counter";
+            this.Counter.Size = new System.Drawing.Size(212, 13);
+            this.Counter.TabIndex = 10;
+            this.Counter.Text = "0 characters and 0 lines";
+            this.Counter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 201);
+            this.Controls.Add(this.Counter);
             this.Controls.Add(this.Version);
             this.Controls.Add(this.PathLabel);
             this.Controls.Add(this.Parse);
@@ -233,6 +245,7 @@
         private System.Windows.Forms.ToolStripMenuItem CheckForUpdatesToolStripMenuItem;
         private System.Windows.Forms.Label PathLabel;
         private System.Windows.Forms.Label Version;
+        private System.Windows.Forms.Label Counter;
     }
 }
 
