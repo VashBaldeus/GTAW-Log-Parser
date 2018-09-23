@@ -29,7 +29,7 @@ namespace Parser
         {
             Properties.Settings.Default.FolderPath = FolderPath.Text;
             Properties.Settings.Default.RemoveTimestamps = RemoveTimestamps.Checked;
-            Properties.Settings.Default.AutomaticallyCheckForUpdates = CheckForUpdatesOnStartup.Checked;
+            Properties.Settings.Default.CheckForUpdatesAutomatically = CheckForUpdatesOnStartup.Checked;
 
             Properties.Settings.Default.Save();
         }
@@ -41,7 +41,7 @@ namespace Parser
             FolderPath.Text = Properties.Settings.Default.FolderPath;
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestamps;
 
-            CheckForUpdatesOnStartup.Checked = Properties.Settings.Default.AutomaticallyCheckForUpdates;
+            CheckForUpdatesOnStartup.Checked = Properties.Settings.Default.CheckForUpdatesAutomatically;
         }
 
         private void FolderPath_MouseClick(object sender, MouseEventArgs e)

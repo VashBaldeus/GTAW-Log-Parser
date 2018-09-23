@@ -180,12 +180,12 @@
             // 
             // Version
             // 
-            this.Version.AutoSize = true;
-            this.Version.Location = new System.Drawing.Point(314, 170);
+            this.Version.Location = new System.Drawing.Point(201, 192);
             this.Version.Name = "Version";
-            this.Version.Size = new System.Drawing.Size(63, 13);
+            this.Version.Size = new System.Drawing.Size(99, 13);
             this.Version.TabIndex = 9;
             this.Version.Text = "Version: 1.0";
+            this.Version.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Counter
             // 
