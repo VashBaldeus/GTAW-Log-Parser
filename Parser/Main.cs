@@ -96,7 +96,7 @@ namespace Parser
 
                 log = log.Remove(0, 1);
 
-                log = log.Replace("{nl}", "\n");
+                log = log.Replace("\\n", "\n");
                 log = Regex.Replace(log, "~[a-zA-Z]~", "");
 
                 log = log.Remove(log.Length - 2, 2);
