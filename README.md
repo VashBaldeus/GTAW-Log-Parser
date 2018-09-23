@@ -13,5 +13,5 @@ Getting started:
 Packages used and their respective licenses:
 - [Fody](https://github.com/Fody/Fody) — [MIT License](https://raw.githubusercontent.com/Fody/Fody/master/License.txt)
 - [Costura.Fody](https://github.com/Fody/Costura) — [MIT License](https://raw.githubusercontent.com/Fody/Costura/master/license.txt)
-- [HtmlAgilityPack](https://github.com/zzzprojects/html-agility-pack) — [MIT License](https://raw.githubusercontent.com/zzzprojects/html-agility-pack/master/LICENSE)
+- [Octokit](https://github.com/octokit/octokit.net) — [MIT License](https://raw.githubusercontent.com/octokit/octokit.net/master/LICENSE.txt)
 - [WindowsAPICodePack](https://github.com/aybe/Windows-API-Code-Pack-1.1) — [Custom License](https://raw.githubusercontent.com/aybe/Windows-API-Code-Pack-1.1/master/LICENCE)
