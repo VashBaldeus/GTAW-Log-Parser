@@ -137,6 +137,8 @@ namespace Parser
                 updateThread = new Thread(() => CheckForUpdates(manual));
                 updateThread.Start();
             }
+            else
+                MessageBox.Show("Currently checking for updates, please wait for the process to finish to check again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void CheckForUpdates(bool manual = false)
@@ -164,7 +166,7 @@ namespace Parser
             catch
             {
                 if (manual)
-                    MessageBox.Show($"No updates could be found, try checking your internet connection.\n\nInstalled Version: {Properties.Settings.Default.Version}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"No updates could be found, try checking your internet connection.\n\nInstalled Version: {Properties.Settings.Default.Version}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
