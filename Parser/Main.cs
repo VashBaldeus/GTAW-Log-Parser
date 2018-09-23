@@ -15,7 +15,7 @@ namespace Parser
         private static GitHubClient client = new GitHubClient(new ProductHeaderValue("GTAW-Log-Parser"));
 
         //private Thread parseThread;
-        //private Thread updateThread;
+        private Thread updateThread;
         //private Thread saveThread;
 
         public Main()
@@ -122,10 +122,24 @@ namespace Parser
             SaveSettings();
 
             if (CheckForUpdatesOnStartup.Checked)
-                CheckForUpdates();
+                TryCheckingForUpdates();
         }
 
-        private void CheckForUpdates(bool checking = false)
+        private void CheckForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TryCheckingForUpdates(true);
+        }
+
+        private void TryCheckingForUpdates(bool manual = false)
+        {
+            if (updateThread == null || !updateThread.IsAlive)
+            {
+                updateThread = new Thread(() => CheckForUpdates(manual));
+                updateThread.Start();
+            }
+        }
+
+        private void CheckForUpdates(bool manual = false)
         {
             try
             {
@@ -143,13 +157,13 @@ namespace Parser
                 //    if (MessageBox.Show($"You are using a newer version of the chat log parser than is recommended. You may encounter unwated errors, continue at your own discretion.\n\nInstalled Version: {installedVersion}\nRecommended Version: {currentVersion}\n\nWould you like to visit the releases page now?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 //        System.Diagnostics.Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases");
                 //}
-                else if (checking)
+                else if (manual)
                     MessageBox.Show($"You are running the latest version of the chat log parser.\n\nInstalled Version: {installedVersion}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
             catch
             {
-                if (checking)
+                if (manual)
                     MessageBox.Show($"No updates could be found, try checking your internet connection.\n\nInstalled Version: {Properties.Settings.Default.Version}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -175,11 +189,6 @@ namespace Parser
         {
             if (Parsed.Text.Length != 0)
                 Clipboard.SetText(Parsed.Text.Replace("\n", Environment.NewLine));
-        }
-
-        private void CheckForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CheckForUpdates(true);
         }
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
