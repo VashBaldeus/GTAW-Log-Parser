@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.Logo = new System.Windows.Forms.PictureBox();
-            this.Path = new System.Windows.Forms.RichTextBox();
+            this.FolderPath = new System.Windows.Forms.RichTextBox();
             this.Browse = new System.Windows.Forms.Button();
             this.Parsed = new System.Windows.Forms.RichTextBox();
             this.CopyParsedToClipboard = new System.Windows.Forms.Button();
@@ -44,6 +44,8 @@
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PathLabel = new System.Windows.Forms.Label();
             this.Version = new System.Windows.Forms.Label();
+            this.Counter = new System.Windows.Forms.Label();
+            this.RemoveTimestamps = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -51,31 +53,33 @@
             // Logo
             // 
             this.Logo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.Logo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.Logo.Image = ((System.Drawing.Image)(resources.GetObject("Logo.Image")));
-            this.Logo.Location = new System.Drawing.Point(12, 33);
+            this.Logo.Location = new System.Drawing.Point(12, 27);
             this.Logo.Name = "Logo";
-            this.Logo.Size = new System.Drawing.Size(292, 143);
+            this.Logo.Size = new System.Drawing.Size(288, 140);
+            this.Logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Logo.TabIndex = 0;
             this.Logo.TabStop = false;
             this.Logo.Click += new System.EventHandler(this.Logo_Click);
             // 
-            // Path
+            // FolderPath
             // 
-            this.Path.Location = new System.Drawing.Point(310, 43);
-            this.Path.MaxLength = 1024;
-            this.Path.Multiline = false;
-            this.Path.Name = "Path";
-            this.Path.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.Path.Size = new System.Drawing.Size(221, 22);
-            this.Path.TabIndex = 5;
-            this.Path.Text = "";
-            this.Path.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Path_MouseClick);
+            this.FolderPath.Location = new System.Drawing.Point(309, 43);
+            this.FolderPath.MaxLength = 1024;
+            this.FolderPath.Multiline = false;
+            this.FolderPath.Name = "FolderPath";
+            this.FolderPath.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.FolderPath.Size = new System.Drawing.Size(221, 22);
+            this.FolderPath.TabIndex = 5;
+            this.FolderPath.Text = "";
+            this.FolderPath.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FolderPath_MouseClick);
             // 
             // Browse
             // 
-            this.Browse.Location = new System.Drawing.Point(537, 42);
+            this.Browse.Location = new System.Drawing.Point(536, 41);
             this.Browse.Name = "Browse";
-            this.Browse.Size = new System.Drawing.Size(75, 23);
+            this.Browse.Size = new System.Drawing.Size(76, 25);
             this.Browse.TabIndex = 4;
             this.Browse.Text = "Browse";
             this.Browse.UseVisualStyleBackColor = true;
@@ -83,18 +87,19 @@
             // 
             // Parsed
             // 
-            this.Parsed.Location = new System.Drawing.Point(310, 71);
+            this.Parsed.Location = new System.Drawing.Point(309, 72);
             this.Parsed.Name = "Parsed";
             this.Parsed.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.Parsed.Size = new System.Drawing.Size(302, 99);
+            this.Parsed.Size = new System.Drawing.Size(303, 95);
             this.Parsed.TabIndex = 3;
             this.Parsed.Text = "";
+            this.Parsed.TextChanged += new System.EventHandler(this.Parsed_TextChanged);
             // 
             // CopyParsedToClipboard
             // 
-            this.CopyParsedToClipboard.Location = new System.Drawing.Point(472, 176);
+            this.CopyParsedToClipboard.Location = new System.Drawing.Point(471, 186);
             this.CopyParsedToClipboard.Name = "CopyParsedToClipboard";
-            this.CopyParsedToClipboard.Size = new System.Drawing.Size(140, 23);
+            this.CopyParsedToClipboard.Size = new System.Drawing.Size(141, 25);
             this.CopyParsedToClipboard.TabIndex = 2;
             this.CopyParsedToClipboard.Text = "Copy To Clipboard";
             this.CopyParsedToClipboard.UseVisualStyleBackColor = true;
@@ -103,7 +108,7 @@
             // CheckForUpdatesOnStartup
             // 
             this.CheckForUpdatesOnStartup.AutoSize = true;
-            this.CheckForUpdatesOnStartup.Location = new System.Drawing.Point(12, 182);
+            this.CheckForUpdatesOnStartup.Location = new System.Drawing.Point(12, 178);
             this.CheckForUpdatesOnStartup.Name = "CheckForUpdatesOnStartup";
             this.CheckForUpdatesOnStartup.Size = new System.Drawing.Size(183, 17);
             this.CheckForUpdatesOnStartup.TabIndex = 6;
@@ -113,9 +118,9 @@
             // 
             // SaveParsed
             // 
-            this.SaveParsed.Location = new System.Drawing.Point(391, 176);
+            this.SaveParsed.Location = new System.Drawing.Point(390, 186);
             this.SaveParsed.Name = "SaveParsed";
-            this.SaveParsed.Size = new System.Drawing.Size(75, 23);
+            this.SaveParsed.Size = new System.Drawing.Size(75, 25);
             this.SaveParsed.TabIndex = 1;
             this.SaveParsed.Text = "Save As";
             this.SaveParsed.UseVisualStyleBackColor = true;
@@ -123,9 +128,9 @@
             // 
             // Parse
             // 
-            this.Parse.Location = new System.Drawing.Point(310, 176);
+            this.Parse.Location = new System.Drawing.Point(309, 186);
             this.Parse.Name = "Parse";
-            this.Parse.Size = new System.Drawing.Size(75, 23);
+            this.Parse.Size = new System.Drawing.Size(75, 25);
             this.Parse.TabIndex = 0;
             this.Parse.Text = "Parse";
             this.Parse.UseVisualStyleBackColor = true;
@@ -167,7 +172,7 @@
             // PathLabel
             // 
             this.PathLabel.AutoSize = true;
-            this.PathLabel.Location = new System.Drawing.Point(307, 27);
+            this.PathLabel.Location = new System.Drawing.Point(306, 27);
             this.PathLabel.Name = "PathLabel";
             this.PathLabel.Size = new System.Drawing.Size(88, 13);
             this.PathLabel.TabIndex = 8;
@@ -176,17 +181,38 @@
             // Version
             // 
             this.Version.AutoSize = true;
-            this.Version.Location = new System.Drawing.Point(241, 181);
+            this.Version.Location = new System.Drawing.Point(314, 170);
             this.Version.Name = "Version";
             this.Version.Size = new System.Drawing.Size(63, 13);
             this.Version.TabIndex = 9;
             this.Version.Text = "Version: 1.0";
             // 
+            // Counter
+            // 
+            this.Counter.Location = new System.Drawing.Point(375, 170);
+            this.Counter.Name = "Counter";
+            this.Counter.Size = new System.Drawing.Size(240, 13);
+            this.Counter.TabIndex = 10;
+            this.Counter.Text = "0 characters and 0 lines";
+            this.Counter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // RemoveTimestamps
+            // 
+            this.RemoveTimestamps.AutoSize = true;
+            this.RemoveTimestamps.Location = new System.Drawing.Point(12, 201);
+            this.RemoveTimestamps.Name = "RemoveTimestamps";
+            this.RemoveTimestamps.Size = new System.Drawing.Size(125, 17);
+            this.RemoveTimestamps.TabIndex = 11;
+            this.RemoveTimestamps.Text = "Remove Timestamps";
+            this.RemoveTimestamps.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 201);
+            this.ClientSize = new System.Drawing.Size(624, 221);
+            this.Controls.Add(this.RemoveTimestamps);
+            this.Controls.Add(this.Counter);
             this.Controls.Add(this.Version);
             this.Controls.Add(this.PathLabel);
             this.Controls.Add(this.Parse);
@@ -195,18 +221,17 @@
             this.Controls.Add(this.CopyParsedToClipboard);
             this.Controls.Add(this.Parsed);
             this.Controls.Add(this.Browse);
-            this.Controls.Add(this.Path);
+            this.Controls.Add(this.FolderPath);
             this.Controls.Add(this.Logo);
             this.Controls.Add(this.MenuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MenuStrip;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(640, 240);
-            this.MinimumSize = new System.Drawing.Size(640, 240);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GTA World Chat Log Parser";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
@@ -218,7 +243,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox Logo;
-        private System.Windows.Forms.RichTextBox Path;
+        private System.Windows.Forms.RichTextBox FolderPath;
         private System.Windows.Forms.Button Browse;
         private System.Windows.Forms.RichTextBox Parsed;
         private System.Windows.Forms.Button CopyParsedToClipboard;
@@ -232,6 +257,8 @@
         private System.Windows.Forms.ToolStripMenuItem CheckForUpdatesToolStripMenuItem;
         private System.Windows.Forms.Label PathLabel;
         private System.Windows.Forms.Label Version;
+        private System.Windows.Forms.Label Counter;
+        private System.Windows.Forms.CheckBox RemoveTimestamps;
     }
 }
 

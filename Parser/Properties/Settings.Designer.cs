@@ -25,46 +25,46 @@ namespace Parser.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
-        public float Version {
+        [global::System.Configuration.DefaultSettingValueAttribute("0.6")]
+        public string Version {
             get {
-                return ((float)(this["Version"]));
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Path {
-            get {
-                return ((string)(this["Path"]));
-            }
-            set {
-                this["Path"] = value;
+                return ((string)(this["Version"]));
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool CheckForUpdates {
+        public bool AutomaticallyCheckForUpdates {
             get {
-                return ((bool)(this["CheckForUpdates"]));
+                return ((bool)(this["AutomaticallyCheckForUpdates"]));
             }
             set {
-                this["CheckForUpdates"] = value;
+                this["AutomaticallyCheckForUpdates"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AutoBackUp {
+        public bool RemoveTimestamps {
             get {
-                return ((bool)(this["AutoBackUp"]));
+                return ((bool)(this["RemoveTimestamps"]));
             }
             set {
-                this["AutoBackUp"] = value;
+                this["RemoveTimestamps"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutomaticallyBackupChatLog {
+            get {
+                return ((bool)(this["AutomaticallyBackupChatLog"]));
+            }
+            set {
+                this["AutomaticallyBackupChatLog"] = value;
             }
         }
         
@@ -77,6 +77,18 @@ namespace Parser.Properties {
             }
             set {
                 this["BackupPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FolderPath {
+            get {
+                return ((string)(this["FolderPath"]));
+            }
+            set {
+                this["FolderPath"] = value;
             }
         }
     }
