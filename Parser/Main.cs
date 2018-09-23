@@ -90,10 +90,10 @@ namespace Parser
 
                 log = log.Remove(0, 1);
 
-                log = Regex.Replace(log, "{endl}", "\n");
+                log = log.Replace("{n\\\"", "\n");
                 log = Regex.Replace(log, "~[a-zA-Z]~", "");
 
-                log = log.Remove(log.Length - 3, 3);
+                log = log.Remove(log.Length - 2, 2);
 
                 Parsed.Text = log;
 
