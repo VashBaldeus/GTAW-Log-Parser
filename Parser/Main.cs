@@ -173,7 +173,10 @@ namespace Parser
         private void SaveParsed_Click(object sender, EventArgs e)
         {
             if (Parsed.Text.Length == 0)
+            {
+                MessageBox.Show("You haven't parsed anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
 
             SaveFileDialog.FileName = "chatlog.txt";
             SaveFileDialog.Filter = "Text File | *.txt";
@@ -189,7 +192,9 @@ namespace Parser
 
         private void CopyParsedToClipboard_Click(object sender, EventArgs e)
         {
-            if (Parsed.Text.Length != 0)
+            if (Parsed.Text.Length == 0)
+                MessageBox.Show("You haven't parsed anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
                 Clipboard.SetText(Parsed.Text.Replace("\n", Environment.NewLine));
         }
 
