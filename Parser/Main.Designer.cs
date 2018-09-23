@@ -45,6 +45,7 @@
             this.PathLabel = new System.Windows.Forms.Label();
             this.Version = new System.Windows.Forms.Label();
             this.Counter = new System.Windows.Forms.Label();
+            this.RemoveTimestamps = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -96,7 +97,7 @@
             // 
             // CopyParsedToClipboard
             // 
-            this.CopyParsedToClipboard.Location = new System.Drawing.Point(471, 173);
+            this.CopyParsedToClipboard.Location = new System.Drawing.Point(471, 186);
             this.CopyParsedToClipboard.Name = "CopyParsedToClipboard";
             this.CopyParsedToClipboard.Size = new System.Drawing.Size(141, 25);
             this.CopyParsedToClipboard.TabIndex = 2;
@@ -117,7 +118,7 @@
             // 
             // SaveParsed
             // 
-            this.SaveParsed.Location = new System.Drawing.Point(390, 173);
+            this.SaveParsed.Location = new System.Drawing.Point(390, 186);
             this.SaveParsed.Name = "SaveParsed";
             this.SaveParsed.Size = new System.Drawing.Size(75, 25);
             this.SaveParsed.TabIndex = 1;
@@ -127,7 +128,7 @@
             // 
             // Parse
             // 
-            this.Parse.Location = new System.Drawing.Point(309, 173);
+            this.Parse.Location = new System.Drawing.Point(309, 186);
             this.Parse.Name = "Parse";
             this.Parse.Size = new System.Drawing.Size(75, 25);
             this.Parse.TabIndex = 0;
@@ -180,7 +181,7 @@
             // Version
             // 
             this.Version.AutoSize = true;
-            this.Version.Location = new System.Drawing.Point(240, 179);
+            this.Version.Location = new System.Drawing.Point(314, 170);
             this.Version.Name = "Version";
             this.Version.Size = new System.Drawing.Size(63, 13);
             this.Version.TabIndex = 9;
@@ -188,18 +189,30 @@
             // 
             // Counter
             // 
-            this.Counter.Location = new System.Drawing.Point(403, 27);
+            this.Counter.Location = new System.Drawing.Point(375, 170);
             this.Counter.Name = "Counter";
-            this.Counter.Size = new System.Drawing.Size(212, 13);
+            this.Counter.Size = new System.Drawing.Size(240, 13);
             this.Counter.TabIndex = 10;
             this.Counter.Text = "0 characters and 0 lines";
             this.Counter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // RemoveTimestamps
+            // 
+            this.RemoveTimestamps.AutoSize = true;
+            this.RemoveTimestamps.Location = new System.Drawing.Point(12, 201);
+            this.RemoveTimestamps.Name = "RemoveTimestamps";
+            this.RemoveTimestamps.Size = new System.Drawing.Size(125, 17);
+            this.RemoveTimestamps.TabIndex = 11;
+            this.RemoveTimestamps.Text = "Remove Timestamps";
+            this.RemoveTimestamps.UseVisualStyleBackColor = true;
+            this.RemoveTimestamps.CheckedChanged += new System.EventHandler(this.RemoveTimestamps_CheckedChanged);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 201);
+            this.ClientSize = new System.Drawing.Size(624, 221);
+            this.Controls.Add(this.RemoveTimestamps);
             this.Controls.Add(this.Counter);
             this.Controls.Add(this.Version);
             this.Controls.Add(this.PathLabel);
@@ -246,6 +259,7 @@
         private System.Windows.Forms.Label PathLabel;
         private System.Windows.Forms.Label Version;
         private System.Windows.Forms.Label Counter;
+        private System.Windows.Forms.CheckBox RemoveTimestamps;
     }
 }
 

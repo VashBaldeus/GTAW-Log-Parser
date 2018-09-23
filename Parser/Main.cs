@@ -28,6 +28,7 @@ namespace Parser
         private void SaveSettings()
         {
             Properties.Settings.Default.FolderPath = FolderPath.Text;
+            Properties.Settings.Default.RemoveTimestamps = RemoveTimestamps.Checked;
             Properties.Settings.Default.AutomaticallyCheckForUpdates = CheckForUpdatesOnStartup.Checked;
 
             Properties.Settings.Default.Save();
@@ -35,10 +36,12 @@ namespace Parser
 
         private void LoadSettings()
         {
-            FolderPath.Text = Properties.Settings.Default.FolderPath;
-            CheckForUpdatesOnStartup.Checked = Properties.Settings.Default.AutomaticallyCheckForUpdates;
-
             Version.Text = $"Version: {Properties.Settings.Default.Version}";
+
+            FolderPath.Text = Properties.Settings.Default.FolderPath;
+            RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestamps;
+
+            CheckForUpdatesOnStartup.Checked = Properties.Settings.Default.AutomaticallyCheckForUpdates;
         }
 
         private void FolderPath_MouseClick(object sender, MouseEventArgs e)
@@ -93,7 +96,7 @@ namespace Parser
 
                 log = log.Remove(0, 1);
 
-                log = log.Replace("{n\\\"", "\n");
+                log = log.Replace("{nl}", "\n");
                 log = Regex.Replace(log, "~[a-zA-Z]~", "");
 
                 log = log.Remove(log.Length - 2, 2);
@@ -104,6 +107,11 @@ namespace Parser
             {
                 MessageBox.Show("An error occured while parsing the chat log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
+        {
+            SaveSettings();
         }
 
         private void CheckForUpdatesOnStartup_CheckedChanged(object sender, EventArgs e)
