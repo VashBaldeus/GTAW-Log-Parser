@@ -14,8 +14,9 @@ namespace Parser
     {
         private static GitHubClient client = new GitHubClient(new ProductHeaderValue("GTAW-Log-Parser"));
 
-        private Thread parseThread;
-        private Thread updateThread;
+        //private Thread parseThread;
+        //private Thread updateThread;
+        //private Thread saveThread;
 
         public Main()
         {
@@ -126,7 +127,7 @@ namespace Parser
                     if (MessageBox.Show($"A new version of the chat log parser is now available on GitHub.\n\nInstalled Version: {installedVersion}\nAvailable Version: {currentVersion}\n\nWould you like to visit the releases page now?", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                         System.Diagnostics.Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases");
                 }
-                //else if (currentVersion < installedVersion && checking)
+                //else if (string.Compare(installedVersion, currentVersion) > 0 && checking)
                 //{
                 //    if (MessageBox.Show($"You are using a newer version of the chat log parser than is recommended. You may encounter unwated errors, continue at your own discretion.\n\nInstalled Version: {installedVersion}\nRecommended Version: {currentVersion}\n\nWould you like to visit the releases page now?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 //        System.Diagnostics.Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases");
@@ -187,11 +188,6 @@ namespace Parser
                 System.Diagnostics.Process.Start("https://forum.gta.world/en/index.php?/topic/11003-chat-logs/");
         }
 
-        private void Main_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            SaveSettings();
-        }
-
         private void Parsed_TextChanged(object sender, EventArgs e)
         {
             if (Parsed.Text == "")
@@ -201,6 +197,11 @@ namespace Parser
             }
 
             Counter.Text = Parsed.Text.Length + " characters and " + Parsed.Text.Split('\n').Length + " lines";
+        }
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveSettings();
         }
     }
 }
