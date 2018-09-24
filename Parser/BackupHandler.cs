@@ -175,7 +175,7 @@ namespace Parser
                     FileInfo oldFile = new FileInfo(backupPath + fileName);
                     FileInfo newFile = new FileInfo(backupPath + ".temp");
 
-                    if (oldFile.Length < newFile.Length)
+                    if (oldFile.Length < newFile.Length || gameClosed)
                     {
                         File.Delete(backupPath + fileName);
 
