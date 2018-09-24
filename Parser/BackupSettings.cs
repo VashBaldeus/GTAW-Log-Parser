@@ -4,6 +4,8 @@ using System.Windows.Forms;
 using System.IO;
 
 using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace Parser
 {
@@ -45,6 +47,52 @@ namespace Parser
             Properties.Settings.Default.IntervalTime = 10;
 
             Properties.Settings.Default.Save();
+        }
+
+        private void BackupPath_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+        }
+
+        private void BackupPath_TextChanged(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.BackupPath == "")
+                return;
+
+            BackupHandler.AbortAll();
+
+            try
+            {
+                DirectoryInfo directory = new DirectoryInfo(Properties.Settings.Default.BackupPath);
+                FileInfo[] allFilesInDirectory = directory.GetFiles("*.txt");
+
+                List<FileInfo> chatLogFiles = new List<FileInfo>();
+
+                foreach (FileInfo file in allFilesInDirectory)
+                {
+                    if (Regex.IsMatch(file.Name, @"\d{1,2}.[A-Za-z]{3}.\d{4}-\d{1,2}.\d{1,2}.\d{1,2}"))
+                        chatLogFiles.Add(file);
+                }
+
+                if (chatLogFiles.Count > 0)
+                {
+                    if (MessageBox.Show("Would you like to move all of your existing backups to the new folder?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    {
+
+                        foreach (FileInfo file in chatLogFiles)
+                        {
+                            File.Move(file.FullName, BackupPath.Text + file.Name);
+                        }
+
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("An error occurent while moving the chat log files to the new directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            //SaveSettings();
         }
 
         private void BackupPath_MouseClick(object sender, MouseEventArgs e)

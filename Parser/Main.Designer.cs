@@ -73,11 +73,13 @@
             this.FolderPath.Multiline = false;
             this.FolderPath.Name = "FolderPath";
             this.FolderPath.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.FolderPath.ShortcutsEnabled = false;
             this.FolderPath.Size = new System.Drawing.Size(221, 22);
             this.FolderPath.TabIndex = 5;
             this.FolderPath.Text = "";
             this.FolderPath.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FolderPath_MouseClick);
             this.FolderPath.TextChanged += new System.EventHandler(this.FolderPath_TextChanged);
+            this.FolderPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FolderPath_KeyDown);
             // 
             // Browse
             // 
