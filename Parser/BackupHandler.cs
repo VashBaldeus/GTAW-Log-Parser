@@ -35,6 +35,8 @@ namespace Parser
             else if (folderPath == "" || !Directory.Exists(folderPath + "\\client_resources"))
                 return;
 
+            ResumeIfQueuedToStop();
+
             if (enableAutomaticBackup && (backupThread == null || !backupThread.IsAlive))
             {
                 runBackgroundBackup = true;
@@ -64,6 +66,19 @@ namespace Parser
             if (intervalThread != null && intervalThread.IsAlive)
             {
                 runBackgroundInterval = false;
+            }
+        }
+
+        public static void ResumeIfQueuedToStop()
+        {
+            if (backupThread != null && backupThread.IsAlive && !runBackgroundBackup && !quitting)
+            {
+                runBackgroundBackup = true;
+            }
+
+            if (intervalThread != null && intervalThread.IsAlive && !runBackgroundInterval && !quitting)
+            {
+                runBackgroundInterval = true;
             }
         }
 

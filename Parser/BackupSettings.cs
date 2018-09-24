@@ -59,6 +59,8 @@ namespace Parser
             if (Properties.Settings.Default.BackupPath == "")
                 return;
 
+            BackupHandler.AbortAll();
+
             try
             {
                 DirectoryInfo directory = new DirectoryInfo(Properties.Settings.Default.BackupPath);
@@ -76,14 +78,12 @@ namespace Parser
                 {
                     if (MessageBox.Show("Would you like to move all of your existing backups to the new folder?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
-                        BackupHandler.AbortAll();
 
                         foreach (FileInfo file in chatLogFiles)
                         {
                             File.Move(file.FullName, BackupPath.Text + file.Name);
                         }
 
-                        BackupHandler.Initialize();
                     }
                 }
             }
@@ -92,7 +92,7 @@ namespace Parser
                 MessageBox.Show("An error occurent while moving the chat log files to the new directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            SaveSettings();
+            //SaveSettings();
         }
 
         private void BackupPath_MouseClick(object sender, MouseEventArgs e)
