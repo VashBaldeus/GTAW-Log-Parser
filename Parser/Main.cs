@@ -148,6 +148,7 @@ namespace Parser
                 backupSettings.BringToFront();
             }
 
+            SaveSettings();
             backupSettings.ShowDialog();
         }
 
