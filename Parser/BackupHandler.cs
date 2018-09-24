@@ -163,7 +163,7 @@ namespace Parser
                     }
 
                     if (gameClosed)
-                        MessageBox.Show($"Successfully parsed and backed up chat log to {backupPath + fileName}.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show($"Successfully parsed and backed up chat log to {backupPath + fileName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -182,7 +182,7 @@ namespace Parser
                         File.Move(backupPath + ".temp", backupPath + fileName);
 
                         if (gameClosed)
-                            MessageBox.Show($"Successfully parsed and backed up chat log to {backupPath + fileName}.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show($"Successfully parsed and backed up chat log to {backupPath + fileName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                         File.Delete(backupPath + ".temp");
