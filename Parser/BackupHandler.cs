@@ -13,8 +13,6 @@ namespace Parser
 {
     public static class BackupHandler
     {
-        //string pattern = @"\[DATE: \d{1,2}\/[A-Za-z]{3}\/\d{4} \| TIME: \d{1,2}:\d{1,2}:\d{1,2}\]";
-
         private static Thread backupThread;
         private static Thread intervalThread;
 
@@ -98,7 +96,7 @@ namespace Parser
 
         private static void BackupWorker()
         {
-            int seconds = 10;
+            int secondsToWait = 10;
             bool isGameRunning = false;
 
             while (!quitting && runBackgroundBackup)
@@ -114,7 +112,7 @@ namespace Parser
                     ParseThenSaveToFile(true);
                 }
 
-                Thread.Sleep(seconds * 10000);
+                Thread.Sleep(secondsToWait * 1000);
             }
         }
 
