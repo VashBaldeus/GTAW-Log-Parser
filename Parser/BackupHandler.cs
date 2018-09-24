@@ -93,12 +93,11 @@ namespace Parser
             AbortIntervalBackup();
         }
 
-        private static int exitDelay = 10;
+        private static readonly int exitDelay = 10;
+        private static bool isGameRunning = false;
 
         private static void BackupWorker()
         {
-            bool isGameRunning = false;
-
             while (!quitting && runBackgroundBackup)
             {
                 Process[] processes = Process.GetProcessesByName("GTA5");
@@ -122,14 +121,15 @@ namespace Parser
             {
                 int intervalTime = Properties.Settings.Default.IntervalTime;
 
-                ParseThenSaveToFile();
+                if (isGameRunning)
+                    ParseThenSaveToFile();
 
                 for (int i = 0; i < intervalTime * 6; i++)
                 {
                     if (quitting || !runBackgroundInterval)
                         break;
 
-                    Thread.Sleep(exitDelay * 1000);
+                    Thread.Sleep(10 * 1000);
                 }
             }
         }
