@@ -140,11 +140,6 @@
             // Interval
             // 
             this.Interval.Enabled = false;
-            this.Interval.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
             this.Interval.Location = new System.Drawing.Point(126, 105);
             this.Interval.Maximum = new decimal(new int[] {
             60,
@@ -152,7 +147,7 @@
             0,
             0});
             this.Interval.Minimum = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             0});
