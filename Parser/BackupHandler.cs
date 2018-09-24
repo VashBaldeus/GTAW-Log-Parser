@@ -128,7 +128,7 @@ namespace Parser
                     if (quitting || !runBackgroundInterval)
                         break;
 
-                    Thread.Sleep(10000);
+                    Thread.Sleep(10 * 1000);
                 }
             }
         }
