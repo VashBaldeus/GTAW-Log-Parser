@@ -10,6 +10,6 @@ namespace Parser
             public static readonly string serverIP = "164.132.206.209_22005";
         #endif
 
-        public static readonly string logLogation = $"\\client_resources\\{serverIP}\\.storage";
+        public static readonly string logLogation = $"client_resources\\{serverIP}\\.storage";
     }
 }

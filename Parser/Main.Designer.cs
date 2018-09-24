@@ -40,6 +40,7 @@
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.CheckForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AutomaticBackupSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PathLabel = new System.Windows.Forms.Label();
@@ -65,6 +66,7 @@
             // 
             // FolderPath
             // 
+            this.FolderPath.DetectUrls = false;
             this.FolderPath.Location = new System.Drawing.Point(309, 43);
             this.FolderPath.MaxLength = 1024;
             this.FolderPath.Multiline = false;
@@ -74,6 +76,7 @@
             this.FolderPath.TabIndex = 5;
             this.FolderPath.Text = "";
             this.FolderPath.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FolderPath_MouseClick);
+            this.FolderPath.TextChanged += new System.EventHandler(this.FolderPath_TextChanged);
             // 
             // Browse
             // 
@@ -87,6 +90,7 @@
             // 
             // Parsed
             // 
+            this.Parsed.DetectUrls = false;
             this.Parsed.Location = new System.Drawing.Point(309, 72);
             this.Parsed.Name = "Parsed";
             this.Parsed.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
@@ -140,6 +144,7 @@
             // 
             this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CheckForUpdatesToolStripMenuItem,
+            this.AutomaticBackupSettingsToolStripMenuItem,
             this.AboutToolStripMenuItem,
             this.ExitToolStripMenuItem});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
@@ -154,6 +159,13 @@
             this.CheckForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(118, 20);
             this.CheckForUpdatesToolStripMenuItem.Text = "Check For Updates";
             this.CheckForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.CheckForUpdatesToolStripMenuItem_Click);
+            // 
+            // AutomaticBackupSettingsToolStripMenuItem
+            // 
+            this.AutomaticBackupSettingsToolStripMenuItem.Name = "AutomaticBackupSettingsToolStripMenuItem";
+            this.AutomaticBackupSettingsToolStripMenuItem.Size = new System.Drawing.Size(162, 20);
+            this.AutomaticBackupSettingsToolStripMenuItem.Text = "Automatic Backup Settings";
+            this.AutomaticBackupSettingsToolStripMenuItem.Click += new System.EventHandler(this.AutomaticBackupSettingsToolStripMenuItem_Click);
             // 
             // AboutToolStripMenuItem
             // 
@@ -175,24 +187,24 @@
             this.PathLabel.Location = new System.Drawing.Point(306, 27);
             this.PathLabel.Name = "PathLabel";
             this.PathLabel.Size = new System.Drawing.Size(88, 13);
-            this.PathLabel.TabIndex = 8;
+            this.PathLabel.TabIndex = 0;
             this.PathLabel.Text = "RAGEMP Folder:";
             // 
             // Version
             // 
-            this.Version.AutoSize = true;
-            this.Version.Location = new System.Drawing.Point(314, 170);
+            this.Version.Location = new System.Drawing.Point(201, 192);
             this.Version.Name = "Version";
-            this.Version.Size = new System.Drawing.Size(63, 13);
-            this.Version.TabIndex = 9;
+            this.Version.Size = new System.Drawing.Size(99, 13);
+            this.Version.TabIndex = 0;
             this.Version.Text = "Version: 1.0";
+            this.Version.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Counter
             // 
-            this.Counter.Location = new System.Drawing.Point(375, 170);
+            this.Counter.Location = new System.Drawing.Point(309, 170);
             this.Counter.Name = "Counter";
-            this.Counter.Size = new System.Drawing.Size(240, 13);
-            this.Counter.TabIndex = 10;
+            this.Counter.Size = new System.Drawing.Size(306, 13);
+            this.Counter.TabIndex = 0;
             this.Counter.Text = "0 characters and 0 lines";
             this.Counter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -202,7 +214,7 @@
             this.RemoveTimestamps.Location = new System.Drawing.Point(12, 201);
             this.RemoveTimestamps.Name = "RemoveTimestamps";
             this.RemoveTimestamps.Size = new System.Drawing.Size(125, 17);
-            this.RemoveTimestamps.TabIndex = 11;
+            this.RemoveTimestamps.TabIndex = 7;
             this.RemoveTimestamps.Text = "Remove Timestamps";
             this.RemoveTimestamps.UseVisualStyleBackColor = true;
             // 
@@ -259,6 +271,7 @@
         private System.Windows.Forms.Label Version;
         private System.Windows.Forms.Label Counter;
         private System.Windows.Forms.CheckBox RemoveTimestamps;
+        private System.Windows.Forms.ToolStripMenuItem AutomaticBackupSettingsToolStripMenuItem;
     }
 }
 

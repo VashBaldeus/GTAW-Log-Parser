@@ -25,7 +25,7 @@ namespace Parser.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.6")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.7")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -34,13 +34,25 @@ namespace Parser.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AutomaticallyCheckForUpdates {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FolderPath {
             get {
-                return ((bool)(this["AutomaticallyCheckForUpdates"]));
+                return ((string)(this["FolderPath"]));
             }
             set {
-                this["AutomaticallyCheckForUpdates"] = value;
+                this["FolderPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BackupPath {
+            get {
+                return ((string)(this["BackupPath"]));
+            }
+            set {
+                this["BackupPath"] = value;
             }
         }
         
@@ -59,36 +71,48 @@ namespace Parser.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AutomaticallyBackupChatLog {
+        public bool CheckForUpdatesAutomatically {
             get {
-                return ((bool)(this["AutomaticallyBackupChatLog"]));
+                return ((bool)(this["CheckForUpdatesAutomatically"]));
             }
             set {
-                this["AutomaticallyBackupChatLog"] = value;
+                this["CheckForUpdatesAutomatically"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string BackupPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BackupChatLogAutomatically {
             get {
-                return ((string)(this["BackupPath"]));
+                return ((bool)(this["BackupChatLogAutomatically"]));
             }
             set {
-                this["BackupPath"] = value;
+                this["BackupChatLogAutomatically"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FolderPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableIntervalBackup {
             get {
-                return ((string)(this["FolderPath"]));
+                return ((bool)(this["EnableIntervalBackup"]));
             }
             set {
-                this["FolderPath"] = value;
+                this["EnableIntervalBackup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int IntervalTime {
+            get {
+                return ((int)(this["IntervalTime"]));
+            }
+            set {
+                this["IntervalTime"] = value;
             }
         }
     }
