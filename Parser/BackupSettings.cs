@@ -27,13 +27,24 @@ namespace Parser
             Properties.Settings.Default.Save();
         }
 
-        private void LoadSettings()
+        public void LoadSettings()
         {
             BackupPath.Text = Properties.Settings.Default.BackupPath;
 
             BackUpChatLogAutomatically.Checked = Properties.Settings.Default.BackupChatLogAutomatically;
             EnableIntervalBackup.Checked = Properties.Settings.Default.EnableIntervalBackup;
             Interval.Value = Properties.Settings.Default.IntervalTime;
+        }
+
+        public static void ResetSettings()
+        {
+            Properties.Settings.Default.BackupPath = "";
+
+            Properties.Settings.Default.BackupChatLogAutomatically = false;
+            Properties.Settings.Default.EnableIntervalBackup = false;
+            Properties.Settings.Default.IntervalTime = 10;
+
+            Properties.Settings.Default.Save();
         }
 
         private void BackupPath_MouseClick(object sender, MouseEventArgs e)
@@ -85,13 +96,11 @@ namespace Parser
             EnableIntervalBackup.Text = $"Automatically back up the chat log while the game is running (every {Interval.Value} minutes)";
         }
 
-        public void Reset_Click(object sender, EventArgs e)
+        private void Reset_Click(object sender, EventArgs e)
         {
-            BackupPath.Text = "";
+            ResetSettings();
 
-            BackUpChatLogAutomatically.Checked = false;
-            EnableIntervalBackup.Checked = false;
-            Interval.Text = "10";
+            LoadSettings();
         }
 
         private void CloseWindow_Click(object sender, EventArgs e)

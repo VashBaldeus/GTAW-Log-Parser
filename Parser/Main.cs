@@ -39,6 +39,7 @@ namespace Parser
         private void LoadSettings()
         {
             Version.Text = $"Version: {Properties.Settings.Default.Version}";
+            StatusLabel.Text = $"Automatic Backup: {(Properties.Settings.Default.BackupChatLogAutomatically ? "ON" : "OFF")}";
 
             FolderPath.Text = Properties.Settings.Default.FolderPath;
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestamps;
@@ -136,14 +137,13 @@ namespace Parser
                 {
                     BackupHandler.Initialize();
 
-                    if (Properties.Settings.Default.BackupChatLogAutomatically)
-                        MessageBox.Show("Automatic backup is turned ON.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    else
-                        MessageBox.Show("Automatic backup is turned OFF.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    StatusLabel.Text = $"Automatic Backup: {(Properties.Settings.Default.BackupChatLogAutomatically ? "ON" : "OFF")}";
                 };
             }
             else
             {
+                backupSettings.LoadSettings();
+
                 backupSettings.WindowState = FormWindowState.Normal;
                 backupSettings.BringToFront();
             }
@@ -269,8 +269,9 @@ namespace Parser
             if (Properties.Settings.Default.BackupChatLogAutomatically)
             {
                 MessageBox.Show("Automatic backup has been turned OFF, please set it up again if you wish to use it.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                StatusLabel.Text = "Automatic Backup: OFF";
 
-                backupSettings.Reset_Click(this, EventArgs.Empty);
+                BackupSettings.ResetSettings();
             }
         }
     }

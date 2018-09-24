@@ -47,6 +47,7 @@
             this.Version = new System.Windows.Forms.Label();
             this.Counter = new System.Windows.Forms.Label();
             this.RemoveTimestamps = new System.Windows.Forms.CheckBox();
+            this.StatusLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -114,9 +115,9 @@
             this.CheckForUpdatesOnStartup.AutoSize = true;
             this.CheckForUpdatesOnStartup.Location = new System.Drawing.Point(12, 178);
             this.CheckForUpdatesOnStartup.Name = "CheckForUpdatesOnStartup";
-            this.CheckForUpdatesOnStartup.Size = new System.Drawing.Size(183, 17);
+            this.CheckForUpdatesOnStartup.Size = new System.Drawing.Size(177, 17);
             this.CheckForUpdatesOnStartup.TabIndex = 6;
-            this.CheckForUpdatesOnStartup.Text = "Automatically Check For Updates";
+            this.CheckForUpdatesOnStartup.Text = "Check for updates automatically";
             this.CheckForUpdatesOnStartup.UseVisualStyleBackColor = true;
             this.CheckForUpdatesOnStartup.CheckedChanged += new System.EventHandler(this.CheckForUpdatesOnStartup_CheckedChanged);
             // 
@@ -192,18 +193,18 @@
             // 
             // Version
             // 
-            this.Version.Location = new System.Drawing.Point(201, 192);
+            this.Version.Location = new System.Drawing.Point(536, 27);
             this.Version.Name = "Version";
-            this.Version.Size = new System.Drawing.Size(99, 13);
+            this.Version.Size = new System.Drawing.Size(76, 13);
             this.Version.TabIndex = 0;
             this.Version.Text = "Version: 1.0";
-            this.Version.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Version.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Counter
             // 
-            this.Counter.Location = new System.Drawing.Point(309, 170);
+            this.Counter.Location = new System.Drawing.Point(436, 170);
             this.Counter.Name = "Counter";
-            this.Counter.Size = new System.Drawing.Size(306, 13);
+            this.Counter.Size = new System.Drawing.Size(176, 13);
             this.Counter.TabIndex = 0;
             this.Counter.Text = "0 characters and 0 lines";
             this.Counter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -213,16 +214,27 @@
             this.RemoveTimestamps.AutoSize = true;
             this.RemoveTimestamps.Location = new System.Drawing.Point(12, 201);
             this.RemoveTimestamps.Name = "RemoveTimestamps";
-            this.RemoveTimestamps.Size = new System.Drawing.Size(125, 17);
+            this.RemoveTimestamps.Size = new System.Drawing.Size(121, 17);
             this.RemoveTimestamps.TabIndex = 7;
-            this.RemoveTimestamps.Text = "Remove Timestamps";
+            this.RemoveTimestamps.Text = "Remove timestamps";
             this.RemoveTimestamps.UseVisualStyleBackColor = true;
+            // 
+            // StatusLabel
+            // 
+            this.StatusLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.StatusLabel.Location = new System.Drawing.Point(308, 170);
+            this.StatusLabel.Name = "StatusLabel";
+            this.StatusLabel.Size = new System.Drawing.Size(121, 13);
+            this.StatusLabel.TabIndex = 8;
+            this.StatusLabel.Text = "Automatic Backup: OFF";
+            this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 221);
+            this.Controls.Add(this.StatusLabel);
             this.Controls.Add(this.RemoveTimestamps);
             this.Controls.Add(this.Counter);
             this.Controls.Add(this.Version);
@@ -272,6 +284,7 @@
         private System.Windows.Forms.Label Counter;
         private System.Windows.Forms.CheckBox RemoveTimestamps;
         private System.Windows.Forms.ToolStripMenuItem AutomaticBackupSettingsToolStripMenuItem;
+        private System.Windows.Forms.Label StatusLabel;
     }
 }
 
