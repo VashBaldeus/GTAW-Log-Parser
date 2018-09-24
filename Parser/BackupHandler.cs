@@ -69,6 +69,11 @@ namespace Parser
             }
         }
 
+        public static bool IsAnyRunning()
+        {
+            return runBackgroundBackup || runBackgroundInterval;
+        }
+
         public static void ResumeIfQueuedToStop()
         {
             if (backupThread != null && backupThread.IsAlive && !runBackgroundBackup && !quitting)
