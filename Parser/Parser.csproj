@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackupHandler.cs" />
     <Compile Include="BackupSettings.cs">
       <SubType>Form</SubType>
     </Compile>

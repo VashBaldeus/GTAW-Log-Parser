@@ -2,8 +2,6 @@
 using System.Windows.Forms;
 
 using System.IO;
-using System.Threading;
-using System.Text.RegularExpressions;
 
 using Microsoft.WindowsAPICodePack.Dialogs;
 
@@ -11,8 +9,6 @@ namespace Parser
 {
     public partial class BackupSettings : Form
     {
-        //string pattern = @"\[DATE: \d{1,2}\/[A-Za-z]{3}\/\d{4} \| TIME: \d{1,2}:\d{1,2}:\d{1,2}\]";
-
         public BackupSettings()
         {
             InitializeComponent();
@@ -31,7 +27,7 @@ namespace Parser
             Properties.Settings.Default.Save();
         }
 
-        public void LoadSettings()
+        private void LoadSettings()
         {
             BackupPath.Text = Properties.Settings.Default.BackupPath;
 
@@ -58,10 +54,10 @@ namespace Parser
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                BackupPath.Text = dialog.FileName;
-                if (BackupPath.Text[BackupPath.Text.Length - 1] != '\\')
-                    BackupPath.Text += "\\";
-
+                if (dialog.FileName[dialog.FileName.Length - 1] != '\\')
+                    BackupPath.Text = dialog.FileName + "\\";
+                else
+                    BackupPath.Text = dialog.FileName;
                 Browse.Focus();
             }
         }
@@ -70,12 +66,18 @@ namespace Parser
         {
             EnableIntervalBackup.Enabled = BackUpChatLogAutomatically.Checked;
             if (!BackUpChatLogAutomatically.Checked)
+            {
+                BackupHandler.AbortAutomaticBackup();
                 EnableIntervalBackup.Checked = false;
+            }
         }
 
         private void EnableIntervalBackup_CheckedChanged(object sender, EventArgs e)
         {
             Interval.Enabled = EnableIntervalBackup.Checked;
+
+            if (!EnableIntervalBackup.Checked)
+                BackupHandler.AbortIntervalBackup();
         }
 
         private void Interval_ValueChanged(object sender, EventArgs e)
@@ -83,7 +85,7 @@ namespace Parser
             EnableIntervalBackup.Text = $"Automatically back up the chat log while the game is running (every {Interval.Value} minutes)";
         }
 
-        private void Reset_Click(object sender, EventArgs e)
+        public void Reset_Click(object sender, EventArgs e)
         {
             BackupPath.Text = "";
 

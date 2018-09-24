@@ -40,13 +40,13 @@
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.CheckForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AutomaticBackupSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PathLabel = new System.Windows.Forms.Label();
             this.Version = new System.Windows.Forms.Label();
             this.Counter = new System.Windows.Forms.Label();
             this.RemoveTimestamps = new System.Windows.Forms.CheckBox();
-            this.AutomaticBackupSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -76,6 +76,7 @@
             this.FolderPath.TabIndex = 5;
             this.FolderPath.Text = "";
             this.FolderPath.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FolderPath_MouseClick);
+            this.FolderPath.TextChanged += new System.EventHandler(this.FolderPath_TextChanged);
             // 
             // Browse
             // 
@@ -159,6 +160,13 @@
             this.CheckForUpdatesToolStripMenuItem.Text = "Check For Updates";
             this.CheckForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.CheckForUpdatesToolStripMenuItem_Click);
             // 
+            // AutomaticBackupSettingsToolStripMenuItem
+            // 
+            this.AutomaticBackupSettingsToolStripMenuItem.Name = "AutomaticBackupSettingsToolStripMenuItem";
+            this.AutomaticBackupSettingsToolStripMenuItem.Size = new System.Drawing.Size(162, 20);
+            this.AutomaticBackupSettingsToolStripMenuItem.Text = "Automatic Backup Settings";
+            this.AutomaticBackupSettingsToolStripMenuItem.Click += new System.EventHandler(this.AutomaticBackupSettingsToolStripMenuItem_Click);
+            // 
             // AboutToolStripMenuItem
             // 
             this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
@@ -209,13 +217,6 @@
             this.RemoveTimestamps.TabIndex = 7;
             this.RemoveTimestamps.Text = "Remove Timestamps";
             this.RemoveTimestamps.UseVisualStyleBackColor = true;
-            // 
-            // AutomaticBackupSettingsToolStripMenuItem
-            // 
-            this.AutomaticBackupSettingsToolStripMenuItem.Name = "AutomaticBackupSettingsToolStripMenuItem";
-            this.AutomaticBackupSettingsToolStripMenuItem.Size = new System.Drawing.Size(162, 20);
-            this.AutomaticBackupSettingsToolStripMenuItem.Text = "Automatic Backup Settings";
-            this.AutomaticBackupSettingsToolStripMenuItem.Click += new System.EventHandler(this.AutomaticBackupSettingsToolStripMenuItem_Click);
             // 
             // Main
             // 

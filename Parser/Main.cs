@@ -23,6 +23,8 @@ namespace Parser
             InitializeComponent();
 
             LoadSettings();
+
+            BackupHandler.Initialize();
         }
 
         private void SaveSettings()
@@ -62,9 +64,10 @@ namespace Parser
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                FolderPath.Text = dialog.FileName;
-                if (FolderPath.Text[FolderPath.Text.Length - 1] != '\\')
-                    FolderPath.Text += "\\";
+                if (dialog.FileName[dialog.FileName.Length - 1] != '\\')
+                    FolderPath.Text = dialog.FileName + "\\";
+                else
+                    FolderPath.Text = dialog.FileName;
 
                 Parse.Focus();
             }
@@ -72,7 +75,7 @@ namespace Parser
 
         private void Parse_Click(object sender, EventArgs e)
         {
-            if (FolderPath.Text.Length == 0 || !Directory.Exists(FolderPath.Text))
+            if (FolderPath.Text.Length == 0 || !Directory.Exists(FolderPath.Text + "client_resources\\"))
             {
                 MessageBox.Show("Invalid RAGEMP folder path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -83,10 +86,10 @@ namespace Parser
                 return;
             }
 
-            Parsed.Text = ParseChatLog(FolderPath.Text);
+            Parsed.Text = ParseChatLog(FolderPath.Text, RemoveTimestamps.Checked);
         }
 
-        public string ParseChatLog(string folderPath)
+        public static string ParseChatLog(string folderPath, bool removeTimestamps)
         {
             try
             {
@@ -104,7 +107,7 @@ namespace Parser
 
                 log = log.Remove(log.Length - 2, 2);
 
-                if (RemoveTimestamps.Checked)
+                if (removeTimestamps)
                     log = Regex.Replace(log, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", "");
 
                 return log;
@@ -117,12 +120,27 @@ namespace Parser
             }
         }
 
-        private static BackupSettings backupSettings = new BackupSettings();
+        private static BackupSettings backupSettings;
         private void AutomaticBackupSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (FolderPath.Text.Length == 0 || !Directory.Exists(FolderPath.Text + "client_resources\\"))
+            {
+                MessageBox.Show("Please choose a valid RAGEMP folder location before trying to enable automatic backup.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (backupSettings == null)
             {
                 backupSettings = new BackupSettings();
+                backupSettings.FormClosed += (s, args) =>
+                {
+                    BackupHandler.Initialize();
+
+                    if (Properties.Settings.Default.BackupChatLogAutomatically)
+                        MessageBox.Show("Automatic backup is turned ON.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MessageBox.Show("Automatic backup is turned OFF.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                };
             }
             else
             {
@@ -225,7 +243,7 @@ namespace Parser
 
         private void Logo_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show($"Would you like to open the documentation page for the chat log parser found on the GTA World forums?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            if (MessageBox.Show("Would you like to open the documentation page for the chat log parser found on the GTA World forums?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 System.Diagnostics.Process.Start("https://forum.gta.world/en/index.php?/topic/11003-chat-logs/");
         }
 
@@ -243,6 +261,17 @@ namespace Parser
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveSettings();
+            BackupHandler.quitting = true;
+        }
+
+        private void FolderPath_TextChanged(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.BackupChatLogAutomatically)
+            {
+                MessageBox.Show("Automatic backup has been turned OFF, please set it up again if you wish to use it.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                backupSettings.Reset_Click(this, EventArgs.Empty);
+            }
         }
     }
 }
