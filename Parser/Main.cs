@@ -18,8 +18,6 @@ namespace Parser
         private Thread updateThread;
         //private Thread saveThread;
 
-        //string pattern = @"\[DATE: \d{1,2}\/[A-Za-z]{3}\/\d{4} \| TIME: \d{1,2}:\d{1,2}:\d{1,2}\]";
-
         public Main()
         {
             InitializeComponent();
@@ -64,7 +62,10 @@ namespace Parser
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                FolderPath.Text = dialog.FileName + "\\";
+                FolderPath.Text = dialog.FileName;
+                if (FolderPath.Text[FolderPath.Text.Length - 1] != '\\')
+                    FolderPath.Text += "\\";
+
                 Parse.Focus();
             }
         }
@@ -82,10 +83,10 @@ namespace Parser
                 return;
             }
 
-            ParseChatLog(FolderPath.Text);
+            Parsed.Text = ParseChatLog(FolderPath.Text);
         }
 
-        private void ParseChatLog(string folderPath)
+        public string ParseChatLog(string folderPath)
         {
             try
             {
@@ -106,11 +107,13 @@ namespace Parser
                 if (RemoveTimestamps.Checked)
                     log = Regex.Replace(log, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", "");
 
-                Parsed.Text = log;
+                return log;
             }
             catch
             {
                 MessageBox.Show("An error occured while parsing the chat log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return "";
             }
         }
 

@@ -1,19 +1,18 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+
+using System.IO;
+using System.Threading;
+using System.Text.RegularExpressions;
+
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Parser
 {
     public partial class BackupSettings : Form
     {
+        //string pattern = @"\[DATE: \d{1,2}\/[A-Za-z]{3}\/\d{4} \| TIME: \d{1,2}:\d{1,2}:\d{1,2}\]";
+
         public BackupSettings()
         {
             InitializeComponent();
@@ -59,7 +58,10 @@ namespace Parser
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                BackupPath.Text = dialog.FileName + "\\";
+                BackupPath.Text = dialog.FileName;
+                if (BackupPath.Text[BackupPath.Text.Length - 1] != '\\')
+                    BackupPath.Text += "\\";
+
                 Browse.Focus();
             }
         }

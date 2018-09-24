@@ -78,14 +78,14 @@
             this.BackupPath.Multiline = false;
             this.BackupPath.Name = "BackupPath";
             this.BackupPath.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.BackupPath.Size = new System.Drawing.Size(203, 22);
+            this.BackupPath.Size = new System.Drawing.Size(320, 22);
             this.BackupPath.TabIndex = 1;
             this.BackupPath.Text = "";
             this.BackupPath.MouseClick += new System.Windows.Forms.MouseEventHandler(this.BackupPath_MouseClick);
             // 
             // Browse
             // 
-            this.Browse.Location = new System.Drawing.Point(221, 27);
+            this.Browse.Location = new System.Drawing.Point(338, 27);
             this.Browse.Name = "Browse";
             this.Browse.Size = new System.Drawing.Size(75, 25);
             this.Browse.TabIndex = 0;
@@ -98,9 +98,9 @@
             this.BackUpChatLogAutomatically.AutoSize = true;
             this.BackUpChatLogAutomatically.Location = new System.Drawing.Point(13, 58);
             this.BackUpChatLogAutomatically.Name = "BackUpChatLogAutomatically";
-            this.BackUpChatLogAutomatically.Size = new System.Drawing.Size(275, 17);
-            this.BackUpChatLogAutomatically.TabIndex = 0;
-            this.BackUpChatLogAutomatically.Text = "Automatically back up the chat log after game closes";
+            this.BackUpChatLogAutomatically.Size = new System.Drawing.Size(239, 17);
+            this.BackUpChatLogAutomatically.TabIndex = 2;
+            this.BackUpChatLogAutomatically.Text = "Automatically parse and back up the chat log";
             this.BackUpChatLogAutomatically.UseVisualStyleBackColor = true;
             this.BackUpChatLogAutomatically.CheckedChanged += new System.EventHandler(this.BackUpChatLogAutomatically_CheckedChanged);
             // 
@@ -111,7 +111,7 @@
             this.EnableIntervalBackup.Location = new System.Drawing.Point(13, 81);
             this.EnableIntervalBackup.Name = "EnableIntervalBackup";
             this.EnableIntervalBackup.Size = new System.Drawing.Size(400, 17);
-            this.EnableIntervalBackup.TabIndex = 0;
+            this.EnableIntervalBackup.TabIndex = 3;
             this.EnableIntervalBackup.Text = "Automatically back up the chat log while the game is running (every 10 minutes)";
             this.EnableIntervalBackup.UseVisualStyleBackColor = true;
             this.EnableIntervalBackup.CheckedChanged += new System.EventHandler(this.EnableIntervalBackup_CheckedChanged);
@@ -128,7 +128,7 @@
             // IntervalLabel2
             // 
             this.IntervalLabel2.AutoSize = true;
-            this.IntervalLabel2.Location = new System.Drawing.Point(171, 107);
+            this.IntervalLabel2.Location = new System.Drawing.Point(162, 107);
             this.IntervalLabel2.Name = "IntervalLabel2";
             this.IntervalLabel2.Size = new System.Drawing.Size(46, 13);
             this.IntervalLabel2.TabIndex = 0;
@@ -142,7 +142,7 @@
             0,
             0,
             0});
-            this.Interval.Location = new System.Drawing.Point(132, 105);
+            this.Interval.Location = new System.Drawing.Point(126, 105);
             this.Interval.Maximum = new decimal(new int[] {
             60,
             0,
@@ -155,7 +155,7 @@
             0});
             this.Interval.Name = "Interval";
             this.Interval.Size = new System.Drawing.Size(33, 20);
-            this.Interval.TabIndex = 7;
+            this.Interval.TabIndex = 4;
             this.Interval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Interval.Value = new decimal(new int[] {
             10,
@@ -168,7 +168,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(421, 135);
+            this.ClientSize = new System.Drawing.Size(424, 131);
             this.Controls.Add(this.Interval);
             this.Controls.Add(this.IntervalLabel2);
             this.Controls.Add(this.IntervalLabel1);
