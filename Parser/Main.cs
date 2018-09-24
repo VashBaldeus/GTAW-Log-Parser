@@ -18,6 +18,8 @@ namespace Parser
         private Thread updateThread;
         //private Thread saveThread;
 
+        //string pattern = @"\[DATE: \d{1,2}\/[A-Za-z]{3}\/\d{4} \| TIME: \d{1,2}:\d{1,2}:\d{1,2}\]";
+
         public Main()
         {
             InitializeComponent();
@@ -62,14 +64,14 @@ namespace Parser
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                FolderPath.Text = dialog.FileName;
+                FolderPath.Text = dialog.FileName + "\\";
                 Parse.Focus();
             }
         }
 
         private void Parse_Click(object sender, EventArgs e)
         {
-            if (FolderPath.Text.Length == 0)
+            if (FolderPath.Text.Length == 0 || !Directory.Exists(FolderPath.Text))
             {
                 MessageBox.Show("Invalid RAGEMP folder path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -112,15 +114,24 @@ namespace Parser
             }
         }
 
-        private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
+        private static BackupSettings backupSettings = new BackupSettings();
+        private void AutomaticBackupSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveSettings();
+            if (backupSettings == null)
+            {
+                backupSettings = new BackupSettings();
+            }
+            else
+            {
+                backupSettings.WindowState = FormWindowState.Normal;
+                backupSettings.BringToFront();
+            }
+
+            backupSettings.ShowDialog();
         }
 
         private void CheckForUpdatesOnStartup_CheckedChanged(object sender, EventArgs e)
         {
-            SaveSettings();
-
             if (CheckForUpdatesOnStartup.Checked)
                 TryCheckingForUpdates();
         }
