@@ -93,11 +93,11 @@ namespace Parser
             AbortIntervalBackup();
         }
 
+        private static readonly int exitDelay = 10;
+        private static bool isGameRunning = false;
+
         private static void BackupWorker()
         {
-            int secondsToWait = 10;
-            bool isGameRunning = false;
-
             while (!quitting && runBackgroundBackup)
             {
                 Process[] processes = Process.GetProcessesByName("GTA5");
@@ -111,7 +111,7 @@ namespace Parser
                     ParseThenSaveToFile(true);
                 }
 
-                Thread.Sleep(secondsToWait * 1000);
+                Thread.Sleep(exitDelay * 1000);
             }
         }
 
@@ -121,14 +121,15 @@ namespace Parser
             {
                 int intervalTime = Properties.Settings.Default.IntervalTime;
 
-                ParseThenSaveToFile();
+                if (isGameRunning)
+                    ParseThenSaveToFile();
 
                 for (int i = 0; i < intervalTime * 6; i++)
                 {
                     if (quitting || !runBackgroundInterval)
                         break;
 
-                    Thread.Sleep(10000);
+                    Thread.Sleep(10 * 1000);
                 }
             }
         }
@@ -174,7 +175,7 @@ namespace Parser
                     FileInfo oldFile = new FileInfo(backupPath + fileName);
                     FileInfo newFile = new FileInfo(backupPath + ".temp");
 
-                    if (oldFile.Length < newFile.Length)
+                    if (oldFile.Length < newFile.Length || gameClosed)
                     {
                         File.Delete(backupPath + fileName);
 
