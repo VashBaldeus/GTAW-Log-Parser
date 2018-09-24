@@ -274,6 +274,16 @@ namespace Parser
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (BackupHandler.IsAnyRunning())
+            {
+                if (MessageBox.Show("Exiting the application will prevent the automatic backups from happening! Please use the minimize button or leave the window open if you wish for the automatic backups to continue. Alternatively, you can turn automatic backups off.\n\nWould you still like to exit?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                {
+                    e.Cancel = true;
+
+                    return;
+                }
+            }
+
             SaveSettings();
             BackupHandler.quitting = true;
         }
