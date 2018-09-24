@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using System.Windows.Forms;
-using System.Threading;
+
 using System.IO;
+using System.Threading;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 
@@ -20,9 +17,6 @@ namespace Parser
         private static string backupPath;
         private static bool enableAutomaticBackup;
         private static bool enableIntervalBackup;
-        private static int intervalTime;
-
-        private static bool removeTimestamps;
 
         private static bool runBackgroundBackup = false;
         private static bool runBackgroundInterval = false;
@@ -35,34 +29,26 @@ namespace Parser
 
             enableAutomaticBackup = Properties.Settings.Default.BackupChatLogAutomatically;
             enableIntervalBackup = Properties.Settings.Default.EnableIntervalBackup;
-            intervalTime = Properties.Settings.Default.IntervalTime;
-
-            removeTimestamps = Properties.Settings.Default.RemoveTimestamps;
 
             if (backupPath == "" || !Directory.Exists(backupPath))
                 return;
-            else if (!enableAutomaticBackup)
+            else if (folderPath == "" || !Directory.Exists(folderPath + "\\client_resources"))
                 return;
 
-            if (enableIntervalBackup && (intervalThread == null || !intervalThread.IsAlive))
-            {
-                runBackgroundInterval = true;
-
-                intervalThread = new Thread(() => IntervalWorker(intervalTime));
-                intervalThread.Start();
-            }
-            else if (backupThread == null || !backupThread.IsAlive)
+            if (enableAutomaticBackup && (backupThread == null || !backupThread.IsAlive))
             {
                 runBackgroundBackup = true;
 
                 backupThread = new Thread(() => BackupWorker());
                 backupThread.Start();
             }
-        }
+            if (enableIntervalBackup && (intervalThread == null || !intervalThread.IsAlive))
+            {
+                runBackgroundInterval = true;
 
-        public static bool IsAnyRunning()
-        {
-            return (backupThread != null && backupThread.IsAlive) || (intervalThread != null && intervalThread.IsAlive);
+                intervalThread = new Thread(() => IntervalWorker());
+                intervalThread.Start();
+            }
         }
 
         public static void AbortAutomaticBackup()
@@ -83,15 +69,8 @@ namespace Parser
 
         public static void AbortAll()
         {
-            if (intervalThread != null && intervalThread.IsAlive)
-            {
-                runBackgroundInterval = false;
-            }
-
-            if (backupThread != null && backupThread.IsAlive)
-            {
-                runBackgroundBackup = false;
-            }
+            AbortAutomaticBackup();
+            AbortIntervalBackup();
         }
 
         private static void BackupWorker()
@@ -116,10 +95,12 @@ namespace Parser
             }
         }
 
-        private static void IntervalWorker(int intervalTime = 5)
+        private static void IntervalWorker()
         {
             while (!quitting && runBackgroundInterval)
             {
+                int intervalTime = Properties.Settings.Default.IntervalTime;
+
                 ParseThenSaveToFile();
 
                 for (int i = 0; i < intervalTime * 6; i++)
@@ -136,7 +117,7 @@ namespace Parser
         {
             try
             {
-                string parsed = Main.ParseChatLog(folderPath, removeTimestamps);
+                string parsed = Main.ParseChatLog(folderPath, Properties.Settings.Default.RemoveTimestamps);
 
                 string fileName = parsed.Substring(0, parsed.IndexOf("\n"));
 
@@ -185,8 +166,6 @@ namespace Parser
                     else
                         File.Delete(backupPath + ".temp");
                 }
-
-
             }
             catch
             {
