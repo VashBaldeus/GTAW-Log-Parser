@@ -78,10 +78,13 @@
             this.BackupPath.Multiline = false;
             this.BackupPath.Name = "BackupPath";
             this.BackupPath.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.BackupPath.ShortcutsEnabled = false;
             this.BackupPath.Size = new System.Drawing.Size(320, 22);
             this.BackupPath.TabIndex = 1;
             this.BackupPath.Text = "";
             this.BackupPath.MouseClick += new System.Windows.Forms.MouseEventHandler(this.BackupPath_MouseClick);
+            this.BackupPath.TextChanged += new System.EventHandler(this.BackupPath_TextChanged);
+            this.BackupPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BackupPath_KeyDown);
             // 
             // Browse
             // 

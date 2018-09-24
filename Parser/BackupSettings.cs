@@ -47,6 +47,20 @@ namespace Parser
             Properties.Settings.Default.Save();
         }
 
+        private void BackupPath_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+        }
+
+        private void BackupPath_TextChanged(object sender, EventArgs e)
+        {
+            //BackupHandler.AbortAll();
+
+            // Ask to move current backups, if any, to new location
+
+            //BackupHandler.Initialize();
+        }
+
         private void BackupPath_MouseClick(object sender, MouseEventArgs e)
         {
             if (BackupPath.Text.Length == 0)

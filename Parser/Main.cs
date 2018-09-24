@@ -13,10 +13,7 @@ namespace Parser
     public partial class Main : Form
     {
         private static GitHubClient client = new GitHubClient(new ProductHeaderValue("GTAW-Log-Parser"));
-
-        //private Thread parseThread;
         private Thread updateThread;
-        //private Thread saveThread;
 
         public Main()
         {
@@ -45,6 +42,22 @@ namespace Parser
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestamps;
 
             CheckForUpdatesOnStartup.Checked = Properties.Settings.Default.CheckForUpdatesAutomatically;
+        }
+
+        private void FolderPath_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+        }
+
+        private void FolderPath_TextChanged(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.BackupChatLogAutomatically)
+            {
+                StatusLabel.Text = "Automatic Backup: OFF";
+                MessageBox.Show("Automatic backup has been turned OFF, please set it up again if you wish to use it.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                BackupSettings.ResetSettings();
+            }
         }
 
         private void FolderPath_MouseClick(object sender, MouseEventArgs e)
@@ -121,35 +134,43 @@ namespace Parser
             }
         }
 
-        private static BackupSettings backupSettings;
-        private void AutomaticBackupSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Parsed_TextChanged(object sender, EventArgs e)
         {
-            if (FolderPath.Text.Length == 0 || !Directory.Exists(FolderPath.Text + "client_resources\\"))
+            if (Parsed.Text == "")
             {
-                MessageBox.Show("Please choose a valid RAGEMP folder location before trying to enable automatic backup.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Counter.Text = "0 characters and 0 lines";
                 return;
             }
 
-            if (backupSettings == null)
+            Counter.Text = Parsed.Text.Length + " characters and " + Parsed.Text.Split('\n').Length + " lines";
+        }
+
+        private void SaveParsed_Click(object sender, EventArgs e)
+        {
+            if (Parsed.Text.Length == 0)
             {
-                backupSettings = new BackupSettings();
-                backupSettings.FormClosed += (s, args) =>
+                MessageBox.Show("You haven't parsed anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            SaveFileDialog.FileName = "chatlog.txt";
+            SaveFileDialog.Filter = "Text File | *.txt";
+
+            if (SaveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(SaveFileDialog.OpenFile()))
                 {
-                    BackupHandler.Initialize();
-
-                    StatusLabel.Text = $"Automatic Backup: {(Properties.Settings.Default.BackupChatLogAutomatically ? "ON" : "OFF")}";
-                };
+                    sw.Write(Parsed.Text.Replace("\n", Environment.NewLine));
+                }
             }
+        }
+
+        private void CopyParsedToClipboard_Click(object sender, EventArgs e)
+        {
+            if (Parsed.Text.Length == 0)
+                MessageBox.Show("You haven't parsed anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
-            {
-                backupSettings.LoadSettings();
-
-                backupSettings.WindowState = FormWindowState.Normal;
-                backupSettings.BringToFront();
-            }
-
-            SaveSettings();
-            backupSettings.ShowDialog();
+                Clipboard.SetText(Parsed.Text.Replace("\n", Environment.NewLine));
         }
 
         private void CheckForUpdatesOnStartup_CheckedChanged(object sender, EventArgs e)
@@ -203,32 +224,35 @@ namespace Parser
             }
         }
 
-        private void SaveParsed_Click(object sender, EventArgs e)
+        private static BackupSettings backupSettings;
+        private void AutomaticBackupSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Parsed.Text.Length == 0)
+            if (FolderPath.Text.Length == 0 || !Directory.Exists(FolderPath.Text + "client_resources\\"))
             {
-                MessageBox.Show("You haven't parsed anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please choose a valid RAGEMP folder location before trying to enable automatic backup.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            SaveFileDialog.FileName = "chatlog.txt";
-            SaveFileDialog.Filter = "Text File | *.txt";
-
-            if (SaveFileDialog.ShowDialog() == DialogResult.OK)
+            if (backupSettings == null)
             {
-                using (StreamWriter sw = new StreamWriter(SaveFileDialog.OpenFile()))
+                backupSettings = new BackupSettings();
+                backupSettings.FormClosed += (s, args) =>
                 {
-                    sw.Write(Parsed.Text.Replace("\n", Environment.NewLine));
-                }
-            }
-        }
+                    BackupHandler.Initialize();
 
-        private void CopyParsedToClipboard_Click(object sender, EventArgs e)
-        {
-            if (Parsed.Text.Length == 0)
-                MessageBox.Show("You haven't parsed anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    StatusLabel.Text = $"Automatic Backup: {(Properties.Settings.Default.BackupChatLogAutomatically ? "ON" : "OFF")}";
+                };
+            }
             else
-                Clipboard.SetText(Parsed.Text.Replace("\n", Environment.NewLine));
+            {
+                backupSettings.LoadSettings();
+
+                backupSettings.WindowState = FormWindowState.Normal;
+                backupSettings.BringToFront();
+            }
+
+            SaveSettings();
+            backupSettings.ShowDialog();
         }
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -248,32 +272,10 @@ namespace Parser
                 System.Diagnostics.Process.Start("https://forum.gta.world/en/index.php?/topic/11003-chat-logs/");
         }
 
-        private void Parsed_TextChanged(object sender, EventArgs e)
-        {
-            if (Parsed.Text == "")
-            {
-                Counter.Text = "0 characters and 0 lines";
-                return;
-            }
-
-            Counter.Text = Parsed.Text.Length + " characters and " + Parsed.Text.Split('\n').Length + " lines";
-        }
-
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveSettings();
             BackupHandler.quitting = true;
-        }
-
-        private void FolderPath_TextChanged(object sender, EventArgs e)
-        {
-            if (Properties.Settings.Default.BackupChatLogAutomatically)
-            {
-                MessageBox.Show("Automatic backup has been turned OFF, please set it up again if you wish to use it.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                StatusLabel.Text = "Automatic Backup: OFF";
-
-                BackupSettings.ResetSettings();
-            }
         }
     }
 }
