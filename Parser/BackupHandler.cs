@@ -98,7 +98,7 @@ namespace Parser
 
         private static void BackupWorker()
         {
-            int seconds = 1;
+            int seconds = 10;
             bool isGameRunning = false;
 
             while (!quitting && runBackgroundBackup)
@@ -114,7 +114,7 @@ namespace Parser
                     ParseThenSaveToFile(true);
                 }
 
-                Thread.Sleep(seconds * 1000);
+                Thread.Sleep(seconds * 10000);
             }
         }
 
@@ -124,7 +124,13 @@ namespace Parser
             {
                 ParseThenSaveToFile();
 
-                Thread.Sleep(intervalTime * 60000);
+                for (int i = 0; i < intervalTime * 6; i++)
+                {
+                    if (quitting || !runBackgroundInterval)
+                        break;
+
+                    Thread.Sleep(10000);
+                }
             }
         }
 
