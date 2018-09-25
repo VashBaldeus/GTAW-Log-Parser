@@ -92,7 +92,7 @@ namespace Parser
         {
             while (!quitting && runBackgroundBackup)
             {
-                Process[] processes = Process.GetProcessesByName("GTA5");
+                Process[] processes = Process.GetProcessesByName("Notepad");
 
                 if (!isGameRunning && processes.Length != 0)
                     isGameRunning = true;
@@ -165,19 +165,17 @@ namespace Parser
                     FileInfo oldFile = new FileInfo(backupPath + fileName);
                     FileInfo newFile = new FileInfo(backupPath + ".temp");
 
-                    if (oldFile.Length < newFile.Length || gameClosed)
+                    if (oldFile.Length < newFile.Length)
                     {
-                        if (!gameClosed)
-                        {
-                            File.Delete(backupPath + fileName);
+                        File.Delete(backupPath + fileName);
 
-                            File.Move(backupPath + ".temp", backupPath + fileName);
-                        }
-                        else
-                            MessageBox.Show($"Successfully parsed and backed up chat log to {backupPath + fileName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        File.Move(backupPath + ".temp", backupPath + fileName);
                     }
                     else
                         File.Delete(backupPath + ".temp");
+
+                    if (gameClosed)
+                        MessageBox.Show($"Successfully parsed and backed up chat log to {backupPath + fileName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch
