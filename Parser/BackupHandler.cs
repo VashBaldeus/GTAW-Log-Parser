@@ -56,17 +56,13 @@ namespace Parser
         public static void AbortAutomaticBackup()
         {
             if (backupThread != null && backupThread.IsAlive)
-            {
                 runBackgroundBackup = false;
-            }
         }
 
         public static void AbortIntervalBackup()
         {
             if (intervalThread != null && intervalThread.IsAlive)
-            {
                 runBackgroundInterval = false;
-            }
         }
 
         public static bool IsAnyRunning()
@@ -77,14 +73,10 @@ namespace Parser
         public static void ResumeIfQueuedToStop()
         {
             if (backupThread != null && backupThread.IsAlive && !runBackgroundBackup && !quitting)
-            {
                 runBackgroundBackup = true;
-            }
 
             if (intervalThread != null && intervalThread.IsAlive && !runBackgroundInterval && !quitting)
-            {
                 runBackgroundInterval = true;
-            }
         }
 
         public static void AbortAll()
@@ -151,9 +143,7 @@ namespace Parser
                 fileName = fileNameDate + "-" + fileNameTime + ".txt";
 
                 if (parsed.Length == 0)
-                {
                     return;
-                }
 
                 if (!File.Exists(backupPath + fileName))
                 {
@@ -163,7 +153,7 @@ namespace Parser
                     }
 
                     if (gameClosed)
-                        MessageBox.Show($"Successfully parsed and backed up chat log to {backupPath + fileName}.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show($"Successfully parsed and backed up chat log to {backupPath + fileName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -175,17 +165,17 @@ namespace Parser
                     FileInfo oldFile = new FileInfo(backupPath + fileName);
                     FileInfo newFile = new FileInfo(backupPath + ".temp");
 
-                    if (oldFile.Length < newFile.Length || gameClosed)
+                    if (oldFile.Length < newFile.Length)
                     {
                         File.Delete(backupPath + fileName);
 
                         File.Move(backupPath + ".temp", backupPath + fileName);
-
-                        if (gameClosed)
-                            MessageBox.Show($"Successfully parsed and backed up chat log to {backupPath + fileName}.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                         File.Delete(backupPath + ".temp");
+
+                    if (gameClosed)
+                        MessageBox.Show($"Successfully parsed and backed up chat log to {backupPath + fileName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch
