@@ -160,8 +160,9 @@ namespace Parser
             if (BackUpChatLogAutomatically.Checked && (BackupPath.Text == "" || !Directory.Exists(BackupPath.Text)))
             {
                 e.Cancel = true;
-
                 MessageBox.Show("Please choose a valid backup location or turn automatic backup off.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
             }
 
             SaveSettings();

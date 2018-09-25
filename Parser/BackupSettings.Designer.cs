@@ -103,7 +103,7 @@
             this.BackUpChatLogAutomatically.Name = "BackUpChatLogAutomatically";
             this.BackUpChatLogAutomatically.Size = new System.Drawing.Size(354, 17);
             this.BackUpChatLogAutomatically.TabIndex = 2;
-            this.BackUpChatLogAutomatically.Text = "Automatically parse and back up the chat log (when the game closes)";
+            this.BackUpChatLogAutomatically.Text = "Parse and back up the chat log automatically (when the game closes)";
             this.BackUpChatLogAutomatically.UseVisualStyleBackColor = true;
             this.BackUpChatLogAutomatically.CheckedChanged += new System.EventHandler(this.BackUpChatLogAutomatically_CheckedChanged);
             // 
@@ -115,7 +115,7 @@
             this.EnableIntervalBackup.Name = "EnableIntervalBackup";
             this.EnableIntervalBackup.Size = new System.Drawing.Size(400, 17);
             this.EnableIntervalBackup.TabIndex = 3;
-            this.EnableIntervalBackup.Text = "Automatically back up the chat log while the game is running (every 10 minutes)";
+            this.EnableIntervalBackup.Text = "Back up the chat log automatically while the game is running (every 10 minutes)";
             this.EnableIntervalBackup.UseVisualStyleBackColor = true;
             this.EnableIntervalBackup.CheckedChanged += new System.EventHandler(this.EnableIntervalBackup_CheckedChanged);
             // 
