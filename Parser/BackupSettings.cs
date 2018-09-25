@@ -140,7 +140,7 @@ namespace Parser
 
         private void Interval_ValueChanged(object sender, EventArgs e)
         {
-            EnableIntervalBackup.Text = $"Automatically back up the chat log while the game is running (every {Interval.Value} minutes)";
+            EnableIntervalBackup.Text = $"Back up the chat log automatically while the game is running (every {Interval.Value} minutes)";
         }
 
         private void Reset_Click(object sender, EventArgs e)

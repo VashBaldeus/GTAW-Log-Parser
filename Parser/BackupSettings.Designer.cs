@@ -166,7 +166,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 131);
+            this.ClientSize = new System.Drawing.Size(424, 136);
             this.Controls.Add(this.Interval);
             this.Controls.Add(this.IntervalLabel2);
             this.Controls.Add(this.IntervalLabel1);
