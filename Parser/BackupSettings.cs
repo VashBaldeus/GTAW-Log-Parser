@@ -78,12 +78,10 @@ namespace Parser
                 {
                     if (MessageBox.Show("Would you like to move all of your existing backups to the new folder?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
-
                         foreach (FileInfo file in chatLogFiles)
                         {
                             File.Move(file.FullName, BackupPath.Text + file.Name);
                         }
-
                     }
                 }
             }
@@ -117,6 +115,7 @@ namespace Parser
                     BackupPath.Text = dialog.FileName + "\\";
                 else
                     BackupPath.Text = dialog.FileName;
+
                 Browse.Focus();
             }
         }
