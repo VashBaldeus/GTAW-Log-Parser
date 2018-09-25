@@ -92,7 +92,7 @@ namespace Parser
         {
             while (!quitting && runBackgroundBackup)
             {
-                Process[] processes = Process.GetProcessesByName("Notepad");
+                Process[] processes = Process.GetProcessesByName("GTA5");
 
                 if (!isGameRunning && processes.Length != 0)
                     isGameRunning = true;
