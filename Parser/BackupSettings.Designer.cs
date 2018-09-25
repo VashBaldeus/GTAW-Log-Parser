@@ -47,7 +47,7 @@
             this.CloseWindow.Name = "CloseWindow";
             this.CloseWindow.Size = new System.Drawing.Size(75, 25);
             this.CloseWindow.TabIndex = 5;
-            this.CloseWindow.Text = "Close";
+            this.CloseWindow.Text = "Apply";
             this.CloseWindow.UseVisualStyleBackColor = true;
             this.CloseWindow.Click += new System.EventHandler(this.CloseWindow_Click);
             // 
