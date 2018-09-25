@@ -101,9 +101,9 @@
             this.BackUpChatLogAutomatically.AutoSize = true;
             this.BackUpChatLogAutomatically.Location = new System.Drawing.Point(13, 58);
             this.BackUpChatLogAutomatically.Name = "BackUpChatLogAutomatically";
-            this.BackUpChatLogAutomatically.Size = new System.Drawing.Size(239, 17);
+            this.BackUpChatLogAutomatically.Size = new System.Drawing.Size(354, 17);
             this.BackUpChatLogAutomatically.TabIndex = 2;
-            this.BackUpChatLogAutomatically.Text = "Automatically parse and back up the chat log";
+            this.BackUpChatLogAutomatically.Text = "Automatically parse and back up the chat log (when the game closes)";
             this.BackUpChatLogAutomatically.UseVisualStyleBackColor = true;
             this.BackUpChatLogAutomatically.CheckedChanged += new System.EventHandler(this.BackUpChatLogAutomatically_CheckedChanged);
             // 
