@@ -25,7 +25,7 @@ namespace Parser.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.5")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -101,6 +101,18 @@ namespace Parser.Properties {
             }
             set {
                 this["EnableIntervalBackup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RemoveTimestampsFromBackup {
+            get {
+                return ((bool)(this["RemoveTimestampsFromBackup"]));
+            }
+            set {
+                this["RemoveTimestampsFromBackup"] = value;
             }
         }
         

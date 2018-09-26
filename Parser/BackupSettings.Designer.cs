@@ -38,12 +38,13 @@
             this.IntervalLabel1 = new System.Windows.Forms.Label();
             this.IntervalLabel2 = new System.Windows.Forms.Label();
             this.Interval = new System.Windows.Forms.NumericUpDown();
+            this.RemoveTimestamps = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.Interval)).BeginInit();
             this.SuspendLayout();
             // 
             // CloseWindow
             // 
-            this.CloseWindow.Location = new System.Drawing.Point(338, 101);
+            this.CloseWindow.Location = new System.Drawing.Point(337, 124);
             this.CloseWindow.Name = "CloseWindow";
             this.CloseWindow.Size = new System.Drawing.Size(75, 25);
             this.CloseWindow.TabIndex = 5;
@@ -53,7 +54,7 @@
             // 
             // Reset
             // 
-            this.Reset.Location = new System.Drawing.Point(257, 101);
+            this.Reset.Location = new System.Drawing.Point(256, 124);
             this.Reset.Name = "Reset";
             this.Reset.Size = new System.Drawing.Size(75, 25);
             this.Reset.TabIndex = 6;
@@ -101,9 +102,9 @@
             this.BackUpChatLogAutomatically.AutoSize = true;
             this.BackUpChatLogAutomatically.Location = new System.Drawing.Point(13, 58);
             this.BackUpChatLogAutomatically.Name = "BackUpChatLogAutomatically";
-            this.BackUpChatLogAutomatically.Size = new System.Drawing.Size(239, 17);
+            this.BackUpChatLogAutomatically.Size = new System.Drawing.Size(354, 17);
             this.BackUpChatLogAutomatically.TabIndex = 2;
-            this.BackUpChatLogAutomatically.Text = "Automatically parse and back up the chat log";
+            this.BackUpChatLogAutomatically.Text = "Parse and back up the chat log automatically (when the game closes)";
             this.BackUpChatLogAutomatically.UseVisualStyleBackColor = true;
             this.BackUpChatLogAutomatically.CheckedChanged += new System.EventHandler(this.BackUpChatLogAutomatically_CheckedChanged);
             // 
@@ -115,7 +116,7 @@
             this.EnableIntervalBackup.Name = "EnableIntervalBackup";
             this.EnableIntervalBackup.Size = new System.Drawing.Size(400, 17);
             this.EnableIntervalBackup.TabIndex = 3;
-            this.EnableIntervalBackup.Text = "Automatically back up the chat log while the game is running (every 10 minutes)";
+            this.EnableIntervalBackup.Text = "Back up the chat log automatically while the game is running (every 10 minutes)";
             this.EnableIntervalBackup.UseVisualStyleBackColor = true;
             this.EnableIntervalBackup.CheckedChanged += new System.EventHandler(this.EnableIntervalBackup_CheckedChanged);
             // 
@@ -162,11 +163,22 @@
             0});
             this.Interval.ValueChanged += new System.EventHandler(this.Interval_ValueChanged);
             // 
+            // RemoveTimestamps
+            // 
+            this.RemoveTimestamps.AutoSize = true;
+            this.RemoveTimestamps.Location = new System.Drawing.Point(12, 131);
+            this.RemoveTimestamps.Name = "RemoveTimestamps";
+            this.RemoveTimestamps.Size = new System.Drawing.Size(183, 17);
+            this.RemoveTimestamps.TabIndex = 7;
+            this.RemoveTimestamps.Text = "Remove timestamps from backup";
+            this.RemoveTimestamps.UseVisualStyleBackColor = true;
+            // 
             // BackupSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 131);
+            this.ClientSize = new System.Drawing.Size(424, 161);
+            this.Controls.Add(this.RemoveTimestamps);
             this.Controls.Add(this.Interval);
             this.Controls.Add(this.IntervalLabel2);
             this.Controls.Add(this.IntervalLabel1);
@@ -204,5 +216,6 @@
         private System.Windows.Forms.Label IntervalLabel1;
         private System.Windows.Forms.Label IntervalLabel2;
         private System.Windows.Forms.NumericUpDown Interval;
+        private System.Windows.Forms.CheckBox RemoveTimestamps;
     }
 }

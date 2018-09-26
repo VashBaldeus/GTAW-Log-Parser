@@ -40,7 +40,6 @@ namespace Parser
 
             FolderPath.Text = Properties.Settings.Default.FolderPath;
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestamps;
-
             CheckForUpdatesOnStartup.Checked = Properties.Settings.Default.CheckForUpdatesAutomatically;
         }
 
@@ -53,19 +52,17 @@ namespace Parser
         {
             if (Properties.Settings.Default.BackupChatLogAutomatically)
             {
+                BackupSettings.ResetSettings();
+
                 StatusLabel.Text = "Automatic Backup: OFF";
                 MessageBox.Show("Automatic backup has been turned OFF, please set it up again if you wish to use it.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                BackupSettings.ResetSettings();
             }
         }
 
         private void FolderPath_MouseClick(object sender, MouseEventArgs e)
         {
             if (FolderPath.Text.Length == 0)
-            {
                 Browse_Click(this, EventArgs.Empty);
-            }
         }
 
         private void Browse_Click(object sender, EventArgs e)
@@ -129,7 +126,6 @@ namespace Parser
             catch
             {
                 MessageBox.Show("An error occured while parsing the chat log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                 return "";
             }
         }
@@ -200,7 +196,6 @@ namespace Parser
             try
             {
                 string installedVersion = Properties.Settings.Default.Version;
-
                 string currentVersion = client.Repository.Release.GetAll("MapleToo", "GTAW-Log-Parser").Result[0].TagName;
 
                 if (string.Compare(installedVersion, currentVersion) < 0)
@@ -208,11 +203,6 @@ namespace Parser
                     if (MessageBox.Show($"A new version of the chat log parser is now available on GitHub.\n\nInstalled Version: {installedVersion}\nAvailable Version: {currentVersion}\n\nWould you like to visit the releases page now?", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                         System.Diagnostics.Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases");
                 }
-                //else if (string.Compare(installedVersion, currentVersion) > 0 && checking)
-                //{
-                //    if (MessageBox.Show($"You are using a newer version of the chat log parser than is recommended. You may encounter unwated errors, continue at your own discretion.\n\nInstalled Version: {installedVersion}\nRecommended Version: {currentVersion}\n\nWould you like to visit the releases page now?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                //        System.Diagnostics.Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases");
-                //}
                 else if (manual)
                     MessageBox.Show($"You are running the latest version of the chat log parser.\n\nInstalled Version: {installedVersion}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -233,13 +223,25 @@ namespace Parser
                 return;
             }
 
+            if (Properties.Settings.Default.BackupChatLogAutomatically)
+            {
+                if (MessageBox.Show("The automatic backup function will be turned off while the settings dialog is open.\n\nWould you like to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                    return;
+
+                StatusLabel.Text = "Automatic Backup: OFF";
+            }
+            else
+                MessageBox.Show("Settings will only be applied once you close the settings dialog.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            BackupHandler.AbortAll();
+            SaveSettings();
+
             if (backupSettings == null)
             {
                 backupSettings = new BackupSettings();
                 backupSettings.FormClosed += (s, args) =>
                 {
                     BackupHandler.Initialize();
-
                     StatusLabel.Text = $"Automatic Backup: {(Properties.Settings.Default.BackupChatLogAutomatically ? "ON" : "OFF")}";
                 };
             }
@@ -251,7 +253,6 @@ namespace Parser
                 backupSettings.BringToFront();
             }
 
-            SaveSettings();
             backupSettings.ShowDialog();
         }
 
@@ -279,13 +280,12 @@ namespace Parser
                 if (MessageBox.Show("Exiting the application will prevent the automatic backups from happening! Please use the minimize button or leave the window open if you wish for the automatic backups to continue. Alternatively, you can turn automatic backups off.\n\nWould you still like to exit?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                 {
                     e.Cancel = true;
-
                     return;
                 }
             }
 
-            SaveSettings();
             BackupHandler.quitting = true;
+            SaveSettings();
         }
     }
 }
