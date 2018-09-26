@@ -15,6 +15,7 @@ namespace Parser
 
         private static string folderPath;
         private static string backupPath;
+
         private static bool enableAutomaticBackup;
         private static bool enableIntervalBackup;
 
@@ -81,8 +82,8 @@ namespace Parser
 
         public static void AbortAll()
         {
-            AbortAutomaticBackup();
             AbortIntervalBackup();
+            AbortAutomaticBackup();
         }
 
         private static readonly int exitDelay = 10;
@@ -99,7 +100,6 @@ namespace Parser
                 else if (isGameRunning && processes.Length == 0)
                 {
                     isGameRunning = false;
-
                     ParseThenSaveToFile(true);
                 }
 
@@ -130,7 +130,9 @@ namespace Parser
         {
             try
             {
-                string parsed = Main.ParseChatLog(folderPath, Properties.Settings.Default.RemoveTimestamps);
+                string parsed = Main.ParseChatLog(folderPath, Properties.Settings.Default.RemoveTimestampsFromBackup);
+                if (parsed.Length == 0)
+                    return;
 
                 string fileName = parsed.Substring(0, parsed.IndexOf("\n"));
 
@@ -141,9 +143,6 @@ namespace Parser
                 fileNameTime = fileNameTime.Replace(":", ".");
 
                 fileName = fileNameDate + "-" + fileNameTime + ".txt";
-
-                if (parsed.Length == 0)
-                    return;
 
                 if (!File.Exists(backupPath + fileName))
                 {
@@ -168,7 +167,6 @@ namespace Parser
                     if (oldFile.Length < newFile.Length)
                     {
                         File.Delete(backupPath + fileName);
-
                         File.Move(backupPath + ".temp", backupPath + fileName);
                     }
                     else

@@ -25,6 +25,7 @@ namespace Parser
             Properties.Settings.Default.BackupChatLogAutomatically = BackUpChatLogAutomatically.Checked;
             Properties.Settings.Default.EnableIntervalBackup = EnableIntervalBackup.Checked;
             Properties.Settings.Default.IntervalTime = (int)Interval.Value;
+            Properties.Settings.Default.RemoveTimestampsFromBackup = RemoveTimestamps.Checked;
 
             Properties.Settings.Default.Save();
         }
@@ -36,15 +37,15 @@ namespace Parser
             BackUpChatLogAutomatically.Checked = Properties.Settings.Default.BackupChatLogAutomatically;
             EnableIntervalBackup.Checked = Properties.Settings.Default.EnableIntervalBackup;
             Interval.Value = Properties.Settings.Default.IntervalTime;
+            RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestampsFromBackup;
         }
 
         public static void ResetSettings()
         {
-            Properties.Settings.Default.BackupPath = "";
-
             Properties.Settings.Default.BackupChatLogAutomatically = false;
             Properties.Settings.Default.EnableIntervalBackup = false;
             Properties.Settings.Default.IntervalTime = 10;
+            Properties.Settings.Default.RemoveTimestampsFromBackup = false;
 
             Properties.Settings.Default.Save();
         }
@@ -58,8 +59,6 @@ namespace Parser
         {
             if (Properties.Settings.Default.BackupPath == "")
                 return;
-
-            BackupHandler.AbortAll();
 
             try
             {
@@ -89,16 +88,12 @@ namespace Parser
             {
                 MessageBox.Show("An error occurent while moving the chat log files to the new directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            //SaveSettings();
         }
 
         private void BackupPath_MouseClick(object sender, MouseEventArgs e)
         {
             if (BackupPath.Text.Length == 0)
-            {
                 Browse_Click(this, EventArgs.Empty);
-            }
         }
 
         private void Browse_Click(object sender, EventArgs e)
@@ -123,19 +118,14 @@ namespace Parser
         private void BackUpChatLogAutomatically_CheckedChanged(object sender, EventArgs e)
         {
             EnableIntervalBackup.Enabled = BackUpChatLogAutomatically.Checked;
+
             if (!BackUpChatLogAutomatically.Checked)
-            {
-                BackupHandler.AbortAutomaticBackup();
                 EnableIntervalBackup.Checked = false;
-            }
         }
 
         private void EnableIntervalBackup_CheckedChanged(object sender, EventArgs e)
         {
             Interval.Enabled = EnableIntervalBackup.Checked;
-
-            if (!EnableIntervalBackup.Checked)
-                BackupHandler.AbortIntervalBackup();
         }
 
         private void Interval_ValueChanged(object sender, EventArgs e)
@@ -146,7 +136,6 @@ namespace Parser
         private void Reset_Click(object sender, EventArgs e)
         {
             ResetSettings();
-
             LoadSettings();
         }
 
