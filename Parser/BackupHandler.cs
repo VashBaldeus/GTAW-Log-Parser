@@ -113,7 +113,7 @@ namespace Parser
             {
                 int intervalTime = Properties.Settings.Default.IntervalTime;
 
-                if (isGameRunning)
+                if (isGameRunning && File.Exists(folderPath + Data.logLogation))
                     ParseThenSaveToFile();
 
                 for (int i = 0; i < intervalTime * 6; i++)
