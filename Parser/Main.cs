@@ -275,17 +275,39 @@ namespace Parser
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (BackupHandler.IsAnyRunning())
+            if (Properties.Settings.Default.BackupChatLogAutomatically && TrayIcon.Visible == false)
             {
-                if (MessageBox.Show("Exiting the application will prevent the automatic backups from happening! Please use the minimize button or leave the window open if you wish for the automatic backups to continue. Alternatively, you can turn automatic backups off.\n\nWould you still like to exit?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                if (MessageBox.Show("Closing the parser will prevent the automatic backups from happening.\n\nWould you like to minimize the parser to the system tray instead?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     e.Cancel = true;
+
+                    Hide();
+                    TrayIcon.Visible = true;
+
                     return;
                 }
             }
 
             BackupHandler.quitting = true;
             SaveSettings();
+        }
+
+        private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ResumeTrayStripMenuItem_Click(this, EventArgs.Empty);
+        }
+
+        private void ResumeTrayStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Show();
+            WindowState = FormWindowState.Normal;
+            BringToFront();
+            TrayIcon.Visible = false;
+        }
+
+        private void ExitTrayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.Exit();
         }
     }
 }
