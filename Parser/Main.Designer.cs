@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.Logo = new System.Windows.Forms.PictureBox();
             this.FolderPath = new System.Windows.Forms.RichTextBox();
@@ -48,8 +49,13 @@
             this.Counter = new System.Windows.Forms.Label();
             this.RemoveTimestamps = new System.Windows.Forms.CheckBox();
             this.StatusLabel = new System.Windows.Forms.Label();
+            this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.TrayIconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ExitTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ResumeTrayStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.MenuStrip.SuspendLayout();
+            this.TrayIconContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // Logo
@@ -231,6 +237,38 @@
             this.StatusLabel.Text = "Automatic Backup: OFF";
             this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // TrayIcon
+            // 
+            this.TrayIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.TrayIcon.BalloonTipText = "Automatic Backup: ON";
+            this.TrayIcon.BalloonTipTitle = "Information";
+            this.TrayIcon.ContextMenuStrip = this.TrayIconContextMenuStrip;
+            this.TrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TrayIcon.Icon")));
+            this.TrayIcon.Text = "GTA World Chat Log Parser";
+            this.TrayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseDoubleClick);
+            // 
+            // TrayIconContextMenuStrip
+            // 
+            this.TrayIconContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ResumeTrayStripMenuItem,
+            this.ExitTrayToolStripMenuItem});
+            this.TrayIconContextMenuStrip.Name = "TrayIconContextMenuStrip";
+            this.TrayIconContextMenuStrip.Size = new System.Drawing.Size(181, 70);
+            // 
+            // ExitTrayToolStripMenuItem
+            // 
+            this.ExitTrayToolStripMenuItem.Name = "ExitTrayToolStripMenuItem";
+            this.ExitTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ExitTrayToolStripMenuItem.Text = "Exit";
+            this.ExitTrayToolStripMenuItem.Click += new System.EventHandler(this.ExitTrayToolStripMenuItem_Click);
+            // 
+            // ResumeTrayStripMenuItem
+            // 
+            this.ResumeTrayStripMenuItem.Name = "ResumeTrayStripMenuItem";
+            this.ResumeTrayStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ResumeTrayStripMenuItem.Text = "Open";
+            this.ResumeTrayStripMenuItem.Click += new System.EventHandler(this.ResumeTrayStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -261,6 +299,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
+            this.TrayIconContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -287,6 +326,10 @@
         private System.Windows.Forms.CheckBox RemoveTimestamps;
         private System.Windows.Forms.ToolStripMenuItem AutomaticBackupSettingsToolStripMenuItem;
         private System.Windows.Forms.Label StatusLabel;
+        private System.Windows.Forms.NotifyIcon TrayIcon;
+        private System.Windows.Forms.ContextMenuStrip TrayIconContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem ExitTrayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ResumeTrayStripMenuItem;
     }
 }
 

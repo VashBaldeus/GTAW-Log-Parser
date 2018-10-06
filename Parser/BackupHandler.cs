@@ -66,11 +66,6 @@ namespace Parser
                 runBackgroundInterval = false;
         }
 
-        public static bool IsAnyRunning()
-        {
-            return runBackgroundBackup || runBackgroundInterval;
-        }
-
         public static void ResumeIfQueuedToStop()
         {
             if (backupThread != null && backupThread.IsAlive && !runBackgroundBackup && !quitting)
@@ -113,7 +108,7 @@ namespace Parser
             {
                 int intervalTime = Properties.Settings.Default.IntervalTime;
 
-                if (isGameRunning)
+                if (isGameRunning && File.Exists(folderPath + Data.logLogation))
                     ParseThenSaveToFile();
 
                 for (int i = 0; i < intervalTime * 6; i++)
