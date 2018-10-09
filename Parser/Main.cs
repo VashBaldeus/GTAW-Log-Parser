@@ -270,7 +270,7 @@ namespace Parser
         private void Logo_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Would you like to open the documentation page for the chat log parser found on the GTA World forums?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                System.Diagnostics.Process.Start("https://forum.gta.world/en/index.php?/topic/11003-chat-logs/");
+                System.Diagnostics.Process.Start("https://forum.gta.world/en/index.php?/topic/7690-chat-logs/");
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
