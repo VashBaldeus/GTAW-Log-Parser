@@ -2,7 +2,7 @@
 
 This program can be used to parse the chat logs generated while playing on GTA World.
 
-Feature documentation thread: https://forum.gta.world/en/index.php?/topic/11003-chat-logs/.
+Feature documentation thread: https://forum.gta.world/en/index.php?/topic/7690-chat-logs/.
 
 Getting started:
 - Grab the latest release from https://github.com/MapleToo/GTAW-Log-Parser/releases
