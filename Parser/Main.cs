@@ -277,13 +277,20 @@ namespace Parser
         {
             if (Properties.Settings.Default.BackupChatLogAutomatically && TrayIcon.Visible == false)
             {
-                if (MessageBox.Show("Closing the parser will prevent the automatic backups from happening.\n\nWould you like to minimize the parser to the system tray instead?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                DialogResult result = MessageBox.Show("Closing the parser will prevent the automatic backups from happening.\n\nWould you like to minimize the parser to the system tray instead?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
                 {
                     e.Cancel = true;
 
                     Hide();
                     TrayIcon.Visible = true;
 
+                    return;
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
                     return;
                 }
             }
