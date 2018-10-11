@@ -114,7 +114,9 @@ namespace Parser
                 log = log.Remove(0, 1);
 
                 log = log.Replace("\\n", "\n");
-                log = Regex.Replace(log, "~[a-zA-Z]~", "");
+                log = Regex.Replace(log, "~[A-Za-z]~", "");
+
+                log = Regex.Replace(log, @"!{#[A-Za-z\d]+}", "");
 
                 log = log.Remove(log.Length - 2, 2);
 
@@ -277,13 +279,20 @@ namespace Parser
         {
             if (Properties.Settings.Default.BackupChatLogAutomatically && TrayIcon.Visible == false)
             {
-                if (MessageBox.Show("Closing the parser will prevent the automatic backups from happening.\n\nWould you like to minimize the parser to the system tray instead?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                DialogResult result = MessageBox.Show("Closing the parser will prevent the automatic backups from happening.\n\nWould you like to minimize the parser to the system tray instead?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
                 {
                     e.Cancel = true;
 
                     Hide();
                     TrayIcon.Visible = true;
 
+                    return;
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
                     return;
                 }
             }
