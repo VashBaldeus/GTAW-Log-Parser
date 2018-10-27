@@ -121,15 +121,15 @@ namespace Parser
                     log = sr.ReadToEnd();
                 }
 
-                log = log.Remove(0, 1);                             // Remove the `"` character from the start
-                log = log.Replace("\\n", "\n");
-                log = log.Remove(log.Length - 2, 2);                // Remove the `new line` and the `"` character from the end
+                log = log.Remove(0, 1);                         // Remove the `"` character from the start
+                log = log.Replace("\\n", "\n");                 // Change all occurrences of `\n` into new lines
+                log = log.Remove(log.Length - 2, 2);            // Remove the `new line` and the `"` character from the end
 
-                log = Regex.Replace(log, "~[A-Za-z]~", "");         // Remove the RAGEMP color tags (example: `~r~` for red)
+                //log = Regex.Replace(log, "~[A-Za-z]~", "");                     // Remove the RAGEMP color tags (example: `~r~` for red)
                 //log = Regex.Replace(log, @"!{#(?:[0-9A-Fa-f]{3}){1,2}}", "");   // Remove HEX color tags (example: `!{#FFEC8B}` for the yellow color picked for radio messages)
 
-                log = Regex.Replace(log, "<[^>]*>", "");            // Remove the HTML tags that are added for the chat (example: `If the ingame menus are out of place, use <span style=\"color: dodgerblue\">/movemenu</span>`)
-                log = System.Net.WebUtility.HtmlDecode(log);        // Decode HTML symbols (example: `&apos;` into `'`)
+                log = Regex.Replace(log, "<[^>]*>", "");        // Remove the HTML tags that are added for the chat (example: `If the ingame menus are out of place, use <span style=\"color: dodgerblue\">/movemenu</span>`)
+                log = System.Net.WebUtility.HtmlDecode(log);    // Decode HTML symbols (example: `&apos;` into `'`)
 
                 if (removeTimestamps)
                     log = Regex.Replace(log, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", "");
