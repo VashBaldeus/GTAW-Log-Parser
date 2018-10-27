@@ -51,8 +51,9 @@
             this.StatusLabel = new System.Windows.Forms.Label();
             this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.TrayIconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ExitTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResumeTrayStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ExitTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FilterChatLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.MenuStrip.SuspendLayout();
             this.TrayIconContextMenuStrip.SuspendLayout();
@@ -154,6 +155,7 @@
             this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CheckForUpdatesToolStripMenuItem,
             this.AutomaticBackupSettingsToolStripMenuItem,
+            this.FilterChatLogToolStripMenuItem,
             this.AboutToolStripMenuItem,
             this.ExitToolStripMenuItem});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
@@ -253,21 +255,28 @@
             this.ResumeTrayStripMenuItem,
             this.ExitTrayToolStripMenuItem});
             this.TrayIconContextMenuStrip.Name = "TrayIconContextMenuStrip";
-            this.TrayIconContextMenuStrip.Size = new System.Drawing.Size(181, 70);
-            // 
-            // ExitTrayToolStripMenuItem
-            // 
-            this.ExitTrayToolStripMenuItem.Name = "ExitTrayToolStripMenuItem";
-            this.ExitTrayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.ExitTrayToolStripMenuItem.Text = "Exit";
-            this.ExitTrayToolStripMenuItem.Click += new System.EventHandler(this.ExitTrayToolStripMenuItem_Click);
+            this.TrayIconContextMenuStrip.Size = new System.Drawing.Size(104, 48);
             // 
             // ResumeTrayStripMenuItem
             // 
             this.ResumeTrayStripMenuItem.Name = "ResumeTrayStripMenuItem";
-            this.ResumeTrayStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ResumeTrayStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.ResumeTrayStripMenuItem.Text = "Open";
             this.ResumeTrayStripMenuItem.Click += new System.EventHandler(this.ResumeTrayStripMenuItem_Click);
+            // 
+            // ExitTrayToolStripMenuItem
+            // 
+            this.ExitTrayToolStripMenuItem.Name = "ExitTrayToolStripMenuItem";
+            this.ExitTrayToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.ExitTrayToolStripMenuItem.Text = "Exit";
+            this.ExitTrayToolStripMenuItem.Click += new System.EventHandler(this.ExitTrayToolStripMenuItem_Click);
+            // 
+            // FilterChatLogToolStripMenuItem
+            // 
+            this.FilterChatLogToolStripMenuItem.Name = "FilterChatLogToolStripMenuItem";
+            this.FilterChatLogToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
+            this.FilterChatLogToolStripMenuItem.Text = "Filter Chat Log";
+            this.FilterChatLogToolStripMenuItem.Click += new System.EventHandler(this.FilterChatLogToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -330,6 +339,7 @@
         private System.Windows.Forms.ContextMenuStrip TrayIconContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem ExitTrayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ResumeTrayStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem FilterChatLogToolStripMenuItem;
     }
 }
 

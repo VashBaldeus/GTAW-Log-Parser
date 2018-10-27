@@ -125,7 +125,7 @@ namespace Parser
         {
             try
             {
-                string parsed = Main.ParseChatLog(folderPath, Properties.Settings.Default.RemoveTimestampsFromBackup);
+                string parsed = Main.ParseChatLog(folderPath, Properties.Settings.Default.RemoveTimestampsFromBackup, showError: gameClosed);
                 if (parsed.Length == 0)
                     return;
 
@@ -151,6 +151,9 @@ namespace Parser
                 }
                 else
                 {
+                    if (File.Exists(backupPath + ".temp"))
+                        File.Delete(backupPath + ".temp");
+
                     using (StreamWriter sw = new StreamWriter(backupPath + ".temp"))
                     {
                         sw.Write(parsed.Replace("\n", Environment.NewLine));
@@ -173,7 +176,8 @@ namespace Parser
             }
             catch
             {
-                MessageBox.Show("An error occured while trying to automatically save the chat log.\n\nMake sure you picked a non-system directory for your backup path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (gameClosed)
+                    MessageBox.Show("An error occured while trying to automatically save the chat log.\n\nMake sure you picked a non-system directory for your backup path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

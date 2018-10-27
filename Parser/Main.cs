@@ -73,15 +73,25 @@ namespace Parser
                 IsFolderPicker = true
             };
 
-            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
-            {
-                if (dialog.FileName[dialog.FileName.Length - 1] != '\\')
-                    FolderPath.Text = dialog.FileName + "\\";
-                else
-                    FolderPath.Text = dialog.FileName;
+            bool validLocation = false;
 
-                Parse.Focus();
+            while (!validLocation)
+            {
+                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                {
+                    if (dialog.FileName[dialog.FileName.Length - 1] != '\\')
+                    {
+                        FolderPath.Text = dialog.FileName + "\\";
+                        validLocation = true;
+                    }
+                    else
+                        MessageBox.Show("Please pick a non-root directory for your RAGEMP folder location.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                    validLocation = true;
             }
+
+            Parse.Focus();
         }
 
         private void Parse_Click(object sender, EventArgs e)
@@ -97,10 +107,10 @@ namespace Parser
                 return;
             }
 
-            Parsed.Text = ParseChatLog(FolderPath.Text, RemoveTimestamps.Checked);
+            Parsed.Text = ParseChatLog(FolderPath.Text, RemoveTimestamps.Checked, showError: true);
         }
 
-        public static string ParseChatLog(string folderPath, bool removeTimestamps)
+        public static string ParseChatLog(string folderPath, bool removeTimestamps, bool showError = false)
         {
             try
             {
@@ -116,7 +126,7 @@ namespace Parser
                 log = log.Remove(log.Length - 2, 2);                // Remove the `new line` and the `"` character from the end
 
                 log = Regex.Replace(log, "~[A-Za-z]~", "");         // Remove the RAGEMP color tags (example: `~r~` for red)
-                log = Regex.Replace(log, @"!{#[A-Za-z\d]+}", "");   // Remove HEX color tags (example: `!{#FFEC8B}` for the yellow color picked for radio messages)
+                //log = Regex.Replace(log, @"!{#(?:[0-9A-Fa-f]{3}){1,2}}", "");   // Remove HEX color tags (example: `!{#FFEC8B}` for the yellow color picked for radio messages)
 
                 log = Regex.Replace(log, "<[^>]*>", "");            // Remove the HTML tags that are added for the chat (example: `If the ingame menus are out of place, use <span style=\"color: dodgerblue\">/movemenu</span>`)
                 log = System.Net.WebUtility.HtmlDecode(log);        // Decode HTML symbols (example: `&apos;` into `'`)
@@ -128,7 +138,9 @@ namespace Parser
             }
             catch
             {
-                MessageBox.Show("An error occured while parsing the chat log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (showError)
+                    MessageBox.Show("An error occured while parsing the chat log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return "";
             }
         }
@@ -228,7 +240,7 @@ namespace Parser
 
             if (Properties.Settings.Default.BackupChatLogAutomatically)
             {
-                if (MessageBox.Show("The automatic backup function will be turned off while the settings dialog is open.\n\nWould you like to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                if (MessageBox.Show("The automatic backup function will be turned off while the settings dialog is open and the new settings will only be applied once you close the settings dialog.\n\nWould you like to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                     return;
 
                 StatusLabel.Text = "Automatic Backup: OFF";
@@ -257,6 +269,30 @@ namespace Parser
             }
 
             backupSettings.ShowDialog();
+        }
+
+        private static ChatLogFilter chatLogFilter;
+        private void FilterChatLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FolderPath.Text.Length == 0 || !Directory.Exists(FolderPath.Text + "client_resources\\"))
+            {
+                MessageBox.Show("Please choose a valid RAGEMP folder location before trying to filter your chat log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            SaveSettings();
+
+            if (chatLogFilter == null)
+            {
+                chatLogFilter = new ChatLogFilter();
+            }
+            else
+            {
+                chatLogFilter.WindowState = FormWindowState.Normal;
+                chatLogFilter.BringToFront();
+            }
+
+            chatLogFilter.ShowDialog();
         }
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)

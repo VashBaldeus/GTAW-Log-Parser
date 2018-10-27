@@ -67,6 +67,12 @@
     <Compile Include="BackupSettings.Designer.cs">
       <DependentUpon>BackupSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChatLogFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChatLogFilter.Designer.cs">
+      <DependentUpon>ChatLogFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -78,6 +84,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BackupSettings.resx">
       <DependentUpon>BackupSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChatLogFilter.resx">
+      <DependentUpon>ChatLogFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
