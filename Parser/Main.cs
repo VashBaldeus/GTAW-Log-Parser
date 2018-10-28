@@ -13,7 +13,7 @@ namespace Parser
     public partial class Main : Form
     {
         private static GitHubClient client = new GitHubClient(new ProductHeaderValue("GTAW-Log-Parser"));
-        private Thread updateThread;
+        private static Thread updateThread;
 
         public Main()
         {

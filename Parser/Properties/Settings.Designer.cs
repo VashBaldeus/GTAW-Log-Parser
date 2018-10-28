@@ -127,5 +127,29 @@ namespace Parser.Properties {
                 this["IntervalTime"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RemoveTimestampsFromFilter {
+            get {
+                return ((bool)(this["RemoveTimestampsFromFilter"]));
+            }
+            set {
+                this["RemoveTimestampsFromFilter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FilterNames {
+            get {
+                return ((string)(this["FilterNames"]));
+            }
+            set {
+                this["FilterNames"] = value;
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Parser
 {
@@ -16,7 +17,7 @@ namespace Parser
             {
                 _chatLog = value;
                 chatLogLoaded = _chatLog != "";
-                StatusLabel.Text = $"Chat log{(chatLogLoaded ? " " : " NOT ")}loaded";
+                StatusLabel.Text = $"Chat log{(chatLogLoaded ? " " : " NOT ")}loaded{(chatLogLoaded ? $" at {DateTime.Now.ToString("HH:mm:ss")}" : "")}";
                 StatusLabel.ForeColor = chatLogLoaded ? Color.Green : Color.Red;
             }
         }
@@ -28,7 +29,15 @@ namespace Parser
         {
             InitializeComponent();
 
-            Names.Text = "Firstname Lastname\nFirstname_Lastname";
+            TimeLabel.Text = "Current time: " + DateTime.Now.ToString("HH:mm:ss");
+
+            Names.Text = Properties.Settings.Default.FilterNames;
+            RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestampsFromFilter;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            TimeLabel.Text = "Current time: " + DateTime.Now.ToString("HH:mm:ss");
         }
 
         private void LoadUnparsed_Click(object sender, EventArgs e)
@@ -76,7 +85,12 @@ namespace Parser
                 return;
             }
 
-            string[] lines = ChatLog.Split('\n');
+            string chatLog = ChatLog;
+
+            if (RemoveTimestamps.Checked)
+                chatLog = System.Text.RegularExpressions.Regex.Replace(chatLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", "");
+
+            string[] lines = chatLog.Split('\n');
             string filtered = "";
 
             foreach (string line in lines)
@@ -158,6 +172,14 @@ namespace Parser
                 MessageBox.Show("You haven't filtered anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
                 Clipboard.SetText(Filtered.Text.Replace("\n", Environment.NewLine));
+        }
+
+        private void ChatLogFilter_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.FilterNames = Names.Text;
+            Properties.Settings.Default.RemoveTimestampsFromFilter = RemoveTimestamps.Checked;
+
+            Properties.Settings.Default.Save();
         }
     }
 }

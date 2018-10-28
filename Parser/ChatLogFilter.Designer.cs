@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.LoadUnparsed = new System.Windows.Forms.Button();
             this.BrowseForParsed = new System.Windows.Forms.Button();
             this.StatusLabel = new System.Windows.Forms.Label();
@@ -38,11 +39,14 @@
             this.CopyFilteredToClipboard = new System.Windows.Forms.Button();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.RemoveTimestamps = new System.Windows.Forms.CheckBox();
+            this.TimeLabel = new System.Windows.Forms.Label();
+            this.Timer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // LoadUnparsed
             // 
-            this.LoadUnparsed.Location = new System.Drawing.Point(12, 12);
+            this.LoadUnparsed.Location = new System.Drawing.Point(12, 25);
             this.LoadUnparsed.Name = "LoadUnparsed";
             this.LoadUnparsed.Size = new System.Drawing.Size(135, 25);
             this.LoadUnparsed.TabIndex = 0;
@@ -52,7 +56,7 @@
             // 
             // BrowseForParsed
             // 
-            this.BrowseForParsed.Location = new System.Drawing.Point(153, 12);
+            this.BrowseForParsed.Location = new System.Drawing.Point(153, 25);
             this.BrowseForParsed.Name = "BrowseForParsed";
             this.BrowseForParsed.Size = new System.Drawing.Size(150, 25);
             this.BrowseForParsed.TabIndex = 1;
@@ -62,18 +66,18 @@
             // 
             // StatusLabel
             // 
-            this.StatusLabel.AutoSize = true;
             this.StatusLabel.ForeColor = System.Drawing.Color.Red;
-            this.StatusLabel.Location = new System.Drawing.Point(309, 18);
+            this.StatusLabel.Location = new System.Drawing.Point(12, 9);
             this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(107, 13);
+            this.StatusLabel.Size = new System.Drawing.Size(291, 13);
             this.StatusLabel.TabIndex = 0;
             this.StatusLabel.Text = "Chat log NOT loaded";
+            this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Names
             // 
             this.Names.DetectUrls = false;
-            this.Names.Location = new System.Drawing.Point(12, 43);
+            this.Names.Location = new System.Drawing.Point(12, 56);
             this.Names.Name = "Names";
             this.Names.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.Names.Size = new System.Drawing.Size(135, 197);
@@ -83,16 +87,16 @@
             // Filtered
             // 
             this.Filtered.DetectUrls = false;
-            this.Filtered.Location = new System.Drawing.Point(153, 43);
+            this.Filtered.Location = new System.Drawing.Point(153, 56);
             this.Filtered.Name = "Filtered";
             this.Filtered.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.Filtered.Size = new System.Drawing.Size(263, 197);
+            this.Filtered.Size = new System.Drawing.Size(277, 197);
             this.Filtered.TabIndex = 3;
             this.Filtered.Text = "";
             // 
             // Filter
             // 
-            this.Filter.Location = new System.Drawing.Point(12, 246);
+            this.Filter.Location = new System.Drawing.Point(12, 259);
             this.Filter.Name = "Filter";
             this.Filter.Size = new System.Drawing.Size(65, 25);
             this.Filter.TabIndex = 4;
@@ -102,7 +106,7 @@
             // 
             // SaveFiltered
             // 
-            this.SaveFiltered.Location = new System.Drawing.Point(82, 246);
+            this.SaveFiltered.Location = new System.Drawing.Point(82, 259);
             this.SaveFiltered.Name = "SaveFiltered";
             this.SaveFiltered.Size = new System.Drawing.Size(65, 25);
             this.SaveFiltered.TabIndex = 5;
@@ -112,9 +116,9 @@
             // 
             // CopyFilteredToClipboard
             // 
-            this.CopyFilteredToClipboard.Location = new System.Drawing.Point(153, 246);
+            this.CopyFilteredToClipboard.Location = new System.Drawing.Point(153, 259);
             this.CopyFilteredToClipboard.Name = "CopyFilteredToClipboard";
-            this.CopyFilteredToClipboard.Size = new System.Drawing.Size(263, 25);
+            this.CopyFilteredToClipboard.Size = new System.Drawing.Size(277, 25);
             this.CopyFilteredToClipboard.TabIndex = 6;
             this.CopyFilteredToClipboard.Text = "Copy To Clipboard";
             this.CopyFilteredToClipboard.UseVisualStyleBackColor = true;
@@ -124,11 +128,38 @@
             // 
             this.OpenFileDialog.FileName = "chatlog.txt";
             // 
+            // RemoveTimestamps
+            // 
+            this.RemoveTimestamps.AutoSize = true;
+            this.RemoveTimestamps.Location = new System.Drawing.Point(309, 30);
+            this.RemoveTimestamps.Name = "RemoveTimestamps";
+            this.RemoveTimestamps.Size = new System.Drawing.Size(121, 17);
+            this.RemoveTimestamps.TabIndex = 7;
+            this.RemoveTimestamps.Text = "Remove timestamps";
+            this.RemoveTimestamps.UseVisualStyleBackColor = true;
+            // 
+            // TimeLabel
+            // 
+            this.TimeLabel.Location = new System.Drawing.Point(309, 9);
+            this.TimeLabel.Name = "TimeLabel";
+            this.TimeLabel.Size = new System.Drawing.Size(121, 13);
+            this.TimeLabel.TabIndex = 8;
+            this.TimeLabel.Text = "Current time: 23:23:23";
+            this.TimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // Timer
+            // 
+            this.Timer.Enabled = true;
+            this.Timer.Interval = 1000;
+            this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
+            // 
             // ChatLogFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 281);
+            this.ClientSize = new System.Drawing.Size(437, 292);
+            this.Controls.Add(this.TimeLabel);
+            this.Controls.Add(this.RemoveTimestamps);
             this.Controls.Add(this.CopyFilteredToClipboard);
             this.Controls.Add(this.SaveFiltered);
             this.Controls.Add(this.Filter);
@@ -145,6 +176,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Filter Chat Log";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChatLogFilter_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,5 +194,8 @@
         private System.Windows.Forms.Button CopyFilteredToClipboard;
         private System.Windows.Forms.SaveFileDialog SaveFileDialog;
         private System.Windows.Forms.OpenFileDialog OpenFileDialog;
+        private System.Windows.Forms.CheckBox RemoveTimestamps;
+        private System.Windows.Forms.Label TimeLabel;
+        private System.Windows.Forms.Timer Timer;
     }
 }
