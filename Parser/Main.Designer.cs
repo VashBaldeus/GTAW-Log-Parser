@@ -42,6 +42,7 @@
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.CheckForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AutomaticBackupSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FilterChatLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PathLabel = new System.Windows.Forms.Label();
@@ -53,7 +54,6 @@
             this.TrayIconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ResumeTrayStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.FilterChatLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.MenuStrip.SuspendLayout();
             this.TrayIconContextMenuStrip.SuspendLayout();
@@ -61,7 +61,6 @@
             // 
             // Logo
             // 
-            this.Logo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.Logo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.Logo.Image = ((System.Drawing.Image)(resources.GetObject("Logo.Image")));
             this.Logo.Location = new System.Drawing.Point(12, 27);
@@ -161,7 +160,7 @@
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
             this.MenuStrip.Size = new System.Drawing.Size(624, 24);
-            this.MenuStrip.TabIndex = 7;
+            this.MenuStrip.TabIndex = 8;
             this.MenuStrip.Text = "menuStrip1";
             // 
             // CheckForUpdatesToolStripMenuItem
@@ -177,6 +176,13 @@
             this.AutomaticBackupSettingsToolStripMenuItem.Size = new System.Drawing.Size(162, 20);
             this.AutomaticBackupSettingsToolStripMenuItem.Text = "Automatic Backup Settings";
             this.AutomaticBackupSettingsToolStripMenuItem.Click += new System.EventHandler(this.AutomaticBackupSettingsToolStripMenuItem_Click);
+            // 
+            // FilterChatLogToolStripMenuItem
+            // 
+            this.FilterChatLogToolStripMenuItem.Name = "FilterChatLogToolStripMenuItem";
+            this.FilterChatLogToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
+            this.FilterChatLogToolStripMenuItem.Text = "Filter Chat Log";
+            this.FilterChatLogToolStripMenuItem.Click += new System.EventHandler(this.FilterChatLogToolStripMenuItem_Click);
             // 
             // AboutToolStripMenuItem
             // 
@@ -235,7 +241,7 @@
             this.StatusLabel.Location = new System.Drawing.Point(308, 170);
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(121, 13);
-            this.StatusLabel.TabIndex = 8;
+            this.StatusLabel.TabIndex = 0;
             this.StatusLabel.Text = "Automatic Backup: OFF";
             this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -270,13 +276,6 @@
             this.ExitTrayToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.ExitTrayToolStripMenuItem.Text = "Exit";
             this.ExitTrayToolStripMenuItem.Click += new System.EventHandler(this.ExitTrayToolStripMenuItem_Click);
-            // 
-            // FilterChatLogToolStripMenuItem
-            // 
-            this.FilterChatLogToolStripMenuItem.Name = "FilterChatLogToolStripMenuItem";
-            this.FilterChatLogToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
-            this.FilterChatLogToolStripMenuItem.Text = "Filter Chat Log";
-            this.FilterChatLogToolStripMenuItem.Click += new System.EventHandler(this.FilterChatLogToolStripMenuItem_Click);
             // 
             // Main
             // 
