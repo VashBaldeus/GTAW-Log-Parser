@@ -47,7 +47,7 @@
             this.CloseWindow.Location = new System.Drawing.Point(337, 124);
             this.CloseWindow.Name = "CloseWindow";
             this.CloseWindow.Size = new System.Drawing.Size(75, 25);
-            this.CloseWindow.TabIndex = 5;
+            this.CloseWindow.TabIndex = 6;
             this.CloseWindow.Text = "Close";
             this.CloseWindow.UseVisualStyleBackColor = true;
             this.CloseWindow.Click += new System.EventHandler(this.CloseWindow_Click);
@@ -57,7 +57,7 @@
             this.Reset.Location = new System.Drawing.Point(256, 124);
             this.Reset.Name = "Reset";
             this.Reset.Size = new System.Drawing.Size(75, 25);
-            this.Reset.TabIndex = 6;
+            this.Reset.TabIndex = 7;
             this.Reset.Text = "Reset";
             this.Reset.UseVisualStyleBackColor = true;
             this.Reset.Click += new System.EventHandler(this.Reset_Click);
@@ -134,9 +134,9 @@
             this.IntervalLabel2.AutoSize = true;
             this.IntervalLabel2.Location = new System.Drawing.Point(162, 107);
             this.IntervalLabel2.Name = "IntervalLabel2";
-            this.IntervalLabel2.Size = new System.Drawing.Size(46, 13);
+            this.IntervalLabel2.Size = new System.Drawing.Size(122, 13);
             this.IntervalLabel2.TabIndex = 0;
-            this.IntervalLabel2.Text = "minutes.";
+            this.IntervalLabel2.Text = "minutes. (recommended)";
             // 
             // Interval
             // 
@@ -169,7 +169,7 @@
             this.RemoveTimestamps.Location = new System.Drawing.Point(12, 131);
             this.RemoveTimestamps.Name = "RemoveTimestamps";
             this.RemoveTimestamps.Size = new System.Drawing.Size(183, 17);
-            this.RemoveTimestamps.TabIndex = 7;
+            this.RemoveTimestamps.TabIndex = 5;
             this.RemoveTimestamps.Text = "Remove timestamps from backup";
             this.RemoveTimestamps.UseVisualStyleBackColor = true;
             // 

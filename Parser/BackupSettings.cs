@@ -104,14 +104,24 @@ namespace Parser
                 IsFolderPicker = true
             };
 
-            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
-            {
-                if (dialog.FileName[dialog.FileName.Length - 1] != '\\')
-                    BackupPath.Text = dialog.FileName + "\\";
-                else
-                    BackupPath.Text = dialog.FileName;
+            bool validLocation = false;
 
-                Browse.Focus();
+            while (!validLocation)
+            {
+                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                {
+                    if (dialog.FileName[dialog.FileName.Length - 1] != '\\')
+                    {
+                        BackupPath.Text = dialog.FileName + "\\";
+                        validLocation = true;
+                    }
+                    else
+                        MessageBox.Show("Please pick a non-root directory for your backup folder location.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    Browse.Focus();
+                }
+                else
+                    validLocation = true;
             }
         }
 

@@ -25,7 +25,7 @@ namespace Parser.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.8")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.9")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -125,6 +125,30 @@ namespace Parser.Properties {
             }
             set {
                 this["IntervalTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RemoveTimestampsFromFilter {
+            get {
+                return ((bool)(this["RemoveTimestampsFromFilter"]));
+            }
+            set {
+                this["RemoveTimestampsFromFilter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FilterNames {
+            get {
+                return ((string)(this["FilterNames"]));
+            }
+            set {
+                this["FilterNames"] = value;
             }
         }
     }
