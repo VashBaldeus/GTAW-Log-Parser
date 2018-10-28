@@ -44,7 +44,7 @@
             // 
             // CloseWindow
             // 
-            this.CloseWindow.Location = new System.Drawing.Point(337, 124);
+            this.CloseWindow.Location = new System.Drawing.Point(337, 134);
             this.CloseWindow.Name = "CloseWindow";
             this.CloseWindow.Size = new System.Drawing.Size(75, 25);
             this.CloseWindow.TabIndex = 6;
@@ -54,7 +54,7 @@
             // 
             // Reset
             // 
-            this.Reset.Location = new System.Drawing.Point(256, 124);
+            this.Reset.Location = new System.Drawing.Point(256, 134);
             this.Reset.Name = "Reset";
             this.Reset.Size = new System.Drawing.Size(75, 25);
             this.Reset.TabIndex = 7;
@@ -177,7 +177,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 161);
+            this.ClientSize = new System.Drawing.Size(424, 171);
             this.Controls.Add(this.RemoveTimestamps);
             this.Controls.Add(this.Interval);
             this.Controls.Add(this.IntervalLabel2);

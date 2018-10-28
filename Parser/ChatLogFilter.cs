@@ -73,6 +73,8 @@ namespace Parser
 
         private void Filter_Click(object sender, EventArgs e)
         {
+            Filtered.Text = "";
+
             if (!chatLogLoaded)
             {
                 MessageBox.Show("You haven't loaded a chat log yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
