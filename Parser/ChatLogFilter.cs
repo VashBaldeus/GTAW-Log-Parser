@@ -4,7 +4,6 @@ using System.IO;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 
 namespace Parser
 {
@@ -17,10 +16,14 @@ namespace Parser
             {
                 _chatLog = value;
                 chatLogLoaded = _chatLog != "";
-                StatusLabel.Text = $"Chat log{(chatLogLoaded ? " " : " NOT ")}loaded{(chatLogLoaded ? $" at {DateTime.Now.ToString("HH:mm:ss")}" : "")}";
+                loadedFrom = chatLogLoaded ? loadedFrom : LoadedFrom.None;
+                StatusLabel.Text = $"Chat log{(chatLogLoaded ? " " : " not ")}loaded{(chatLogLoaded ? $" at {DateTime.Now.ToString("HH:mm:ss")}" : "")}";
                 StatusLabel.ForeColor = chatLogLoaded ? Color.Green : Color.Red;
             }
         }
+
+        enum LoadedFrom { None, Unparsed, Parsed };
+        private LoadedFrom loadedFrom = LoadedFrom.None;
 
         private string _chatLog;
         private bool chatLogLoaded;
@@ -45,6 +48,8 @@ namespace Parser
             ChatLog = "";
 
             ChatLog = Main.ParseChatLog(Properties.Settings.Default.FolderPath, false, showError: true);
+
+            loadedFrom = ChatLog == "" ? LoadedFrom.None : LoadedFrom.Unparsed;
         }
 
         private void BrowseForParsed_Click(object sender, EventArgs e)
@@ -60,6 +65,9 @@ namespace Parser
                 {
                     ChatLog = sr.ReadToEnd();
                 }
+
+                loadedFrom = LoadedFrom.Parsed;
+                Filter.Focus();
             }
         }
 
@@ -73,13 +81,22 @@ namespace Parser
 
             if (Names.Text.Length == 0 || string.IsNullOrWhiteSpace(Names.Text))
             {
-                MessageBox.Show("Please choose at least one valid name to filter into your new chat log.\n\nExample: John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string parsed = ChatLog;
+
+                if (RemoveTimestamps.Checked && loadedFrom != LoadedFrom.Unparsed)
+                {
+                    parsed = System.Text.RegularExpressions.Regex.Replace(parsed, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", "");
+                    Filtered.Text = parsed;
+                }
+                else
+                    MessageBox.Show("Please choose at least one valid name to filter into your new chat log.\n\nExample: John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return;
             }
 
             List<string> namesToCheck = GetDesiredNames();
 
-            if (namesToCheck.Count <= 0)
+            if (namesToCheck.Count == 0)
             {
                 MessageBox.Show("Please choose at least one valid name to filter into your new chat log.\n\nExample: John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

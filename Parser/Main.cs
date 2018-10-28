@@ -86,12 +86,12 @@ namespace Parser
                     }
                     else
                         MessageBox.Show("Please pick a non-root directory for your RAGEMP folder location.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    Parse.Focus();
                 }
                 else
                     validLocation = true;
             }
-
-            Parse.Focus();
         }
 
         private void Parse_Click(object sender, EventArgs e)

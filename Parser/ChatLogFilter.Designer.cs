@@ -42,6 +42,7 @@
             this.RemoveTimestamps = new System.Windows.Forms.CheckBox();
             this.TimeLabel = new System.Windows.Forms.Label();
             this.Timer = new System.Windows.Forms.Timer(this.components);
+            this.NamesLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LoadUnparsed
@@ -71,16 +72,16 @@
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(291, 13);
             this.StatusLabel.TabIndex = 0;
-            this.StatusLabel.Text = "Chat log NOT loaded";
+            this.StatusLabel.Text = "Chat log not loaded";
             this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Names
             // 
             this.Names.DetectUrls = false;
-            this.Names.Location = new System.Drawing.Point(12, 56);
+            this.Names.Location = new System.Drawing.Point(12, 69);
             this.Names.Name = "Names";
             this.Names.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.Names.Size = new System.Drawing.Size(135, 197);
+            this.Names.Size = new System.Drawing.Size(135, 184);
             this.Names.TabIndex = 2;
             this.Names.Text = "Firstname Lastname";
             // 
@@ -143,7 +144,7 @@
             this.TimeLabel.Location = new System.Drawing.Point(309, 9);
             this.TimeLabel.Name = "TimeLabel";
             this.TimeLabel.Size = new System.Drawing.Size(121, 13);
-            this.TimeLabel.TabIndex = 8;
+            this.TimeLabel.TabIndex = 0;
             this.TimeLabel.Text = "Current time: 23:23:23";
             this.TimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -153,11 +154,20 @@
             this.Timer.Interval = 1000;
             this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
             // 
+            // NamesLabel
+            // 
+            this.NamesLabel.Location = new System.Drawing.Point(10, 53);
+            this.NamesLabel.Name = "NamesLabel";
+            this.NamesLabel.Size = new System.Drawing.Size(135, 13);
+            this.NamesLabel.TabIndex = 0;
+            this.NamesLabel.Text = "Names to filter in:";
+            // 
             // ChatLogFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(437, 292);
+            this.ClientSize = new System.Drawing.Size(439, 291);
+            this.Controls.Add(this.NamesLabel);
             this.Controls.Add(this.TimeLabel);
             this.Controls.Add(this.RemoveTimestamps);
             this.Controls.Add(this.CopyFilteredToClipboard);
@@ -197,5 +207,6 @@
         private System.Windows.Forms.CheckBox RemoveTimestamps;
         private System.Windows.Forms.Label TimeLabel;
         private System.Windows.Forms.Timer Timer;
+        private System.Windows.Forms.Label NamesLabel;
     }
 }
