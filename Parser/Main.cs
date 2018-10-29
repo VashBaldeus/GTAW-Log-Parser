@@ -15,13 +15,25 @@ namespace Parser
         private static GitHubClient client = new GitHubClient(new ProductHeaderValue("GTAW-Log-Parser"));
         private static Thread updateThread;
 
-        public Main()
+        private bool allowFormDisplay = false;
+
+        protected override void SetVisibleCore(bool value)
         {
+            base.SetVisibleCore(allowFormDisplay ? value : allowFormDisplay);
+        }
+
+        public Main(bool startMinimized)
+        {
+            allowFormDisplay = !startMinimized;
+
             InitializeComponent();
 
             LoadSettings();
 
             BackupHandler.Initialize();
+
+            if (startMinimized)
+                TrayIcon.Visible = true;
         }
 
         private void SaveSettings()
@@ -345,6 +357,8 @@ namespace Parser
 
         private void ResumeTrayStripMenuItem_Click(object sender, EventArgs e)
         {
+            allowFormDisplay = true;
+
             Show();
             WindowState = FormWindowState.Normal;
             BringToFront();

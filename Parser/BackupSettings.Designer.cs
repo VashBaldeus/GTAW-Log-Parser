@@ -185,6 +185,7 @@
             this.StartWithWindows.TabIndex = 8;
             this.StartWithWindows.Text = "Start with Windows";
             this.StartWithWindows.UseVisualStyleBackColor = true;
+            this.StartWithWindows.CheckedChanged += new System.EventHandler(this.StartWithWindows_CheckedChanged);
             // 
             // BackupSettings
             // 

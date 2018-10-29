@@ -39,7 +39,7 @@ namespace Parser
             EnableIntervalBackup.Checked = Properties.Settings.Default.EnableIntervalBackup;
             Interval.Value = Properties.Settings.Default.IntervalTime;
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestampsFromBackup;
-            StartWithWindows.Checked = Properties.Settings.Default.StartWithWindows;
+            StartWithWindows.Checked = StartupHandler.IsAddedToStartup();
         }
 
         public static void ResetSettings()
@@ -154,6 +154,12 @@ namespace Parser
             EnableIntervalBackup.Text = $"Back up the chat log automatically while the game is running (every {Interval.Value} minutes)";
         }
 
+        private void StartWithWindows_CheckedChanged(object sender, EventArgs e)
+        {
+            if (StartWithWindows.Checked && !StartupHandler.IsAddedToStartup())
+                MessageBox.Show("This feature will stop working if you delete or move the parser to a different location.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
         private void Reset_Click(object sender, EventArgs e)
         {
             ResetSettings();
@@ -174,6 +180,8 @@ namespace Parser
 
                 return;
             }
+
+            StartupHandler.Initialize(StartWithWindows.Checked);
 
             SaveSettings();
         }
