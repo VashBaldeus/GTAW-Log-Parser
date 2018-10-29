@@ -31,9 +31,9 @@ namespace Parser
             enableAutomaticBackup = Properties.Settings.Default.BackupChatLogAutomatically;
             enableIntervalBackup = Properties.Settings.Default.EnableIntervalBackup;
 
-            if (backupPath == "" || !Directory.Exists(backupPath))
+            if (string.IsNullOrWhiteSpace(backupPath) || !Directory.Exists(backupPath))
                 return;
-            else if (folderPath == "" || !Directory.Exists(folderPath + "\\client_resources"))
+            else if (string.IsNullOrWhiteSpace(folderPath) || !Directory.Exists(folderPath + "\\client_resources"))
                 return;
 
             ResumeIfQueuedToStop();
