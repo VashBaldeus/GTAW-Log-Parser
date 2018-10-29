@@ -35,7 +35,7 @@ namespace Parser
             }
             catch
             {
-
+                MessageBox.Show("An error occured while trying to enable the automatic startup function.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -64,7 +64,7 @@ namespace Parser
             }
             catch
             {
-
+                MessageBox.Show("An error occured while trying to disable the automatic startup function.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

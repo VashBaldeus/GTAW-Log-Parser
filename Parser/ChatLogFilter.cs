@@ -50,6 +50,11 @@ namespace Parser
             ChatLog = Main.ParseChatLog(Properties.Settings.Default.FolderPath, false, showError: true);
 
             loadedFrom = ChatLog == string.Empty ? LoadedFrom.None : LoadedFrom.Unparsed;
+
+            if (Names.Text.Length > 0 && !string.IsNullOrWhiteSpace(Names.Text) && Names.Text.ToLower() != "firstname lastname")
+                Filter_Click(this, EventArgs.Empty);
+            else
+                Filtered.Text = string.Empty;
         }
 
         private void BrowseForParsed_Click(object sender, EventArgs e)
@@ -69,6 +74,11 @@ namespace Parser
                 loadedFrom = LoadedFrom.Parsed;
                 Filter.Focus();
             }
+
+            if (Names.Text.Length > 0 && !string.IsNullOrWhiteSpace(Names.Text) && Names.Text.ToLower() != "firstname lastname")
+                Filter_Click(this, EventArgs.Empty);
+            else
+                Filtered.Text = string.Empty;
         }
 
         private void Filter_Click(object sender, EventArgs e)
@@ -83,10 +93,10 @@ namespace Parser
 
             if (Names.Text.Length == 0 || string.IsNullOrWhiteSpace(Names.Text))
             {
-                string parsed = ChatLog;
-
                 if (RemoveTimestamps.Checked && loadedFrom != LoadedFrom.Unparsed)
                 {
+                    string parsed = ChatLog;
+
                     parsed = System.Text.RegularExpressions.Regex.Replace(parsed, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
                     Filtered.Text = parsed;
                 }
