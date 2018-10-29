@@ -25,7 +25,7 @@ namespace Parser.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.9")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.9.1")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -142,13 +142,25 @@ namespace Parser.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Firstname Lastname")]
         public string FilterNames {
             get {
                 return ((string)(this["FilterNames"]));
             }
             set {
                 this["FilterNames"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool StartWithWindows {
+            get {
+                return ((bool)(this["StartWithWindows"]));
+            }
+            set {
+                this["StartWithWindows"] = value;
             }
         }
     }

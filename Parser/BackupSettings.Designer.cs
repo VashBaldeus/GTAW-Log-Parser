@@ -39,12 +39,13 @@
             this.IntervalLabel2 = new System.Windows.Forms.Label();
             this.Interval = new System.Windows.Forms.NumericUpDown();
             this.RemoveTimestamps = new System.Windows.Forms.CheckBox();
+            this.StartWithWindows = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.Interval)).BeginInit();
             this.SuspendLayout();
             // 
             // CloseWindow
             // 
-            this.CloseWindow.Location = new System.Drawing.Point(337, 124);
+            this.CloseWindow.Location = new System.Drawing.Point(337, 143);
             this.CloseWindow.Name = "CloseWindow";
             this.CloseWindow.Size = new System.Drawing.Size(75, 25);
             this.CloseWindow.TabIndex = 6;
@@ -54,7 +55,7 @@
             // 
             // Reset
             // 
-            this.Reset.Location = new System.Drawing.Point(256, 124);
+            this.Reset.Location = new System.Drawing.Point(256, 143);
             this.Reset.Name = "Reset";
             this.Reset.Size = new System.Drawing.Size(75, 25);
             this.Reset.TabIndex = 7;
@@ -166,6 +167,7 @@
             // RemoveTimestamps
             // 
             this.RemoveTimestamps.AutoSize = true;
+            this.RemoveTimestamps.Enabled = false;
             this.RemoveTimestamps.Location = new System.Drawing.Point(12, 131);
             this.RemoveTimestamps.Name = "RemoveTimestamps";
             this.RemoveTimestamps.Size = new System.Drawing.Size(183, 17);
@@ -173,11 +175,24 @@
             this.RemoveTimestamps.Text = "Remove timestamps from backup";
             this.RemoveTimestamps.UseVisualStyleBackColor = true;
             // 
+            // StartWithWindows
+            // 
+            this.StartWithWindows.AutoSize = true;
+            this.StartWithWindows.Enabled = false;
+            this.StartWithWindows.Location = new System.Drawing.Point(12, 154);
+            this.StartWithWindows.Name = "StartWithWindows";
+            this.StartWithWindows.Size = new System.Drawing.Size(117, 17);
+            this.StartWithWindows.TabIndex = 8;
+            this.StartWithWindows.Text = "Start with Windows";
+            this.StartWithWindows.UseVisualStyleBackColor = true;
+            this.StartWithWindows.CheckedChanged += new System.EventHandler(this.StartWithWindows_CheckedChanged);
+            // 
             // BackupSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 161);
+            this.ClientSize = new System.Drawing.Size(424, 180);
+            this.Controls.Add(this.StartWithWindows);
             this.Controls.Add(this.RemoveTimestamps);
             this.Controls.Add(this.Interval);
             this.Controls.Add(this.IntervalLabel2);
@@ -217,5 +232,6 @@
         private System.Windows.Forms.Label IntervalLabel2;
         private System.Windows.Forms.NumericUpDown Interval;
         private System.Windows.Forms.CheckBox RemoveTimestamps;
+        private System.Windows.Forms.CheckBox StartWithWindows;
     }
 }

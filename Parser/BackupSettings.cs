@@ -26,6 +26,7 @@ namespace Parser
             Properties.Settings.Default.EnableIntervalBackup = EnableIntervalBackup.Checked;
             Properties.Settings.Default.IntervalTime = (int)Interval.Value;
             Properties.Settings.Default.RemoveTimestampsFromBackup = RemoveTimestamps.Checked;
+            Properties.Settings.Default.StartWithWindows = StartWithWindows.Checked;
 
             Properties.Settings.Default.Save();
         }
@@ -38,14 +39,18 @@ namespace Parser
             EnableIntervalBackup.Checked = Properties.Settings.Default.EnableIntervalBackup;
             Interval.Value = Properties.Settings.Default.IntervalTime;
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestampsFromBackup;
+            StartWithWindows.Checked = StartupHandler.IsAddedToStartup();
         }
 
         public static void ResetSettings()
         {
+            Properties.Settings.Default.BackupPath = string.Empty;
+
             Properties.Settings.Default.BackupChatLogAutomatically = false;
             Properties.Settings.Default.EnableIntervalBackup = false;
             Properties.Settings.Default.IntervalTime = 10;
             Properties.Settings.Default.RemoveTimestampsFromBackup = false;
+            Properties.Settings.Default.StartWithWindows = false;
 
             Properties.Settings.Default.Save();
         }
@@ -57,17 +62,17 @@ namespace Parser
 
         private void BackupPath_TextChanged(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.BackupPath == "")
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.BackupPath))
                 return;
 
             try
             {
                 DirectoryInfo directory = new DirectoryInfo(Properties.Settings.Default.BackupPath);
-                FileInfo[] allFilesInDirectory = directory.GetFiles("*.txt");
+                FileInfo[] allTextFilesInDirectory = directory.GetFiles("*.txt");
 
                 List<FileInfo> chatLogFiles = new List<FileInfo>();
 
-                foreach (FileInfo file in allFilesInDirectory)
+                foreach (FileInfo file in allTextFilesInDirectory)
                 {
                     if (Regex.IsMatch(file.Name, @"\d{1,2}.[A-Za-z]{3}.\d{4}-\d{1,2}.\d{1,2}.\d{1,2}"))
                         chatLogFiles.Add(file);
@@ -128,9 +133,15 @@ namespace Parser
         private void BackUpChatLogAutomatically_CheckedChanged(object sender, EventArgs e)
         {
             EnableIntervalBackup.Enabled = BackUpChatLogAutomatically.Checked;
+            RemoveTimestamps.Enabled = BackUpChatLogAutomatically.Checked;
+            StartWithWindows.Enabled = BackUpChatLogAutomatically.Checked;
 
             if (!BackUpChatLogAutomatically.Checked)
+            {
+                StartWithWindows.Checked = false;
+                RemoveTimestamps.Checked = false;
                 EnableIntervalBackup.Checked = false;
+            }
         }
 
         private void EnableIntervalBackup_CheckedChanged(object sender, EventArgs e)
@@ -141,6 +152,12 @@ namespace Parser
         private void Interval_ValueChanged(object sender, EventArgs e)
         {
             EnableIntervalBackup.Text = $"Back up the chat log automatically while the game is running (every {Interval.Value} minutes)";
+        }
+
+        private void StartWithWindows_CheckedChanged(object sender, EventArgs e)
+        {
+            if (StartWithWindows.Checked && !StartupHandler.IsAddedToStartup())
+                MessageBox.Show("This feature will stop working if you delete or move the parser to a different location.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void Reset_Click(object sender, EventArgs e)
@@ -156,13 +173,15 @@ namespace Parser
 
         private void BackupSettings_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (BackUpChatLogAutomatically.Checked && (BackupPath.Text == "" || !Directory.Exists(BackupPath.Text)))
+            if (BackUpChatLogAutomatically.Checked && (string.IsNullOrWhiteSpace(BackupPath.Text) || !Directory.Exists(BackupPath.Text)))
             {
                 e.Cancel = true;
                 MessageBox.Show("Please choose a valid backup location or turn automatic backup off.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 return;
             }
+
+            StartupHandler.Initialize(StartWithWindows.Checked);
 
             SaveSettings();
         }

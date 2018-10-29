@@ -15,7 +15,7 @@ namespace Parser
             set
             {
                 _chatLog = value;
-                chatLogLoaded = _chatLog != "";
+                chatLogLoaded = _chatLog != string.Empty;
                 loadedFrom = chatLogLoaded ? loadedFrom : LoadedFrom.None;
                 StatusLabel.Text = $"Chat log{(chatLogLoaded ? " " : " not ")}loaded{(chatLogLoaded ? $" at {DateTime.Now.ToString("HH:mm:ss")}" : "")}";
                 StatusLabel.ForeColor = chatLogLoaded ? Color.Green : Color.Red;
@@ -45,16 +45,21 @@ namespace Parser
 
         private void LoadUnparsed_Click(object sender, EventArgs e)
         {
-            ChatLog = "";
+            ChatLog = string.Empty;
 
             ChatLog = Main.ParseChatLog(Properties.Settings.Default.FolderPath, false, showError: true);
 
-            loadedFrom = ChatLog == "" ? LoadedFrom.None : LoadedFrom.Unparsed;
+            loadedFrom = ChatLog == string.Empty ? LoadedFrom.None : LoadedFrom.Unparsed;
+
+            if (Names.Text.Length > 0 && !string.IsNullOrWhiteSpace(Names.Text) && Names.Text.ToLower() != "firstname lastname")
+                Filter_Click(this, EventArgs.Empty);
+            else
+                Filtered.Text = string.Empty;
         }
 
         private void BrowseForParsed_Click(object sender, EventArgs e)
         {
-            ChatLog = "";
+            ChatLog = string.Empty;
 
             OpenFileDialog.InitialDirectory = Path.GetPathRoot(Environment.SystemDirectory);
             OpenFileDialog.Filter = "Text File | *.txt";
@@ -69,10 +74,17 @@ namespace Parser
                 loadedFrom = LoadedFrom.Parsed;
                 Filter.Focus();
             }
+
+            if (Names.Text.Length > 0 && !string.IsNullOrWhiteSpace(Names.Text) && Names.Text.ToLower() != "firstname lastname")
+                Filter_Click(this, EventArgs.Empty);
+            else
+                Filtered.Text = string.Empty;
         }
 
         private void Filter_Click(object sender, EventArgs e)
         {
+            Filtered.Text = string.Empty;
+
             if (!chatLogLoaded)
             {
                 MessageBox.Show("You haven't loaded a chat log yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -81,15 +93,15 @@ namespace Parser
 
             if (Names.Text.Length == 0 || string.IsNullOrWhiteSpace(Names.Text))
             {
-                string parsed = ChatLog;
-
                 if (RemoveTimestamps.Checked && loadedFrom != LoadedFrom.Unparsed)
                 {
-                    parsed = System.Text.RegularExpressions.Regex.Replace(parsed, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", "");
+                    string parsed = ChatLog;
+
+                    parsed = System.Text.RegularExpressions.Regex.Replace(parsed, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
                     Filtered.Text = parsed;
                 }
                 else
-                    MessageBox.Show("Please choose at least one valid name to filter into your new chat log.\n\nExample: John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please choose at least one valid name to filter into your new chat log.\n\nExample: John, John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 return;
             }
@@ -98,17 +110,17 @@ namespace Parser
 
             if (namesToCheck.Count == 0)
             {
-                MessageBox.Show("Please choose at least one valid name to filter into your new chat log.\n\nExample: John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please choose at least one valid name to filter into your new chat log.\n\nExample: John, John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             string chatLog = ChatLog;
 
             if (RemoveTimestamps.Checked)
-                chatLog = System.Text.RegularExpressions.Regex.Replace(chatLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", "");
+                chatLog = System.Text.RegularExpressions.Regex.Replace(chatLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
 
             string[] lines = chatLog.Split('\n');
-            string filtered = "";
+            string filtered = string.Empty;
 
             foreach (string line in lines)
             {

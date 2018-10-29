@@ -15,13 +15,25 @@ namespace Parser
         private static GitHubClient client = new GitHubClient(new ProductHeaderValue("GTAW-Log-Parser"));
         private static Thread updateThread;
 
-        public Main()
+        private bool allowFormDisplay = false;
+
+        protected override void SetVisibleCore(bool value)
         {
+            base.SetVisibleCore(allowFormDisplay ? value : allowFormDisplay);
+        }
+
+        public Main(bool startMinimized)
+        {
+            allowFormDisplay = !startMinimized;
+
             InitializeComponent();
 
             LoadSettings();
 
             BackupHandler.Initialize();
+
+            if (startMinimized)
+                TrayIcon.Visible = true;
         }
 
         private void SaveSettings()
@@ -121,18 +133,18 @@ namespace Parser
                     log = sr.ReadToEnd();
                 }
 
-                log = log.Remove(0, 1);                         // Remove the `"` character from the start
-                log = log.Replace("\\n", "\n");                 // Change all occurrences of `\n` into new lines
-                log = log.Remove(log.Length - 2, 2);            // Remove the `new line` and the `"` character from the end
+                log = log.Remove(0, 1);                             // Remove the `"` character from the start
+                log = log.Replace("\\n", "\n");                     // Change all occurrences of `\n` into new lines
+                log = log.Remove(log.Length - 2, 2);                // Remove the `new line` and the `"` character from the end
 
-                //log = Regex.Replace(log, "~[A-Za-z]~", "");                     // Remove the RAGEMP color tags (example: `~r~` for red)
-                //log = Regex.Replace(log, @"!{#(?:[0-9A-Fa-f]{3}){1,2}}", "");   // Remove HEX color tags (example: `!{#FFEC8B}` for the yellow color picked for radio messages)
+                //log = Regex.Replace(log, "~[A-Za-z]~", string.Empty);                   // Remove the RAGEMP color tags (example: `~r~` for red)
+                //log = Regex.Replace(log, @"!{#(?:[0-9A-Fa-f]{3}){1,2}}", string.Empty); // Remove HEX color tags (example: `!{#FFEC8B}` for the yellow color picked for radio messages)
 
-                log = Regex.Replace(log, "<[^>]*>", "");        // Remove the HTML tags that are added for the chat (example: `If the ingame menus are out of place, use <span style=\"color: dodgerblue\">/movemenu</span>`)
-                log = System.Net.WebUtility.HtmlDecode(log);    // Decode HTML symbols (example: `&apos;` into `'`)
+                log = Regex.Replace(log, "<[^>]*>", string.Empty);  // Remove the HTML tags that are added for the chat (example: `If the ingame menus are out of place, use <span style=\"color: dodgerblue\">/movemenu</span>`)
+                log = System.Net.WebUtility.HtmlDecode(log);        // Decode HTML symbols (example: `&apos;` into `'`)
 
                 if (removeTimestamps)
-                    log = Regex.Replace(log, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", "");
+                    log = Regex.Replace(log, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
 
                 return log;
             }
@@ -141,13 +153,13 @@ namespace Parser
                 if (showError)
                     MessageBox.Show("An error occured while parsing the chat log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                return "";
+                return string.Empty;
             }
         }
 
         private void Parsed_TextChanged(object sender, EventArgs e)
         {
-            if (Parsed.Text == "")
+            if (string.IsNullOrWhiteSpace(Parsed.Text))
             {
                 Counter.Text = "0 characters and 0 lines";
                 return;
@@ -345,6 +357,8 @@ namespace Parser
 
         private void ResumeTrayStripMenuItem_Click(object sender, EventArgs e)
         {
+            allowFormDisplay = true;
+
             Show();
             WindowState = FormWindowState.Normal;
             BringToFront();
