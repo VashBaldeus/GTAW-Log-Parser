@@ -44,7 +44,7 @@ namespace Parser
                 TryRemovingFromStartup();
         }
 
-        public static void TryAddingToStartup()
+        private static void TryAddingToStartup()
         {
             try
             {
@@ -64,7 +64,7 @@ namespace Parser
             }
         }
 
-        public static void TryRemovingFromStartup()
+        private static void TryRemovingFromStartup()
         {
             try
             {
