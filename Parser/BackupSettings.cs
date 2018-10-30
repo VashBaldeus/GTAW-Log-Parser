@@ -179,7 +179,8 @@ namespace Parser
                 return;
             }
 
-            StartupHandler.ToggleStartup(StartWithWindows.Checked);
+            if((StartWithWindows.Checked && !StartupHandler.IsAddedToStartup()) || (!StartWithWindows.Checked && StartupHandler.IsAddedToStartup()))
+                StartupHandler.ToggleStartup(StartWithWindows.Checked);
 
             SaveSettings();
         }

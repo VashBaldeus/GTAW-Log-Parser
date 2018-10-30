@@ -38,6 +38,11 @@ namespace Parser
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestampsFromFilter;
         }
 
+        public void Initialize()
+        {
+            Filtered.Text = ChatLog = string.Empty;
+        }
+
         private void Timer_Tick(object sender, EventArgs e)
         {
             TimeLabel.Text = "Current time: " + DateTime.Now.ToString("HH:mm:ss");

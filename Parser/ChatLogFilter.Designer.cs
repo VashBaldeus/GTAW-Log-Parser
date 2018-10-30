@@ -82,7 +82,7 @@
             this.Names.Name = "Names";
             this.Names.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.Names.Size = new System.Drawing.Size(135, 184);
-            this.Names.TabIndex = 2;
+            this.Names.TabIndex = 3;
             this.Names.Text = "Firstname Lastname";
             // 
             // Filtered
@@ -92,7 +92,7 @@
             this.Filtered.Name = "Filtered";
             this.Filtered.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.Filtered.Size = new System.Drawing.Size(277, 197);
-            this.Filtered.TabIndex = 3;
+            this.Filtered.TabIndex = 4;
             this.Filtered.Text = "";
             // 
             // Filter
@@ -100,7 +100,7 @@
             this.Filter.Location = new System.Drawing.Point(12, 259);
             this.Filter.Name = "Filter";
             this.Filter.Size = new System.Drawing.Size(65, 25);
-            this.Filter.TabIndex = 4;
+            this.Filter.TabIndex = 5;
             this.Filter.Text = "Filter";
             this.Filter.UseVisualStyleBackColor = true;
             this.Filter.Click += new System.EventHandler(this.Filter_Click);
@@ -110,7 +110,7 @@
             this.SaveFiltered.Location = new System.Drawing.Point(82, 259);
             this.SaveFiltered.Name = "SaveFiltered";
             this.SaveFiltered.Size = new System.Drawing.Size(65, 25);
-            this.SaveFiltered.TabIndex = 5;
+            this.SaveFiltered.TabIndex = 6;
             this.SaveFiltered.Text = "Save As";
             this.SaveFiltered.UseVisualStyleBackColor = true;
             this.SaveFiltered.Click += new System.EventHandler(this.SaveFiltered_Click);
@@ -120,7 +120,7 @@
             this.CopyFilteredToClipboard.Location = new System.Drawing.Point(153, 259);
             this.CopyFilteredToClipboard.Name = "CopyFilteredToClipboard";
             this.CopyFilteredToClipboard.Size = new System.Drawing.Size(277, 25);
-            this.CopyFilteredToClipboard.TabIndex = 6;
+            this.CopyFilteredToClipboard.TabIndex = 7;
             this.CopyFilteredToClipboard.Text = "Copy To Clipboard";
             this.CopyFilteredToClipboard.UseVisualStyleBackColor = true;
             this.CopyFilteredToClipboard.Click += new System.EventHandler(this.CopyFilteredToClipboard_Click);
@@ -135,7 +135,7 @@
             this.RemoveTimestamps.Location = new System.Drawing.Point(309, 30);
             this.RemoveTimestamps.Name = "RemoveTimestamps";
             this.RemoveTimestamps.Size = new System.Drawing.Size(121, 17);
-            this.RemoveTimestamps.TabIndex = 7;
+            this.RemoveTimestamps.TabIndex = 2;
             this.RemoveTimestamps.Text = "Remove timestamps";
             this.RemoveTimestamps.UseVisualStyleBackColor = true;
             this.RemoveTimestamps.CheckedChanged += new System.EventHandler(this.RemoveTimestamps_CheckedChanged);

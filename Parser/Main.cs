@@ -306,6 +306,8 @@ namespace Parser
             }
             else
             {
+                chatLogFilter.Initialize();
+
                 chatLogFilter.WindowState = FormWindowState.Normal;
                 chatLogFilter.BringToFront();
             }
