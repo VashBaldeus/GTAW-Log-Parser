@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Windows.Forms;
-
 using System.IO;
 using System.Threading;
-using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace Parser
 {
@@ -126,7 +125,7 @@ namespace Parser
             try
             {
                 string parsed = Main.ParseChatLog(folderPath, Properties.Settings.Default.RemoveTimestampsFromBackup, showError: gameClosed);
-                if (parsed.Length == 0)
+                if (string.IsNullOrWhiteSpace(parsed))
                     return;
 
                 string fileName = parsed.Substring(0, parsed.IndexOf("\n"));

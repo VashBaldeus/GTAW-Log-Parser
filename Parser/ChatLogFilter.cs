@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Parser
 {
@@ -45,26 +45,26 @@ namespace Parser
 
         private void LoadUnparsed_Click(object sender, EventArgs e)
         {
-            ChatLog = string.Empty;
+            Filtered.Text = ChatLog = string.Empty;
 
             ChatLog = Main.ParseChatLog(Properties.Settings.Default.FolderPath, false, showError: true);
 
             loadedFrom = ChatLog == string.Empty ? LoadedFrom.None : LoadedFrom.Unparsed;
 
-            if (Names.Text.Length > 0 && !string.IsNullOrWhiteSpace(Names.Text) && Names.Text.ToLower() != "firstname lastname")
+            if (!string.IsNullOrWhiteSpace(Names.Text) && Names.Text.ToLower() != "firstname lastname" && loadedFrom != LoadedFrom.None)
                 Filter_Click(this, EventArgs.Empty);
-            else
-                Filtered.Text = string.Empty;
         }
 
         private void BrowseForParsed_Click(object sender, EventArgs e)
         {
-            ChatLog = string.Empty;
+            Filtered.Text = ChatLog = string.Empty;
 
             OpenFileDialog.InitialDirectory = Path.GetPathRoot(Environment.SystemDirectory);
             OpenFileDialog.Filter = "Text File | *.txt";
 
-            if (OpenFileDialog.ShowDialog() == DialogResult.OK)
+            DialogResult result = OpenFileDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
             {
                 using (StreamReader sr = new StreamReader(OpenFileDialog.FileName))
                 {
@@ -75,10 +75,14 @@ namespace Parser
                 Filter.Focus();
             }
 
-            if (Names.Text.Length > 0 && !string.IsNullOrWhiteSpace(Names.Text) && Names.Text.ToLower() != "firstname lastname")
+            if (!string.IsNullOrWhiteSpace(Names.Text) && Names.Text.ToLower() != "firstname lastname" && result == DialogResult.OK)
                 Filter_Click(this, EventArgs.Empty);
-            else
-                Filtered.Text = string.Empty;
+        }
+
+        private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(Filtered.Text))
+                Filter_Click(this, EventArgs.Empty);
         }
 
         private void Filter_Click(object sender, EventArgs e)
@@ -91,7 +95,7 @@ namespace Parser
                 return;
             }
 
-            if (Names.Text.Length == 0 || string.IsNullOrWhiteSpace(Names.Text))
+            if (string.IsNullOrWhiteSpace(Names.Text) || string.IsNullOrWhiteSpace(Names.Text))
             {
                 if (RemoveTimestamps.Checked && loadedFrom != LoadedFrom.Unparsed)
                 {
@@ -177,7 +181,7 @@ namespace Parser
 
         private void SaveFiltered_Click(object sender, EventArgs e)
         {
-            if (Filtered.Text.Length == 0)
+            if (string.IsNullOrWhiteSpace(Filtered.Text))
             {
                 MessageBox.Show("You haven't filtered anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -197,7 +201,7 @@ namespace Parser
 
         private void CopyFilteredToClipboard_Click(object sender, EventArgs e)
         {
-            if (Filtered.Text.Length == 0)
+            if (string.IsNullOrWhiteSpace(Filtered.Text))
                 MessageBox.Show("You haven't filtered anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
                 Clipboard.SetText(Filtered.Text.Replace("\n", Environment.NewLine));

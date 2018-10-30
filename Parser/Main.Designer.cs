@@ -234,6 +234,7 @@
             this.RemoveTimestamps.TabIndex = 7;
             this.RemoveTimestamps.Text = "Remove timestamps";
             this.RemoveTimestamps.UseVisualStyleBackColor = true;
+            this.RemoveTimestamps.CheckedChanged += new System.EventHandler(this.RemoveTimestamps_CheckedChanged);
             // 
             // StatusLabel
             // 

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Windows.Forms;
-
 using System.IO;
-
-using Microsoft.WindowsAPICodePack.Dialogs;
-using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Parser
 {
@@ -97,7 +95,7 @@ namespace Parser
 
         private void BackupPath_MouseClick(object sender, MouseEventArgs e)
         {
-            if (BackupPath.Text.Length == 0)
+            if (string.IsNullOrWhiteSpace(BackupPath.Text))
                 Browse_Click(this, EventArgs.Empty);
         }
 

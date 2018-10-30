@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Windows.Forms;
-
+using Octokit;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 using System.Text.RegularExpressions;
-
-using Octokit;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Parser
@@ -75,7 +73,7 @@ namespace Parser
 
         private void FolderPath_MouseClick(object sender, MouseEventArgs e)
         {
-            if (FolderPath.Text.Length == 0)
+            if (string.IsNullOrWhiteSpace(FolderPath.Text))
                 Browse_Click(this, EventArgs.Empty);
         }
 
@@ -110,7 +108,7 @@ namespace Parser
 
         private void Parse_Click(object sender, EventArgs e)
         {
-            if (FolderPath.Text.Length == 0 || !Directory.Exists(FolderPath.Text + "client_resources\\"))
+            if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
             {
                 MessageBox.Show("Invalid RAGEMP folder path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -172,7 +170,7 @@ namespace Parser
 
         private void SaveParsed_Click(object sender, EventArgs e)
         {
-            if (Parsed.Text.Length == 0)
+            if (string.IsNullOrWhiteSpace(Parsed.Text))
             {
                 MessageBox.Show("You haven't parsed anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -192,7 +190,7 @@ namespace Parser
 
         private void CopyParsedToClipboard_Click(object sender, EventArgs e)
         {
-            if (Parsed.Text.Length == 0)
+            if (string.IsNullOrWhiteSpace(Parsed.Text))
                 MessageBox.Show("You haven't parsed anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
                 Clipboard.SetText(Parsed.Text.Replace("\n", Environment.NewLine));
@@ -246,7 +244,7 @@ namespace Parser
         private static BackupSettings backupSettings;
         private void AutomaticBackupSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (FolderPath.Text.Length == 0 || !Directory.Exists(FolderPath.Text + "client_resources\\"))
+            if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
             {
                 MessageBox.Show("Please choose a valid RAGEMP folder location before trying to enable automatic backup.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -285,10 +283,16 @@ namespace Parser
             backupSettings.ShowDialog();
         }
 
+        private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(Parsed.Text))
+                Parse_Click(this, EventArgs.Empty);
+        }
+
         private static ChatLogFilter chatLogFilter;
         private void FilterChatLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (FolderPath.Text.Length == 0 || !Directory.Exists(FolderPath.Text + "client_resources\\"))
+            if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
             {
                 MessageBox.Show("Please choose a valid RAGEMP folder location before trying to filter your chat log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

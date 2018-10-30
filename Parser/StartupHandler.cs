@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using IWshRuntimeLibrary;
 using System.IO;
+using IWshRuntimeLibrary;
+using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Parser
 {
