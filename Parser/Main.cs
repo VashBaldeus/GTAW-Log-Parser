@@ -369,6 +369,9 @@ namespace Parser
 
         private void ExitTrayToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!allowFormDisplay)
+                BackupHandler.quitting = true;
+
             System.Windows.Forms.Application.Exit();
         }
     }
