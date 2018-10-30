@@ -39,7 +39,7 @@ namespace Parser
             EnableIntervalBackup.Checked = Properties.Settings.Default.EnableIntervalBackup;
             Interval.Value = Properties.Settings.Default.IntervalTime;
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestampsFromBackup;
-            StartWithWindows.Checked = StartupHandler.IsAddedToStartup();
+            StartWithWindows.Checked = Properties.Settings.Default.StartWithWindows;
         }
 
         public static void ResetSettings()
@@ -181,7 +181,7 @@ namespace Parser
                 return;
             }
 
-            StartupHandler.Initialize(StartWithWindows.Checked);
+            StartupHandler.ToggleStartup(StartWithWindows.Checked);
 
             SaveSettings();
         }

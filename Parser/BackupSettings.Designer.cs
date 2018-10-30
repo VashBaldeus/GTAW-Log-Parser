@@ -181,9 +181,9 @@
             this.StartWithWindows.Enabled = false;
             this.StartWithWindows.Location = new System.Drawing.Point(12, 154);
             this.StartWithWindows.Name = "StartWithWindows";
-            this.StartWithWindows.Size = new System.Drawing.Size(117, 17);
+            this.StartWithWindows.Size = new System.Drawing.Size(171, 17);
             this.StartWithWindows.TabIndex = 6;
-            this.StartWithWindows.Text = "Start with Windows";
+            this.StartWithWindows.Text = "Start with Windows (minimized)";
             this.StartWithWindows.UseVisualStyleBackColor = true;
             this.StartWithWindows.CheckedChanged += new System.EventHandler(this.StartWithWindows_CheckedChanged);
             // 
