@@ -11,19 +11,44 @@ namespace Parser
         public static readonly string startUpFolder = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\";
         public static readonly string shortcutName = "gtaw-parser.lnk";
 
-        public static void Initialize(bool enabled)
+        public static void Initialize()
         {
-            if (enabled)
+            if (IsAddedToStartup())
+            {
+                if (!Properties.Settings.Default.BackupChatLogAutomatically)
+                {
+                    Properties.Settings.Default.StartWithWindows = false;
+                    TryRemovingFromStartup();
+                }
+                else if (!Properties.Settings.Default.StartWithWindows)
+                {
+                    TryRemovingFromStartup();
+                }
+            }
+            else
+            {
+                if (Properties.Settings.Default.StartWithWindows)
+                {
+                    TryAddingToStartup();
+                }
+            }
+
+            Properties.Settings.Default.Save();
+        }
+
+        public static void ToggleStartup(bool toggle)
+        {
+            if (toggle)
                 TryAddingToStartup();
             else
                 TryRemovingFromStartup();
         }
 
-        private static void TryAddingToStartup()
+        public static void TryAddingToStartup()
         {
             try
             {
-                if (System.IO.File.Exists(startUpFolder + shortcutName))
+                if (IsAddedToStartup())
                     return;
 
                 WshShell wsh = new WshShell();
@@ -39,10 +64,13 @@ namespace Parser
             }
         }
 
-        private static void TryRemovingFromStartup()
+        public static void TryRemovingFromStartup()
         {
             try
             {
+                if (!IsAddedToStartup())
+                    return;
+
                 DirectoryInfo directory = new DirectoryInfo(startUpFolder);
                 FileInfo[] allShortcuts = directory.GetFiles("*.lnk");
 
@@ -50,7 +78,7 @@ namespace Parser
 
                 foreach (FileInfo file in allShortcuts)
                 {
-                    if (file.Name.ToLower() == shortcutName.ToLower())
+                    if (file.Name.ToLower().Contains(shortcutName.ToLower()))
                         parserShortcuts.Add(file);
                 }
 

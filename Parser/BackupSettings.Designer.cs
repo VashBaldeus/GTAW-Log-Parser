@@ -48,7 +48,7 @@
             this.CloseWindow.Location = new System.Drawing.Point(337, 143);
             this.CloseWindow.Name = "CloseWindow";
             this.CloseWindow.Size = new System.Drawing.Size(75, 25);
-            this.CloseWindow.TabIndex = 6;
+            this.CloseWindow.TabIndex = 7;
             this.CloseWindow.Text = "Close";
             this.CloseWindow.UseVisualStyleBackColor = true;
             this.CloseWindow.Click += new System.EventHandler(this.CloseWindow_Click);
@@ -58,7 +58,7 @@
             this.Reset.Location = new System.Drawing.Point(256, 143);
             this.Reset.Name = "Reset";
             this.Reset.Size = new System.Drawing.Size(75, 25);
-            this.Reset.TabIndex = 7;
+            this.Reset.TabIndex = 8;
             this.Reset.Text = "Reset";
             this.Reset.UseVisualStyleBackColor = true;
             this.Reset.Click += new System.EventHandler(this.Reset_Click);
@@ -181,9 +181,9 @@
             this.StartWithWindows.Enabled = false;
             this.StartWithWindows.Location = new System.Drawing.Point(12, 154);
             this.StartWithWindows.Name = "StartWithWindows";
-            this.StartWithWindows.Size = new System.Drawing.Size(117, 17);
-            this.StartWithWindows.TabIndex = 8;
-            this.StartWithWindows.Text = "Start with Windows";
+            this.StartWithWindows.Size = new System.Drawing.Size(171, 17);
+            this.StartWithWindows.TabIndex = 6;
+            this.StartWithWindows.Text = "Start with Windows (minimized)";
             this.StartWithWindows.UseVisualStyleBackColor = true;
             this.StartWithWindows.CheckedChanged += new System.EventHandler(this.StartWithWindows_CheckedChanged);
             // 

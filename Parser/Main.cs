@@ -24,6 +24,8 @@ namespace Parser
 
         public Main(bool startMinimized)
         {
+            StartupHandler.Initialize();
+
             allowFormDisplay = !startMinimized;
 
             InitializeComponent();
