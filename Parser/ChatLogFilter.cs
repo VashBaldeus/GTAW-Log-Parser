@@ -64,7 +64,7 @@ namespace Parser
         {
             Filtered.Text = ChatLog = string.Empty;
 
-            OpenFileDialog.InitialDirectory = Path.GetPathRoot(Environment.SystemDirectory);
+            OpenFileDialog.InitialDirectory = string.IsNullOrWhiteSpace(Properties.Settings.Default.BackupPath) ? Path.GetPathRoot(Environment.SystemDirectory) : Properties.Settings.Default.BackupPath;
             OpenFileDialog.Filter = "Text File | *.txt";
 
             DialogResult result = OpenFileDialog.ShowDialog();
@@ -79,6 +79,8 @@ namespace Parser
                 loadedFrom = LoadedFrom.Parsed;
                 Filter.Focus();
             }
+            else
+                loadedFrom = LoadedFrom.None;
 
             if (!string.IsNullOrWhiteSpace(Names.Text) && Names.Text.ToLower() != "firstname lastname" && result == DialogResult.OK)
                 Filter_Click(this, EventArgs.Empty);
@@ -86,7 +88,7 @@ namespace Parser
 
         private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(Filtered.Text))
+            if (!string.IsNullOrWhiteSpace(Filtered.Text) && !string.IsNullOrWhiteSpace(Names.Text))
                 Filter_Click(this, EventArgs.Empty);
         }
 
@@ -167,7 +169,9 @@ namespace Parser
                 if (line.Any(char.IsDigit) || (line.Any(char.IsSymbol) && !line.Contains("'")))
                     continue;
 
-                string[] name = line.Split(new char[] { ' ', '_' });
+                string newLine = line.Trim();
+
+                string[] name = newLine.Split(new char[] { ' ', '_' });
 
                 if (name.Length == 2)
                 {
