@@ -34,7 +34,7 @@ namespace Parser
 
             TimeLabel.Text = "Current time: " + DateTime.Now.ToString("HH:mm:ss");
 
-            Names.Text = Properties.Settings.Default.FilterNames;
+            Words.Text = Properties.Settings.Default.FilterNames;
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestampsFromFilter;
         }
 
@@ -56,7 +56,7 @@ namespace Parser
 
             loadedFrom = ChatLog == string.Empty ? LoadedFrom.None : LoadedFrom.Unparsed;
 
-            if (!string.IsNullOrWhiteSpace(Names.Text) && Names.Text.ToLower() != "firstname lastname" && loadedFrom != LoadedFrom.None)
+            if (!string.IsNullOrWhiteSpace(Words.Text) && Words.Text.ToLower() != "firstname lastname" && loadedFrom != LoadedFrom.None)
                 Filter_Click(this, EventArgs.Empty);
         }
 
@@ -82,13 +82,13 @@ namespace Parser
             else
                 loadedFrom = LoadedFrom.None;
 
-            if (!string.IsNullOrWhiteSpace(Names.Text) && Names.Text.ToLower() != "firstname lastname" && result == DialogResult.OK)
+            if (!string.IsNullOrWhiteSpace(Words.Text) && Words.Text.ToLower() != "firstname lastname" && result == DialogResult.OK)
                 Filter_Click(this, EventArgs.Empty);
         }
 
         private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(Filtered.Text) && !string.IsNullOrWhiteSpace(Names.Text))
+            if (!string.IsNullOrWhiteSpace(Filtered.Text) && !string.IsNullOrWhiteSpace(Words.Text))
                 Filter_Click(this, EventArgs.Empty);
         }
 
@@ -102,7 +102,7 @@ namespace Parser
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(Names.Text) || string.IsNullOrWhiteSpace(Names.Text))
+            if (string.IsNullOrWhiteSpace(Words.Text) || string.IsNullOrWhiteSpace(Words.Text))
             {
                 if (RemoveTimestamps.Checked && loadedFrom != LoadedFrom.Unparsed)
                 {
@@ -112,7 +112,7 @@ namespace Parser
                     Filtered.Text = parsed;
                 }
                 else
-                    MessageBox.Show("Please choose at least one valid name to filter into your new chat log.\n\nExample: John, John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please choose at least one word or valid name pair PER LINE to filter into your new chat log. Numbers and symbols are not allowed.\n\nExample: Boat, John, John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 return;
             }
@@ -121,7 +121,7 @@ namespace Parser
 
             if (namesToCheck.Count == 0)
             {
-                MessageBox.Show("Please choose at least one valid name to filter into your new chat log.\n\nExample: John, John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please choose at least one word or valid name pair PER LINE to filter into your new chat log. Numbers and symbols are not allowed.\n\nExample: Boat, John, John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -159,7 +159,7 @@ namespace Parser
 
         private List<string> GetDesiredNames()
         {
-            string names = Names.Text;
+            string names = Words.Text;
             string[] lines = names.Split('\n');
 
             List<string> finalNames = new List<string>();
@@ -218,7 +218,7 @@ namespace Parser
 
         private void ChatLogFilter_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.FilterNames = Names.Text;
+            Properties.Settings.Default.FilterNames = Words.Text;
             Properties.Settings.Default.RemoveTimestampsFromFilter = RemoveTimestamps.Checked;
 
             Properties.Settings.Default.Save();

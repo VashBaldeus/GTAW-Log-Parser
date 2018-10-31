@@ -18,6 +18,8 @@ namespace Parser
                 if (!Properties.Settings.Default.BackupChatLogAutomatically)
                 {
                     Properties.Settings.Default.StartWithWindows = false;
+                    Properties.Settings.Default.Save();
+
                     TryRemovingFromStartup();
                 }
                 else if (!Properties.Settings.Default.StartWithWindows)
@@ -32,8 +34,6 @@ namespace Parser
                     TryAddingToStartup();
                 }
             }
-
-            Properties.Settings.Default.Save();
         }
 
         public static void ToggleStartup(bool toggle)
