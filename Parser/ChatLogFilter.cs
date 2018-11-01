@@ -53,8 +53,13 @@ namespace Parser
 
             loadedFrom = ChatLog == string.Empty ? LoadedFrom.None : LoadedFrom.Unparsed;
 
-            if (loadedFrom != LoadedFrom.None && GetDesiredNames().Count > 0)
-                TryToFilter(fastFilter: true);
+            if (loadedFrom != LoadedFrom.None)
+            {
+                if (GetWordsToFilterIn().Count > 0)
+                    TryToFilter(fastFilter: true);
+                else
+                    Filtered.Text = ChatLog;
+            }
         }
 
         private void BrowseForParsed_Click(object sender, EventArgs e)
@@ -78,8 +83,13 @@ namespace Parser
 
                 loadedFrom = ChatLog == string.Empty ? LoadedFrom.None : LoadedFrom.Parsed;
 
-                if (loadedFrom != LoadedFrom.None && GetDesiredNames().Count > 0)
-                    TryToFilter(fastFilter: true);
+                if (loadedFrom != LoadedFrom.None)
+                {
+                    if (GetWordsToFilterIn().Count > 0)
+                        TryToFilter(fastFilter: true);
+                    else
+                        Filtered.Text = ChatLog;
+                }
             }
             catch
             {
@@ -91,7 +101,7 @@ namespace Parser
 
         private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
         {
-            if (loadedFrom != LoadedFrom.None && (string.IsNullOrWhiteSpace(Words.Text) || GetDesiredNames().Count > 0))
+            if (loadedFrom != LoadedFrom.None && (string.IsNullOrWhiteSpace(Words.Text) || GetWordsToFilterIn().Count > 0))
                 TryToFilter(fastFilter: true);
         }
 
@@ -119,8 +129,8 @@ namespace Parser
                 return;
             }
 
-            List<string> namesToCheck = GetDesiredNames();
-            if (namesToCheck.Count == 0 && !string.IsNullOrWhiteSpace(Words.Text))
+            List<string> wordsToCheck = GetWordsToFilterIn();
+            if (wordsToCheck.Count == 0 && !string.IsNullOrWhiteSpace(Words.Text))
             {
                 MessageBox.Show("Please choose at least one word, number or valid name pair PER LINE to filter into your new chat log.\n\nExample: Boat, $500, John, John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -134,17 +144,15 @@ namespace Parser
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
 
-                bool matchedLine = false;
-
-                foreach (string name in namesToCheck)
+                foreach (string name in wordsToCheck)
                 {
                     if (string.IsNullOrWhiteSpace(name))
                         continue;
 
-                    if (line.ToLower().Contains(name.ToLower()) && !matchedLine)
+                    if (line.ToLower().Contains(name.ToLower()))
                     {
                         filtered += line + "\n";
-                        matchedLine = true;
+                        break;
                     }
                 }
             }
@@ -163,7 +171,7 @@ namespace Parser
             }
         }
 
-        private List<string> GetDesiredNames()
+        private List<string> GetWordsToFilterIn()
         {
             string names = Words.Text;
             string[] lines = names.Split('\n');
