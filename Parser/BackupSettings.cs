@@ -120,8 +120,6 @@ namespace Parser
                     }
                     else
                         MessageBox.Show("Please pick a non-root directory for your backup folder location.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    Browse.Focus();
                 }
                 else
                     validLocation = true;

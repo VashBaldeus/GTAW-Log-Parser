@@ -44,38 +44,56 @@ namespace Parser
                 TryRemovingFromStartup();
         }
 
-        private static void TryAddingToStartup()
+        private static void TryAddingToStartup(bool showError = true)
         {
             try
             {
                 if (IsAddedToStartup())
                     return;
 
-                WshShell wsh = new WshShell();
-                IWshShortcut shortcut = wsh.CreateShortcut(startUpFolder + shortcutName) as IWshShortcut;
-                shortcut.Arguments = "--minimized";
+                WshShell wshShell = new WshShell();
+                IWshShortcut shortcut = wshShell.CreateShortcut(startUpFolder + shortcutName) as IWshShortcut;
+                shortcut.Arguments = $"{Data.parameterPrefix}minimized";
                 shortcut.TargetPath = Application.ExecutablePath;
                 shortcut.WorkingDirectory = Application.StartupPath;
                 shortcut.Save();
             }
             catch
             {
-                MessageBox.Show("An error occured while trying to enable the automatic startup function.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (showError)
+                    MessageBox.Show("An error occured while trying to enable the automatic startup function.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Properties.Settings.Default.StartWithWindows = false;
+                Properties.Settings.Default.Save();
             }
         }
 
-        private static void TryRemovingFromStartup()
+        private static void TryRemovingFromStartup(bool showError = true)
         {
-            if (!IsAddedToStartup())
-                return;
-
-            List<FileInfo> parserShortcuts = GetParserShortcuts();
-
-            if (parserShortcuts.Count > 0)
+            try
             {
-                foreach (FileInfo file in parserShortcuts)
+                if (!IsAddedToStartup())
+                    return;
+
+                List<FileInfo> parserShortcuts = GetParserShortcuts();
+
+                if (parserShortcuts.Count > 0)
                 {
-                    file.Delete();
+                    foreach (FileInfo file in parserShortcuts)
+                    {
+                        file.Delete();
+                    }
+                }
+            }
+            catch
+            {
+                if (showError)
+                    MessageBox.Show("An error occured while trying to disable the automatic startup function.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                if (IsAddedToStartup())
+                {
+                    Properties.Settings.Default.StartWithWindows = true;
+                    Properties.Settings.Default.Save();
                 }
             }
         }

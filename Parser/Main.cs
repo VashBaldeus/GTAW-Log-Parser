@@ -98,8 +98,6 @@ namespace Parser
                     }
                     else
                         MessageBox.Show("Please pick a non-root directory for your RAGEMP folder location.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    Parse.Focus();
                 }
                 else
                     validLocation = true;
@@ -170,21 +168,28 @@ namespace Parser
 
         private void SaveParsed_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Parsed.Text))
+            try
             {
-                MessageBox.Show("You haven't parsed anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            SaveFileDialog.FileName = "chatlog.txt";
-            SaveFileDialog.Filter = "Text File | *.txt";
-
-            if (SaveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                using (StreamWriter sw = new StreamWriter(SaveFileDialog.OpenFile()))
+                if (string.IsNullOrWhiteSpace(Parsed.Text))
                 {
-                    sw.Write(Parsed.Text.Replace("\n", Environment.NewLine));
+                    MessageBox.Show("You haven't parsed anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
+
+                SaveFileDialog.FileName = "chatlog.txt";
+                SaveFileDialog.Filter = "Text File | *.txt";
+
+                if (SaveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (StreamWriter sw = new StreamWriter(SaveFileDialog.OpenFile()))
+                    {
+                        sw.Write(Parsed.Text.Replace("\n", Environment.NewLine));
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("An error occured while trying to save the file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -214,8 +219,8 @@ namespace Parser
                 updateThread = new Thread(() => CheckForUpdates(manual));
                 updateThread.Start();
             }
-            else
-                MessageBox.Show("Currently checking for updates, please wait for the process to finish to check again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //else
+            //    MessageBox.Show("Currently checking for updates, please wait for the process to finish to check again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void CheckForUpdates(bool manual = false)

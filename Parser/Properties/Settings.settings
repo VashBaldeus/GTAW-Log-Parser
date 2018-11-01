@@ -33,7 +33,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="FilterNames" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Firstname Lastname</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="StartWithWindows" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

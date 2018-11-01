@@ -142,7 +142,7 @@ namespace Parser.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Firstname Lastname")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string FilterNames {
             get {
                 return ((string)(this["FilterNames"]));

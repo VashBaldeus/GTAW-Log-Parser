@@ -20,17 +20,17 @@ namespace Parser
 
             if (!isUnique)
             {
-                MessageBox.Show("Another instance is already running, check your taskbar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Another instance is already running, check your taskbar or task manager.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             var args = Environment.GetCommandLineArgs();
 
-            if (args != null && args.Any(arg => arg == "--minimized"))
+            if (args != null && args.Any(arg => arg == $"{Data.parameterPrefix}minimized"))
             {
                 startMinimized = true;
 
-                if (args.Any(arg => arg == "--notray"))
+                if (args.Any(arg => arg == $"{Data.parameterPrefix}notray"))
                     startMinimizedWithoutTrayIcon = true;
             }
 
@@ -43,6 +43,8 @@ namespace Parser
             {
                 StartupHandler.Initialize();
                 BackupHandler.Initialize();
+
+                MessageBox.Show("Started the GTA World Chat Log Parser in minimized mode with no tray icon. You can only close it from the task manager.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             GC.KeepAlive(mutex);

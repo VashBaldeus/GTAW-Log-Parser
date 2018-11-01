@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
@@ -50,85 +49,82 @@ namespace Parser
 
         private void LoadUnparsed_Click(object sender, EventArgs e)
         {
-            Filtered.Text = ChatLog = string.Empty;
-
             ChatLog = Main.ParseChatLog(Properties.Settings.Default.FolderPath, false, showError: true);
 
             loadedFrom = ChatLog == string.Empty ? LoadedFrom.None : LoadedFrom.Unparsed;
 
-            if (!string.IsNullOrWhiteSpace(Words.Text) && Words.Text.ToLower() != "firstname lastname" && loadedFrom != LoadedFrom.None)
-                Filter_Click(this, EventArgs.Empty);
+            if (loadedFrom != LoadedFrom.None && GetDesiredNames().Count > 0)
+                TryToFilter(fastFilter: true);
         }
 
         private void BrowseForParsed_Click(object sender, EventArgs e)
         {
-            Filtered.Text = ChatLog = string.Empty;
-
-            OpenFileDialog.InitialDirectory = string.IsNullOrWhiteSpace(Properties.Settings.Default.BackupPath) ? Path.GetPathRoot(Environment.SystemDirectory) : Properties.Settings.Default.BackupPath;
-            OpenFileDialog.Filter = "Text File | *.txt";
-
-            DialogResult result = OpenFileDialog.ShowDialog();
-
-            if (result == DialogResult.OK)
+            try
             {
-                using (StreamReader sr = new StreamReader(OpenFileDialog.FileName))
+                ChatLog = Filtered.Text = string.Empty;
+
+                OpenFileDialog.InitialDirectory = string.IsNullOrWhiteSpace(Properties.Settings.Default.BackupPath) ? Path.GetPathRoot(Environment.SystemDirectory) : Properties.Settings.Default.BackupPath;
+                OpenFileDialog.Filter = "Text File | *.txt";
+
+                DialogResult result = OpenFileDialog.ShowDialog();
+
+                if (result == DialogResult.OK)
                 {
-                    ChatLog = sr.ReadToEnd();
+                    using (StreamReader sr = new StreamReader(OpenFileDialog.FileName))
+                    {
+                        ChatLog = sr.ReadToEnd();
+                    }
                 }
 
-                loadedFrom = LoadedFrom.Parsed;
-                Filter.Focus();
-            }
-            else
-                loadedFrom = LoadedFrom.None;
+                loadedFrom = ChatLog == string.Empty ? LoadedFrom.None : LoadedFrom.Parsed;
 
-            if (!string.IsNullOrWhiteSpace(Words.Text) && Words.Text.ToLower() != "firstname lastname" && result == DialogResult.OK)
-                Filter_Click(this, EventArgs.Empty);
+                if (loadedFrom != LoadedFrom.None && GetDesiredNames().Count > 0)
+                    TryToFilter(fastFilter: true);
+            }
+            catch
+            {
+                ChatLog = Filtered.Text = string.Empty;
+
+                MessageBox.Show("An error occured while reading the selected file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(Filtered.Text) && !string.IsNullOrWhiteSpace(Words.Text) && loadedFrom != LoadedFrom.None)
-                Filter_Click(this, EventArgs.Empty);
+            if (loadedFrom != LoadedFrom.None && (string.IsNullOrWhiteSpace(Words.Text) || GetDesiredNames().Count > 0))
+                TryToFilter(fastFilter: true);
         }
 
         private void Filter_Click(object sender, EventArgs e)
         {
-            Filtered.Text = string.Empty;
+            TryToFilter();
+        }
 
+        private void TryToFilter(bool fastFilter = false)
+        {
             if (!chatLogLoaded)
             {
                 MessageBox.Show("You haven't loaded a chat log yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(Words.Text) || string.IsNullOrWhiteSpace(Words.Text))
+            string chatLog = Filtered.Text = ChatLog;
+
+            if (RemoveTimestamps.Checked)
+                chatLog = System.Text.RegularExpressions.Regex.Replace(chatLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
+
+            if (string.IsNullOrWhiteSpace(Words.Text))
             {
-                if (RemoveTimestamps.Checked && loadedFrom != LoadedFrom.Unparsed)
-                {
-                    string parsed = ChatLog;
-
-                    parsed = System.Text.RegularExpressions.Regex.Replace(parsed, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
-                    Filtered.Text = parsed;
-                }
-                else
-                    MessageBox.Show("Please choose at least one word or valid name pair PER LINE to filter into your new chat log. Numbers and symbols are not allowed.\n\nExample: Boat, John, John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                Filtered.Text = chatLog;
                 return;
             }
 
             List<string> namesToCheck = GetDesiredNames();
-
-            if (namesToCheck.Count == 0)
+            if (namesToCheck.Count == 0 && !string.IsNullOrWhiteSpace(Words.Text))
             {
-                MessageBox.Show("Please choose at least one word or valid name pair PER LINE to filter into your new chat log. Numbers and symbols are not allowed.\n\nExample: Boat, John, John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please choose at least one word, number or valid name pair PER LINE to filter into your new chat log.\n\nExample: Boat, $500, John, John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            string chatLog = ChatLog;
-
-            if (RemoveTimestamps.Checked)
-                chatLog = System.Text.RegularExpressions.Regex.Replace(chatLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
 
             string[] lines = chatLog.Split('\n');
             string filtered = string.Empty;
@@ -138,13 +134,18 @@ namespace Parser
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
 
+                bool matchedLine = false;
+
                 foreach (string name in namesToCheck)
                 {
                     if (string.IsNullOrWhiteSpace(name))
                         continue;
 
-                    if (line.ToLower().Contains(name.ToLower()))
-                        filtered += (line + "\n");
+                    if (line.ToLower().Contains(name.ToLower()) && !matchedLine)
+                    {
+                        filtered += line + "\n";
+                        matchedLine = true;
+                    }
                 }
             }
 
@@ -154,7 +155,12 @@ namespace Parser
                 Filtered.Text = filtered;
             }
             else
-                MessageBox.Show("No matches found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            {
+                Filtered.Text = chatLog;
+
+                if (!fastFilter)
+                    MessageBox.Show("No matches found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private List<string> GetDesiredNames()
@@ -166,7 +172,7 @@ namespace Parser
 
             foreach (string line in lines)
             {
-                if (line.Any(char.IsDigit) || (line.Any(char.IsSymbol) && !line.Contains("'")))
+                if (string.IsNullOrWhiteSpace(line))
                     continue;
 
                 string newLine = line.Trim();
@@ -190,21 +196,28 @@ namespace Parser
 
         private void SaveFiltered_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Filtered.Text))
+            try
             {
-                MessageBox.Show("You haven't filtered anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            SaveFileDialog.FileName = "filtered_chatlog.txt";
-            SaveFileDialog.Filter = "Text File | *.txt";
-
-            if (SaveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                using (StreamWriter sw = new StreamWriter(SaveFileDialog.OpenFile()))
+                if (string.IsNullOrWhiteSpace(Filtered.Text))
                 {
-                    sw.Write(Filtered.Text.Replace("\n", Environment.NewLine));
+                    MessageBox.Show("You haven't filtered anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
+
+                SaveFileDialog.FileName = "filtered_chatlog.txt";
+                SaveFileDialog.Filter = "Text File | *.txt";
+
+                if (SaveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (StreamWriter sw = new StreamWriter(SaveFileDialog.OpenFile()))
+                    {
+                        sw.Write(Filtered.Text.Replace("\n", Environment.NewLine));
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("An error occured while trying to save the file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
