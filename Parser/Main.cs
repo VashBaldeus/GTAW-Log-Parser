@@ -290,8 +290,10 @@ namespace Parser
 
         private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(Parsed.Text))
-                Parse_Click(this, EventArgs.Empty);
+            if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\") || !File.Exists(FolderPath.Text + Data.logLogation))
+                return;
+
+            Parse_Click(this, EventArgs.Empty);
         }
 
         private static ChatLogFilter chatLogFilter;
