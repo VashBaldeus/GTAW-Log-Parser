@@ -8,6 +8,7 @@ namespace Parser
     static class Program
     {
         private static bool startMinimized = false;
+        private static bool startMinimizedWithoutTrayIcon = false;
 
         /// <summary>
         /// The main entry point for the application.
@@ -26,11 +27,23 @@ namespace Parser
             var args = Environment.GetCommandLineArgs();
 
             if (args != null && args.Any(arg => arg == "--minimized"))
+            {
                 startMinimized = true;
+
+                if (args.Any(arg => arg == "--notray"))
+                    startMinimizedWithoutTrayIcon = true;
+            }
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main(startMinimized));
+
+            if (!startMinimizedWithoutTrayIcon)
+                Application.Run(new Main(startMinimized));
+            else
+            {
+                StartupHandler.Initialize();
+                BackupHandler.Initialize();
+            }
 
             GC.KeepAlive(mutex);
         }

@@ -66,11 +66,29 @@ namespace Parser
 
         private static void TryRemovingFromStartup()
         {
+            if (!IsAddedToStartup())
+                return;
+
+            List<FileInfo> parserShortcuts = GetParserShortcuts();
+
+            if (parserShortcuts.Count > 0)
+            {
+                foreach (FileInfo file in parserShortcuts)
+                {
+                    file.Delete();
+                }
+            }
+        }
+
+        public static bool IsAddedToStartup()
+        {
+            return GetParserShortcuts().Count > 0;
+        }
+
+        private static List<FileInfo> GetParserShortcuts()
+        {
             try
             {
-                if (!IsAddedToStartup())
-                    return;
-
                 DirectoryInfo directory = new DirectoryInfo(startUpFolder);
                 FileInfo[] allShortcuts = directory.GetFiles("*.lnk");
 
@@ -82,23 +100,12 @@ namespace Parser
                         parserShortcuts.Add(file);
                 }
 
-                if (parserShortcuts.Count > 0)
-                {
-                    foreach (FileInfo file in parserShortcuts)
-                    {
-                        file.Delete();
-                    }
-                }
+                return parserShortcuts;
             }
             catch
             {
-                MessageBox.Show("An error occured while trying to disable the automatic startup function.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new List<FileInfo>();
             }
-        }
-
-        public static bool IsAddedToStartup()
-        {
-            return System.IO.File.Exists(startUpFolder + shortcutName);
         }
     }
 }

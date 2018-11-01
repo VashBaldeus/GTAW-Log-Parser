@@ -88,7 +88,7 @@ namespace Parser
 
         private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(Filtered.Text) && !string.IsNullOrWhiteSpace(Words.Text))
+            if (!string.IsNullOrWhiteSpace(Filtered.Text) && !string.IsNullOrWhiteSpace(Words.Text) && loadedFrom != LoadedFrom.None)
                 Filter_Click(this, EventArgs.Empty);
         }
 

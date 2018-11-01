@@ -80,7 +80,7 @@ namespace Parser
             AbortAutomaticBackup();
         }
 
-        private static readonly int exitDelay = 10;
+        private static readonly int gameClosedCheckTime = 10;
         private static bool isGameRunning = false;
 
         private static void BackupWorker()
@@ -97,7 +97,7 @@ namespace Parser
                     ParseThenSaveToFile(true);
                 }
 
-                Thread.Sleep(exitDelay * 1000);
+                Thread.Sleep(gameClosedCheckTime * 1000);
             }
         }
 
