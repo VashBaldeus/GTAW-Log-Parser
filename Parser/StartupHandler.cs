@@ -8,7 +8,7 @@ namespace Parser
 {
     public static class StartupHandler
     {
-        public static readonly string startUpFolder = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\";
+        public static readonly string startUpFolder = $"{Environment.GetFolderPath(Environment.SpecialFolder.Startup)}\\";
         public static readonly string shortcutName = "gtaw-parser.lnk";
 
         public static void Initialize()
