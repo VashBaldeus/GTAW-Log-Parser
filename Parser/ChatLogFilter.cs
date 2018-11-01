@@ -144,12 +144,12 @@ namespace Parser
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
 
-                foreach (string name in wordsToCheck)
+                foreach (string word in wordsToCheck)
                 {
-                    if (string.IsNullOrWhiteSpace(name))
+                    if (string.IsNullOrWhiteSpace(word))
                         continue;
 
-                    if (line.ToLower().Contains(name.ToLower()))
+                    if (line.ToLower().Contains(word.ToLower()))
                     {
                         filtered += line + "\n";
                         break;
@@ -173,10 +173,10 @@ namespace Parser
 
         private List<string> GetWordsToFilterIn()
         {
-            string names = Words.Text;
-            string[] lines = names.Split('\n');
+            string words = Words.Text;
+            string[] lines = words.Split('\n');
 
-            List<string> finalNames = new List<string>();
+            List<string> finalWords = new List<string>();
 
             foreach (string line in lines)
             {
@@ -185,21 +185,21 @@ namespace Parser
 
                 string newLine = line.Trim();
 
-                string[] name = newLine.Split(new char[] { ' ', '_' });
+                string[] splitWord = newLine.Split(new char[] { ' ', '_' });
 
-                if (name.Length == 2)
+                if (splitWord.Length == 2)
                 {
-                    if (string.IsNullOrWhiteSpace(name[0]) || string.IsNullOrWhiteSpace(name[1]))
+                    if (string.IsNullOrWhiteSpace(splitWord[0]) || string.IsNullOrWhiteSpace(splitWord[1]))
                         continue;
 
-                    finalNames.Add($"{name[0]} {name[1]}");
-                    finalNames.Add($"{name[0]}_{name[1]}");
+                    finalWords.Add($"{splitWord[0]} {splitWord[1]}");
+                    finalWords.Add($"{splitWord[0]}_{splitWord[1]}");
                 }
-                else if (name.Length == 1 && !string.IsNullOrWhiteSpace(name[0]))
-                    finalNames.Add(name[0]);
+                else if (splitWord.Length == 1 && !string.IsNullOrWhiteSpace(splitWord[0]))
+                    finalWords.Add(splitWord[0]);
             }
 
-            return finalNames;
+            return finalWords;
         }
 
         private void SaveFiltered_Click(object sender, EventArgs e)
