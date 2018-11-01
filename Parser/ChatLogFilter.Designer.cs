@@ -32,7 +32,7 @@
             this.LoadUnparsed = new System.Windows.Forms.Button();
             this.BrowseForParsed = new System.Windows.Forms.Button();
             this.StatusLabel = new System.Windows.Forms.Label();
-            this.Names = new System.Windows.Forms.RichTextBox();
+            this.Words = new System.Windows.Forms.RichTextBox();
             this.Filtered = new System.Windows.Forms.RichTextBox();
             this.Filter = new System.Windows.Forms.Button();
             this.SaveFiltered = new System.Windows.Forms.Button();
@@ -42,7 +42,7 @@
             this.RemoveTimestamps = new System.Windows.Forms.CheckBox();
             this.TimeLabel = new System.Windows.Forms.Label();
             this.Timer = new System.Windows.Forms.Timer(this.components);
-            this.NamesLabel = new System.Windows.Forms.Label();
+            this.WordsLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LoadUnparsed
@@ -75,15 +75,15 @@
             this.StatusLabel.Text = "Chat log not loaded";
             this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Names
+            // Words
             // 
-            this.Names.DetectUrls = false;
-            this.Names.Location = new System.Drawing.Point(12, 69);
-            this.Names.Name = "Names";
-            this.Names.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.Names.Size = new System.Drawing.Size(135, 184);
-            this.Names.TabIndex = 2;
-            this.Names.Text = "Firstname Lastname";
+            this.Words.DetectUrls = false;
+            this.Words.Location = new System.Drawing.Point(12, 69);
+            this.Words.Name = "Words";
+            this.Words.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.Words.Size = new System.Drawing.Size(135, 184);
+            this.Words.TabIndex = 3;
+            this.Words.Text = "Firstname Lastname";
             // 
             // Filtered
             // 
@@ -92,7 +92,7 @@
             this.Filtered.Name = "Filtered";
             this.Filtered.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.Filtered.Size = new System.Drawing.Size(277, 197);
-            this.Filtered.TabIndex = 3;
+            this.Filtered.TabIndex = 4;
             this.Filtered.Text = "";
             // 
             // Filter
@@ -100,7 +100,7 @@
             this.Filter.Location = new System.Drawing.Point(12, 259);
             this.Filter.Name = "Filter";
             this.Filter.Size = new System.Drawing.Size(65, 25);
-            this.Filter.TabIndex = 4;
+            this.Filter.TabIndex = 5;
             this.Filter.Text = "Filter";
             this.Filter.UseVisualStyleBackColor = true;
             this.Filter.Click += new System.EventHandler(this.Filter_Click);
@@ -110,7 +110,7 @@
             this.SaveFiltered.Location = new System.Drawing.Point(82, 259);
             this.SaveFiltered.Name = "SaveFiltered";
             this.SaveFiltered.Size = new System.Drawing.Size(65, 25);
-            this.SaveFiltered.TabIndex = 5;
+            this.SaveFiltered.TabIndex = 6;
             this.SaveFiltered.Text = "Save As";
             this.SaveFiltered.UseVisualStyleBackColor = true;
             this.SaveFiltered.Click += new System.EventHandler(this.SaveFiltered_Click);
@@ -120,7 +120,7 @@
             this.CopyFilteredToClipboard.Location = new System.Drawing.Point(153, 259);
             this.CopyFilteredToClipboard.Name = "CopyFilteredToClipboard";
             this.CopyFilteredToClipboard.Size = new System.Drawing.Size(277, 25);
-            this.CopyFilteredToClipboard.TabIndex = 6;
+            this.CopyFilteredToClipboard.TabIndex = 7;
             this.CopyFilteredToClipboard.Text = "Copy To Clipboard";
             this.CopyFilteredToClipboard.UseVisualStyleBackColor = true;
             this.CopyFilteredToClipboard.Click += new System.EventHandler(this.CopyFilteredToClipboard_Click);
@@ -135,9 +135,10 @@
             this.RemoveTimestamps.Location = new System.Drawing.Point(309, 30);
             this.RemoveTimestamps.Name = "RemoveTimestamps";
             this.RemoveTimestamps.Size = new System.Drawing.Size(121, 17);
-            this.RemoveTimestamps.TabIndex = 7;
+            this.RemoveTimestamps.TabIndex = 2;
             this.RemoveTimestamps.Text = "Remove timestamps";
             this.RemoveTimestamps.UseVisualStyleBackColor = true;
+            this.RemoveTimestamps.CheckedChanged += new System.EventHandler(this.RemoveTimestamps_CheckedChanged);
             // 
             // TimeLabel
             // 
@@ -154,27 +155,27 @@
             this.Timer.Interval = 1000;
             this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
             // 
-            // NamesLabel
+            // WordsLabel
             // 
-            this.NamesLabel.Location = new System.Drawing.Point(10, 53);
-            this.NamesLabel.Name = "NamesLabel";
-            this.NamesLabel.Size = new System.Drawing.Size(135, 13);
-            this.NamesLabel.TabIndex = 0;
-            this.NamesLabel.Text = "Names to filter in:";
+            this.WordsLabel.Location = new System.Drawing.Point(10, 53);
+            this.WordsLabel.Name = "WordsLabel";
+            this.WordsLabel.Size = new System.Drawing.Size(135, 13);
+            this.WordsLabel.TabIndex = 0;
+            this.WordsLabel.Text = "Words to filter in:";
             // 
             // ChatLogFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(439, 291);
-            this.Controls.Add(this.NamesLabel);
+            this.Controls.Add(this.WordsLabel);
             this.Controls.Add(this.TimeLabel);
             this.Controls.Add(this.RemoveTimestamps);
             this.Controls.Add(this.CopyFilteredToClipboard);
             this.Controls.Add(this.SaveFiltered);
             this.Controls.Add(this.Filter);
             this.Controls.Add(this.Filtered);
-            this.Controls.Add(this.Names);
+            this.Controls.Add(this.Words);
             this.Controls.Add(this.StatusLabel);
             this.Controls.Add(this.BrowseForParsed);
             this.Controls.Add(this.LoadUnparsed);
@@ -197,7 +198,7 @@
         private System.Windows.Forms.Button LoadUnparsed;
         private System.Windows.Forms.Button BrowseForParsed;
         private System.Windows.Forms.Label StatusLabel;
-        private System.Windows.Forms.RichTextBox Names;
+        private System.Windows.Forms.RichTextBox Words;
         private System.Windows.Forms.RichTextBox Filtered;
         private System.Windows.Forms.Button Filter;
         private System.Windows.Forms.Button SaveFiltered;
@@ -207,6 +208,6 @@
         private System.Windows.Forms.CheckBox RemoveTimestamps;
         private System.Windows.Forms.Label TimeLabel;
         private System.Windows.Forms.Timer Timer;
-        private System.Windows.Forms.Label NamesLabel;
+        private System.Windows.Forms.Label WordsLabel;
     }
 }
