@@ -208,6 +208,21 @@ namespace Parser
                 TryCheckingForUpdates();
         }
 
+        private static string previousLog = string.Empty;
+        private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(Parsed.Text) || string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\") || !File.Exists(FolderPath.Text + Data.logLogation))
+                return;
+
+            if (RemoveTimestamps.Checked)
+            {
+                previousLog = Parsed.Text;
+                Parsed.Text = Regex.Replace(previousLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
+            }
+            else if (!string.IsNullOrWhiteSpace(previousLog))
+                Parsed.Text = previousLog;
+        }
+
         private void CheckForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TryCheckingForUpdates(true);
@@ -287,21 +302,6 @@ namespace Parser
             }
 
             backupSettings.ShowDialog();
-        }
-
-        private static string previousLog = string.Empty;
-        private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(Parsed.Text) || string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\") || !File.Exists(FolderPath.Text + Data.logLogation))
-                return;
-
-            if (RemoveTimestamps.Checked)
-            {
-                previousLog = Parsed.Text;
-                Parsed.Text = Regex.Replace(previousLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
-            }
-            else if (!string.IsNullOrWhiteSpace(previousLog))
-                Parsed.Text = previousLog;
         }
 
         private static ChatLogFilter chatLogFilter;
