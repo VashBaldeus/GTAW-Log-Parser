@@ -3,6 +3,7 @@ using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Parser
 {
@@ -53,12 +54,19 @@ namespace Parser
 
             loadedFrom = ChatLog == string.Empty ? LoadedFrom.None : LoadedFrom.Unparsed;
 
-            if (loadedFrom != LoadedFrom.None)
+            if (chatLogLoaded)
             {
                 if (GetWordsToFilterIn().Count > 0)
                     TryToFilter(fastFilter: true);
                 else
-                    Filtered.Text = ChatLog;
+                {
+                    string chatLog = previousLog = ChatLog;
+
+                    if (RemoveTimestamps.Checked)
+                        chatLog = Regex.Replace(chatLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
+
+                    Filtered.Text = chatLog;
+                }
             }
         }
 
@@ -83,12 +91,19 @@ namespace Parser
 
                 loadedFrom = ChatLog == string.Empty ? LoadedFrom.None : LoadedFrom.Parsed;
 
-                if (loadedFrom != LoadedFrom.None)
+                if (chatLogLoaded)
                 {
                     if (GetWordsToFilterIn().Count > 0)
                         TryToFilter(fastFilter: true);
                     else
-                        Filtered.Text = ChatLog;
+                    {
+                        string chatLog = previousLog = ChatLog;
+
+                        if (RemoveTimestamps.Checked)
+                            chatLog = Regex.Replace(chatLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
+
+                        Filtered.Text = chatLog;
+                    }
                 }
             }
             catch
@@ -99,9 +114,20 @@ namespace Parser
             }
         }
 
+        private static string previousLog = string.Empty;
         private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
         {
-            if (loadedFrom != LoadedFrom.None && (string.IsNullOrWhiteSpace(Words.Text) || GetWordsToFilterIn().Count > 0))
+            if (string.IsNullOrWhiteSpace(Filtered.Text))
+                return;
+
+            if (RemoveTimestamps.Checked)
+            {
+                previousLog = Filtered.Text;
+                Filtered.Text = Regex.Replace(previousLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
+            }
+            else if (!string.IsNullOrWhiteSpace(previousLog))
+                Filtered.Text = previousLog;
+            else
                 TryToFilter(fastFilter: true);
         }
 
@@ -118,17 +144,6 @@ namespace Parser
                 return;
             }
 
-            string chatLog = Filtered.Text = ChatLog;
-
-            if (RemoveTimestamps.Checked)
-                chatLog = System.Text.RegularExpressions.Regex.Replace(chatLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
-
-            if (string.IsNullOrWhiteSpace(Words.Text))
-            {
-                Filtered.Text = chatLog;
-                return;
-            }
-
             List<string> wordsToCheck = GetWordsToFilterIn();
             if (wordsToCheck.Count == 0 && !string.IsNullOrWhiteSpace(Words.Text))
             {
@@ -136,7 +151,9 @@ namespace Parser
                 return;
             }
 
-            string[] lines = chatLog.Split('\n');
+            string logToCheck = ChatLog;
+
+            string[] lines = logToCheck.Split('\n');
             string filtered = string.Empty;
 
             foreach (string line in lines)
@@ -149,7 +166,8 @@ namespace Parser
                     if (string.IsNullOrWhiteSpace(word))
                         continue;
 
-                    if (line.ToLower().Contains(word.ToLower()))
+                    // OLD: Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty).ToLower().Contains(word.ToLower())
+                    if (Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), $"\\b{word}\\b", RegexOptions.IgnoreCase))
                     {
                         filtered += line + "\n";
                         break;
@@ -160,11 +178,21 @@ namespace Parser
             if (filtered.Length > 0)
             {
                 filtered = filtered.TrimEnd(new char[] { '\r', '\n' });
+                previousLog = filtered;
+
+                if (RemoveTimestamps.Checked)
+                    filtered = Regex.Replace(filtered, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
+
                 Filtered.Text = filtered;
             }
             else
             {
-                Filtered.Text = chatLog;
+                previousLog = logToCheck;
+
+                if (RemoveTimestamps.Checked)
+                    logToCheck = Regex.Replace(logToCheck, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
+
+                Filtered.Text = logToCheck;
 
                 if (!fastFilter)
                     MessageBox.Show("No matches found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
