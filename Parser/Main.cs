@@ -140,6 +140,7 @@ namespace Parser
 
                 log = Regex.Replace(log, "<[^>]*>", string.Empty);  // Remove the HTML tags that are added for the chat (example: `If the ingame menus are out of place, use <span style=\"color: dodgerblue\">/movemenu</span>`)
                 log = System.Net.WebUtility.HtmlDecode(log);        // Decode HTML symbols (example: `&apos;` into `'`)
+                previousLog = log;
 
                 if (removeTimestamps)
                     log = Regex.Replace(log, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
@@ -288,12 +289,19 @@ namespace Parser
             backupSettings.ShowDialog();
         }
 
+        private static string previousLog = string.Empty;
         private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\") || !File.Exists(FolderPath.Text + Data.logLogation))
+            if (string.IsNullOrWhiteSpace(Parsed.Text) || string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\") || !File.Exists(FolderPath.Text + Data.logLogation))
                 return;
 
-            Parse_Click(this, EventArgs.Empty);
+            if (RemoveTimestamps.Checked)
+            {
+                previousLog = Parsed.Text;
+                Parsed.Text = Regex.Replace(previousLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
+            }
+            else if (!string.IsNullOrWhiteSpace(previousLog))
+                Parsed.Text = previousLog;
         }
 
         private static ChatLogFilter chatLogFilter;
