@@ -50,9 +50,36 @@ namespace Parser
             Version.Text = $"Version: {Properties.Settings.Default.Version}";
             StatusLabel.Text = $"Automatic Backup: {(Properties.Settings.Default.BackupChatLogAutomatically ? "ON" : "OFF")}";
 
-            FolderPath.Text = Properties.Settings.Default.FolderPath;
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.FolderPath))
+                TryToFindFolder();
+            else
+                FolderPath.Text = Properties.Settings.Default.FolderPath;
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestamps;
             CheckForUpdatesOnStartup.Checked = Properties.Settings.Default.CheckForUpdatesAutomatically;
+        }
+
+        private void TryToFindFolder()
+        {
+            try
+            {
+                string folderPath = string.Empty;
+
+                foreach (var drive in DriveInfo.GetDrives())
+                {
+                    if (Directory.Exists(drive.Name + "RAGEMP\\") || Directory.Exists(drive.Name + "Games\\RAGEMP\\"))
+                    {
+                        folderPath = drive.Name + "RAGEMP\\";
+                        break;
+                    }
+                }
+
+                FolderPath.Text = folderPath;
+            }
+            catch
+            {
+                FolderPath.Text = string.Empty;
+                MessageBox.Show("Could not find the location of your RAGEMP folder, please browse for it manually.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void FolderPath_KeyDown(object sender, KeyEventArgs e)
