@@ -147,7 +147,7 @@ namespace Parser
             List<string> wordsToCheck = GetWordsToFilterIn();
             if (wordsToCheck.Count == 0 && !string.IsNullOrWhiteSpace(Words.Text))
             {
-                MessageBox.Show("Please choose at least one word, number or valid name pair PER LINE to filter into your new chat log.\n\nExample: Boat, $500, John, John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You can only have one word, number, or valid name pair on each line if you want to filter your chat log.\nExample: Boat, $500, John, John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -166,8 +166,9 @@ namespace Parser
                     if (string.IsNullOrWhiteSpace(word))
                         continue;
 
-                    // OLD: Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty).ToLower().Contains(word.ToLower())
-                    if (Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), $"\\b{word}\\b", RegexOptions.IgnoreCase))
+                    // ONE: Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty).ToLower().Contains(word.ToLower())
+                    // TWO: Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), $"\\b{word}\\b", RegexOptions.IgnoreCase)
+                    if (Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty).ToLower().Contains(word.ToLower()))
                     {
                         filtered += line + "\n";
                         break;
@@ -195,12 +196,17 @@ namespace Parser
                 Filtered.Text = logToCheck;
 
                 if (!fastFilter)
-                    MessageBox.Show("No matches found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No matches found.\n\nMake sure you only have one word, number, or valid name pair on each line.\nExample: Boat, $500, John, John Doe or John_Doe", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
+            if (skippedWord)
+                MessageBox.Show("One or more words were skipped during the filtering operation because they are not in a valid format.\n\nMake sure you only have one word, number, or valid name pair on each line.\nExample: Boat, $500, John, John Doe or John_Doe", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private static bool skippedWord = false;
         private List<string> GetWordsToFilterIn()
         {
+            skippedWord = false;
             string words = Words.Text;
             string[] lines = words.Split('\n');
 
@@ -225,6 +231,8 @@ namespace Parser
                 }
                 else if (splitWord.Length == 1 && !string.IsNullOrWhiteSpace(splitWord[0]))
                     finalWords.Add(splitWord[0]);
+                else
+                    skippedWord = true;
             }
 
             return finalWords;
