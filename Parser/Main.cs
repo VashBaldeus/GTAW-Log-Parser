@@ -78,7 +78,7 @@ namespace Parser
             catch
             {
                 FolderPath.Text = string.Empty;
-                MessageBox.Show("Could not find the location of your RAGEMP folder, please browse for it manually.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("An error occured while trying to automatically find the location of your RAGEMP folder, please browse for it manually.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
