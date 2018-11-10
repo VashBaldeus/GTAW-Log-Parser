@@ -77,18 +77,24 @@ namespace Parser
 
                 if (finalDirectories.Count > 0)
                 {
-                    if (MessageBox.Show("Would you like to move all of your existing backups to the new folder?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    if (MessageBox.Show("Would you like to move all of your existing backup files to the new directory?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
                         foreach (DirectoryInfo directory in finalDirectories)
                         {
-                            Directory.Move(directory.FullName, BackupPath.Text + directory.Name);
+                            if (!Directory.Exists(BackupPath.Text + directory.Name))
+                                Directory.Move(directory.FullName, BackupPath.Text + directory.Name);
+                            else
+                                throw new DirectoryAlreadyExistsException(directory.Name);
                         }
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("An error occurent while moving the backup files to the new directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (ex is DirectoryAlreadyExistsException)
+                    MessageBox.Show($"Could not move all backup directories to the new location because directory \"{ex.Message}\" already exists.\nOperation partially completed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                    MessageBox.Show("An error occurent while moving the backup files to the new directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -180,6 +186,24 @@ namespace Parser
                 StartupHandler.ToggleStartup(StartWithWindows.Checked);
 
             SaveSettings();
+        }
+    }
+
+    public class DirectoryAlreadyExistsException : Exception
+    {
+        public DirectoryAlreadyExistsException()
+        {
+
+        }
+
+        public DirectoryAlreadyExistsException(string message) : base(message)
+        {
+
+        }
+
+        public DirectoryAlreadyExistsException(string message, Exception inner) : base(message, inner)
+        {
+
         }
     }
 }

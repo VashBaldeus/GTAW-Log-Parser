@@ -59,6 +59,9 @@ namespace Parser
         {
             try
             {
+                if (File.Exists(backupPath + ".temp"))
+                    File.Delete(backupPath + ".temp");
+
                 DirectoryInfo directory = new DirectoryInfo(backupPath);
                 FileInfo[] textFilesInDirectory = directory.GetFiles("*.txt");
 
@@ -80,11 +83,13 @@ namespace Parser
 
                     if (!File.Exists(path + file.Name))
                         File.Move(file.FullName, path + file.Name);
+                    else
+                        file.Delete();
                 }
             }
             catch
             {
-
+                // Silent Exception
             }
         }
 
@@ -167,7 +172,7 @@ namespace Parser
 
                 string fileNameDate = Regex.Match(fileName, @"\d{1,2}\/[A-Za-z]{3}\/\d{4}").ToString();
                 fileNameDate = fileNameDate.Replace("/", ".");
-                
+
                 string year = Regex.Match(fileNameDate, @"\d{4}").ToString();
                 string month = Regex.Match(fileNameDate, @"[A-Za-z]{3}").ToString();
 
