@@ -65,31 +65,30 @@ namespace Parser
 
             try
             {
-                DirectoryInfo directory = new DirectoryInfo(Properties.Settings.Default.BackupPath);
-                FileInfo[] allTextFilesInDirectory = directory.GetFiles("*.txt");
+                DirectoryInfo[] directories = new DirectoryInfo(Properties.Settings.Default.BackupPath).GetDirectories();
 
-                List<FileInfo> chatLogFiles = new List<FileInfo>();
+                List<DirectoryInfo> finalDirectories = new List<DirectoryInfo>();
 
-                foreach (FileInfo file in allTextFilesInDirectory)
+                foreach (DirectoryInfo directory in directories)
                 {
-                    if (Regex.IsMatch(file.Name, @"\d{1,2}.[A-Za-z]{3}.\d{4}-\d{1,2}.\d{1,2}.\d{1,2}"))
-                        chatLogFiles.Add(file);
+                    if (Regex.IsMatch(directory.Name, @"\d{4}"))
+                        finalDirectories.Add(directory);
                 }
 
-                if (chatLogFiles.Count > 0)
+                if (finalDirectories.Count > 0)
                 {
                     if (MessageBox.Show("Would you like to move all of your existing backups to the new folder?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
-                        foreach (FileInfo file in chatLogFiles)
+                        foreach (DirectoryInfo directory in finalDirectories)
                         {
-                            File.Move(file.FullName, BackupPath.Text + file.Name);
+                            Directory.Move(directory.FullName, BackupPath.Text + directory.Name);
                         }
                     }
                 }
             }
             catch
             {
-                MessageBox.Show("An error occurent while moving the chat log files to the new directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occurent while moving the backup files to the new directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -51,6 +51,41 @@ namespace Parser
                 intervalThread = new Thread(() => IntervalWorker());
                 intervalThread.Start();
             }
+
+            SortOldBackups();
+        }
+
+        private static void SortOldBackups()
+        {
+            try
+            {
+                DirectoryInfo directory = new DirectoryInfo(backupPath);
+                FileInfo[] textFilesInDirectory = directory.GetFiles("*.txt");
+
+                foreach (FileInfo file in textFilesInDirectory)
+                {
+                    if (!Regex.IsMatch(file.Name, @"\d{1,2}.[A-Za-z]{3}.\d{4}-\d{1,2}.\d{1,2}.\d{1,2}"))
+                        continue;
+
+                    string year = Regex.Match(file.Name, @"\d{4}").ToString();
+                    string month = Regex.Match(file.Name, @"[A-Za-z]{3}").ToString();
+
+                    if (string.IsNullOrWhiteSpace(year) || string.IsNullOrWhiteSpace(month))
+                        continue;
+
+                    string path = $"{backupPath}{year}\\{month}\\";
+
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+
+                    if (!File.Exists(path + file.Name))
+                        File.Move(file.FullName, path + file.Name);
+                }
+            }
+            catch
+            {
+
+            }
         }
 
         public static void AbortAutomaticBackup()
@@ -87,7 +122,7 @@ namespace Parser
         {
             while (!quitting && runBackgroundBackup)
             {
-                Process[] processes = Process.GetProcessesByName("GTA5");
+                Process[] processes = Process.GetProcessesByName(Data.processName);
 
                 if (!isGameRunning && processes.Length != 0)
                     isGameRunning = true;
@@ -132,45 +167,56 @@ namespace Parser
 
                 string fileNameDate = Regex.Match(fileName, @"\d{1,2}\/[A-Za-z]{3}\/\d{4}").ToString();
                 fileNameDate = fileNameDate.Replace("/", ".");
+                
+                string year = Regex.Match(fileNameDate, @"\d{4}").ToString();
+                string month = Regex.Match(fileNameDate, @"[A-Za-z]{3}").ToString();
 
                 string fileNameTime = Regex.Match(fileName, @"\d{1,2}:\d{1,2}:\d{1,2}").ToString();
                 fileNameTime = fileNameTime.Replace(":", ".");
 
+                if (string.IsNullOrWhiteSpace(fileName) || string.IsNullOrWhiteSpace(fileNameDate) || string.IsNullOrWhiteSpace(fileNameTime) || string.IsNullOrWhiteSpace(year) || string.IsNullOrWhiteSpace(month))
+                    return;
+
                 fileName = fileNameDate + "-" + fileNameTime + ".txt";
 
-                if (!File.Exists(backupPath + fileName))
+                string path = $"{backupPath}{year}\\{month}\\";
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                if (!File.Exists(path + fileName))
                 {
-                    using (StreamWriter sw = new StreamWriter(backupPath + fileName))
+                    using (StreamWriter sw = new StreamWriter(path + fileName))
                     {
                         sw.Write(parsed.Replace("\n", Environment.NewLine));
                     }
 
                     if (gameClosed)
-                        MessageBox.Show($"Successfully parsed and backed up chat log to {backupPath + fileName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show($"Successfully parsed and backed up chat log to {path + fileName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    if (File.Exists(backupPath + ".temp"))
-                        File.Delete(backupPath + ".temp");
+                    if (File.Exists(path + ".temp"))
+                        File.Delete(path + ".temp");
 
-                    using (StreamWriter sw = new StreamWriter(backupPath + ".temp"))
+                    using (StreamWriter sw = new StreamWriter(path + ".temp"))
                     {
                         sw.Write(parsed.Replace("\n", Environment.NewLine));
                     }
 
-                    FileInfo oldFile = new FileInfo(backupPath + fileName);
-                    FileInfo newFile = new FileInfo(backupPath + ".temp");
+                    FileInfo oldFile = new FileInfo(path + fileName);
+                    FileInfo newFile = new FileInfo(path + ".temp");
 
                     if (oldFile.Length < newFile.Length)
                     {
-                        File.Delete(backupPath + fileName);
-                        File.Move(backupPath + ".temp", backupPath + fileName);
+                        File.Delete(path + fileName);
+                        File.Move(path + ".temp", path + fileName);
                     }
                     else
-                        File.Delete(backupPath + ".temp");
+                        File.Delete(path + ".temp");
 
                     if (gameClosed)
-                        MessageBox.Show($"Successfully parsed and backed up chat log to {backupPath + fileName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show($"Successfully parsed and backed up chat log to {path + fileName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch
