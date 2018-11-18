@@ -66,14 +66,20 @@ namespace Parser
 
                 foreach (var drive in DriveInfo.GetDrives())
                 {
-                    if (Directory.Exists(drive.Name + "RAGEMP\\") || Directory.Exists(drive.Name + "Games\\RAGEMP\\"))
+                    if (Directory.Exists(drive.Name + "RAGEMP\\"))
                     {
                         folderPath = drive.Name + "RAGEMP\\";
+                        break;
+                    }
+                    else if (Directory.Exists(drive.Name + "Games\\RAGEMP\\"))
+                    {
+                        folderPath = drive.Name + "Games\\RAGEMP\\";
                         break;
                     }
                 }
 
                 FolderPath.Text = folderPath;
+                MessageBox.Show($"Automatically found your RAGEMP folder at \"{folderPath}\"\n\nPlease browse for the correct path manually if this is incorrect or you have multiple RAGEMP installations.", "Information (First Start)", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch
             {
@@ -138,7 +144,7 @@ namespace Parser
                 MessageBox.Show("Invalid RAGEMP folder path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            else if (!File.Exists(FolderPath.Text + Data.logLogation))
+            else if (!File.Exists(FolderPath.Text + Data.logLocation))
             {
                 MessageBox.Show("Can't find the GTA World chat log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -151,23 +157,61 @@ namespace Parser
         {
             try
             {
-                string log;
+                Data.Initialize();
 
-                using (StreamReader sr = new StreamReader(folderPath + Data.logLogation))
+                string log;
+                using (StreamReader sr = new StreamReader(folderPath + Data.logLocation))
                 {
                     log = sr.ReadToEnd();
                 }
 
-                log = Regex.Match(log, "\\\"chatlog\\\":\\\".+\\\\n\\\"").Value;
+                bool oldLog = false;
+                string tempLog = Regex.Match(log, "\\\"chatlog\\\":\\\".+\\\\n\\\"").Value;
+                if (string.IsNullOrWhiteSpace(tempLog))
+                {
+                    tempLog = "\"chatlog\":" + log;
+                    tempLog = Regex.Match(tempLog, "\\\"chatlog\\\":\\\".+\\\\n\\\"").Value;
+
+                    if (!string.IsNullOrWhiteSpace(tempLog))
+                    {
+                        oldLog = true;
+
+                        if (showError)
+                        {
+                            if (MessageBox.Show("An old format was detected while parsing the chat log and it is advised you delete the file. Would you like to delete it?\n(The file will be parsed before deletion)", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                            {
+                                try
+                                {
+                                    if (File.Exists(folderPath + Data.logLocation))
+                                        File.Delete(folderPath + Data.logLocation);
+                                }
+                                catch
+                                {
+                                    MessageBox.Show("An error occured while trying to delete the file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new IndexOutOfRangeException();
+                    }
+                }
+
+                log = tempLog;
 
                 log = log.Replace("\"chatlog\":\"", "");
                 log = log.Replace("\\n", "\n");                     // Change all occurrences of `\n` into new lines
                 log = log.Remove(log.Length - 2, 2);                // Remove the `new line` and the `"}` characters from the end
 
-                //log = Regex.Replace(log, "~[A-Za-z]~", string.Empty);                   // Remove the RAGEMP color tags (example: `~r~` for red)
-                //log = Regex.Replace(log, @"!{#(?:[0-9A-Fa-f]{3}){1,2}}", string.Empty); // Remove HEX color tags (example: `!{#FFEC8B}` for the yellow color picked for radio messages)
+                if (oldLog)
+                {
+                    log = Regex.Replace(log, "<[^>]*>", string.Empty);  // Remove the HTML tags that are added for the chat (example: `If the ingame menus are out of place, use <span style=\"color: dodgerblue\">/movemenu</span>`)
 
-                //log = Regex.Replace(log, "<[^>]*>", string.Empty);  // Remove the HTML tags that are added for the chat (example: `If the ingame menus are out of place, use <span style=\"color: dodgerblue\">/movemenu</span>`)
+                    log = Regex.Replace(log, "~[A-Za-z]~", string.Empty);                   // Remove the RAGEMP color tags (example: `~r~` for red)
+                    log = Regex.Replace(log, @"!{#(?:[0-9A-Fa-f]{3}){1,2}}", string.Empty); // Remove HEX color tags (example: `!{#FFEC8B}` for the yellow color picked for radio messages)
+                }
+
                 log = System.Net.WebUtility.HtmlDecode(log);        // Decode HTML symbols (example: `&apos;` into `'`)
                 previousLog = log;
 
@@ -240,7 +284,7 @@ namespace Parser
         private static string previousLog = string.Empty;
         private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Parsed.Text) || string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\") || !File.Exists(FolderPath.Text + Data.logLogation))
+            if (string.IsNullOrWhiteSpace(Parsed.Text) || string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\") || !File.Exists(FolderPath.Text + Data.logLocation))
                 return;
 
             if (RemoveTimestamps.Checked)

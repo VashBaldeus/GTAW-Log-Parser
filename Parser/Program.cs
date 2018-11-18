@@ -34,6 +34,8 @@ namespace Parser
                     startMinimizedWithoutTrayIcon = true;
             }
 
+            Data.Initialize();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
