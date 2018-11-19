@@ -178,12 +178,31 @@ namespace Parser
 
                         if (showError)
                         {
-                            if (MessageBox.Show("An old format was detected while parsing the chat log and it is advised you delete the file. Would you like to delete it?\n(The file will be parsed before deletion)", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                            if (MessageBox.Show("An old format was detected while parsing the chat log and it is advised you delete it and all other scripts that didn't update correcly.\n\nWould you like to delete these files?\n(The chat log file will be parsed before deletion)", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                             {
                                 try
                                 {
-                                    if (File.Exists(folderPath + Data.logLocation))
-                                        File.Delete(folderPath + Data.logLocation);
+                                    int foundDirectories = 0;
+
+                                    foreach (string ip in Data.serverIPs)
+                                    {
+                                        if (Directory.Exists($"{folderPath}client_resources\\{ip}"))
+                                        {
+                                            foundDirectories++;
+
+                                            if (File.Exists($"{folderPath}client_resources\\{ip}\\.storage"))
+                                                File.Delete($"{folderPath}client_resources\\{ip}\\.storage");
+
+                                            foreach (string file in Data.potentiallyOldFiles)
+                                            {
+                                                if (File.Exists($"{folderPath}client_resources\\{ip}\\gtalife\\{file}"))
+                                                    File.Delete($"{folderPath}client_resources\\{ip}\\gtalife\\{file}");
+                                            }
+                                        }
+                                    }
+
+                                    if (foundDirectories > 1)
+                                        MessageBox.Show("Multiple GTA World resource directories were found. It is advised you use a single IP to connect to the server and delete the other resource directory.\n\nKeep either \"164.132.206.209_22005\" or \"play.gta.world_22005\".", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
                                 catch
                                 {
