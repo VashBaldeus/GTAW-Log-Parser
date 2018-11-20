@@ -202,7 +202,7 @@ namespace Parser
                                     }
 
                                     if (foundDirectories > 1)
-                                        MessageBox.Show("Multiple GTA World resource directories were found. It is advised you use a single IP to connect to the server and delete the other resource directory.\n\nKeep either \"164.132.206.209_22005\" or \"play.gta.world_22005\".", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        MessageBox.Show($"Multiple GTA World resource directories were found. It is advised you use a single IP to connect to the server and delete the other resource directory.\n\nKeep either \"{Data.serverIPs[0]}\" or \"{Data.serverIPs[1]}\".", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
                                 catch
                                 {
@@ -221,7 +221,7 @@ namespace Parser
 
                 log = log.Replace("\"chatlog\":\"", string.Empty);  // Remove the chat log indicator
                 log = log.Replace("\\n", "\n");                     // Change all occurrences of `\n` into new lines
-                log = log.Remove(log.Length - 1, 1);                // Remove the and the `"` character from the end
+                log = log.Remove(log.Length - 1, 1);                // Remove the `"` character from the end
 
                 if (oldLog)
                 {

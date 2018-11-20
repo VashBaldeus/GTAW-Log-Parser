@@ -11,7 +11,7 @@ namespace Parser
 
             if (!string.IsNullOrWhiteSpace(folderPath))
             {
-                if (!File.Exists(folderPath + logLocation) && File.Exists($"{folderPath}client_resources\\{serverIPs[1]}\\.storage"))
+                if (!File.Exists($"{folderPath}client_resources\\{serverIPs[0]}\\.storage") && File.Exists($"{folderPath}client_resources\\{serverIPs[1]}\\.storage"))
                 {
                     logLocation = $"client_resources\\{serverIPs[1]}\\.storage";
                     return;
