@@ -40,6 +40,7 @@ namespace Parser
 
         public void Initialize()
         {
+            ActiveControl = LoadUnparsed;
             Filtered.Text = ChatLog = string.Empty;
         }
 

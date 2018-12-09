@@ -31,6 +31,8 @@ namespace Parser
 
         public void LoadSettings()
         {
+            ActiveControl = Browse;
+
             BackupPath.Text = Properties.Settings.Default.BackupPath;
 
             BackUpChatLogAutomatically.Checked = Properties.Settings.Default.BackupChatLogAutomatically;
@@ -71,7 +73,7 @@ namespace Parser
 
                 foreach (DirectoryInfo directory in directories)
                 {
-                    if (Regex.IsMatch(directory.Name, @"\d{4}"))
+                    if (Regex.IsMatch(directory.Name, @"20\d{2}"))
                         finalDirectories.Add(directory);
                 }
 
@@ -79,22 +81,31 @@ namespace Parser
                 {
                     if (MessageBox.Show("Would you like to move all of your existing backup files to the new directory?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
+                        List<string> moved = new List<string>();
+                        List<string> notMoved = new List<string>();
+
                         foreach (DirectoryInfo directory in finalDirectories)
                         {
                             if (!Directory.Exists(BackupPath.Text + directory.Name))
+                            {
                                 Directory.Move(directory.FullName, BackupPath.Text + directory.Name);
+                                moved.Add(directory.Name);
+                            }
                             else
-                                throw new DirectoryAlreadyExistsException(directory.Name);
+                                notMoved.Add(directory.Name);
                         }
+
+                        Properties.Settings.Default.BackupPath = BackupPath.Text;
+                        Properties.Settings.Default.Save();
+
+                        if (notMoved.Count > 0)
+                            MessageBox.Show($"{(moved.Count > 0 ? $"Only moved the \"{string.Join(", ", moved)}\" folder(s) to the new location" : "Did not move any folders to the new location")} because the \"{string.Join(", ", notMoved)}\" folder(s) already exist(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                if (ex is DirectoryAlreadyExistsException)
-                    MessageBox.Show($"Could not move all backup directories to the new location because directory \"{ex.Message}\" already exists.\nOperation partially completed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else
-                    MessageBox.Show("An error occurent while moving the backup files to the new directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occurent while moving the backup files to the new directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -186,24 +197,6 @@ namespace Parser
                 StartupHandler.ToggleStartup(StartWithWindows.Checked);
 
             SaveSettings();
-        }
-    }
-
-    public class DirectoryAlreadyExistsException : Exception
-    {
-        public DirectoryAlreadyExistsException()
-        {
-
-        }
-
-        public DirectoryAlreadyExistsException(string message) : base(message)
-        {
-
-        }
-
-        public DirectoryAlreadyExistsException(string message, Exception inner) : base(message, inner)
-        {
-
         }
     }
 }

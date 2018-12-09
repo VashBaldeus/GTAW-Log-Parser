@@ -34,6 +34,8 @@ namespace Parser
 
             if (startMinimized)
                 TrayIcon.Visible = true;
+
+            CheckForUpdates(manual: false);
         }
 
         private void SaveSettings()
