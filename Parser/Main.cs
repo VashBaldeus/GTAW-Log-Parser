@@ -35,7 +35,8 @@ namespace Parser
             if (startMinimized)
                 TrayIcon.Visible = true;
 
-            CheckForUpdates(manual: false);
+            if (Properties.Settings.Default.CheckForUpdatesAutomatically)
+                TryCheckingForUpdates(manual: false);
         }
 
         private void SaveSettings()
@@ -344,6 +345,9 @@ namespace Parser
 
                 if (string.Compare(installedVersion, currentVersion) < 0)
                 {
+                    if (!allowFormDisplay)
+                        ResumeTrayStripMenuItem_Click(this, EventArgs.Empty);
+
                     if (MessageBox.Show($"A new version of the chat log parser is now available on GitHub.\n\nInstalled Version: {installedVersion}\nAvailable Version: {currentVersion}\n\nWould you like to visit the releases page now?", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                         System.Diagnostics.Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases");
                 }
