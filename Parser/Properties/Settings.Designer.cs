@@ -25,7 +25,7 @@ namespace Parser.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2.6.3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2.6.4")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -161,6 +161,18 @@ namespace Parser.Properties {
             }
             set {
                 this["StartWithWindows"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool FirstStart {
+            get {
+                return ((bool)(this["FirstStart"]));
+            }
+            set {
+                this["FirstStart"] = value;
             }
         }
     }

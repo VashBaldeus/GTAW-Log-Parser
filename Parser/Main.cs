@@ -53,8 +53,13 @@ namespace Parser
             Version.Text = $"Version: {Properties.Settings.Default.Version}";
             StatusLabel.Text = $"Automatic Backup: {(Properties.Settings.Default.BackupChatLogAutomatically ? "ON" : "OFF")}";
 
-            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.FolderPath))
+            if (Properties.Settings.Default.FirstStart && string.IsNullOrWhiteSpace(Properties.Settings.Default.FolderPath))
+            {
+                Properties.Settings.Default.FirstStart = false;
+                Properties.Settings.Default.Save();
+
                 TryToFindFolder();
+            }
             else
                 FolderPath.Text = Properties.Settings.Default.FolderPath;
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestamps;
@@ -69,16 +74,23 @@ namespace Parser
 
                 foreach (var drive in DriveInfo.GetDrives())
                 {
-                    if (Directory.Exists(drive.Name + "RAGEMP\\"))
+                    foreach (string possibleFolder in Data.possibleFolderLocations)
                     {
-                        folderPath = drive.Name + "RAGEMP\\";
-                        break;
+                        if (Directory.Exists(drive.Name + possibleFolder))
+                        {
+                            folderPath = drive.Name + possibleFolder;
+                            break;
+                        }
                     }
-                    else if (Directory.Exists(drive.Name + "Games\\RAGEMP\\"))
-                    {
-                        folderPath = drive.Name + "Games\\RAGEMP\\";
+
+                    if (!string.IsNullOrWhiteSpace(folderPath))
                         break;
-                    }
+                }
+
+                if (string.IsNullOrWhiteSpace(folderPath))
+                {
+                    MessageBox.Show($"Couldn't detect the path to your RAGEMP folder, please browse for it manually.", "Information (First Start)", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
 
                 FolderPath.Text = folderPath;
