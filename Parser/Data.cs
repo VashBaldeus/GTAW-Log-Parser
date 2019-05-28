@@ -38,7 +38,7 @@ namespace Parser
         public static readonly string[] serverIPs = { "164.132.206.209_22005", "play.gta.world_22005", "e"};
         public static string logLocation = $"client_resources\\{serverIPs[0]}\\.storage";
 
-        public static readonly string[] possibleFolderLocations = { "RAGEMP\\", "Games\\RAGEMP\\" };
+        public static readonly string[] possibleFolderLocations = { "RAGEMP\\", "\\RAGEMP\\", "Games\\RAGEMP\\", "\\Games\\RAGEMP\\" };
         public static readonly string[] potentiallyOldFiles = { "index.js", "chatlog.js", "chat_extra.js", "chat\\js\\chat.js", "chat\\index.html", "chat\\style\\main_left.css", "chat\\style\\checkbox.css" };
     }
 }

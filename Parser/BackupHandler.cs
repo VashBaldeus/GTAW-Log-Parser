@@ -196,7 +196,7 @@ namespace Parser
                         sw.Write(parsed.Replace("\n", Environment.NewLine));
                     }
 
-                    if (gameClosed)
+                    if (gameClosed && !Properties.Settings.Default.SuppressNotifications)
                         MessageBox.Show($"Successfully parsed and backed up chat log to {path + fileName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
@@ -220,7 +220,7 @@ namespace Parser
                     else
                         File.Delete(path + ".temp");
 
-                    if (gameClosed)
+                    if (gameClosed && !Properties.Settings.Default.SuppressNotifications)
                         MessageBox.Show($"Successfully parsed and backed up chat log to {path + fileName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }

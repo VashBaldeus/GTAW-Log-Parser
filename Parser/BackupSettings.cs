@@ -25,6 +25,7 @@ namespace Parser
             Properties.Settings.Default.IntervalTime = (int)Interval.Value;
             Properties.Settings.Default.RemoveTimestampsFromBackup = RemoveTimestamps.Checked;
             Properties.Settings.Default.StartWithWindows = StartWithWindows.Checked;
+            Properties.Settings.Default.SuppressNotifications = SuppressNotifications.Checked;
 
             Properties.Settings.Default.Save();
         }
@@ -40,6 +41,7 @@ namespace Parser
             Interval.Value = Properties.Settings.Default.IntervalTime;
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestampsFromBackup;
             StartWithWindows.Checked = Properties.Settings.Default.StartWithWindows;
+            SuppressNotifications.Checked = Properties.Settings.Default.SuppressNotifications;
         }
 
         public static void ResetSettings()
@@ -51,6 +53,7 @@ namespace Parser
             Properties.Settings.Default.IntervalTime = 10;
             Properties.Settings.Default.RemoveTimestampsFromBackup = false;
             Properties.Settings.Default.StartWithWindows = false;
+            Properties.Settings.Default.SuppressNotifications = false;
 
             Properties.Settings.Default.Save();
         }
@@ -147,12 +150,14 @@ namespace Parser
             EnableIntervalBackup.Enabled = BackUpChatLogAutomatically.Checked;
             RemoveTimestamps.Enabled = BackUpChatLogAutomatically.Checked;
             StartWithWindows.Enabled = BackUpChatLogAutomatically.Checked;
+            SuppressNotifications.Enabled = BackUpChatLogAutomatically.Checked;
 
             if (!BackUpChatLogAutomatically.Checked)
             {
                 StartWithWindows.Checked = false;
                 RemoveTimestamps.Checked = false;
                 EnableIntervalBackup.Checked = false;
+                SuppressNotifications.Checked = false;
             }
         }
 

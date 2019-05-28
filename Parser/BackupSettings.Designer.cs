@@ -40,12 +40,13 @@
             this.Interval = new System.Windows.Forms.NumericUpDown();
             this.RemoveTimestamps = new System.Windows.Forms.CheckBox();
             this.StartWithWindows = new System.Windows.Forms.CheckBox();
+            this.SuppressNotifications = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.Interval)).BeginInit();
             this.SuspendLayout();
             // 
             // CloseWindow
             // 
-            this.CloseWindow.Location = new System.Drawing.Point(337, 143);
+            this.CloseWindow.Location = new System.Drawing.Point(338, 172);
             this.CloseWindow.Name = "CloseWindow";
             this.CloseWindow.Size = new System.Drawing.Size(75, 25);
             this.CloseWindow.TabIndex = 7;
@@ -55,7 +56,7 @@
             // 
             // Reset
             // 
-            this.Reset.Location = new System.Drawing.Point(256, 143);
+            this.Reset.Location = new System.Drawing.Point(257, 172);
             this.Reset.Name = "Reset";
             this.Reset.Size = new System.Drawing.Size(75, 25);
             this.Reset.TabIndex = 8;
@@ -187,11 +188,23 @@
             this.StartWithWindows.UseVisualStyleBackColor = true;
             this.StartWithWindows.CheckedChanged += new System.EventHandler(this.StartWithWindows_CheckedChanged);
             // 
+            // SuppressNotifications
+            // 
+            this.SuppressNotifications.AutoSize = true;
+            this.SuppressNotifications.Enabled = false;
+            this.SuppressNotifications.Location = new System.Drawing.Point(12, 177);
+            this.SuppressNotifications.Name = "SuppressNotifications";
+            this.SuppressNotifications.Size = new System.Drawing.Size(221, 17);
+            this.SuppressNotifications.TabIndex = 9;
+            this.SuppressNotifications.Text = "Suppress successful backup notifications";
+            this.SuppressNotifications.UseVisualStyleBackColor = true;
+            // 
             // BackupSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 180);
+            this.ClientSize = new System.Drawing.Size(424, 208);
+            this.Controls.Add(this.SuppressNotifications);
             this.Controls.Add(this.StartWithWindows);
             this.Controls.Add(this.RemoveTimestamps);
             this.Controls.Add(this.Interval);
@@ -233,5 +246,6 @@
         private System.Windows.Forms.NumericUpDown Interval;
         private System.Windows.Forms.CheckBox RemoveTimestamps;
         private System.Windows.Forms.CheckBox StartWithWindows;
+        private System.Windows.Forms.CheckBox SuppressNotifications;
     }
 }

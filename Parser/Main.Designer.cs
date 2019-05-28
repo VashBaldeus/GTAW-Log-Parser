@@ -121,7 +121,7 @@
             // CheckForUpdatesOnStartup
             // 
             this.CheckForUpdatesOnStartup.AutoSize = true;
-            this.CheckForUpdatesOnStartup.Location = new System.Drawing.Point(12, 178);
+            this.CheckForUpdatesOnStartup.Location = new System.Drawing.Point(12, 171);
             this.CheckForUpdatesOnStartup.Name = "CheckForUpdatesOnStartup";
             this.CheckForUpdatesOnStartup.Size = new System.Drawing.Size(177, 17);
             this.CheckForUpdatesOnStartup.TabIndex = 6;
@@ -194,7 +194,7 @@
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
             this.ExitToolStripMenuItem.Text = "Exit";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -228,7 +228,7 @@
             // RemoveTimestamps
             // 
             this.RemoveTimestamps.AutoSize = true;
-            this.RemoveTimestamps.Location = new System.Drawing.Point(12, 201);
+            this.RemoveTimestamps.Location = new System.Drawing.Point(12, 194);
             this.RemoveTimestamps.Name = "RemoveTimestamps";
             this.RemoveTimestamps.Size = new System.Drawing.Size(121, 17);
             this.RemoveTimestamps.TabIndex = 7;
