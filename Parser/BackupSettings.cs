@@ -168,7 +168,8 @@ namespace Parser
 
         private void Interval_ValueChanged(object sender, EventArgs e)
         {
-            EnableIntervalBackup.Text = $"Back up the chat log automatically while the game is running (every {Interval.Value} minutes)";
+            IntervalLabel2.Text = $"{(Interval.Value > 1 ? "minutes" : "minute")}. (recommended)";
+            EnableIntervalBackup.Text = $"Back up the chat log automatically while the game is running (every {Interval.Value} {(Interval.Value > 1 ? "minutes" : "minute")})";
         }
 
         private void StartWithWindows_CheckedChanged(object sender, EventArgs e)
