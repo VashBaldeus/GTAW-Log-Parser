@@ -180,7 +180,7 @@
             // 
             this.StartWithWindows.AutoSize = true;
             this.StartWithWindows.Enabled = false;
-            this.StartWithWindows.Location = new System.Drawing.Point(12, 154);
+            this.StartWithWindows.Location = new System.Drawing.Point(12, 177);
             this.StartWithWindows.Name = "StartWithWindows";
             this.StartWithWindows.Size = new System.Drawing.Size(171, 17);
             this.StartWithWindows.TabIndex = 6;
@@ -192,7 +192,7 @@
             // 
             this.SuppressNotifications.AutoSize = true;
             this.SuppressNotifications.Enabled = false;
-            this.SuppressNotifications.Location = new System.Drawing.Point(12, 177);
+            this.SuppressNotifications.Location = new System.Drawing.Point(12, 154);
             this.SuppressNotifications.Name = "SuppressNotifications";
             this.SuppressNotifications.Size = new System.Drawing.Size(221, 17);
             this.SuppressNotifications.TabIndex = 9;
