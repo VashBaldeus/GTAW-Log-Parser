@@ -46,7 +46,7 @@ namespace Parser
                 StartupHandler.Initialize();
                 BackupHandler.Initialize();
 
-                MessageBox.Show("Started the GTA World Chat Log Parser in minimized mode with no tray icon. You can only close it from the task manager.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Started the GTA World Chat Log Parser in minimized mode with no tray icon. You can only close it from the task manager.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             GC.KeepAlive(mutex);
