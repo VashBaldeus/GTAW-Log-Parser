@@ -28,6 +28,7 @@ namespace Parser
 
             InitializeComponent();
 
+            // Also checks for the first start
             LoadSettings();
 
             BackupHandler.Initialize();
@@ -53,12 +54,12 @@ namespace Parser
             Version.Text = $"Version: {Properties.Settings.Default.Version}";
             StatusLabel.Text = $"Automatic Backup: {(Properties.Settings.Default.BackupChatLogAutomatically ? "ON" : "OFF")}";
 
-            if (Properties.Settings.Default.FirstStart && string.IsNullOrWhiteSpace(Properties.Settings.Default.FolderPath))
+            if (Properties.Settings.Default.FirstStart)
             {
                 Properties.Settings.Default.FirstStart = false;
                 Properties.Settings.Default.Save();
 
-                TryToFindFolder();
+                LookForMainFolder();
             }
             else
                 FolderPath.Text = Properties.Settings.Default.FolderPath;
@@ -66,7 +67,7 @@ namespace Parser
             CheckForUpdatesOnStartup.Checked = Properties.Settings.Default.CheckForUpdatesAutomatically;
         }
 
-        private void TryToFindFolder()
+        private void LookForMainFolder()
         {
             try
             {
