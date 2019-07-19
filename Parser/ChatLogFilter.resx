@@ -150,6 +150,9 @@
   <data name="&gt;&gt;BrowseForParsed.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="&gt;&gt;Filtered.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
   <data name="BrowseForParsed.Location" type="System.Drawing.Point, System.Drawing">
     <value>153, 25</value>
   </data>
@@ -171,8 +174,8 @@
   <data name="&gt;&gt;TimeLabel.Name" xml:space="preserve">
     <value>TimeLabel</value>
   </data>
-  <data name="&gt;&gt;Filtered.ZOrder" xml:space="preserve">
-    <value>6</value>
+  <data name="Words.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 184</value>
   </data>
   <data name="&gt;&gt;CopyFilteredToClipboard.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -210,14 +213,14 @@
   <data name="Filtered.Size" type="System.Drawing.Size, System.Drawing">
     <value>277, 197</value>
   </data>
+  <data name="&gt;&gt;BrowseForParsed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;WordsLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Filter.Parent" xml:space="preserve">
     <value>$this</value>
-  </data>
-  <data name="StatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 13</value>
   </data>
   <data name="&gt;&gt;SaveFiltered.Name" xml:space="preserve">
     <value>SaveFiltered</value>
@@ -261,8 +264,8 @@
   <data name="&gt;&gt;Timer.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;LoadUnparsed.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="TimeLabel.Text" xml:space="preserve">
+    <value>Current time: 23:23:23</value>
   </data>
   <data name="StatusLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -300,20 +303,20 @@
   <data name="StatusLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
-  <data name="TimeLabel.Text" xml:space="preserve">
-    <value>Current time: 23:23:23</value>
+  <data name="&gt;&gt;OpenFileDialog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Words.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 184</value>
+  <data name="Filtered.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
   <data name="SaveFiltered.Location" type="System.Drawing.Point, System.Drawing">
     <value>82, 259</value>
   </data>
+  <data name="&gt;&gt;LoadUnparsed.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <data name="Words.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 69</value>
-  </data>
-  <data name="Filtered.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
   </data>
   <data name="CopyFilteredToClipboard.Text" xml:space="preserve">
     <value>Copy To Clipboard</value>
@@ -327,8 +330,8 @@
   <data name="LoadUnparsed.Size" type="System.Drawing.Size, System.Drawing">
     <value>135, 25</value>
   </data>
-  <data name="&gt;&gt;LoadUnparsed.ZOrder" xml:space="preserve">
-    <value>10</value>
+  <data name="StatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>291, 13</value>
   </data>
   <data name="BrowseForParsed.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -408,8 +411,8 @@
   <data name="SaveFiltered.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;BrowseForParsed.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;LoadUnparsed.ZOrder" xml:space="preserve">
+    <value>10</value>
   </data>
   <data name="&gt;&gt;Filter.Name" xml:space="preserve">
     <value>Filter</value>
@@ -422,9 +425,6 @@
   </data>
   <data name="&gt;&gt;CopyFilteredToClipboard.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="&gt;&gt;OpenFileDialog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="CopyFilteredToClipboard.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>

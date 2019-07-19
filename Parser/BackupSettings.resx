@@ -117,15 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Browse.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="&gt;&gt;BackUpChatLogAutomatically.Name" xml:space="preserve">
     <value>BackUpChatLogAutomatically</value>
-  </data>
-  <data name="SuppressNotifications.Text" xml:space="preserve">
-    <value>Suppress successful backup notifications</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="IntervalLabel1.Size" type="System.Drawing.Size, System.Drawing">
@@ -137,17 +130,11 @@
   <data name="BackupPath.Size" type="System.Drawing.Size, System.Drawing">
     <value>320, 22</value>
   </data>
-  <data name="&gt;&gt;StartWithWindows.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
   <data name="Interval.Size" type="System.Drawing.Size, System.Drawing">
     <value>33, 20</value>
   </data>
-  <data name="CloseWindow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 25</value>
-  </data>
-  <data name="&gt;&gt;CloseWindow.ZOrder" xml:space="preserve">
-    <value>12</value>
+  <data name="&gt;&gt;EnableIntervalBackup.Name" xml:space="preserve">
+    <value>EnableIntervalBackup</value>
   </data>
   <data name="&gt;&gt;CloseWindow.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -158,11 +145,12 @@
   <data name="&gt;&gt;EnableIntervalBackup.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="IntervalLabel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>424, 208</value>
+  <data name="IntervalLabel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 107</value>
   </data>
   <data name="Reset.Text" xml:space="preserve">
     <value>Reset</value>
@@ -170,11 +158,14 @@
   <data name="&gt;&gt;StartWithWindows.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="&gt;&gt;IntervalLabel1.Name" xml:space="preserve">
+    <value>IntervalLabel1</value>
+  </data>
   <data name="IntervalLabel2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;SuppressNotifications.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;CloseWindow.ZOrder" xml:space="preserve">
+    <value>12</value>
   </data>
   <data name="SuppressNotifications.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 154</value>
@@ -182,17 +173,20 @@
   <data name="StartWithWindows.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 177</value>
   </data>
-  <data name="RemoveTimestamps.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
   <data name="Reset.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 25</value>
+  </data>
+  <data name="EnableIntervalBackup.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;IntervalLabel1.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
   <data name="&gt;&gt;BackupPath.Name" xml:space="preserve">
     <value>BackupPath</value>
+  </data>
+  <data name="BackupPath.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
   <data name="BackUpChatLogAutomatically.Size" type="System.Drawing.Size, System.Drawing">
     <value>354, 17</value>
@@ -203,8 +197,8 @@
   <data name="&gt;&gt;BackUpChatLogAutomatically.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="&gt;&gt;IntervalLabel2.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;Interval.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;RemoveTimestamps.Name" xml:space="preserve">
     <value>RemoveTimestamps</value>
@@ -228,8 +222,8 @@
   <data name="&gt;&gt;EnableIntervalBackup.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;Interval.Name" xml:space="preserve">
-    <value>Interval</value>
+  <data name="RemoveTimestamps.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="IntervalLabel2.Text" xml:space="preserve">
     <value>minutes. (recommended)</value>
@@ -237,17 +231,14 @@
   <data name="BackupPathLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>72, 13</value>
   </data>
-  <data name="&gt;&gt;Interval.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="SuppressNotifications.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="BackupPath.Multiline" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Browse.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 25</value>
-  </data>
-  <data name="&gt;&gt;IntervalLabel2.Name" xml:space="preserve">
-    <value>IntervalLabel2</value>
   </data>
   <data name="&gt;&gt;Interval.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -255,8 +246,8 @@
   <data name="&gt;&gt;Reset.Name" xml:space="preserve">
     <value>Reset</value>
   </data>
-  <data name="&gt;&gt;StartWithWindows.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;BackupPathLabel.Name" xml:space="preserve">
+    <value>BackupPathLabel</value>
   </data>
   <data name="&gt;&gt;Browse.Parent" xml:space="preserve">
     <value>$this</value>
@@ -267,29 +258,38 @@
   <data name="&gt;&gt;Reset.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="IntervalLabel2.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="CloseWindow.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;RemoveTimestamps.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="BackupPath.ScrollBars" type="System.Windows.Forms.RichTextBoxScrollBars, System.Windows.Forms">
-    <value>None</value>
+  <data name="&gt;&gt;IntervalLabel2.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="RemoveTimestamps.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 131</value>
   </data>
-  <data name="RemoveTimestamps.Enabled" type="System.Boolean, mscorlib">
+  <data name="EnableIntervalBackup.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
+  </data>
+  <data name="&gt;&gt;EnableIntervalBackup.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;StartWithWindows.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SuppressNotifications.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="BackupPath.ScrollBars" type="System.Windows.Forms.RichTextBoxScrollBars, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="&gt;&gt;BackUpChatLogAutomatically.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="BackUpChatLogAutomatically.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="IntervalLabel2.Location" type="System.Drawing.Point, System.Drawing">
     <value>162, 107</value>
   </data>
-  <data name="&gt;&gt;BackUpChatLogAutomatically.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="Browse.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;CloseWindow.Name" xml:space="preserve">
     <value>CloseWindow</value>
@@ -300,8 +300,8 @@
   <data name="&gt;&gt;Browse.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="CloseWindow.Location" type="System.Drawing.Point, System.Drawing">
-    <value>338, 172</value>
+  <data name="CloseWindow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 25</value>
   </data>
   <data name="&gt;&gt;Browse.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -342,8 +342,8 @@
   <data name="Reset.Location" type="System.Drawing.Point, System.Drawing">
     <value>257, 172</value>
   </data>
-  <data name="&gt;&gt;BackupPathLabel.Name" xml:space="preserve">
-    <value>BackupPathLabel</value>
+  <data name="&gt;&gt;IntervalLabel2.Name" xml:space="preserve">
+    <value>IntervalLabel2</value>
   </data>
   <data name="EnableIntervalBackup.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 81</value>
@@ -360,35 +360,29 @@
   <data name="RemoveTimestamps.Text" xml:space="preserve">
     <value>Remove timestamps from backup</value>
   </data>
-  <data name="IntervalLabel1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="Reset.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
   <data name="BackupPathLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 13</value>
   </data>
+  <data name="CloseWindow.Location" type="System.Drawing.Point, System.Drawing">
+    <value>338, 172</value>
+  </data>
   <data name="&gt;&gt;BackupPath.Parent" xml:space="preserve">
     <value>$this</value>
-  </data>
-  <data name="IntervalLabel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 13</value>
   </data>
   <data name="&gt;&gt;RemoveTimestamps.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;StartWithWindows.Name" xml:space="preserve">
-    <value>StartWithWindows</value>
-  </data>
-  <data name="&gt;&gt;IntervalLabel2.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;SuppressNotifications.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;BackupPath.Type" xml:space="preserve">
     <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="BackUpChatLogAutomatically.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="IntervalLabel1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="Interval.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -396,14 +390,17 @@
   <data name="&gt;&gt;IntervalLabel1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="Interval.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="&gt;&gt;Reset.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>BackupSettings</value>
   </data>
-  <data name="RemoveTimestamps.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="EnableIntervalBackup.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;StartWithWindows.Name" xml:space="preserve">
+    <value>StartWithWindows</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Automatic Backup Settings</value>
@@ -414,8 +411,11 @@
   <data name="StartWithWindows.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="EnableIntervalBackup.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;IntervalLabel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="CloseWindow.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
   </data>
   <data name="Browse.Text" xml:space="preserve">
     <value>Browse</value>
@@ -429,17 +429,17 @@
   <data name="EnableIntervalBackup.Size" type="System.Drawing.Size, System.Drawing">
     <value>400, 17</value>
   </data>
-  <data name="&gt;&gt;IntervalLabel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="RemoveTimestamps.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
   </data>
-  <data name="&gt;&gt;IntervalLabel1.Name" xml:space="preserve">
-    <value>IntervalLabel1</value>
+  <data name="SuppressNotifications.Text" xml:space="preserve">
+    <value>Suppress successful backup notifications</value>
   </data>
-  <data name="Browse.Location" type="System.Drawing.Point, System.Drawing">
-    <value>338, 27</value>
+  <data name="&gt;&gt;StartWithWindows.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="SuppressNotifications.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;RemoveTimestamps.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="BackupPath.Text" xml:space="preserve">
     <value />
@@ -447,44 +447,44 @@
   <data name="&gt;&gt;Reset.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
-  <data name="IntervalLabel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 107</value>
+  <data name="RemoveTimestamps.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="BackupPath.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="IntervalLabel2.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="StartWithWindows.Size" type="System.Drawing.Size, System.Drawing">
     <value>171, 17</value>
   </data>
+  <data name="&gt;&gt;BackupPathLabel.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
   <data name="BackupPathLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="SuppressNotifications.Enabled" type="System.Boolean, mscorlib">
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>424, 208</value>
+  </data>
+  <data name="IntervalLabel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>122, 13</value>
+  </data>
+  <data name="Interval.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="BackupPath.Multiline" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="EnableIntervalBackup.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;Reset.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;EnableIntervalBackup.Name" xml:space="preserve">
-    <value>EnableIntervalBackup</value>
-  </data>
-  <data name="&gt;&gt;EnableIntervalBackup.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;Interval.Name" xml:space="preserve">
+    <value>Interval</value>
   </data>
   <data name="&gt;&gt;Interval.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="EnableIntervalBackup.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="&gt;&gt;IntervalLabel2.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="&gt;&gt;BackupPathLabel.ZOrder" xml:space="preserve">
-    <value>10</value>
+  <data name="Browse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>338, 27</value>
   </data>
   <data name="SuppressNotifications.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>

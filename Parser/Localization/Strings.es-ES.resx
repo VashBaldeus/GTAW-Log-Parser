@@ -125,7 +125,7 @@ Versión instalada: {0}
 ¿Te gustaría visitar la página del repositorio en GitHub?</value>
   </data>
   <data name="BackupStatus" xml:space="preserve">
-    <value />
+    <value>Guardado automático: {0}</value>
   </data>
   <data name="BackupTurnedOff" xml:space="preserve">
     <value>La copia de seguridad automática se ha desactivado, configúrela nuevamente si desea usarla.</value>
@@ -139,13 +139,13 @@ Versión instalada: {0}
     <value>Elija un directorio no raíz para la ubicación de su carpeta RAGEMP.</value>
   </data>
   <data name="CharacterCounter" xml:space="preserve">
-    <value />
+    <value>{0} caracteres y {1} líneas</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>Apagado</value>
+    <value>Desactivado</value>
   </data>
   <data name="Enabled" xml:space="preserve">
-    <value>Encendido</value>
+    <value>Activado</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
@@ -196,7 +196,7 @@ Busque la ruta correcta manualmente si esto es incorrecto o si tiene varias inst
 Mantener "{0}" o "{1}".</value>
   </data>
   <data name="NoChatLog" xml:space="preserve">
-    <value>No se puede encontrar el registro de chat de GTA World.</value>
+    <value>No se puede encontrar el chatlog de GTA World.</value>
   </data>
   <data name="NoInternet" xml:space="preserve">
     <value>No se pudieron encontrar actualizaciones, intente verificar su conexión a Internet.
@@ -207,9 +207,10 @@ Versión instalada: {0}</value>
     <value>Aún no has analizado nada.</value>
   </data>
   <data name="OldChatLog" xml:space="preserve">
-    <value>An old format was detected while parsing the chat log and it is advised you delete it and all other scripts that didn't update correcly.
-Would you like to delete these files?
-(The chat log file will be parsed before deletion)</value>
+    <value>Se ha detectado un formato antiguo mientras se analizaba el chatlog, y es recomendable que elimines otras versiones que no se han actualizado correctamente.
+
+¿Te gustaría eliminar esos archivos?
+(El archivo de chatlog será analizado antes de eliminarlo)</value>
   </data>
   <data name="OpenDocumentation" xml:space="preserve">
     <value>¿Le gustaría abrir la página de documentación para el analizador de registro de chat que se encuentra en los foros de GTA World?</value>
@@ -240,7 +241,7 @@ Versión instalada: {0}</value>
     <value>play.gta.world:22008</value>
   </data>
   <data name="SettingsAfterClose" xml:space="preserve">
-    <value>La configuración solo se aplicará una vez que cierre el cuadro de diálogo de configuración.</value>
+    <value>La configuración solo se aplicará una vez que cierres el cuadro de diálogo de configuración.</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Comenzar</value>
@@ -254,7 +255,7 @@ Versión disponible: {1}
 ¿Te gustaría visitar la página de lanzamientos ahora?</value>
   </data>
   <data name="UpdateAvailableTitle" xml:space="preserve">
-    <value>Actualización Disponible</value>
+    <value>Actualización disponible</value>
   </data>
   <data name="VersionInfo" xml:space="preserve">
     <value>Versión: {0}</value>

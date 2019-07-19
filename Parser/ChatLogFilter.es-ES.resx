@@ -117,7 +117,71 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="LoadUnparsed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 25</value>
+  </data>
+  <data name="LoadUnparsed.Text" xml:space="preserve">
+    <value>Cargar chatlog sin analizar</value>
+  </data>
+  <data name="BrowseForParsed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>191, 28</value>
+  </data>
+  <data name="BrowseForParsed.Text" xml:space="preserve">
+    <value>Buscar chatlog analizado</value>
+  </data>
+  <data name="StatusLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>39, 9</value>
+  </data>
+  <data name="StatusLabel.Text" xml:space="preserve">
+    <value>No hay chatlog cargado</value>
+  </data>
+  <data name="Words.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 184</value>
+  </data>
+  <data name="Words.Text" xml:space="preserve">
+    <value>Nombre Apellido</value>
+  </data>
+  <data name="Filtered.Location" type="System.Drawing.Point, System.Drawing">
+    <value>191, 56</value>
+  </data>
   <data name="Filter.Text" xml:space="preserve">
     <value>Filtrar</value>
+  </data>
+  <data name="SaveFiltered.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 25</value>
+  </data>
+  <data name="SaveFiltered.Text" xml:space="preserve">
+    <value>Guardar como</value>
+  </data>
+  <data name="CopyFilteredToClipboard.Location" type="System.Drawing.Point, System.Drawing">
+    <value>191, 259</value>
+  </data>
+  <data name="CopyFilteredToClipboard.Text" xml:space="preserve">
+    <value>Copiar al portapapeles</value>
+  </data>
+  <data name="RemoveTimestamps.Location" type="System.Drawing.Point, System.Drawing">
+    <value>359, 33</value>
+  </data>
+  <data name="RemoveTimestamps.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 17</value>
+  </data>
+  <data name="RemoveTimestamps.Text" xml:space="preserve">
+    <value>Quitar timestamps</value>
+  </data>
+  <data name="TimeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>347, 9</value>
+  </data>
+  <data name="TimeLabel.Text" xml:space="preserve">
+    <value>Hora actual: 23:23:23</value>
+  </data>
+  <data name="WordsLabel.Text" xml:space="preserve">
+    <value>Palabras coinciden con:</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>488, 291</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Filtrador de chatlog</value>
   </data>
 </root>

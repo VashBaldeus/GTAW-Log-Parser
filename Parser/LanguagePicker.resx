@@ -129,7 +129,7 @@
     <value>0</value>
   </data>
   <data name="StartButton.Text" xml:space="preserve">
-    <value>Start</value>
+    <value>Comenzar</value>
   </data>
   <data name="&gt;&gt;StartButton.Name" xml:space="preserve">
     <value>StartButton</value>
@@ -211,7 +211,7 @@
     <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Language</value>
+    <value>Idioma</value>
   </data>
   <data name="&gt;&gt;Timer.Name" xml:space="preserve">
     <value>Timer</value>
