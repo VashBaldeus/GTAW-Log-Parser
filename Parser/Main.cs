@@ -22,9 +22,29 @@ namespace Parser
             base.SetVisibleCore(allowFormDisplay ? value : allowFormDisplay);
         }
 
+
+        private static LanguagePicker languagePicker;
+
         public Main(bool startMinimized)
         {
             LocalizationManager.Initialize();
+
+            if (Properties.Settings.Default.FirstStart)
+            {
+                if (languagePicker == null)
+                {
+                    languagePicker = new LanguagePicker();
+                }
+                else
+                {
+                    languagePicker.Initialize();
+
+                    languagePicker.WindowState = FormWindowState.Normal;
+                    languagePicker.BringToFront();
+                }
+
+                languagePicker.ShowDialog();
+            }
 
             StartupHandler.Initialize();
 
@@ -32,7 +52,7 @@ namespace Parser
 
             InitializeComponent();
 
-            // Also checks for the first start
+            // Also checks for the RAGEMP folder on the first start
             LoadSettings();
 
             string currentLanguage = LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage());
@@ -79,8 +99,6 @@ namespace Parser
             Properties.Settings.Default.Save();
         }
 
-        private static LanguagePicker languagePicker;
-
         private void LoadSettings()
         {
             Version.Text = string.Format(Strings.VersionInfo, Properties.Settings.Default.Version);
@@ -89,19 +107,6 @@ namespace Parser
 
             if (Properties.Settings.Default.FirstStart)
             {
-                if (languagePicker == null)
-                {
-                    languagePicker = new LanguagePicker();
-                }
-                else
-                {
-                    languagePicker.Initialize();
-
-                    languagePicker.WindowState = FormWindowState.Normal;
-                    languagePicker.BringToFront();
-                }
-
-                languagePicker.ShowDialog();
                 Properties.Settings.Default.FirstStart = false;
                 Properties.Settings.Default.Save();
 
