@@ -15,3 +15,4 @@ Packages used and their respective licenses:
 - [Costura.Fody](https://github.com/Fody/Costura) — [MIT License](https://raw.githubusercontent.com/Fody/Costura/master/license.txt)
 - [Octokit](https://github.com/octokit/octokit.net) — [MIT License](https://raw.githubusercontent.com/octokit/octokit.net/master/LICENSE.txt)
 - [WindowsAPICodePack](https://github.com/aybe/Windows-API-Code-Pack-1.1) — [Custom License](https://raw.githubusercontent.com/aybe/Windows-API-Code-Pack-1.1/master/LICENCE)
+- [Resource.Embedder](https://github.com/MarcStan/Resource.Embedder) — [MIT License](https://raw.githubusercontent.com/MarcStan/Resource.Embedder/master/LICENSE)
