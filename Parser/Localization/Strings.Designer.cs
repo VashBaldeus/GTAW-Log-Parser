@@ -61,6 +61,152 @@ namespace Parser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Automatic Backup: {0}.
+        /// </summary>
+        internal static string BackupStatus {
+            get {
+                return ResourceManager.GetString("BackupStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatic backup has been turned OFF, please set it up again if you wish to use it..
+        /// </summary>
+        internal static string BackupTurnedOff {
+            get {
+                return ResourceManager.GetString("BackupTurnedOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please pick a non-root directory for your RAGEMP folder location..
+        /// </summary>
+        internal static string BadFolderPath {
+            get {
+                return ResourceManager.GetString("BadFolderPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} characters and {1} lines.
+        /// </summary>
+        internal static string CharacterCounter {
+            get {
+                return ResourceManager.GetString("CharacterCounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OFF.
+        /// </summary>
+        internal static string Disabled {
+            get {
+                return ResourceManager.GetString("Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ON.
+        /// </summary>
+        internal static string Enabled {
+            get {
+                return ResourceManager.GetString("Enabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically found your RAGEMP folder at {0}
+        ///
+        ///Please browse for the correct path manually if this is incorrect or you have multiple RAGEMP installations..
+        /// </summary>
+        internal static string FolderFinder {
+            get {
+                return ResourceManager.GetString("FolderFinder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while trying to automatically find the location of your RAGEMP folder, please browse for it manually..
+        /// </summary>
+        internal static string FolderFinderError {
+            get {
+                return ResourceManager.GetString("FolderFinderError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t detect the path to your RAGEMP folder, please browse for it manually..
+        /// </summary>
+        internal static string FolderFinderNotFound {
+            get {
+                return ResourceManager.GetString("FolderFinderNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information (First Start).
+        /// </summary>
+        internal static string FolderFinderTitle {
+            get {
+                return ResourceManager.GetString("FolderFinderTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        internal static string Information {
+            get {
+                return ResourceManager.GetString("Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid RAGEMP folder path..
+        /// </summary>
+        internal static string InvalidFolderPath {
+            get {
+                return ResourceManager.GetString("InvalidFolderPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 164.132.206.209_22005.
+        /// </summary>
+        internal static string MainIP {
+            get {
+                return ResourceManager.GetString("MainIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t find the GTA World chat log..
+        /// </summary>
+        internal static string NoChatLog {
+            get {
+                return ResourceManager.GetString("NoChatLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        internal static string Question {
+            get {
+                return ResourceManager.GetString("Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The parser needs to restart in order to apply the selected language.
         ///
         ///Would you like to apply the language and restart the application now?.
@@ -77,6 +223,33 @@ namespace Parser.Localization {
         internal static string RestartTitle {
             get {
                 return ResourceManager.GetString("RestartTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to play.gta.world_22005.
+        /// </summary>
+        internal static string SecondaryIP {
+            get {
+                return ResourceManager.GetString("SecondaryIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version: {0}.
+        /// </summary>
+        internal static string VersionInfo {
+            get {
+                return ResourceManager.GetString("VersionInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        internal static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
     }

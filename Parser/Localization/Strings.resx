@@ -117,6 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BackupStatus" xml:space="preserve">
+    <value>Automatic Backup: {0}</value>
+  </data>
+  <data name="BackupTurnedOff" xml:space="preserve">
+    <value>Automatic backup has been turned OFF, please set it up again if you wish to use it.</value>
+  </data>
+  <data name="BadFolderPath" xml:space="preserve">
+    <value>Please pick a non-root directory for your RAGEMP folder location.</value>
+  </data>
+  <data name="CharacterCounter" xml:space="preserve">
+    <value>{0} characters and {1} lines</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>OFF</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>ON</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="FolderFinder" xml:space="preserve">
+    <value>Automatically found your RAGEMP folder at {0}
+
+Please browse for the correct path manually if this is incorrect or you have multiple RAGEMP installations.</value>
+  </data>
+  <data name="FolderFinderError" xml:space="preserve">
+    <value>An error occurred while trying to automatically find the location of your RAGEMP folder, please browse for it manually.</value>
+  </data>
+  <data name="FolderFinderNotFound" xml:space="preserve">
+    <value>Couldn't detect the path to your RAGEMP folder, please browse for it manually.</value>
+  </data>
+  <data name="FolderFinderTitle" xml:space="preserve">
+    <value>Information (First Start)</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="InvalidFolderPath" xml:space="preserve">
+    <value>Invalid RAGEMP folder path.</value>
+  </data>
+  <data name="MainIP" xml:space="preserve">
+    <value>164.132.206.209_22005</value>
+  </data>
+  <data name="NoChatLog" xml:space="preserve">
+    <value>Can't find the GTA World chat log.</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Question</value>
+  </data>
   <data name="Restart" xml:space="preserve">
     <value>The parser needs to restart in order to apply the selected language.
 
@@ -124,5 +174,14 @@ Would you like to apply the language and restart the application now?</value>
   </data>
   <data name="RestartTitle" xml:space="preserve">
     <value>Restart</value>
+  </data>
+  <data name="SecondaryIP" xml:space="preserve">
+    <value>play.gta.world_22005</value>
+  </data>
+  <data name="VersionInfo" xml:space="preserve">
+    <value>Version: {0}</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
   </data>
 </root>

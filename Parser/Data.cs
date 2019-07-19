@@ -11,6 +11,9 @@ namespace Parser
 
             if (!string.IsNullOrWhiteSpace(folderPath))
             {
+                serverIPs[0] = Localization.Strings.MainIP;
+                serverIPs[1] = Localization.Strings.SecondaryIP;
+
                 string mainStorage = $"{folderPath}client_resources\\{serverIPs[0]}\\.storage";
                 string secondaryStorage = $"{folderPath}client_resources\\{serverIPs[1]}\\.storage";
                 string serverIP = serverIPs[File.Exists(mainStorage) ? (!File.Exists(secondaryStorage) ? 0 : 2) : (File.Exists(secondaryStorage) ? 1 : 0 /* neither file exists in this case but we'll go with 0 */)];
@@ -35,7 +38,7 @@ namespace Parser
         public static readonly string parameterPrefix = "--";
         public static readonly string processName = "GTA5";
         public static readonly string productHeader = "GTAW-Log-Parser";
-        public static readonly string[] serverIPs = { "164.132.206.209_22005", "play.gta.world_22005", "e"};
+        public static readonly string[] serverIPs = { string.Empty, string.Empty, "e"};
         public static string logLocation = $"client_resources\\{serverIPs[0]}\\.storage";
 
         public static readonly string[] possibleFolderLocations = { "RAGEMP\\", "\\RAGEMP\\", "Games\\RAGEMP\\", "\\Games\\RAGEMP\\" };

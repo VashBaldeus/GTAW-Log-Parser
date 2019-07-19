@@ -117,6 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BackupStatus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BackupTurnedOff" xml:space="preserve">
+    <value>La copia de seguridad automática se ha desactivado, configúrela nuevamente si desea usarla.</value>
+  </data>
+  <data name="BadFolderPath" xml:space="preserve">
+    <value>Elija un directorio no raíz para la ubicación de su carpeta RAGEMP.</value>
+  </data>
+  <data name="CharacterCounter" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Apagado</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Encendido</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="FolderFinder" xml:space="preserve">
+    <value>Encontró automáticamente su carpeta RAGEMP en {0}
+
+Busque la ruta correcta manualmente si esto es incorrecto o si tiene varias instalaciones de RAGEMP.</value>
+  </data>
+  <data name="FolderFinderError" xml:space="preserve">
+    <value>Ocurrió un error al intentar buscar automáticamente la ubicación de su carpeta RAGEMP, búsquelo manualmente.</value>
+  </data>
+  <data name="FolderFinderNotFound" xml:space="preserve">
+    <value>No se pudo detectar la ruta de acceso a su carpeta RAGEMP, búsquelo manualmente.</value>
+  </data>
+  <data name="FolderFinderTitle" xml:space="preserve">
+    <value>Información (Primer Comienzo)</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Información</value>
+  </data>
+  <data name="InvalidFolderPath" xml:space="preserve">
+    <value>Ruta de la carpeta RAGEMP no válida.</value>
+  </data>
+  <data name="MainIP" xml:space="preserve">
+    <value>164.132.206.209_22008</value>
+  </data>
+  <data name="NoChatLog" xml:space="preserve">
+    <value>No se puede encontrar el registro de chat de GTA World.</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Pregunta</value>
+  </data>
   <data name="Restart" xml:space="preserve">
     <value>El analizador debe reiniciarse para aplicar el idioma seleccionado.
 
@@ -124,5 +174,14 @@
   </data>
   <data name="RestartTitle" xml:space="preserve">
     <value>Reiniciar</value>
+  </data>
+  <data name="SecondaryIP" xml:space="preserve">
+    <value>play.gta.world:22008</value>
+  </data>
+  <data name="VersionInfo" xml:space="preserve">
+    <value>Versión: {0}</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Advertencia</value>
   </data>
 </root>

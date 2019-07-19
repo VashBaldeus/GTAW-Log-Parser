@@ -36,7 +36,7 @@ namespace Parser
             LoadSettings();
 
             string currentLanguage = LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage());
-            for (int i = 0; i < ((LocalizationManager.Language[])Enum.GetValues(typeof(LocalizationManager.Language))).Length; i++)
+            for (int i = 0; i < ((LocalizationManager.Language[])Enum.GetValues(typeof(LocalizationManager.Language))).Length; ++i)
             {
                 LocalizationManager.Language language = (LocalizationManager.Language)i;
                 ToolStripItem newLanguage = languageToolStripMenuItem.DropDownItems.Add(language.ToString());
@@ -83,8 +83,9 @@ namespace Parser
 
         private void LoadSettings()
         {
-            Version.Text = $"Version: {Properties.Settings.Default.Version}";
-            StatusLabel.Text = $"Automatic Backup: {(Properties.Settings.Default.BackupChatLogAutomatically ? "ON" : "OFF")}";
+            Version.Text = string.Format(Strings.VersionInfo, Properties.Settings.Default.Version);
+            StatusLabel.Text = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
+            Counter.Text = string.Format(Strings.CharacterCounter, 0, 0);
 
             if (Properties.Settings.Default.FirstStart)
             {
@@ -136,17 +137,17 @@ namespace Parser
 
                 if (string.IsNullOrWhiteSpace(folderPath))
                 {
-                    MessageBox.Show($"Couldn't detect the path to your RAGEMP folder, please browse for it manually.", "Information (First Start)", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(Strings.FolderFinderNotFound, Strings.FolderFinderTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
                 FolderPath.Text = folderPath;
-                MessageBox.Show($"Automatically found your RAGEMP folder at \"{folderPath}\"\n\nPlease browse for the correct path manually if this is incorrect or you have multiple RAGEMP installations.", "Information (First Start)", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(Strings.FolderFinder, folderPath), Strings.FolderFinderTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch
             {
                 FolderPath.Text = string.Empty;
-                MessageBox.Show("An error occured while trying to automatically find the location of your RAGEMP folder, please browse for it manually.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(Strings.FolderFinderError, Strings.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -161,8 +162,8 @@ namespace Parser
             {
                 BackupSettings.ResetSettings();
 
-                StatusLabel.Text = "Automatic Backup: OFF";
-                MessageBox.Show("Automatic backup has been turned OFF, please set it up again if you wish to use it.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                StatusLabel.Text = string.Format(Strings.BackupStatus, Strings.Disabled);
+                MessageBox.Show(Strings.BackupTurnedOff, Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -192,7 +193,7 @@ namespace Parser
                         validLocation = true;
                     }
                     else
-                        MessageBox.Show("Please pick a non-root directory for your RAGEMP folder location.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Strings.BadFolderPath, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                     validLocation = true;
@@ -203,12 +204,12 @@ namespace Parser
         {
             if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
             {
-                MessageBox.Show("Invalid RAGEMP folder path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.InvalidFolderPath, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else if (!File.Exists(FolderPath.Text + Data.logLocation))
             {
-                MessageBox.Show("Can't find the GTA World chat log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.NoChatLog, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -240,7 +241,7 @@ namespace Parser
 
                         if (showError)
                         {
-                            if (MessageBox.Show("An old format was detected while parsing the chat log and it is advised you delete it and all other scripts that didn't update correcly.\n\nWould you like to delete these files?\n(The chat log file will be parsed before deletion)", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                            if (MessageBox.Show("An old format was detected while parsing the chat log and it is advised you delete it and all other scripts that didn't update correcly.\n\nWould you like to delete these files?\n(The chat log file will be parsed before deletion)", Strings.Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                             {
                                 try
                                 {
@@ -264,11 +265,11 @@ namespace Parser
                                     }
 
                                     if (foundDirectories > 1)
-                                        MessageBox.Show($"Multiple GTA World resource directories were found. It is advised you use a single IP to connect to the server and delete the other resource directory.\n\nKeep either \"{Data.serverIPs[0]}\" or \"{Data.serverIPs[1]}\".", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        MessageBox.Show($"Multiple GTA World resource directories were found. It is advised you use a single IP to connect to the server and delete the other resource directory.\n\nKeep either \"{Data.serverIPs[0]}\" or \"{Data.serverIPs[1]}\".", Strings.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
                                 catch
                                 {
-                                    MessageBox.Show("An error occured while trying to delete the file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("An error occured while trying to delete the file.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                         }
@@ -306,7 +307,7 @@ namespace Parser
             catch
             {
                 if (showError)
-                    MessageBox.Show("An error occured while parsing the chat log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("An error occured while parsing the chat log.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 return string.Empty;
             }
@@ -316,11 +317,11 @@ namespace Parser
         {
             if (string.IsNullOrWhiteSpace(Parsed.Text))
             {
-                Counter.Text = "0 characters and 0 lines";
+                Counter.Text = string.Format(Strings.CharacterCounter, 0, 0);
                 return;
             }
 
-            Counter.Text = Parsed.Text.Length + " characters and " + Parsed.Text.Split('\n').Length + " lines";
+            Counter.Text = string.Format(Strings.CharacterCounter, Parsed.Text.Length, Parsed.Text.Split('\n').Length);
         }
 
         private void SaveParsed_Click(object sender, EventArgs e)
@@ -329,7 +330,7 @@ namespace Parser
             {
                 if (string.IsNullOrWhiteSpace(Parsed.Text))
                 {
-                    MessageBox.Show("You haven't parsed anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("You haven't parsed anything yet.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -346,7 +347,7 @@ namespace Parser
             }
             catch
             {
-                MessageBox.Show("An error occured while trying to save the file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occured while trying to save the file.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -417,7 +418,7 @@ namespace Parser
             catch
             {
                 if (manual)
-                    MessageBox.Show($"No updates could be found, try checking your internet connection.\n\nInstalled Version: {Properties.Settings.Default.Version}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"No updates could be found, try checking your internet connection.\n\nInstalled Version: {Properties.Settings.Default.Version}", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -426,19 +427,19 @@ namespace Parser
         {
             if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
             {
-                MessageBox.Show("Please choose a valid RAGEMP folder location before trying to enable automatic backup.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please choose a valid RAGEMP folder location before trying to enable automatic backup.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (Properties.Settings.Default.BackupChatLogAutomatically)
             {
-                if (MessageBox.Show("The automatic backup function will be turned off while the settings dialog is open and the new settings will only be applied once you close the settings dialog.\n\nWould you like to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                if (MessageBox.Show("The automatic backup function will be turned off while the settings dialog is open and the new settings will only be applied once you close the settings dialog.\n\nWould you like to continue?", Strings.Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                     return;
 
                 StatusLabel.Text = "Automatic Backup: OFF";
             }
             else
-                MessageBox.Show("Settings will only be applied once you close the settings dialog.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Settings will only be applied once you close the settings dialog.", Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             BackupHandler.AbortAll();
             SaveSettings();
@@ -468,7 +469,7 @@ namespace Parser
         {
             if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
             {
-                MessageBox.Show("Please choose a valid RAGEMP folder location before trying to filter your chat log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please choose a valid RAGEMP folder location before trying to filter your chat log.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -502,7 +503,7 @@ namespace Parser
 
         private void Logo_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Would you like to open the documentation page for the chat log parser found on the GTA World forums?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            if (MessageBox.Show("Would you like to open the documentation page for the chat log parser found on the GTA World forums?", Strings.Information, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 System.Diagnostics.Process.Start("https://forum.gta.world/en/index.php?/topic/7690-chat-logs/");
         }
 
@@ -510,7 +511,7 @@ namespace Parser
         {
             if (Properties.Settings.Default.BackupChatLogAutomatically && TrayIcon.Visible == false)
             {
-                DialogResult result = MessageBox.Show("Closing the parser will prevent the automatic backups from happening.\n\nWould you like to minimize the parser to the system tray instead?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show("Closing the parser will prevent the automatic backups from happening.\n\nWould you like to minimize the parser to the system tray instead?", Strings.Warning, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
                 {
