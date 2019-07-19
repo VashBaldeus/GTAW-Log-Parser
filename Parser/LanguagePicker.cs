@@ -56,24 +56,10 @@ namespace Parser
             if (!handleListChange)
                 return;
 
-            handleListChange = false;
-
-            int selectedIndex = languageList.SelectedIndex;
-            string currentText = welcomeLabel.Text;
-
             LocalizationManager.SetLanguage((LocalizationManager.Language)languageList.SelectedIndex, save: false);
 
-            Timer.Tick -= Timer_Tick;
-            Controls.Clear();
-            InitializeComponent();
-
-            foreach (LocalizationManager.Language language in (LocalizationManager.Language[])Enum.GetValues(typeof(LocalizationManager.Language)))
-                languageList.Items.Add(language.ToString());
-
-            languageList.SelectedIndex = selectedIndex;
-            handleListChange = true;
-
-            welcomeLabel.Text = currentText;
+            Text = Localization.Strings.Language;
+            StartButton.Text = Localization.Strings.Start;
         }
     }
 }

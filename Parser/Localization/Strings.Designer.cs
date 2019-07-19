@@ -180,6 +180,15 @@ namespace Parser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        internal static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 164.132.206.209_22005.
         /// </summary>
         internal static string MainIP {
@@ -232,6 +241,15 @@ namespace Parser.Localization {
         internal static string SecondaryIP {
             get {
                 return ResourceManager.GetString("SecondaryIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        internal static string Start {
+            get {
+                return ResourceManager.GetString("Start", resourceCulture);
             }
         }
         

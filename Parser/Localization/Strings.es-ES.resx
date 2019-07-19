@@ -158,6 +158,9 @@ Busque la ruta correcta manualmente si esto es incorrecto o si tiene varias inst
   <data name="InvalidFolderPath" xml:space="preserve">
     <value>Ruta de la carpeta RAGEMP no válida.</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
   <data name="MainIP" xml:space="preserve">
     <value>164.132.206.209_22008</value>
   </data>
@@ -177,6 +180,9 @@ Busque la ruta correcta manualmente si esto es incorrecto o si tiene varias inst
   </data>
   <data name="SecondaryIP" xml:space="preserve">
     <value>play.gta.world:22008</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Comenzar</value>
   </data>
   <data name="VersionInfo" xml:space="preserve">
     <value>Versión: {0}</value>
