@@ -61,6 +61,19 @@ namespace Parser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chat Log Parser created by Maple for GTA World.
+        ///
+        ///Installed Version: {0}
+        ///
+        ///Would you like to visit the repository page on GitHub?.
+        /// </summary>
+        internal static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Automatic Backup: {0}.
         /// </summary>
         internal static string BackupStatus {
@@ -75,6 +88,17 @@ namespace Parser.Localization {
         internal static string BackupTurnedOff {
             get {
                 return ResourceManager.GetString("BackupTurnedOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The automatic backup function will be turned off while the settings dialog is open and the new settings will only be applied once you close the settings dialog.
+        ///
+        ///Would you like to continue?.
+        /// </summary>
+        internal static string BackupWillBeOff {
+            get {
+                return ResourceManager.GetString("BackupWillBeOff", resourceCulture);
             }
         }
         
@@ -120,6 +144,15 @@ namespace Parser.Localization {
         internal static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while trying to delete the file..
+        /// </summary>
+        internal static string FileDeleteError {
+            get {
+                return ResourceManager.GetString("FileDeleteError", resourceCulture);
             }
         }
         
@@ -180,6 +213,24 @@ namespace Parser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please choose a valid RAGEMP folder location before trying to enable automatic backup..
+        /// </summary>
+        internal static string InvalidFolderPathBackup {
+            get {
+                return ResourceManager.GetString("InvalidFolderPathBackup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please choose a valid RAGEMP folder location before trying to filter your chat log..
+        /// </summary>
+        internal static string InvalidFolderPathFilter {
+            get {
+                return ResourceManager.GetString("InvalidFolderPathFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         internal static string Language {
@@ -198,11 +249,83 @@ namespace Parser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Closing the parser will prevent the automatic backups from happening.
+        ///
+        ///Would you like to minimize the parser to the system tray instead?.
+        /// </summary>
+        internal static string MinimizeInsteadOfClose {
+            get {
+                return ResourceManager.GetString("MinimizeInsteadOfClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiple GTA World resource directories were found. It is advised you use a single IP to connect to the server and delete the other resource directory.
+        ///
+        ///Keep either &quot;{0}&quot; or &quot;{1}&quot;..
+        /// </summary>
+        internal static string MultipleChatLogs {
+            get {
+                return ResourceManager.GetString("MultipleChatLogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t find the GTA World chat log..
         /// </summary>
         internal static string NoChatLog {
             get {
                 return ResourceManager.GetString("NoChatLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No updates could be found, try checking your internet connection.
+        ///
+        ///Installed Version: {0}.
+        /// </summary>
+        internal static string NoInternet {
+            get {
+                return ResourceManager.GetString("NoInternet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You haven&apos;t parsed anything yet..
+        /// </summary>
+        internal static string NothingParsed {
+            get {
+                return ResourceManager.GetString("NothingParsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An old format was detected while parsing the chat log and it is advised you delete it and all other scripts that didn&apos;t update correcly.
+        ///
+        ///Would you like to delete these files?
+        ///(The chat log file will be parsed before deletion).
+        /// </summary>
+        internal static string OldChatLog {
+            get {
+                return ResourceManager.GetString("OldChatLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to open the documentation page for the chat log parser found on the GTA World forums?.
+        /// </summary>
+        internal static string OpenDocumentation {
+            get {
+                return ResourceManager.GetString("OpenDocumentation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while parsing the chat log..
+        /// </summary>
+        internal static string ParseError {
+            get {
+                return ResourceManager.GetString("ParseError", resourceCulture);
             }
         }
         
@@ -236,6 +359,26 @@ namespace Parser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are running the latest version of the chat log parser.
+        ///
+        ///Installed Version: {0}.
+        /// </summary>
+        internal static string RunningLatest {
+            get {
+                return ResourceManager.GetString("RunningLatest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while trying to save the file..
+        /// </summary>
+        internal static string SaveError {
+            get {
+                return ResourceManager.GetString("SaveError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to play.gta.world_22005.
         /// </summary>
         internal static string SecondaryIP {
@@ -245,11 +388,43 @@ namespace Parser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings will only be applied once you close the settings dialog..
+        /// </summary>
+        internal static string SettingsAfterClose {
+            get {
+                return ResourceManager.GetString("SettingsAfterClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
         internal static string Start {
             get {
                 return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A new version of the chat log parser is now available on GitHub.
+        ///
+        ///Installed Version: {0}
+        ///Available Version: {1}
+        ///
+        ///Would you like to visit the releases page now?.
+        /// </summary>
+        internal static string UpdateAvailable {
+            get {
+                return ResourceManager.GetString("UpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Available.
+        /// </summary>
+        internal static string UpdateAvailableTitle {
+            get {
+                return ResourceManager.GetString("UpdateAvailableTitle", resourceCulture);
             }
         }
         

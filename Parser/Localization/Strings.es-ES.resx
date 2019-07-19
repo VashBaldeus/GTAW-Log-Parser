@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Chat Log Parser creado por Maple para GTA World.
+
+Versión instalada: {0}
+
+¿Te gustaría visitar la página del repositorio en GitHub?</value>
+  </data>
   <data name="BackupStatus" xml:space="preserve">
     <value />
   </data>
   <data name="BackupTurnedOff" xml:space="preserve">
     <value>La copia de seguridad automática se ha desactivado, configúrela nuevamente si desea usarla.</value>
+  </data>
+  <data name="BackupWillBeOff" xml:space="preserve">
+    <value>La función de copia de seguridad automática se desactivará mientras el cuadro de diálogo de configuración esté abierto y la nueva configuración solo se aplicará una vez que cierre el cuadro de diálogo de configuración.
+
+¿Te gustaria continuar?</value>
   </data>
   <data name="BadFolderPath" xml:space="preserve">
     <value>Elija un directorio no raíz para la ubicación de su carpeta RAGEMP.</value>
@@ -137,6 +149,9 @@
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
+  </data>
+  <data name="FileDeleteError" xml:space="preserve">
+    <value>Se produjo un error al intentar eliminar el archivo.</value>
   </data>
   <data name="FolderFinder" xml:space="preserve">
     <value>Encontró automáticamente su carpeta RAGEMP en {0}
@@ -158,14 +173,49 @@ Busque la ruta correcta manualmente si esto es incorrecto o si tiene varias inst
   <data name="InvalidFolderPath" xml:space="preserve">
     <value>Ruta de la carpeta RAGEMP no válida.</value>
   </data>
+  <data name="InvalidFolderPathBackup" xml:space="preserve">
+    <value>Elija una ubicación de carpeta RAGEMP válida antes de intentar habilitar la copia de seguridad automática.</value>
+  </data>
+  <data name="InvalidFolderPathFilter" xml:space="preserve">
+    <value>Elija una ubicación de carpeta RAGEMP válida antes de intentar filtrar su registro de chat.</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Idioma</value>
   </data>
   <data name="MainIP" xml:space="preserve">
     <value>164.132.206.209_22008</value>
   </data>
+  <data name="MinimizeInsteadOfClose" xml:space="preserve">
+    <value>Cerrar el analizador evitará que se realicen las copias de seguridad automáticas.
+
+¿Le gustaría minimizar el analizador en la bandeja del sistema?</value>
+  </data>
+  <data name="MultipleChatLogs" xml:space="preserve">
+    <value>Se encontraron múltiples directorios de recursos de GTA World. Se recomienda utilizar una única IP para conectarse al servidor y eliminar el otro directorio de recursos.
+
+Mantener "{0}" o "{1}".</value>
+  </data>
   <data name="NoChatLog" xml:space="preserve">
     <value>No se puede encontrar el registro de chat de GTA World.</value>
+  </data>
+  <data name="NoInternet" xml:space="preserve">
+    <value>No se pudieron encontrar actualizaciones, intente verificar su conexión a Internet.
+
+Versión instalada: {0}</value>
+  </data>
+  <data name="NothingParsed" xml:space="preserve">
+    <value>Aún no has analizado nada.</value>
+  </data>
+  <data name="OldChatLog" xml:space="preserve">
+    <value>An old format was detected while parsing the chat log and it is advised you delete it and all other scripts that didn't update correcly.
+Would you like to delete these files?
+(The chat log file will be parsed before deletion)</value>
+  </data>
+  <data name="OpenDocumentation" xml:space="preserve">
+    <value>¿Le gustaría abrir la página de documentación para el analizador de registro de chat que se encuentra en los foros de GTA World?</value>
+  </data>
+  <data name="ParseError" xml:space="preserve">
+    <value>Se produjo un error al analizar el registro de chat.</value>
   </data>
   <data name="Question" xml:space="preserve">
     <value>Pregunta</value>
@@ -178,11 +228,33 @@ Busque la ruta correcta manualmente si esto es incorrecto o si tiene varias inst
   <data name="RestartTitle" xml:space="preserve">
     <value>Reiniciar</value>
   </data>
+  <data name="RunningLatest" xml:space="preserve">
+    <value>Está ejecutando la última versión del analizador de registro de chat.
+
+Versión instalada: {0}</value>
+  </data>
+  <data name="SaveError" xml:space="preserve">
+    <value>Se ha producido un error al intentar guardar el archivo.</value>
+  </data>
   <data name="SecondaryIP" xml:space="preserve">
     <value>play.gta.world:22008</value>
   </data>
+  <data name="SettingsAfterClose" xml:space="preserve">
+    <value>La configuración solo se aplicará una vez que cierre el cuadro de diálogo de configuración.</value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>Comenzar</value>
+  </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>Una nueva versión del analizador de registro de chat ahora está disponible en GitHub.
+
+Versión instalada: {0}
+Versión disponible: {1}
+
+¿Te gustaría visitar la página de lanzamientos ahora?</value>
+  </data>
+  <data name="UpdateAvailableTitle" xml:space="preserve">
+    <value>Actualización Disponible</value>
   </data>
   <data name="VersionInfo" xml:space="preserve">
     <value>Versión: {0}</value>

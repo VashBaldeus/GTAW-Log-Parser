@@ -22,7 +22,6 @@ namespace Parser
             base.SetVisibleCore(allowFormDisplay ? value : allowFormDisplay);
         }
 
-
         private static LanguagePicker languagePicker;
 
         public Main(bool startMinimized)
@@ -111,6 +110,11 @@ namespace Parser
                 Properties.Settings.Default.Save();
 
                 LookForMainFolder();
+
+                if (LocalizationManager.GetLanguage() == LocalizationManager.GetCodeFromLanguage(LocalizationManager.Language.Español))
+                {
+                    MessageBox.Show("La traducción al español no está completa todavía.\n\nSi desea ayudar, visite la página de GitHub y contribuya.", Strings.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             else
                 FolderPath.Text = Properties.Settings.Default.FolderPath;
@@ -246,7 +250,7 @@ namespace Parser
 
                         if (showError)
                         {
-                            if (MessageBox.Show("An old format was detected while parsing the chat log and it is advised you delete it and all other scripts that didn't update correcly.\n\nWould you like to delete these files?\n(The chat log file will be parsed before deletion)", Strings.Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                            if (MessageBox.Show(Strings.OldChatLog, Strings.Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                             {
                                 try
                                 {
@@ -270,11 +274,11 @@ namespace Parser
                                     }
 
                                     if (foundDirectories > 1)
-                                        MessageBox.Show($"Multiple GTA World resource directories were found. It is advised you use a single IP to connect to the server and delete the other resource directory.\n\nKeep either \"{Data.serverIPs[0]}\" or \"{Data.serverIPs[1]}\".", Strings.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        MessageBox.Show(string.Format(Strings.MultipleChatLogs, Data.serverIPs[0], Data.serverIPs[1]), Strings.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
                                 catch
                                 {
-                                    MessageBox.Show("An error occured while trying to delete the file.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show(Strings.FileDeleteError, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                         }
@@ -312,7 +316,8 @@ namespace Parser
             catch
             {
                 if (showError)
-                    MessageBox.Show("An error occured while parsing the chat log.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Strings.ParseError, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
 
                 return string.Empty;
             }
@@ -335,7 +340,7 @@ namespace Parser
             {
                 if (string.IsNullOrWhiteSpace(Parsed.Text))
                 {
-                    MessageBox.Show("You haven't parsed anything yet.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Strings.NothingParsed, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -352,14 +357,14 @@ namespace Parser
             }
             catch
             {
-                MessageBox.Show("An error occured while trying to save the file.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.SaveError, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void CopyParsedToClipboard_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Parsed.Text))
-                MessageBox.Show("You haven't parsed anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.NothingParsed, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
                 Clipboard.SetText(Parsed.Text.Replace("\n", Environment.NewLine));
         }
@@ -397,8 +402,6 @@ namespace Parser
                 updateThread = new Thread(() => CheckForUpdates(manual));
                 updateThread.Start();
             }
-            //else
-            //    MessageBox.Show("Currently checking for updates, please wait for the process to finish to check again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void CheckForUpdates(bool manual = false)
@@ -413,17 +416,16 @@ namespace Parser
                     if (!allowFormDisplay)
                         ResumeTrayStripMenuItem_Click(this, EventArgs.Empty);
 
-                    if (MessageBox.Show($"A new version of the chat log parser is now available on GitHub.\n\nInstalled Version: {installedVersion}\nAvailable Version: {currentVersion}\n\nWould you like to visit the releases page now?", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    if (MessageBox.Show(string.Format(Strings.UpdateAvailable, installedVersion, currentVersion), Strings.UpdateAvailableTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                         System.Diagnostics.Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases");
                 }
                 else if (manual)
-                    MessageBox.Show($"You are running the latest version of the chat log parser.\n\nInstalled Version: {installedVersion}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                    MessageBox.Show(string.Format(Strings.RunningLatest, installedVersion), Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch
             {
                 if (manual)
-                    MessageBox.Show($"No updates could be found, try checking your internet connection.\n\nInstalled Version: {Properties.Settings.Default.Version}", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format(Strings.NoInternet, Properties.Settings.Default.Version), Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -432,19 +434,19 @@ namespace Parser
         {
             if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
             {
-                MessageBox.Show("Please choose a valid RAGEMP folder location before trying to enable automatic backup.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.InvalidFolderPathBackup, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (Properties.Settings.Default.BackupChatLogAutomatically)
             {
-                if (MessageBox.Show("The automatic backup function will be turned off while the settings dialog is open and the new settings will only be applied once you close the settings dialog.\n\nWould you like to continue?", Strings.Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                if (MessageBox.Show(Strings.BackupWillBeOff, Strings.Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                     return;
 
-                StatusLabel.Text = "Automatic Backup: OFF";
+                StatusLabel.Text = string.Format(Strings.BackupStatus, Strings.Disabled);
             }
             else
-                MessageBox.Show("Settings will only be applied once you close the settings dialog.", Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Strings.SettingsAfterClose, Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             BackupHandler.AbortAll();
             SaveSettings();
@@ -455,7 +457,7 @@ namespace Parser
                 backupSettings.FormClosed += (s, args) =>
                 {
                     BackupHandler.Initialize();
-                    StatusLabel.Text = $"Automatic Backup: {(Properties.Settings.Default.BackupChatLogAutomatically ? "ON" : "OFF")}";
+                    StatusLabel.Text = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
                 };
             }
             else
@@ -474,7 +476,7 @@ namespace Parser
         {
             if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
             {
-                MessageBox.Show("Please choose a valid RAGEMP folder location before trying to filter your chat log.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.InvalidFolderPathFilter, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -497,7 +499,7 @@ namespace Parser
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show($"Chat Log Parser created by Maple for GTA World.\n\nInstalled Version: {Properties.Settings.Default.Version}\n\nWould you like to visit the repository page on GitHub?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            if (MessageBox.Show(string.Format(Strings.About, Properties.Settings.Default.Version), Strings.Information, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 System.Diagnostics.Process.Start("https://github.com/MapleToo/GTAW-Log-Parser");
         }
 
@@ -508,7 +510,7 @@ namespace Parser
 
         private void Logo_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Would you like to open the documentation page for the chat log parser found on the GTA World forums?", Strings.Information, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            if (MessageBox.Show(Strings.OpenDocumentation, Strings.Information, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 System.Diagnostics.Process.Start("https://forum.gta.world/en/index.php?/topic/7690-chat-logs/");
         }
 
@@ -516,7 +518,7 @@ namespace Parser
         {
             if (Properties.Settings.Default.BackupChatLogAutomatically && TrayIcon.Visible == false)
             {
-                DialogResult result = MessageBox.Show("Closing the parser will prevent the automatic backups from happening.\n\nWould you like to minimize the parser to the system tray instead?", Strings.Warning, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show(Strings.MinimizeInsteadOfClose, Strings.Warning, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
                 {
