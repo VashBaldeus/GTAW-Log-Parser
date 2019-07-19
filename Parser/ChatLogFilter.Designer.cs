@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChatLogFilter));
             this.LoadUnparsed = new System.Windows.Forms.Button();
             this.BrowseForParsed = new System.Windows.Forms.Button();
             this.StatusLabel = new System.Windows.Forms.Label();
@@ -47,107 +48,77 @@
             // 
             // LoadUnparsed
             // 
-            this.LoadUnparsed.Location = new System.Drawing.Point(12, 25);
+            resources.ApplyResources(this.LoadUnparsed, "LoadUnparsed");
             this.LoadUnparsed.Name = "LoadUnparsed";
-            this.LoadUnparsed.Size = new System.Drawing.Size(135, 25);
-            this.LoadUnparsed.TabIndex = 0;
-            this.LoadUnparsed.Text = "Load Unparsed Chat Log";
             this.LoadUnparsed.UseVisualStyleBackColor = true;
             this.LoadUnparsed.Click += new System.EventHandler(this.LoadUnparsed_Click);
             // 
             // BrowseForParsed
             // 
-            this.BrowseForParsed.Location = new System.Drawing.Point(153, 25);
+            resources.ApplyResources(this.BrowseForParsed, "BrowseForParsed");
             this.BrowseForParsed.Name = "BrowseForParsed";
-            this.BrowseForParsed.Size = new System.Drawing.Size(150, 25);
-            this.BrowseForParsed.TabIndex = 1;
-            this.BrowseForParsed.Text = "Browse For Parsed Chat Log";
             this.BrowseForParsed.UseVisualStyleBackColor = true;
             this.BrowseForParsed.Click += new System.EventHandler(this.BrowseForParsed_Click);
             // 
             // StatusLabel
             // 
+            resources.ApplyResources(this.StatusLabel, "StatusLabel");
             this.StatusLabel.ForeColor = System.Drawing.Color.Red;
-            this.StatusLabel.Location = new System.Drawing.Point(12, 9);
             this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(291, 13);
-            this.StatusLabel.TabIndex = 0;
-            this.StatusLabel.Text = "Chat log not loaded";
-            this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Words
             // 
+            resources.ApplyResources(this.Words, "Words");
             this.Words.DetectUrls = false;
-            this.Words.Location = new System.Drawing.Point(12, 69);
             this.Words.Name = "Words";
-            this.Words.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.Words.Size = new System.Drawing.Size(135, 184);
-            this.Words.TabIndex = 3;
-            this.Words.Text = "Firstname Lastname";
             // 
             // Filtered
             // 
+            resources.ApplyResources(this.Filtered, "Filtered");
             this.Filtered.DetectUrls = false;
-            this.Filtered.Location = new System.Drawing.Point(153, 56);
             this.Filtered.Name = "Filtered";
-            this.Filtered.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.Filtered.Size = new System.Drawing.Size(277, 197);
-            this.Filtered.TabIndex = 4;
-            this.Filtered.Text = "";
             // 
             // Filter
             // 
-            this.Filter.Location = new System.Drawing.Point(12, 259);
+            resources.ApplyResources(this.Filter, "Filter");
             this.Filter.Name = "Filter";
-            this.Filter.Size = new System.Drawing.Size(65, 25);
-            this.Filter.TabIndex = 5;
-            this.Filter.Text = "Filter";
             this.Filter.UseVisualStyleBackColor = true;
             this.Filter.Click += new System.EventHandler(this.Filter_Click);
             // 
             // SaveFiltered
             // 
-            this.SaveFiltered.Location = new System.Drawing.Point(82, 259);
+            resources.ApplyResources(this.SaveFiltered, "SaveFiltered");
             this.SaveFiltered.Name = "SaveFiltered";
-            this.SaveFiltered.Size = new System.Drawing.Size(65, 25);
-            this.SaveFiltered.TabIndex = 6;
-            this.SaveFiltered.Text = "Save As";
             this.SaveFiltered.UseVisualStyleBackColor = true;
             this.SaveFiltered.Click += new System.EventHandler(this.SaveFiltered_Click);
             // 
             // CopyFilteredToClipboard
             // 
-            this.CopyFilteredToClipboard.Location = new System.Drawing.Point(153, 259);
+            resources.ApplyResources(this.CopyFilteredToClipboard, "CopyFilteredToClipboard");
             this.CopyFilteredToClipboard.Name = "CopyFilteredToClipboard";
-            this.CopyFilteredToClipboard.Size = new System.Drawing.Size(277, 25);
-            this.CopyFilteredToClipboard.TabIndex = 7;
-            this.CopyFilteredToClipboard.Text = "Copy To Clipboard";
             this.CopyFilteredToClipboard.UseVisualStyleBackColor = true;
             this.CopyFilteredToClipboard.Click += new System.EventHandler(this.CopyFilteredToClipboard_Click);
+            // 
+            // SaveFileDialog
+            // 
+            resources.ApplyResources(this.SaveFileDialog, "SaveFileDialog");
             // 
             // OpenFileDialog
             // 
             this.OpenFileDialog.FileName = "chatlog.txt";
+            resources.ApplyResources(this.OpenFileDialog, "OpenFileDialog");
             // 
             // RemoveTimestamps
             // 
-            this.RemoveTimestamps.AutoSize = true;
-            this.RemoveTimestamps.Location = new System.Drawing.Point(309, 30);
+            resources.ApplyResources(this.RemoveTimestamps, "RemoveTimestamps");
             this.RemoveTimestamps.Name = "RemoveTimestamps";
-            this.RemoveTimestamps.Size = new System.Drawing.Size(121, 17);
-            this.RemoveTimestamps.TabIndex = 2;
-            this.RemoveTimestamps.Text = "Remove timestamps";
             this.RemoveTimestamps.UseVisualStyleBackColor = true;
             this.RemoveTimestamps.CheckedChanged += new System.EventHandler(this.RemoveTimestamps_CheckedChanged);
             // 
             // TimeLabel
             // 
-            this.TimeLabel.Location = new System.Drawing.Point(309, 9);
+            resources.ApplyResources(this.TimeLabel, "TimeLabel");
             this.TimeLabel.Name = "TimeLabel";
-            this.TimeLabel.Size = new System.Drawing.Size(121, 13);
-            this.TimeLabel.TabIndex = 0;
-            this.TimeLabel.Text = "Current time: 23:23:23";
-            this.TimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Timer
             // 
@@ -157,17 +128,13 @@
             // 
             // WordsLabel
             // 
-            this.WordsLabel.Location = new System.Drawing.Point(10, 53);
+            resources.ApplyResources(this.WordsLabel, "WordsLabel");
             this.WordsLabel.Name = "WordsLabel";
-            this.WordsLabel.Size = new System.Drawing.Size(135, 13);
-            this.WordsLabel.TabIndex = 0;
-            this.WordsLabel.Text = "Words to filter in:";
             // 
             // ChatLogFilter
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(439, 291);
             this.Controls.Add(this.WordsLabel);
             this.Controls.Add(this.TimeLabel);
             this.Controls.Add(this.RemoveTimestamps);
@@ -185,8 +152,7 @@
             this.Name = "ChatLogFilter";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Filter Chat Log";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChatLogFilter_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();

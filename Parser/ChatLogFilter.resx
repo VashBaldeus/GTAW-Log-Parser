@@ -117,13 +117,337 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="TimeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="SaveFiltered.Text" xml:space="preserve">
+    <value>Save As</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>439, 291</value>
+  </data>
+  <data name="BrowseForParsed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 25</value>
+  </data>
+  <data name="&gt;&gt;BrowseForParsed.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Filter.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="RemoveTimestamps.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 17</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Filtered.ScrollBars" type="System.Windows.Forms.RichTextBoxScrollBars, System.Windows.Forms">
+    <value>Vertical</value>
+  </data>
+  <data name="SaveFiltered.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 25</value>
+  </data>
+  <data name="&gt;&gt;BrowseForParsed.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="BrowseForParsed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>153, 25</value>
+  </data>
+  <data name="WordsLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;Filter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="WordsLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 13</value>
+  </data>
+  <data name="&gt;&gt;Words.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;BrowseForParsed.Name" xml:space="preserve">
+    <value>BrowseForParsed</value>
+  </data>
+  <data name="&gt;&gt;TimeLabel.Name" xml:space="preserve">
+    <value>TimeLabel</value>
+  </data>
+  <data name="&gt;&gt;Filtered.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;CopyFilteredToClipboard.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TimeLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="TimeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 13</value>
+  </data>
+  <data name="&gt;&gt;WordsLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="CopyFilteredToClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 25</value>
+  </data>
+  <data name="&gt;&gt;StatusLabel.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="StatusLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 9</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="&gt;&gt;SaveFiltered.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="RemoveTimestamps.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Filtered.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 197</value>
+  </data>
+  <data name="&gt;&gt;WordsLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Filter.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="StatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>291, 13</value>
+  </data>
+  <data name="&gt;&gt;SaveFiltered.Name" xml:space="preserve">
+    <value>SaveFiltered</value>
+  </data>
+  <data name="StatusLabel.Text" xml:space="preserve">
+    <value>Chat log not loaded</value>
+  </data>
+  <data name="&gt;&gt;Filter.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="Words.Text" xml:space="preserve">
+    <value>Firstname Lastname</value>
+  </data>
+  <data name="Filter.Text" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="WordsLabel.Text" xml:space="preserve">
+    <value>Words to filter in:</value>
+  </data>
+  <data name="&gt;&gt;LoadUnparsed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SaveFiltered.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;StatusLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="Filter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 259</value>
+  </data>
+  <data name="RemoveTimestamps.Location" type="System.Drawing.Point, System.Drawing">
+    <value>309, 30</value>
+  </data>
+  <data name="&gt;&gt;RemoveTimestamps.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;StatusLabel.Name" xml:space="preserve">
+    <value>StatusLabel</value>
+  </data>
+  <data name="&gt;&gt;Timer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LoadUnparsed.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="StatusLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;SaveFileDialog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SaveFileDialog.Name" xml:space="preserve">
+    <value>SaveFileDialog</value>
+  </data>
+  <data name="&gt;&gt;RemoveTimestamps.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;Words.Name" xml:space="preserve">
+    <value>Words</value>
+  </data>
+  <data name="&gt;&gt;SaveFiltered.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="BrowseForParsed.Text" xml:space="preserve">
+    <value>Browse For Parsed Chat Log</value>
+  </data>
+  <data name="&gt;&gt;Filtered.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CopyFilteredToClipboard.Name" xml:space="preserve">
+    <value>CopyFilteredToClipboard</value>
+  </data>
+  <data name="&gt;&gt;Filtered.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="Words.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="StatusLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="TimeLabel.Text" xml:space="preserve">
+    <value>Current time: 23:23:23</value>
+  </data>
+  <data name="Words.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 184</value>
+  </data>
+  <data name="SaveFiltered.Location" type="System.Drawing.Point, System.Drawing">
+    <value>82, 259</value>
+  </data>
+  <data name="Words.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 69</value>
+  </data>
+  <data name="Filtered.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="CopyFilteredToClipboard.Text" xml:space="preserve">
+    <value>Copy To Clipboard</value>
+  </data>
+  <data name="Filter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 25</value>
+  </data>
+  <data name="RemoveTimestamps.Text" xml:space="preserve">
+    <value>Remove timestamps</value>
+  </data>
+  <data name="LoadUnparsed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 25</value>
+  </data>
+  <data name="&gt;&gt;LoadUnparsed.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="BrowseForParsed.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;CopyFilteredToClipboard.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;WordsLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Filtered.Location" type="System.Drawing.Point, System.Drawing">
+    <value>153, 56</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TimeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>309, 9</value>
+  </data>
+  <data name="&gt;&gt;TimeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Timer.Name" xml:space="preserve">
+    <value>Timer</value>
+  </data>
+  <data name="&gt;&gt;Words.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="CopyFilteredToClipboard.Location" type="System.Drawing.Point, System.Drawing">
+    <value>153, 259</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Filter Chat Log</value>
+  </data>
+  <data name="&gt;&gt;RemoveTimestamps.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="LoadUnparsed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 25</value>
+  </data>
+  <data name="&gt;&gt;StatusLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TimeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="LoadUnparsed.Text" xml:space="preserve">
+    <value>Load Unparsed Chat Log</value>
+  </data>
+  <data name="LoadUnparsed.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;OpenFileDialog.Name" xml:space="preserve">
+    <value>OpenFileDialog</value>
+  </data>
+  <data name="&gt;&gt;LoadUnparsed.Name" xml:space="preserve">
+    <value>LoadUnparsed</value>
+  </data>
+  <data name="RemoveTimestamps.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="WordsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 53</value>
+  </data>
+  <data name="&gt;&gt;Filtered.Name" xml:space="preserve">
+    <value>Filtered</value>
+  </data>
+  <data name="Words.ScrollBars" type="System.Windows.Forms.RichTextBoxScrollBars, System.Windows.Forms">
+    <value>Vertical</value>
+  </data>
+  <data name="&gt;&gt;RemoveTimestamps.Name" xml:space="preserve">
+    <value>RemoveTimestamps</value>
+  </data>
+  <data name="Filtered.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SaveFiltered.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;BrowseForParsed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Filter.Name" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="&gt;&gt;Words.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ChatLogFilter</value>
+  </data>
+  <data name="&gt;&gt;CopyFilteredToClipboard.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;OpenFileDialog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="CopyFilteredToClipboard.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;TimeLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;WordsLabel.Name" xml:space="preserve">
+    <value>WordsLabel</value>
+  </data>
   <metadata name="SaveFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <metadata name="OpenFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>148, 17</value>
   </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="Timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>283, 17</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>es-ES</value>
   </metadata>
 </root>

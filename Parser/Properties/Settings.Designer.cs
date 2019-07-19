@@ -25,7 +25,7 @@ namespace Parser.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2.6.6")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2.7")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -185,6 +185,18 @@ namespace Parser.Properties {
             }
             set {
                 this["SuppressNotifications"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("en_US")]
+        public string LanguageCode {
+            get {
+                return ((string)(this["LanguageCode"]));
+            }
+            set {
+                this["LanguageCode"] = value;
             }
         }
     }

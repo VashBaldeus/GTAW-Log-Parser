@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BackupSettings));
             this.CloseWindow = new System.Windows.Forms.Button();
             this.Reset = new System.Windows.Forms.Button();
             this.BackupPathLabel = new System.Windows.Forms.Label();
@@ -46,104 +47,67 @@
             // 
             // CloseWindow
             // 
-            this.CloseWindow.Location = new System.Drawing.Point(338, 172);
+            resources.ApplyResources(this.CloseWindow, "CloseWindow");
             this.CloseWindow.Name = "CloseWindow";
-            this.CloseWindow.Size = new System.Drawing.Size(75, 25);
-            this.CloseWindow.TabIndex = 7;
-            this.CloseWindow.Text = "Close";
             this.CloseWindow.UseVisualStyleBackColor = true;
             this.CloseWindow.Click += new System.EventHandler(this.CloseWindow_Click);
             // 
             // Reset
             // 
-            this.Reset.Location = new System.Drawing.Point(257, 172);
+            resources.ApplyResources(this.Reset, "Reset");
             this.Reset.Name = "Reset";
-            this.Reset.Size = new System.Drawing.Size(75, 25);
-            this.Reset.TabIndex = 8;
-            this.Reset.Text = "Reset";
             this.Reset.UseVisualStyleBackColor = true;
             this.Reset.Click += new System.EventHandler(this.Reset_Click);
             // 
             // BackupPathLabel
             // 
-            this.BackupPathLabel.AutoSize = true;
-            this.BackupPathLabel.Location = new System.Drawing.Point(9, 13);
+            resources.ApplyResources(this.BackupPathLabel, "BackupPathLabel");
             this.BackupPathLabel.Name = "BackupPathLabel";
-            this.BackupPathLabel.Size = new System.Drawing.Size(72, 13);
-            this.BackupPathLabel.TabIndex = 0;
-            this.BackupPathLabel.Text = "Backup Path:";
             // 
             // BackupPath
             // 
+            resources.ApplyResources(this.BackupPath, "BackupPath");
             this.BackupPath.DetectUrls = false;
-            this.BackupPath.Location = new System.Drawing.Point(12, 29);
-            this.BackupPath.MaxLength = 1024;
-            this.BackupPath.Multiline = false;
             this.BackupPath.Name = "BackupPath";
-            this.BackupPath.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.BackupPath.ShortcutsEnabled = false;
-            this.BackupPath.Size = new System.Drawing.Size(320, 22);
-            this.BackupPath.TabIndex = 1;
-            this.BackupPath.Text = "";
             this.BackupPath.MouseClick += new System.Windows.Forms.MouseEventHandler(this.BackupPath_MouseClick);
             this.BackupPath.TextChanged += new System.EventHandler(this.BackupPath_TextChanged);
             this.BackupPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BackupPath_KeyDown);
             // 
             // Browse
             // 
-            this.Browse.Location = new System.Drawing.Point(338, 27);
+            resources.ApplyResources(this.Browse, "Browse");
             this.Browse.Name = "Browse";
-            this.Browse.Size = new System.Drawing.Size(75, 25);
-            this.Browse.TabIndex = 0;
-            this.Browse.Text = "Browse";
             this.Browse.UseVisualStyleBackColor = true;
             this.Browse.Click += new System.EventHandler(this.Browse_Click);
             // 
             // BackUpChatLogAutomatically
             // 
-            this.BackUpChatLogAutomatically.AutoSize = true;
-            this.BackUpChatLogAutomatically.Location = new System.Drawing.Point(13, 58);
+            resources.ApplyResources(this.BackUpChatLogAutomatically, "BackUpChatLogAutomatically");
             this.BackUpChatLogAutomatically.Name = "BackUpChatLogAutomatically";
-            this.BackUpChatLogAutomatically.Size = new System.Drawing.Size(354, 17);
-            this.BackUpChatLogAutomatically.TabIndex = 2;
-            this.BackUpChatLogAutomatically.Text = "Parse and back up the chat log automatically (when the game closes)";
             this.BackUpChatLogAutomatically.UseVisualStyleBackColor = true;
             this.BackUpChatLogAutomatically.CheckedChanged += new System.EventHandler(this.BackUpChatLogAutomatically_CheckedChanged);
             // 
             // EnableIntervalBackup
             // 
-            this.EnableIntervalBackup.AutoSize = true;
-            this.EnableIntervalBackup.Enabled = false;
-            this.EnableIntervalBackup.Location = new System.Drawing.Point(13, 81);
+            resources.ApplyResources(this.EnableIntervalBackup, "EnableIntervalBackup");
             this.EnableIntervalBackup.Name = "EnableIntervalBackup";
-            this.EnableIntervalBackup.Size = new System.Drawing.Size(400, 17);
-            this.EnableIntervalBackup.TabIndex = 3;
-            this.EnableIntervalBackup.Text = "Back up the chat log automatically while the game is running (every 10 minutes)";
             this.EnableIntervalBackup.UseVisualStyleBackColor = true;
             this.EnableIntervalBackup.CheckedChanged += new System.EventHandler(this.EnableIntervalBackup_CheckedChanged);
             // 
             // IntervalLabel1
             // 
-            this.IntervalLabel1.AutoSize = true;
-            this.IntervalLabel1.Location = new System.Drawing.Point(9, 107);
+            resources.ApplyResources(this.IntervalLabel1, "IntervalLabel1");
             this.IntervalLabel1.Name = "IntervalLabel1";
-            this.IntervalLabel1.Size = new System.Drawing.Size(117, 13);
-            this.IntervalLabel1.TabIndex = 0;
-            this.IntervalLabel1.Text = "Back up chat log every";
             // 
             // IntervalLabel2
             // 
-            this.IntervalLabel2.AutoSize = true;
-            this.IntervalLabel2.Location = new System.Drawing.Point(162, 107);
+            resources.ApplyResources(this.IntervalLabel2, "IntervalLabel2");
             this.IntervalLabel2.Name = "IntervalLabel2";
-            this.IntervalLabel2.Size = new System.Drawing.Size(122, 13);
-            this.IntervalLabel2.TabIndex = 0;
-            this.IntervalLabel2.Text = "minutes. (recommended)";
             // 
             // Interval
             // 
-            this.Interval.Enabled = false;
-            this.Interval.Location = new System.Drawing.Point(126, 105);
+            resources.ApplyResources(this.Interval, "Interval");
             this.Interval.Maximum = new decimal(new int[] {
             60,
             0,
@@ -155,9 +119,6 @@
             0,
             0});
             this.Interval.Name = "Interval";
-            this.Interval.Size = new System.Drawing.Size(33, 20);
-            this.Interval.TabIndex = 4;
-            this.Interval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Interval.Value = new decimal(new int[] {
             10,
             0,
@@ -167,43 +128,27 @@
             // 
             // RemoveTimestamps
             // 
-            this.RemoveTimestamps.AutoSize = true;
-            this.RemoveTimestamps.Enabled = false;
-            this.RemoveTimestamps.Location = new System.Drawing.Point(12, 131);
+            resources.ApplyResources(this.RemoveTimestamps, "RemoveTimestamps");
             this.RemoveTimestamps.Name = "RemoveTimestamps";
-            this.RemoveTimestamps.Size = new System.Drawing.Size(183, 17);
-            this.RemoveTimestamps.TabIndex = 5;
-            this.RemoveTimestamps.Text = "Remove timestamps from backup";
             this.RemoveTimestamps.UseVisualStyleBackColor = true;
             // 
             // StartWithWindows
             // 
-            this.StartWithWindows.AutoSize = true;
-            this.StartWithWindows.Enabled = false;
-            this.StartWithWindows.Location = new System.Drawing.Point(12, 177);
+            resources.ApplyResources(this.StartWithWindows, "StartWithWindows");
             this.StartWithWindows.Name = "StartWithWindows";
-            this.StartWithWindows.Size = new System.Drawing.Size(171, 17);
-            this.StartWithWindows.TabIndex = 6;
-            this.StartWithWindows.Text = "Start with Windows (minimized)";
             this.StartWithWindows.UseVisualStyleBackColor = true;
             this.StartWithWindows.CheckedChanged += new System.EventHandler(this.StartWithWindows_CheckedChanged);
             // 
             // SuppressNotifications
             // 
-            this.SuppressNotifications.AutoSize = true;
-            this.SuppressNotifications.Enabled = false;
-            this.SuppressNotifications.Location = new System.Drawing.Point(12, 154);
+            resources.ApplyResources(this.SuppressNotifications, "SuppressNotifications");
             this.SuppressNotifications.Name = "SuppressNotifications";
-            this.SuppressNotifications.Size = new System.Drawing.Size(221, 17);
-            this.SuppressNotifications.TabIndex = 9;
-            this.SuppressNotifications.Text = "Suppress successful backup notifications";
             this.SuppressNotifications.UseVisualStyleBackColor = true;
             // 
             // BackupSettings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 208);
             this.Controls.Add(this.SuppressNotifications);
             this.Controls.Add(this.StartWithWindows);
             this.Controls.Add(this.RemoveTimestamps);
@@ -223,8 +168,7 @@
             this.Name = "BackupSettings";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Automatic Backup Settings";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BackupSettings_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.Interval)).EndInit();
             this.ResumeLayout(false);

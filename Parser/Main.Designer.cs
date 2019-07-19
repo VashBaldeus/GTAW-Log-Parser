@@ -43,6 +43,7 @@
             this.CheckForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AutomaticBackupSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FilterChatLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PathLabel = new System.Windows.Forms.Label();
@@ -61,228 +62,173 @@
             // 
             // Logo
             // 
-            this.Logo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.Logo.Image = ((System.Drawing.Image)(resources.GetObject("Logo.Image")));
-            this.Logo.Location = new System.Drawing.Point(12, 27);
+            resources.ApplyResources(this.Logo, "Logo");
             this.Logo.Name = "Logo";
-            this.Logo.Size = new System.Drawing.Size(288, 140);
-            this.Logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.Logo.TabIndex = 0;
             this.Logo.TabStop = false;
             this.Logo.Click += new System.EventHandler(this.Logo_Click);
             // 
             // FolderPath
             // 
+            resources.ApplyResources(this.FolderPath, "FolderPath");
             this.FolderPath.DetectUrls = false;
-            this.FolderPath.Location = new System.Drawing.Point(309, 43);
-            this.FolderPath.MaxLength = 1024;
-            this.FolderPath.Multiline = false;
             this.FolderPath.Name = "FolderPath";
-            this.FolderPath.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.FolderPath.ShortcutsEnabled = false;
-            this.FolderPath.Size = new System.Drawing.Size(221, 22);
-            this.FolderPath.TabIndex = 5;
-            this.FolderPath.Text = "";
             this.FolderPath.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FolderPath_MouseClick);
             this.FolderPath.TextChanged += new System.EventHandler(this.FolderPath_TextChanged);
             this.FolderPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FolderPath_KeyDown);
             // 
             // Browse
             // 
-            this.Browse.Location = new System.Drawing.Point(536, 41);
+            resources.ApplyResources(this.Browse, "Browse");
             this.Browse.Name = "Browse";
-            this.Browse.Size = new System.Drawing.Size(76, 25);
-            this.Browse.TabIndex = 4;
-            this.Browse.Text = "Browse";
             this.Browse.UseVisualStyleBackColor = true;
             this.Browse.Click += new System.EventHandler(this.Browse_Click);
             // 
             // Parsed
             // 
+            resources.ApplyResources(this.Parsed, "Parsed");
             this.Parsed.DetectUrls = false;
-            this.Parsed.Location = new System.Drawing.Point(309, 72);
             this.Parsed.Name = "Parsed";
-            this.Parsed.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.Parsed.Size = new System.Drawing.Size(303, 95);
-            this.Parsed.TabIndex = 3;
-            this.Parsed.Text = "";
             this.Parsed.TextChanged += new System.EventHandler(this.Parsed_TextChanged);
             // 
             // CopyParsedToClipboard
             // 
-            this.CopyParsedToClipboard.Location = new System.Drawing.Point(471, 186);
+            resources.ApplyResources(this.CopyParsedToClipboard, "CopyParsedToClipboard");
             this.CopyParsedToClipboard.Name = "CopyParsedToClipboard";
-            this.CopyParsedToClipboard.Size = new System.Drawing.Size(141, 25);
-            this.CopyParsedToClipboard.TabIndex = 2;
-            this.CopyParsedToClipboard.Text = "Copy To Clipboard";
             this.CopyParsedToClipboard.UseVisualStyleBackColor = true;
             this.CopyParsedToClipboard.Click += new System.EventHandler(this.CopyParsedToClipboard_Click);
             // 
             // CheckForUpdatesOnStartup
             // 
-            this.CheckForUpdatesOnStartup.AutoSize = true;
-            this.CheckForUpdatesOnStartup.Location = new System.Drawing.Point(12, 171);
+            resources.ApplyResources(this.CheckForUpdatesOnStartup, "CheckForUpdatesOnStartup");
             this.CheckForUpdatesOnStartup.Name = "CheckForUpdatesOnStartup";
-            this.CheckForUpdatesOnStartup.Size = new System.Drawing.Size(177, 17);
-            this.CheckForUpdatesOnStartup.TabIndex = 6;
-            this.CheckForUpdatesOnStartup.Text = "Check for updates automatically";
             this.CheckForUpdatesOnStartup.UseVisualStyleBackColor = true;
             this.CheckForUpdatesOnStartup.CheckedChanged += new System.EventHandler(this.CheckForUpdatesOnStartup_CheckedChanged);
             // 
             // SaveParsed
             // 
-            this.SaveParsed.Location = new System.Drawing.Point(390, 186);
+            resources.ApplyResources(this.SaveParsed, "SaveParsed");
             this.SaveParsed.Name = "SaveParsed";
-            this.SaveParsed.Size = new System.Drawing.Size(75, 25);
-            this.SaveParsed.TabIndex = 1;
-            this.SaveParsed.Text = "Save As";
             this.SaveParsed.UseVisualStyleBackColor = true;
             this.SaveParsed.Click += new System.EventHandler(this.SaveParsed_Click);
             // 
             // Parse
             // 
-            this.Parse.Location = new System.Drawing.Point(309, 186);
+            resources.ApplyResources(this.Parse, "Parse");
             this.Parse.Name = "Parse";
-            this.Parse.Size = new System.Drawing.Size(75, 25);
-            this.Parse.TabIndex = 0;
-            this.Parse.Text = "Parse";
             this.Parse.UseVisualStyleBackColor = true;
             this.Parse.Click += new System.EventHandler(this.Parse_Click);
             // 
+            // SaveFileDialog
+            // 
+            resources.ApplyResources(this.SaveFileDialog, "SaveFileDialog");
+            // 
             // MenuStrip
             // 
+            resources.ApplyResources(this.MenuStrip, "MenuStrip");
             this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CheckForUpdatesToolStripMenuItem,
             this.AutomaticBackupSettingsToolStripMenuItem,
             this.FilterChatLogToolStripMenuItem,
+            this.languageToolStripMenuItem,
             this.AboutToolStripMenuItem,
             this.ExitToolStripMenuItem});
-            this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(624, 24);
-            this.MenuStrip.TabIndex = 8;
-            this.MenuStrip.Text = "menuStrip1";
             // 
             // CheckForUpdatesToolStripMenuItem
             // 
+            resources.ApplyResources(this.CheckForUpdatesToolStripMenuItem, "CheckForUpdatesToolStripMenuItem");
             this.CheckForUpdatesToolStripMenuItem.Name = "CheckForUpdatesToolStripMenuItem";
-            this.CheckForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(118, 20);
-            this.CheckForUpdatesToolStripMenuItem.Text = "Check For Updates";
             this.CheckForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.CheckForUpdatesToolStripMenuItem_Click);
             // 
             // AutomaticBackupSettingsToolStripMenuItem
             // 
+            resources.ApplyResources(this.AutomaticBackupSettingsToolStripMenuItem, "AutomaticBackupSettingsToolStripMenuItem");
             this.AutomaticBackupSettingsToolStripMenuItem.Name = "AutomaticBackupSettingsToolStripMenuItem";
-            this.AutomaticBackupSettingsToolStripMenuItem.Size = new System.Drawing.Size(162, 20);
-            this.AutomaticBackupSettingsToolStripMenuItem.Text = "Automatic Backup Settings";
             this.AutomaticBackupSettingsToolStripMenuItem.Click += new System.EventHandler(this.AutomaticBackupSettingsToolStripMenuItem_Click);
             // 
             // FilterChatLogToolStripMenuItem
             // 
+            resources.ApplyResources(this.FilterChatLogToolStripMenuItem, "FilterChatLogToolStripMenuItem");
             this.FilterChatLogToolStripMenuItem.Name = "FilterChatLogToolStripMenuItem";
-            this.FilterChatLogToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
-            this.FilterChatLogToolStripMenuItem.Text = "Filter Chat Log";
             this.FilterChatLogToolStripMenuItem.Click += new System.EventHandler(this.FilterChatLogToolStripMenuItem_Click);
+            // 
+            // languageToolStripMenuItem
+            // 
+            resources.ApplyResources(this.languageToolStripMenuItem, "languageToolStripMenuItem");
+            this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
             // 
             // AboutToolStripMenuItem
             // 
+            resources.ApplyResources(this.AboutToolStripMenuItem, "AboutToolStripMenuItem");
             this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
-            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.AboutToolStripMenuItem.Text = "About";
             this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // ExitToolStripMenuItem
             // 
+            resources.ApplyResources(this.ExitToolStripMenuItem, "ExitToolStripMenuItem");
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
-            this.ExitToolStripMenuItem.Text = "Exit";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // PathLabel
             // 
-            this.PathLabel.AutoSize = true;
-            this.PathLabel.Location = new System.Drawing.Point(306, 27);
+            resources.ApplyResources(this.PathLabel, "PathLabel");
             this.PathLabel.Name = "PathLabel";
-            this.PathLabel.Size = new System.Drawing.Size(88, 13);
-            this.PathLabel.TabIndex = 0;
-            this.PathLabel.Text = "RAGEMP Folder:";
             // 
             // Version
             // 
-            this.Version.Location = new System.Drawing.Point(536, 27);
+            resources.ApplyResources(this.Version, "Version");
             this.Version.Name = "Version";
-            this.Version.Size = new System.Drawing.Size(76, 13);
-            this.Version.TabIndex = 0;
-            this.Version.Text = "Version: 1.0";
-            this.Version.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Counter
             // 
-            this.Counter.Location = new System.Drawing.Point(436, 170);
+            resources.ApplyResources(this.Counter, "Counter");
             this.Counter.Name = "Counter";
-            this.Counter.Size = new System.Drawing.Size(176, 13);
-            this.Counter.TabIndex = 0;
-            this.Counter.Text = "0 characters and 0 lines";
-            this.Counter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // RemoveTimestamps
             // 
-            this.RemoveTimestamps.AutoSize = true;
-            this.RemoveTimestamps.Location = new System.Drawing.Point(12, 194);
+            resources.ApplyResources(this.RemoveTimestamps, "RemoveTimestamps");
             this.RemoveTimestamps.Name = "RemoveTimestamps";
-            this.RemoveTimestamps.Size = new System.Drawing.Size(121, 17);
-            this.RemoveTimestamps.TabIndex = 7;
-            this.RemoveTimestamps.Text = "Remove timestamps";
             this.RemoveTimestamps.UseVisualStyleBackColor = true;
             this.RemoveTimestamps.CheckedChanged += new System.EventHandler(this.RemoveTimestamps_CheckedChanged);
             // 
             // StatusLabel
             // 
+            resources.ApplyResources(this.StatusLabel, "StatusLabel");
             this.StatusLabel.BackColor = System.Drawing.SystemColors.Control;
-            this.StatusLabel.Location = new System.Drawing.Point(308, 170);
             this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(121, 13);
-            this.StatusLabel.TabIndex = 0;
-            this.StatusLabel.Text = "Automatic Backup: OFF";
-            this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TrayIcon
             // 
             this.TrayIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.TrayIcon.BalloonTipText = "Automatic Backup: ON";
-            this.TrayIcon.BalloonTipTitle = "Information";
+            resources.ApplyResources(this.TrayIcon, "TrayIcon");
             this.TrayIcon.ContextMenuStrip = this.TrayIconContextMenuStrip;
-            this.TrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TrayIcon.Icon")));
-            this.TrayIcon.Text = "GTA World Chat Log Parser";
             this.TrayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseDoubleClick);
             // 
             // TrayIconContextMenuStrip
             // 
+            resources.ApplyResources(this.TrayIconContextMenuStrip, "TrayIconContextMenuStrip");
             this.TrayIconContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ResumeTrayStripMenuItem,
             this.ExitTrayToolStripMenuItem});
             this.TrayIconContextMenuStrip.Name = "TrayIconContextMenuStrip";
-            this.TrayIconContextMenuStrip.Size = new System.Drawing.Size(104, 48);
             // 
             // ResumeTrayStripMenuItem
             // 
+            resources.ApplyResources(this.ResumeTrayStripMenuItem, "ResumeTrayStripMenuItem");
             this.ResumeTrayStripMenuItem.Name = "ResumeTrayStripMenuItem";
-            this.ResumeTrayStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.ResumeTrayStripMenuItem.Text = "Open";
             this.ResumeTrayStripMenuItem.Click += new System.EventHandler(this.ResumeTrayStripMenuItem_Click);
             // 
             // ExitTrayToolStripMenuItem
             // 
+            resources.ApplyResources(this.ExitTrayToolStripMenuItem, "ExitTrayToolStripMenuItem");
             this.ExitTrayToolStripMenuItem.Name = "ExitTrayToolStripMenuItem";
-            this.ExitTrayToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.ExitTrayToolStripMenuItem.Text = "Exit";
             this.ExitTrayToolStripMenuItem.Click += new System.EventHandler(this.ExitTrayToolStripMenuItem_Click);
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 221);
             this.Controls.Add(this.StatusLabel);
             this.Controls.Add(this.RemoveTimestamps);
             this.Controls.Add(this.Counter);
@@ -298,12 +244,9 @@
             this.Controls.Add(this.Logo);
             this.Controls.Add(this.MenuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MenuStrip;
             this.MaximizeBox = false;
             this.Name = "Main";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "GTA World Chat Log Parser";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
             this.MenuStrip.ResumeLayout(false);
@@ -340,6 +283,7 @@
         private System.Windows.Forms.ToolStripMenuItem ExitTrayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ResumeTrayStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem FilterChatLogToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
     }
 }
 

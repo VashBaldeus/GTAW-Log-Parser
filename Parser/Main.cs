@@ -5,6 +5,8 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Globalization;
+using Parser.Localization;
 
 namespace Parser
 {
@@ -22,6 +24,8 @@ namespace Parser
 
         public Main(bool startMinimized)
         {
+            LocalizationManager.Initialize();
+
             StartupHandler.Initialize();
 
             allowFormDisplay = !startMinimized;
@@ -30,6 +34,32 @@ namespace Parser
 
             // Also checks for the first start
             LoadSettings();
+
+            string currentLanguage = LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage());
+            for (int i = 0; i < ((LocalizationManager.Language[])Enum.GetValues(typeof(LocalizationManager.Language))).Length; i++)
+            {
+                LocalizationManager.Language language = (LocalizationManager.Language)i;
+                ToolStripItem newLanguage = languageToolStripMenuItem.DropDownItems.Add(language.ToString());
+                newLanguage.Click += (s, e) =>
+                {
+                    if (((ToolStripMenuItem)newLanguage).Checked == true)
+                        return;
+
+                    CultureInfo cultureInfo = new CultureInfo(LocalizationManager.GetCodeFromLanguage(language));
+
+                    if (MessageBox.Show(Strings.ResourceManager.GetString("Restart", cultureInfo), Strings.ResourceManager.GetString("RestartTitle", cultureInfo), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        LocalizationManager.SetLanguage(language);
+
+                        Hide();
+                        System.Windows.Forms.Application.Restart();
+                        System.Windows.Forms.Application.Exit();
+                    }
+                };
+
+                if (currentLanguage == language.ToString())
+                    ((ToolStripMenuItem)languageToolStripMenuItem.DropDownItems[i]).Checked = true;
+            }
 
             BackupHandler.Initialize();
 
@@ -49,6 +79,8 @@ namespace Parser
             Properties.Settings.Default.Save();
         }
 
+        private static LanguagePicker languagePicker;
+
         private void LoadSettings()
         {
             Version.Text = $"Version: {Properties.Settings.Default.Version}";
@@ -56,6 +88,19 @@ namespace Parser
 
             if (Properties.Settings.Default.FirstStart)
             {
+                if (languagePicker == null)
+                {
+                    languagePicker = new LanguagePicker();
+                }
+                else
+                {
+                    languagePicker.Initialize();
+
+                    languagePicker.WindowState = FormWindowState.Normal;
+                    languagePicker.BringToFront();
+                }
+
+                languagePicker.ShowDialog();
                 Properties.Settings.Default.FirstStart = false;
                 Properties.Settings.Default.Save();
 
@@ -63,6 +108,7 @@ namespace Parser
             }
             else
                 FolderPath.Text = Properties.Settings.Default.FolderPath;
+
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestamps;
             CheckForUpdatesOnStartup.Checked = Properties.Settings.Default.CheckForUpdatesAutomatically;
         }
