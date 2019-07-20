@@ -16,6 +16,8 @@ namespace Parser
         [STAThread]
         static void Main()
         {
+            LocalizationManager.Initialize();
+
             Thread.Sleep(1000);
 
             Mutex mutex = new Mutex(true, "UniqueAppId", out bool isUnique);

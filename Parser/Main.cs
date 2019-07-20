@@ -26,8 +26,6 @@ namespace Parser
 
         public Main(bool startMinimized)
         {
-            LocalizationManager.Initialize();
-
             if (Properties.Settings.Default.FirstStart)
             {
                 if (languagePicker == null)
