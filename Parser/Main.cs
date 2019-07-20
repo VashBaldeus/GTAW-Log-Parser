@@ -512,7 +512,7 @@ namespace Parser
         private void Logo_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show(Strings.OpenDocumentation, Strings.Information, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                System.Diagnostics.Process.Start("https://forum.gta.world/en/index.php?/topic/7690-chat-logs/");
+                System.Diagnostics.Process.Start(Strings.ForumLink);
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)

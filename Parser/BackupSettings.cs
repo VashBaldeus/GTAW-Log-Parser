@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Parser.Localization;
 
 namespace Parser
 {
@@ -82,7 +83,7 @@ namespace Parser
 
                 if (finalDirectories.Count > 0)
                 {
-                    if (MessageBox.Show("Would you like to move all of your existing backup files to the new directory?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    if (MessageBox.Show(Strings.MoveBackups, Strings.Question, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         List<string> moved = new List<string>();
                         List<string> notMoved = new List<string>();
@@ -102,13 +103,13 @@ namespace Parser
                         Properties.Settings.Default.Save();
 
                         if (notMoved.Count > 0)
-                            MessageBox.Show($"{(moved.Count > 0 ? $"Only moved the \"{string.Join(", ", moved)}\" folder(s) to the new location" : "Did not move any folders to the new location")} because the \"{string.Join(", ", notMoved)}\" folder(s) already exist(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show((moved.Count > 0 ? string.Format(Strings.PartialMoveWarning, string.Join(", ", moved)) : Strings.NothingMovedWarning) + string.Format(Strings.AlreadyExistingFoldersWarning, string.Join(", ", notMoved)), Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             catch
             {
-                MessageBox.Show("An error occurent while moving the backup files to the new directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.BackupMoveError, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -138,7 +139,7 @@ namespace Parser
                         validLocation = true;
                     }
                     else
-                        MessageBox.Show("Please pick a non-root directory for your backup folder location.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Strings.BadBackupPath, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                     validLocation = true;
@@ -168,14 +169,14 @@ namespace Parser
 
         private void Interval_ValueChanged(object sender, EventArgs e)
         {
-            IntervalLabel2.Text = $"{(Interval.Value > 1 ? "minutes" : "minute")}. (recommended)";
-            EnableIntervalBackup.Text = $"Back up the chat log automatically while the game is running (every {Interval.Value} {(Interval.Value > 1 ? "minutes" : "minute")})";
+            IntervalLabel2.Text = string.Format(Strings.Recommended, Interval.Value > 1 ? Strings.MinutePlural : Strings.MinuteSingular);
+            EnableIntervalBackup.Text = string.Format(Strings.IntervalHint, Interval.Value, Interval.Value > 1 ? Strings.MinutePlural : Strings.MinutePlural);
         }
 
         private void StartWithWindows_CheckedChanged(object sender, EventArgs e)
         {
             if (StartWithWindows.Checked && !StartupHandler.IsAddedToStartup())
-                MessageBox.Show("This feature will stop working if you delete or move the parser to a different location.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(Strings.AutoStartWarning, Strings.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void Reset_Click(object sender, EventArgs e)
@@ -194,7 +195,7 @@ namespace Parser
             if (BackUpChatLogAutomatically.Checked && (string.IsNullOrWhiteSpace(BackupPath.Text) || !Directory.Exists(BackupPath.Text)))
             {
                 e.Cancel = true;
-                MessageBox.Show("Please choose a valid backup location or turn automatic backup off.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.BadBackupPathSave, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 return;
             }

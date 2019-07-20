@@ -74,6 +74,62 @@ namespace Parser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  because the &quot;{0}&quot; folder(s) already exist(s)..
+        /// </summary>
+        internal static string AlreadyExistingFoldersWarning {
+            get {
+                return ResourceManager.GetString("AlreadyExistingFoldersWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occured while trying to disable the automatic startup function..
+        /// </summary>
+        internal static string AutoStartDisableError {
+            get {
+                return ResourceManager.GetString("AutoStartDisableError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occured while trying to enable the automatic startup function..
+        /// </summary>
+        internal static string AutoStartEnableError {
+            get {
+                return ResourceManager.GetString("AutoStartEnableError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This feature will stop working if you delete or move the parser to a different location..
+        /// </summary>
+        internal static string AutoStartWarning {
+            get {
+                return ResourceManager.GetString("AutoStartWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occured while trying to automatically save the chat log.
+        ///
+        ///Make sure you picked a non-system directory for your backup path..
+        /// </summary>
+        internal static string BackupError {
+            get {
+                return ResourceManager.GetString("BackupError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurent while moving the backup files to the new directory..
+        /// </summary>
+        internal static string BackupMoveError {
+            get {
+                return ResourceManager.GetString("BackupMoveError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Automatic Backup: {0}.
         /// </summary>
         internal static string BackupStatus {
@@ -99,6 +155,24 @@ namespace Parser.Localization {
         internal static string BackupWillBeOff {
             get {
                 return ResourceManager.GetString("BackupWillBeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please pick a non-root directory for your backup folder location..
+        /// </summary>
+        internal static string BadBackupPath {
+            get {
+                return ResourceManager.GetString("BadBackupPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please choose a valid backup location or turn automatic backup off..
+        /// </summary>
+        internal static string BadBackupPathSave {
+            get {
+                return ResourceManager.GetString("BadBackupPathSave", resourceCulture);
             }
         }
         
@@ -195,11 +269,29 @@ namespace Parser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://forum.gta.world/en/index.php?/topic/7690-chat-logs/.
+        /// </summary>
+        internal static string ForumLink {
+            get {
+                return ResourceManager.GetString("ForumLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Information.
         /// </summary>
         internal static string Information {
             get {
                 return ResourceManager.GetString("Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back up the chat log automatically while the game is running (every {0} {1}).
+        /// </summary>
+        internal static string IntervalHint {
+            get {
+                return ResourceManager.GetString("IntervalHint", resourceCulture);
             }
         }
         
@@ -271,6 +363,33 @@ namespace Parser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to minutes.
+        /// </summary>
+        internal static string MinutePlural {
+            get {
+                return ResourceManager.GetString("MinutePlural", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to minute.
+        /// </summary>
+        internal static string MinuteSingular {
+            get {
+                return ResourceManager.GetString("MinuteSingular", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to move all of your existing backup files to the new directory?.
+        /// </summary>
+        internal static string MoveBackups {
+            get {
+                return ResourceManager.GetString("MoveBackups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Multiple GTA World resource directories were found. It is advised you use a single IP to connect to the server and delete the other resource directory.
         ///
         ///Keep either &quot;{0}&quot; or &quot;{1}&quot;..
@@ -298,6 +417,15 @@ namespace Parser.Localization {
         internal static string NoInternet {
             get {
                 return ResourceManager.GetString("NoInternet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Did not move any folders to the new location.
+        /// </summary>
+        internal static string NothingMovedWarning {
+            get {
+                return ResourceManager.GetString("NothingMovedWarning", resourceCulture);
             }
         }
         
@@ -332,6 +460,15 @@ namespace Parser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Another instance is already running, check your taskbar or task manager..
+        /// </summary>
+        internal static string OtherInstanceRunning {
+            get {
+                return ResourceManager.GetString("OtherInstanceRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while parsing the chat log..
         /// </summary>
         internal static string ParseError {
@@ -341,11 +478,29 @@ namespace Parser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only moved the &quot;{0}&quot; folder(s) to the new location.
+        /// </summary>
+        internal static string PartialMoveWarning {
+            get {
+                return ResourceManager.GetString("PartialMoveWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Question.
         /// </summary>
         internal static string Question {
             get {
                 return ResourceManager.GetString("Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. (recommended).
+        /// </summary>
+        internal static string Recommended {
+            get {
+                return ResourceManager.GetString("Recommended", resourceCulture);
             }
         }
         
@@ -413,6 +568,15 @@ namespace Parser.Localization {
         internal static string Start {
             get {
                 return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully parsed and backed up chat log to {0}.
+        /// </summary>
+        internal static string SuccessfulBackup {
+            get {
+                return ResourceManager.GetString("SuccessfulBackup", resourceCulture);
             }
         }
         

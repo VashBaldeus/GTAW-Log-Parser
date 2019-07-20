@@ -124,6 +124,24 @@ Versión instalada: {0}
 
 ¿Te gustaría visitar la página del repositorio en GitHub?</value>
   </data>
+  <data name="AlreadyExistingFoldersWarning" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AutoStartDisableError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AutoStartEnableError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AutoStartWarning" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BackupError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BackupMoveError" xml:space="preserve">
+    <value />
+  </data>
   <data name="BackupStatus" xml:space="preserve">
     <value>Guardado automático: {0}</value>
   </data>
@@ -134,6 +152,12 @@ Versión instalada: {0}
     <value>La función de copia de seguridad automática se desactivará mientras el cuadro de diálogo de configuración esté abierto y la nueva configuración solo se aplicará una vez que cierre el cuadro de diálogo de configuración.
 
 ¿Te gustaria continuar?</value>
+  </data>
+  <data name="BadBackupPath" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BadBackupPathSave" xml:space="preserve">
+    <value />
   </data>
   <data name="BadFolderPath" xml:space="preserve">
     <value>Elija un directorio no raíz para la ubicación de su carpeta RAGEMP.</value>
@@ -167,8 +191,14 @@ Busque la ruta correcta manualmente si esto es incorrecto o si tiene varias inst
   <data name="FolderFinderTitle" xml:space="preserve">
     <value>Información (Primer Comienzo)</value>
   </data>
+  <data name="ForumLink" xml:space="preserve">
+    <value>https://forum.gta.world/en/index.php?/topic/7690-chat-logs/</value>
+  </data>
   <data name="Information" xml:space="preserve">
     <value>Información</value>
+  </data>
+  <data name="IntervalHint" xml:space="preserve">
+    <value>Guardar el chatlog automáticamente cuando el juego está abierto (cada {0} {1})</value>
   </data>
   <data name="InvalidFolderPath" xml:space="preserve">
     <value>Ruta de la carpeta RAGEMP no válida.</value>
@@ -193,6 +223,15 @@ Busque la ruta correcta manualmente si esto es incorrecto o si tiene varias inst
 
 ¿Le gustaría minimizar el analizador en la bandeja del sistema?</value>
   </data>
+  <data name="MinutePlural" xml:space="preserve">
+    <value>minutos</value>
+  </data>
+  <data name="MinuteSingular" xml:space="preserve">
+    <value>minuto</value>
+  </data>
+  <data name="MoveBackups" xml:space="preserve">
+    <value />
+  </data>
   <data name="MultipleChatLogs" xml:space="preserve">
     <value>Se encontraron múltiples directorios de recursos de GTA World. Se recomienda utilizar una única IP para conectarse al servidor y eliminar el otro directorio de recursos.
 
@@ -206,6 +245,9 @@ Mantener "{0}" o "{1}".</value>
 
 Versión instalada: {0}</value>
   </data>
+  <data name="NothingMovedWarning" xml:space="preserve">
+    <value />
+  </data>
   <data name="NothingParsed" xml:space="preserve">
     <value>Aún no has analizado nada.</value>
   </data>
@@ -218,11 +260,20 @@ Versión instalada: {0}</value>
   <data name="OpenDocumentation" xml:space="preserve">
     <value>¿Le gustaría abrir la página de documentación para el analizador de registro de chat que se encuentra en los foros de GTA World?</value>
   </data>
+  <data name="OtherInstanceRunning" xml:space="preserve">
+    <value />
+  </data>
   <data name="ParseError" xml:space="preserve">
     <value>Se produjo un error al analizar el registro de chat.</value>
   </data>
+  <data name="PartialMoveWarning" xml:space="preserve">
+    <value />
+  </data>
   <data name="Question" xml:space="preserve">
     <value>Pregunta</value>
+  </data>
+  <data name="Recommended" xml:space="preserve">
+    <value>{0}. (recomendado)</value>
   </data>
   <data name="Restart" xml:space="preserve">
     <value>El analizador debe reiniciarse para aplicar el idioma seleccionado.
@@ -248,6 +299,9 @@ Versión instalada: {0}</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Comenzar</value>
+  </data>
+  <data name="SuccessfulBackup" xml:space="preserve">
+    <value />
   </data>
   <data name="UpdateAvailable" xml:space="preserve">
     <value>Una nueva versión del analizador de registro de chat ahora está disponible en GitHub.

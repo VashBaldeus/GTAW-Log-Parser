@@ -4,6 +4,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using Parser.Localization;
 
 namespace Parser
 {
@@ -197,7 +198,7 @@ namespace Parser
                     }
 
                     if (gameClosed && !Properties.Settings.Default.SuppressNotifications)
-                        MessageBox.Show($"Successfully parsed and backed up chat log to {path + fileName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(string.Format(Strings.SuccessfulBackup, path + fileName), Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -221,13 +222,13 @@ namespace Parser
                         File.Delete(path + ".temp");
 
                     if (gameClosed && !Properties.Settings.Default.SuppressNotifications)
-                        MessageBox.Show($"Successfully parsed and backed up chat log to {path + fileName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(string.Format(Strings.SuccessfulBackup, path + fileName), Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch
             {
                 if (gameClosed)
-                    MessageBox.Show("An error occured while trying to automatically save the chat log.\n\nMake sure you picked a non-system directory for your backup path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Strings.BackupError, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

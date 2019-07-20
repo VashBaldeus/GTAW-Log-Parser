@@ -103,7 +103,7 @@ namespace Parser
             catch
             {
                 if (showError)
-                    MessageBox.Show("An error occured while trying to enable the automatic startup function.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Localization.Strings.AutoStartEnableError, Localization.Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 Properties.Settings.Default.StartWithWindows = false;
                 Properties.Settings.Default.Save();
@@ -130,7 +130,7 @@ namespace Parser
             catch
             {
                 if (showError)
-                    MessageBox.Show("An error occured while trying to disable the automatic startup function.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Localization.Strings.AutoStartDisableError, Localization.Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 if (IsAddedToStartup())
                 {

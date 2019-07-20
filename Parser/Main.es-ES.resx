@@ -741,10 +741,10 @@
     <value>0 caracteres y 0 líneas</value>
   </data>
   <data name="RemoveTimestamps.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 17</value>
+    <value>109, 17</value>
   </data>
   <data name="RemoveTimestamps.Text" xml:space="preserve">
-    <value>Eliminar timestamps</value>
+    <value>Quitar timestamps</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="StatusLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">

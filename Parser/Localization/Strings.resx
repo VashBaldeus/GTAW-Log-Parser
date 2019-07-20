@@ -124,6 +124,26 @@ Installed Version: {0}
 
 Would you like to visit the repository page on GitHub?</value>
   </data>
+  <data name="AlreadyExistingFoldersWarning" xml:space="preserve">
+    <value> because the "{0}" folder(s) already exist(s).</value>
+  </data>
+  <data name="AutoStartDisableError" xml:space="preserve">
+    <value>An error occured while trying to disable the automatic startup function.</value>
+  </data>
+  <data name="AutoStartEnableError" xml:space="preserve">
+    <value>An error occured while trying to enable the automatic startup function.</value>
+  </data>
+  <data name="AutoStartWarning" xml:space="preserve">
+    <value>This feature will stop working if you delete or move the parser to a different location.</value>
+  </data>
+  <data name="BackupError" xml:space="preserve">
+    <value>An error occured while trying to automatically save the chat log.
+
+Make sure you picked a non-system directory for your backup path.</value>
+  </data>
+  <data name="BackupMoveError" xml:space="preserve">
+    <value>An error occurent while moving the backup files to the new directory.</value>
+  </data>
   <data name="BackupStatus" xml:space="preserve">
     <value>Automatic Backup: {0}</value>
   </data>
@@ -134,6 +154,12 @@ Would you like to visit the repository page on GitHub?</value>
     <value>The automatic backup function will be turned off while the settings dialog is open and the new settings will only be applied once you close the settings dialog.
 
 Would you like to continue?</value>
+  </data>
+  <data name="BadBackupPath" xml:space="preserve">
+    <value>Please pick a non-root directory for your backup folder location.</value>
+  </data>
+  <data name="BadBackupPathSave" xml:space="preserve">
+    <value>Please choose a valid backup location or turn automatic backup off.</value>
   </data>
   <data name="BadFolderPath" xml:space="preserve">
     <value>Please pick a non-root directory for your RAGEMP folder location.</value>
@@ -167,8 +193,14 @@ Please browse for the correct path manually if this is incorrect or you have mul
   <data name="FolderFinderTitle" xml:space="preserve">
     <value>Information (First Start)</value>
   </data>
+  <data name="ForumLink" xml:space="preserve">
+    <value>https://forum.gta.world/en/index.php?/topic/7690-chat-logs/</value>
+  </data>
   <data name="Information" xml:space="preserve">
     <value>Information</value>
+  </data>
+  <data name="IntervalHint" xml:space="preserve">
+    <value>Back up the chat log automatically while the game is running (every {0} {1})</value>
   </data>
   <data name="InvalidFolderPath" xml:space="preserve">
     <value>Invalid RAGEMP folder path.</value>
@@ -195,6 +227,15 @@ This means that if you chose English, you will only be able to parse the chat lo
 
 Would you like to minimize the parser to the system tray instead?</value>
   </data>
+  <data name="MinutePlural" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="MinuteSingular" xml:space="preserve">
+    <value>minute</value>
+  </data>
+  <data name="MoveBackups" xml:space="preserve">
+    <value>Would you like to move all of your existing backup files to the new directory?</value>
+  </data>
   <data name="MultipleChatLogs" xml:space="preserve">
     <value>Multiple GTA World resource directories were found. It is advised you use a single IP to connect to the server and delete the other resource directory.
 
@@ -208,6 +249,9 @@ Keep either "{0}" or "{1}".</value>
 
 Installed Version: {0}</value>
   </data>
+  <data name="NothingMovedWarning" xml:space="preserve">
+    <value>Did not move any folders to the new location</value>
+  </data>
   <data name="NothingParsed" xml:space="preserve">
     <value>You haven't parsed anything yet.</value>
   </data>
@@ -220,11 +264,20 @@ Would you like to delete these files?
   <data name="OpenDocumentation" xml:space="preserve">
     <value>Would you like to open the documentation page for the chat log parser found on the GTA World forums?</value>
   </data>
+  <data name="OtherInstanceRunning" xml:space="preserve">
+    <value>Another instance is already running, check your taskbar or task manager.</value>
+  </data>
   <data name="ParseError" xml:space="preserve">
     <value>An error occurred while parsing the chat log.</value>
   </data>
+  <data name="PartialMoveWarning" xml:space="preserve">
+    <value>Only moved the "{0}" folder(s) to the new location</value>
+  </data>
   <data name="Question" xml:space="preserve">
     <value>Question</value>
+  </data>
+  <data name="Recommended" xml:space="preserve">
+    <value>{0}. (recommended)</value>
   </data>
   <data name="Restart" xml:space="preserve">
     <value>The parser needs to restart in order to apply the selected language.
@@ -250,6 +303,9 @@ Installed Version: {0}</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>
+  </data>
+  <data name="SuccessfulBackup" xml:space="preserve">
+    <value>Successfully parsed and backed up chat log to {0}</value>
   </data>
   <data name="UpdateAvailable" xml:space="preserve">
     <value>A new version of the chat log parser is now available on GitHub.

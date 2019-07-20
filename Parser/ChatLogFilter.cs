@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Parser.Localization;
 
 namespace Parser
 {
@@ -111,7 +112,7 @@ namespace Parser
             {
                 ChatLog = Filtered.Text = string.Empty;
 
-                MessageBox.Show("An error occured while reading the selected file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occured while reading the selected file.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -141,14 +142,14 @@ namespace Parser
         {
             if (!chatLogLoaded)
             {
-                MessageBox.Show("You haven't loaded a chat log yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You haven't loaded a chat log yet.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             List<string> wordsToCheck = GetWordsToFilterIn();
             if (wordsToCheck.Count == 0 && !string.IsNullOrWhiteSpace(Words.Text))
             {
-                MessageBox.Show("You can only have one word, number, or valid name pair on each line if you want to filter your chat log.\nExample: Boat, $500, John, John Doe or John_Doe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You can only have one word, number, or valid name pair on each line if you want to filter your chat log.\nExample: Boat, $500, John, John Doe or John_Doe", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -197,11 +198,11 @@ namespace Parser
                 Filtered.Text = logToCheck;
 
                 if (!fastFilter)
-                    MessageBox.Show("No matches found.\n\nMake sure you only have one word, number, or valid name pair on each line.\nExample: Boat, $500, John, John Doe or John_Doe", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No matches found.\n\nMake sure you only have one word, number, or valid name pair on each line.\nExample: Boat, $500, John, John Doe or John_Doe", Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             if (skippedWord)
-                MessageBox.Show("One or more words were skipped during the filtering operation because they are not in a valid format.\n\nMake sure you only have one word, number, or valid name pair on each line.\nExample: Boat, $500, John, John Doe or John_Doe", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("One or more words were skipped during the filtering operation because they are not in a valid format.\n\nMake sure you only have one word, number, or valid name pair on each line.\nExample: Boat, $500, John, John Doe or John_Doe", Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private static bool skippedWord = false;
@@ -245,7 +246,7 @@ namespace Parser
             {
                 if (string.IsNullOrWhiteSpace(Filtered.Text))
                 {
-                    MessageBox.Show("You haven't filtered anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("You haven't filtered anything yet.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -262,14 +263,14 @@ namespace Parser
             }
             catch
             {
-                MessageBox.Show("An error occured while trying to save the file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occured while trying to save the file.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void CopyFilteredToClipboard_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Filtered.Text))
-                MessageBox.Show("You haven't filtered anything yet.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You haven't filtered anything yet.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
                 Clipboard.SetText(Filtered.Text.Replace("\n", Environment.NewLine));
         }
