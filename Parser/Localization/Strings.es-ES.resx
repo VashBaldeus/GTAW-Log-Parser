@@ -125,22 +125,24 @@ Versión instalada: {0}
 ¿Te gustaría visitar la página del repositorio en GitHub?</value>
   </data>
   <data name="AlreadyExistingFoldersWarning" xml:space="preserve">
-    <value />
+    <value>porque la carpeta "{0}" ya existe.</value>
   </data>
   <data name="AutoStartDisableError" xml:space="preserve">
-    <value />
+    <value>Ha ocurrido un error intentando desactivar la función de inicio automático.</value>
   </data>
   <data name="AutoStartEnableError" xml:space="preserve">
-    <value />
+    <value>Ha ocurrido un error intentando activar la función de inicio automático.</value>
   </data>
   <data name="AutoStartWarning" xml:space="preserve">
-    <value />
+    <value>Esta característica dejará de funcionar si eliminas o mueves el programa a otra localización</value>
   </data>
   <data name="BackupError" xml:space="preserve">
-    <value />
+    <value>Ha ocurrido un error intentado guardar el chatlog automáticamente.
+
+Asegúrate que has seleccionado un directorio que no sea del sistema para el guardado</value>
   </data>
   <data name="BackupMoveError" xml:space="preserve">
-    <value />
+    <value>Ha ocurrido un error intentando mover los archivos guardados a otro directorio</value>
   </data>
   <data name="BackupStatus" xml:space="preserve">
     <value>Guardado automático: {0}</value>
@@ -154,10 +156,10 @@ Versión instalada: {0}
 ¿Te gustaria continuar?</value>
   </data>
   <data name="BadBackupPath" xml:space="preserve">
-    <value />
+    <value>Por favor, selecciona un directorio que no sea del sistema para el guardado automático.</value>
   </data>
   <data name="BadBackupPathSave" xml:space="preserve">
-    <value />
+    <value>Por favor, selecciona una localización válida para o desactiva el guardado automático.</value>
   </data>
   <data name="BadFolderPath" xml:space="preserve">
     <value>Elija un directorio no raíz para la ubicación de su carpeta RAGEMP.</value>
@@ -181,19 +183,27 @@ Versión instalada: {0}
     <value>Se produjo un error al intentar eliminar el archivo.</value>
   </data>
   <data name="FilterHint" xml:space="preserve">
-    <value />
+    <value>Solo puede haber una palabra, número, o un nombre válido en cada linea si quieres filtrar el chatlog.
+
+Ejemplos: Barco, $500, John, John_Doe o John Doe</value>
   </data>
   <data name="FilterHintNoMatches" xml:space="preserve">
-    <value />
+    <value>No se han encontrado coincidencias.
+Solo puede haber una palabra, número, o un nombre válido en cada linea si quieres filtrar el chatlog.
+
+Ejemplos: Barco, $500, John, John_Doe o John Doe</value>
   </data>
   <data name="FilterHintSkipped" xml:space="preserve">
-    <value />
+    <value>Una o más palabras han sido saltadas durante el filtrado porque no tiene un formato válido
+Solo puede haber una palabra, número, o un nombre válido en cada linea si quieres filtrar el chatlog.
+
+Ejemplos: Barco, $500, John, John_Doe o John Doe</value>
   </data>
   <data name="FilterLogStatus" xml:space="preserve">
     <value>Chatlog{0} cargado{1}</value>
   </data>
   <data name="FilterReadError" xml:space="preserve">
-    <value />
+    <value>Ha ocurrido un error leyendo el archivo.</value>
   </data>
   <data name="FolderFinder" xml:space="preserve">
     <value>Encontró automáticamente su carpeta RAGEMP en {0}
@@ -231,7 +241,9 @@ Busque la ruta correcta manualmente si esto es incorrecto o si tiene varias inst
     <value>Idioma</value>
   </data>
   <data name="LanguageInfo" xml:space="preserve">
-    <value />
+    <value>El idioma seleccionado será usado para extraer el chatlog del servidor correcto.
+
+Esto significa que si seleccionas Inglés, solo podrás analizar el chatlog generado por el servidor inglés. Necesitarás cambiar el idioma del programa si deseas analizar otros chatlogs.</value>
   </data>
   <data name="LoadedAt" xml:space="preserve">
     <value> a las {0}</value>
@@ -251,7 +263,7 @@ Busque la ruta correcta manualmente si esto es incorrecto o si tiene varias inst
     <value>minuto</value>
   </data>
   <data name="MoveBackups" xml:space="preserve">
-    <value />
+    <value>¿Te gustaría mover todos tus archivos de guardado al nuevo directorio?</value>
   </data>
   <data name="MultipleChatLogs" xml:space="preserve">
     <value>Se encontraron múltiples directorios de recursos de GTA World. Se recomienda utilizar una única IP para conectarse al servidor y eliminar el otro directorio de recursos.
@@ -265,7 +277,7 @@ Mantener "{0}" o "{1}".</value>
     <value>No se puede encontrar el chatlog de GTA World.</value>
   </data>
   <data name="NoChatLogLoaded" xml:space="preserve">
-    <value />
+    <value>No has cargado ningún chatlog aún.</value>
   </data>
   <data name="NoInternet" xml:space="preserve">
     <value>No se pudieron encontrar actualizaciones, intente verificar su conexión a Internet.
@@ -273,10 +285,10 @@ Mantener "{0}" o "{1}".</value>
 Versión instalada: {0}</value>
   </data>
   <data name="NothingFiltered" xml:space="preserve">
-    <value />
+    <value>No has filtrado nada aún.</value>
   </data>
   <data name="NothingMovedWarning" xml:space="preserve">
-    <value />
+    <value>No se ha movido nada a la nueva localización</value>
   </data>
   <data name="NothingParsed" xml:space="preserve">
     <value>Aún no has analizado nada.</value>
@@ -291,13 +303,13 @@ Versión instalada: {0}</value>
     <value>¿Le gustaría abrir la página de documentación para el analizador de registro de chat que se encuentra en los foros de GTA World?</value>
   </data>
   <data name="OtherInstanceRunning" xml:space="preserve">
-    <value />
+    <value>Otra instancia se está ejecutando. Revisa la barra de tareas o el administrador de tareas</value>
   </data>
   <data name="ParseError" xml:space="preserve">
     <value>Se produjo un error al analizar el registro de chat.</value>
   </data>
   <data name="PartialMoveWarning" xml:space="preserve">
-    <value />
+    <value>Solo se han movido "{0}" carpetas a la nueva localización</value>
   </data>
   <data name="Question" xml:space="preserve">
     <value>Pregunta</value>
@@ -331,7 +343,8 @@ Versión instalada: {0}</value>
     <value>Comenzar</value>
   </data>
   <data name="SuccessfulBackup" xml:space="preserve">
-    <value />
+    <value>Se ha guardado satisfactoriamente el chatlog en {0}</value>
+    <comment> </comment>
   </data>
   <data name="UpdateAvailable" xml:space="preserve">
     <value>Una nueva versión del analizador de registro de chat ahora está disponible en GitHub.
