@@ -134,7 +134,7 @@
     <value>39, 9</value>
   </data>
   <data name="StatusLabel.Text" xml:space="preserve">
-    <value>No hay chatlog cargado</value>
+    <value>Chatlog no hay cargado</value>
   </data>
   <data name="Words.Size" type="System.Drawing.Size, System.Drawing">
     <value>162, 184</value>

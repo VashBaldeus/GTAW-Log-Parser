@@ -190,7 +190,7 @@ Versión instalada: {0}
     <value />
   </data>
   <data name="FilterLogStatus" xml:space="preserve">
-    <value>{0}chatlog cargado{1}</value>
+    <value>Chatlog{0} cargado{1}</value>
   </data>
   <data name="FilterReadError" xml:space="preserve">
     <value />
@@ -259,7 +259,7 @@ Busque la ruta correcta manualmente si esto es incorrecto o si tiene varias inst
 Mantener "{0}" o "{1}".</value>
   </data>
   <data name="Negation" xml:space="preserve">
-    <value>No hay </value>
+    <value> no hay</value>
   </data>
   <data name="NoChatLog" xml:space="preserve">
     <value>No se puede encontrar el chatlog de GTA World.</value>
