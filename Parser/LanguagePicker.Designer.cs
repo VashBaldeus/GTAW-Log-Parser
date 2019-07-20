@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LanguagePicker));
             this.StartButton = new System.Windows.Forms.Button();
             this.languageList = new System.Windows.Forms.ComboBox();
-            this.welcomeLabel = new System.Windows.Forms.Label();
+            this.WelcomeLabel = new System.Windows.Forms.Label();
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
@@ -51,11 +51,11 @@
             this.languageList.Name = "languageList";
             this.languageList.SelectedIndexChanged += new System.EventHandler(this.LanguageList_SelectedIndexChanged);
             // 
-            // welcomeLabel
+            // WelcomeLabel
             // 
-            this.welcomeLabel.AutoEllipsis = true;
-            resources.ApplyResources(this.welcomeLabel, "welcomeLabel");
-            this.welcomeLabel.Name = "welcomeLabel";
+            this.WelcomeLabel.AutoEllipsis = true;
+            resources.ApplyResources(this.WelcomeLabel, "WelcomeLabel");
+            this.WelcomeLabel.Name = "WelcomeLabel";
             // 
             // Timer
             // 
@@ -67,7 +67,7 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.welcomeLabel);
+            this.Controls.Add(this.WelcomeLabel);
             this.Controls.Add(this.languageList);
             this.Controls.Add(this.StartButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -86,7 +86,7 @@
 
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.ComboBox languageList;
-        private System.Windows.Forms.Label welcomeLabel;
+        private System.Windows.Forms.Label WelcomeLabel;
         private System.Windows.Forms.Timer Timer;
     }
 }

@@ -48,10 +48,10 @@ namespace Parser
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if (welcomeLabel.Left < -1422)
-                welcomeLabel.Left = -4;
+            if (WelcomeLabel.Left < -1422)
+                WelcomeLabel.Left = -4;
 
-            welcomeLabel.Left -= 1;
+            WelcomeLabel.Left -= 1;
         }
 
         private void LanguageList_SelectedIndexChanged(object sender, EventArgs e)
