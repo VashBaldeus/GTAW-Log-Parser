@@ -167,6 +167,9 @@ Would you like to continue?</value>
   <data name="CharacterCounter" xml:space="preserve">
     <value>{0} characters and {1} lines</value>
   </data>
+  <data name="CurrentTime" xml:space="preserve">
+    <value>Current time: {0}</value>
+  </data>
   <data name="Disabled" xml:space="preserve">
     <value>OFF</value>
   </data>
@@ -178,6 +181,27 @@ Would you like to continue?</value>
   </data>
   <data name="FileDeleteError" xml:space="preserve">
     <value>An error occurred while trying to delete the file.</value>
+  </data>
+  <data name="FilterHint" xml:space="preserve">
+    <value>You can only have one word, number, or valid name pair on each line if you want to filter your chat log.
+Example: Boat, $500, John, John Doe or John_Doe</value>
+  </data>
+  <data name="FilterHintNoMatches" xml:space="preserve">
+    <value>No matches found.
+
+Make sure you only have one word, number, or valid name pair on each line.\nExample: Boat, $500, John, John Doe or John_Doe</value>
+  </data>
+  <data name="FilterHintSkipped" xml:space="preserve">
+    <value>One or more words were skipped during the filtering operation because they are not in a valid format.
+
+Make sure you only have one word, number, or valid name pair on each line.
+Example: Boat, $500, John, John Doe or John_Doe</value>
+  </data>
+  <data name="FilterLogStatus" xml:space="preserve">
+    <value>Chat log{0} loaded{1}</value>
+  </data>
+  <data name="FilterReadError" xml:space="preserve">
+    <value>An error occured while reading the selected file.</value>
   </data>
   <data name="FolderFinder" xml:space="preserve">
     <value>Automatically found your RAGEMP folder at {0}
@@ -219,6 +243,9 @@ Please browse for the correct path manually if this is incorrect or you have mul
 
 This means that if you chose English, you will only be able to parse the chat log generated from the English server. You will need to change the language of the application if you wish to parse other chat logs.</value>
   </data>
+  <data name="LoadedAt" xml:space="preserve">
+    <value> at {0}</value>
+  </data>
   <data name="MainIP" xml:space="preserve">
     <value>164.132.206.209_22005</value>
   </data>
@@ -241,13 +268,22 @@ Would you like to minimize the parser to the system tray instead?</value>
 
 Keep either "{0}" or "{1}".</value>
   </data>
+  <data name="Negation" xml:space="preserve">
+    <value> not</value>
+  </data>
   <data name="NoChatLog" xml:space="preserve">
     <value>Can't find the GTA World chat log.</value>
+  </data>
+  <data name="NoChatLogLoaded" xml:space="preserve">
+    <value>You haven't loaded a chat log yet.</value>
   </data>
   <data name="NoInternet" xml:space="preserve">
     <value>No updates could be found, try checking your internet connection.
 
 Installed Version: {0}</value>
+  </data>
+  <data name="NothingFiltered" xml:space="preserve">
+    <value>You haven't filtered anything yet.</value>
   </data>
   <data name="NothingMovedWarning" xml:space="preserve">
     <value>Did not move any folders to the new location</value>

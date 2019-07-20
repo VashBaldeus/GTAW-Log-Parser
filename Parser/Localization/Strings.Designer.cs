@@ -195,6 +195,15 @@ namespace Parser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current time: {0}.
+        /// </summary>
+        internal static string CurrentTime {
+            get {
+                return ResourceManager.GetString("CurrentTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OFF.
         /// </summary>
         internal static string Disabled {
@@ -227,6 +236,57 @@ namespace Parser.Localization {
         internal static string FileDeleteError {
             get {
                 return ResourceManager.GetString("FileDeleteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can only have one word, number, or valid name pair on each line if you want to filter your chat log.
+        ///Example: Boat, $500, John, John Doe or John_Doe.
+        /// </summary>
+        internal static string FilterHint {
+            get {
+                return ResourceManager.GetString("FilterHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No matches found.
+        ///
+        ///Make sure you only have one word, number, or valid name pair on each line.\nExample: Boat, $500, John, John Doe or John_Doe.
+        /// </summary>
+        internal static string FilterHintNoMatches {
+            get {
+                return ResourceManager.GetString("FilterHintNoMatches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One or more words were skipped during the filtering operation because they are not in a valid format.
+        ///
+        ///Make sure you only have one word, number, or valid name pair on each line.
+        ///Example: Boat, $500, John, John Doe or John_Doe.
+        /// </summary>
+        internal static string FilterHintSkipped {
+            get {
+                return ResourceManager.GetString("FilterHintSkipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chat log{0} loaded{1}.
+        /// </summary>
+        internal static string FilterLogStatus {
+            get {
+                return ResourceManager.GetString("FilterLogStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occured while reading the selected file..
+        /// </summary>
+        internal static string FilterReadError {
+            get {
+                return ResourceManager.GetString("FilterReadError", resourceCulture);
             }
         }
         
@@ -343,6 +403,15 @@ namespace Parser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  at {0}.
+        /// </summary>
+        internal static string LoadedAt {
+            get {
+                return ResourceManager.GetString("LoadedAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 164.132.206.209_22005.
         /// </summary>
         internal static string MainIP {
@@ -401,11 +470,29 @@ namespace Parser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  not.
+        /// </summary>
+        internal static string Negation {
+            get {
+                return ResourceManager.GetString("Negation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t find the GTA World chat log..
         /// </summary>
         internal static string NoChatLog {
             get {
                 return ResourceManager.GetString("NoChatLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You haven&apos;t loaded a chat log yet..
+        /// </summary>
+        internal static string NoChatLogLoaded {
+            get {
+                return ResourceManager.GetString("NoChatLogLoaded", resourceCulture);
             }
         }
         
@@ -417,6 +504,15 @@ namespace Parser.Localization {
         internal static string NoInternet {
             get {
                 return ResourceManager.GetString("NoInternet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You haven&apos;t filtered anything yet..
+        /// </summary>
+        internal static string NothingFiltered {
+            get {
+                return ResourceManager.GetString("NothingFiltered", resourceCulture);
             }
         }
         

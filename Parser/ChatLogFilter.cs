@@ -18,7 +18,7 @@ namespace Parser
                 _chatLog = value;
                 chatLogLoaded = _chatLog != string.Empty;
                 loadedFrom = chatLogLoaded ? loadedFrom : LoadedFrom.None;
-                StatusLabel.Text = $"Chat log{(chatLogLoaded ? " " : " not ")}loaded{(chatLogLoaded ? $" at {DateTime.Now.ToString("HH:mm:ss")}" : "")}";
+                StatusLabel.Text = string.Format(Strings.FilterLogStatus, chatLogLoaded ? "" : Strings.Negation, chatLogLoaded ? string.Format(Strings.LoadedAt, DateTime.Now.ToString("HH:mm:ss")) : "");
                 StatusLabel.ForeColor = chatLogLoaded ? Color.Green : Color.Red;
             }
         }
@@ -33,7 +33,7 @@ namespace Parser
         {
             InitializeComponent();
 
-            TimeLabel.Text = "Current time: " + DateTime.Now.ToString("HH:mm:ss");
+            TimeLabel.Text = string.Format(Strings.CurrentTime, DateTime.Now.ToString("HH:mm:ss"));
 
             Words.Text = Properties.Settings.Default.FilterNames;
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestampsFromFilter;
@@ -47,7 +47,7 @@ namespace Parser
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            TimeLabel.Text = "Current time: " + DateTime.Now.ToString("HH:mm:ss");
+            TimeLabel.Text = string.Format(Strings.CurrentTime, DateTime.Now.ToString("HH:mm:ss"));
         }
 
         private void LoadUnparsed_Click(object sender, EventArgs e)
@@ -112,7 +112,7 @@ namespace Parser
             {
                 ChatLog = Filtered.Text = string.Empty;
 
-                MessageBox.Show("An error occured while reading the selected file.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.FilterReadError, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -142,14 +142,14 @@ namespace Parser
         {
             if (!chatLogLoaded)
             {
-                MessageBox.Show("You haven't loaded a chat log yet.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.NoChatLogLoaded, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             List<string> wordsToCheck = GetWordsToFilterIn();
             if (wordsToCheck.Count == 0 && !string.IsNullOrWhiteSpace(Words.Text))
             {
-                MessageBox.Show("You can only have one word, number, or valid name pair on each line if you want to filter your chat log.\nExample: Boat, $500, John, John Doe or John_Doe", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.FilterHint, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -198,11 +198,11 @@ namespace Parser
                 Filtered.Text = logToCheck;
 
                 if (!fastFilter)
-                    MessageBox.Show("No matches found.\n\nMake sure you only have one word, number, or valid name pair on each line.\nExample: Boat, $500, John, John Doe or John_Doe", Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(Strings.FilterHintNoMatches, Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             if (skippedWord)
-                MessageBox.Show("One or more words were skipped during the filtering operation because they are not in a valid format.\n\nMake sure you only have one word, number, or valid name pair on each line.\nExample: Boat, $500, John, John Doe or John_Doe", Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Strings.FilterHintSkipped, Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private static bool skippedWord = false;
@@ -246,7 +246,7 @@ namespace Parser
             {
                 if (string.IsNullOrWhiteSpace(Filtered.Text))
                 {
-                    MessageBox.Show("You haven't filtered anything yet.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Strings.NothingFiltered, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -263,14 +263,14 @@ namespace Parser
             }
             catch
             {
-                MessageBox.Show("An error occured while trying to save the file.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.SaveError, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void CopyFilteredToClipboard_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Filtered.Text))
-                MessageBox.Show("You haven't filtered anything yet.", Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.NothingFiltered, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
                 Clipboard.SetText(Filtered.Text.Replace("\n", Environment.NewLine));
         }

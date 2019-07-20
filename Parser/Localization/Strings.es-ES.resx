@@ -165,6 +165,9 @@ Versión instalada: {0}
   <data name="CharacterCounter" xml:space="preserve">
     <value>{0} caracteres y {1} líneas</value>
   </data>
+  <data name="CurrentTime" xml:space="preserve">
+    <value>Hora actual: {0}</value>
+  </data>
   <data name="Disabled" xml:space="preserve">
     <value>Desactivado</value>
   </data>
@@ -176,6 +179,21 @@ Versión instalada: {0}
   </data>
   <data name="FileDeleteError" xml:space="preserve">
     <value>Se produjo un error al intentar eliminar el archivo.</value>
+  </data>
+  <data name="FilterHint" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FilterHintNoMatches" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FilterHintSkipped" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FilterLogStatus" xml:space="preserve">
+    <value>{0}chatlog cargado{1}</value>
+  </data>
+  <data name="FilterReadError" xml:space="preserve">
+    <value />
   </data>
   <data name="FolderFinder" xml:space="preserve">
     <value>Encontró automáticamente su carpeta RAGEMP en {0}
@@ -215,6 +233,9 @@ Busque la ruta correcta manualmente si esto es incorrecto o si tiene varias inst
   <data name="LanguageInfo" xml:space="preserve">
     <value />
   </data>
+  <data name="LoadedAt" xml:space="preserve">
+    <value> a las {0}</value>
+  </data>
   <data name="MainIP" xml:space="preserve">
     <value>164.132.206.209_22008</value>
   </data>
@@ -237,13 +258,22 @@ Busque la ruta correcta manualmente si esto es incorrecto o si tiene varias inst
 
 Mantener "{0}" o "{1}".</value>
   </data>
+  <data name="Negation" xml:space="preserve">
+    <value>No hay </value>
+  </data>
   <data name="NoChatLog" xml:space="preserve">
     <value>No se puede encontrar el chatlog de GTA World.</value>
+  </data>
+  <data name="NoChatLogLoaded" xml:space="preserve">
+    <value />
   </data>
   <data name="NoInternet" xml:space="preserve">
     <value>No se pudieron encontrar actualizaciones, intente verificar su conexión a Internet.
 
 Versión instalada: {0}</value>
+  </data>
+  <data name="NothingFiltered" xml:space="preserve">
+    <value />
   </data>
   <data name="NothingMovedWarning" xml:space="preserve">
     <value />
