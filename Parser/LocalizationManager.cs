@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Parser
 {
-    class LocalizationManager
+    public static class LocalizationManager
     {
         public enum Language {English, Español};
 

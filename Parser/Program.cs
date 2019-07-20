@@ -26,11 +26,11 @@ namespace Parser
 
             var args = Environment.GetCommandLineArgs();
 
-            if (args != null && args.Any(arg => arg == $"{Data.parameterPrefix}minimized"))
+            if (args != null && args.Any(arg => arg == $"{Data.ParameterPrefix}minimized"))
             {
                 startMinimized = true;
 
-                if (args.Any(arg => arg == $"{Data.parameterPrefix}notray"))
+                if (args.Any(arg => arg == $"{Data.ParameterPrefix}notray"))
                     startMinimizedWithoutTrayIcon = true;
             }
 

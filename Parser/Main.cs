@@ -12,7 +12,7 @@ namespace Parser
 {
     public partial class Main : Form
     {
-        private static readonly GitHubClient client = new GitHubClient(new ProductHeaderValue(Data.productHeader));
+        private static readonly GitHubClient client = new GitHubClient(new ProductHeaderValue(Data.ProductHeader));
         private static Thread updateThread;
 
         private bool allowFormDisplay = false;
@@ -132,7 +132,7 @@ namespace Parser
 
                 foreach (var drive in DriveInfo.GetDrives())
                 {
-                    foreach (string possibleFolder in Data.possibleFolderLocations)
+                    foreach (string possibleFolder in Data.PossibleFolderLocations)
                     {
                         if (Directory.Exists(drive.Name + possibleFolder))
                         {
@@ -217,7 +217,7 @@ namespace Parser
                 MessageBox.Show(Strings.InvalidFolderPath, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            else if (!File.Exists(FolderPath.Text + Data.logLocation))
+            else if (!File.Exists(FolderPath.Text + Data.LogLocation))
             {
                 MessageBox.Show(Strings.NoChatLog, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -233,7 +233,7 @@ namespace Parser
                 Data.Initialize();
 
                 string log;
-                using (StreamReader sr = new StreamReader(folderPath + Data.logLocation))
+                using (StreamReader sr = new StreamReader(folderPath + Data.LogLocation))
                 {
                     log = sr.ReadToEnd();
                 }
@@ -257,7 +257,7 @@ namespace Parser
                                 {
                                     int foundDirectories = 0;
 
-                                    foreach (string ip in Data.serverIPs)
+                                    foreach (string ip in Data.ServerIPs)
                                     {
                                         if (Directory.Exists($"{folderPath}client_resources\\{ip}"))
                                         {
@@ -266,7 +266,7 @@ namespace Parser
                                             if (File.Exists($"{folderPath}client_resources\\{ip}\\.storage"))
                                                 File.Delete($"{folderPath}client_resources\\{ip}\\.storage");
 
-                                            foreach (string file in Data.potentiallyOldFiles)
+                                            foreach (string file in Data.PotentiallyOldFiles)
                                             {
                                                 if (File.Exists($"{folderPath}client_resources\\{ip}\\gtalife\\{file}"))
                                                     File.Delete($"{folderPath}client_resources\\{ip}\\gtalife\\{file}");
@@ -275,7 +275,7 @@ namespace Parser
                                     }
 
                                     if (foundDirectories > 1)
-                                        MessageBox.Show(string.Format(Strings.MultipleChatLogs, Data.serverIPs[0], Data.serverIPs[1]), Strings.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        MessageBox.Show(string.Format(Strings.MultipleChatLogs, Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
                                 catch
                                 {
@@ -379,7 +379,7 @@ namespace Parser
         private static string previousLog = string.Empty;
         private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Parsed.Text) || string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\") || !File.Exists(FolderPath.Text + Data.logLocation))
+            if (string.IsNullOrWhiteSpace(Parsed.Text) || string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\") || !File.Exists(FolderPath.Text + Data.LogLocation))
                 return;
 
             if (RemoveTimestamps.Checked)

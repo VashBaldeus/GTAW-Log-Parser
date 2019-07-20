@@ -127,7 +127,7 @@ namespace Parser
         {
             while (!quitting && runBackgroundBackup)
             {
-                Process[] processes = Process.GetProcessesByName(Data.processName);
+                Process[] processes = Process.GetProcessesByName(Data.ProcessName);
 
                 if (!isGameRunning && processes.Length != 0)
                     isGameRunning = true;
@@ -147,7 +147,7 @@ namespace Parser
             {
                 int intervalTime = Properties.Settings.Default.IntervalTime;
 
-                if (isGameRunning && File.Exists(folderPath + Data.logLocation))
+                if (isGameRunning && File.Exists(folderPath + Data.LogLocation))
                     ParseThenSaveToFile();
 
                 for (int i = 0; i < intervalTime * 6; i++)

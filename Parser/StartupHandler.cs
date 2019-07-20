@@ -65,8 +65,8 @@ namespace Parser
 
                             if (shortcut.TargetPath != Application.ExecutablePath)
                                 shortcut.TargetPath = Application.ExecutablePath;
-                            if (!shortcut.Arguments.ToLower().Contains($"{Data.parameterPrefix}minimized"))
-                                shortcut.Arguments = $"{Data.parameterPrefix}minimized";
+                            if (!shortcut.Arguments.ToLower().Contains($"{Data.ParameterPrefix}minimized"))
+                                shortcut.Arguments = $"{Data.ParameterPrefix}minimized";
                             if (shortcut.WorkingDirectory != Application.StartupPath)
                                 shortcut.WorkingDirectory = Application.StartupPath;
 
@@ -96,7 +96,7 @@ namespace Parser
                 WshShell wshShell = new WshShell();
                 IWshShortcut shortcut = wshShell.CreateShortcut(startUpFolder + shortcutName) as IWshShortcut;
                 shortcut.TargetPath = Application.ExecutablePath;
-                shortcut.Arguments = $"{Data.parameterPrefix}minimized";
+                shortcut.Arguments = $"{Data.ParameterPrefix}minimized";
                 shortcut.WorkingDirectory = Application.StartupPath;
                 shortcut.Save();
             }
