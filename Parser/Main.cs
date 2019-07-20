@@ -115,7 +115,7 @@ namespace Parser
                 LookForMainFolder();
 
                 // Warning
-                MessageBox.Show(Strings.LanguageInfo, Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Strings.LanguageInfo, Strings.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
                 FolderPath.Text = Properties.Settings.Default.FolderPath;
