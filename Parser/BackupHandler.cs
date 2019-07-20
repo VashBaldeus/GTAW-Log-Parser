@@ -2,9 +2,9 @@
 using System.IO;
 using System.Threading;
 using System.Diagnostics;
+using Parser.Localization;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
-using Parser.Localization;
 
 namespace Parser
 {

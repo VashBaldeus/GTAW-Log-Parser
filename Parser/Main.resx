@@ -140,19 +140,19 @@
   <data name="Logo.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="MenuStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
   <data name="&gt;&gt;Counter.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="&gt;&gt;SaveParsed.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="FolderPath.Location" type="System.Drawing.Point, System.Drawing">
+    <value>309, 43</value>
+  </data>
   <data name="&gt;&gt;Counter.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Version.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
@@ -965,8 +965,14 @@
   <data name="$this.Text" xml:space="preserve">
     <value>GTA World Chat Log Parser</value>
   </data>
+  <data name="Counter.Text" xml:space="preserve">
+    <value>0 characters and 0 lines</value>
+  </data>
   <data name="&gt;&gt;CopyParsedToClipboard.ZOrder" xml:space="preserve">
     <value>9</value>
+  </data>
+  <data name="&gt;&gt;Parsed.Name" xml:space="preserve">
+    <value>Parsed</value>
   </data>
   <data name="PathLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1822,9 +1828,6 @@
   <data name="MenuStrip.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="&gt;&gt;ExitTrayToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="Browse.Location" type="System.Drawing.Point, System.Drawing">
     <value>536, 41</value>
   </data>
@@ -2378,8 +2381,11 @@
   <data name="&gt;&gt;AboutToolStripMenuItem.Name" xml:space="preserve">
     <value>AboutToolStripMenuItem</value>
   </data>
-  <data name="PathLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>306, 27</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>624, 221</value>
   </data>
   <data name="&gt;&gt;RemoveTimestamps.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -2419,9 +2425,6 @@
   </data>
   <data name="&gt;&gt;Logo.ZOrder" xml:space="preserve">
     <value>13</value>
-  </data>
-  <data name="Parse.Location" type="System.Drawing.Point, System.Drawing">
-    <value>309, 186</value>
   </data>
   <data name="&gt;&gt;TrayIconContextMenuStrip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -2468,9 +2471,6 @@
   <data name="&gt;&gt;Browse.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
-  <data name="Version.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 13</value>
-  </data>
   <data name="Browse.Size" type="System.Drawing.Size, System.Drawing">
     <value>76, 25</value>
   </data>
@@ -2489,8 +2489,8 @@
   <data name="ExitTrayToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 22</value>
   </data>
-  <data name="&gt;&gt;Parsed.Name" xml:space="preserve">
-    <value>Parsed</value>
+  <data name="PathLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>306, 27</value>
   </data>
   <data name="&gt;&gt;Parse.ZOrder" xml:space="preserve">
     <value>6</value>
@@ -2509,9 +2509,6 @@
   </data>
   <data name="AboutToolStripMenuItem.Text" xml:space="preserve">
     <value>About</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>Main</value>
   </data>
   <data name="Parsed.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -2573,9 +2570,6 @@
   <data name="&gt;&gt;PathLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;AutomaticBackupSettingsToolStripMenuItem.Name" xml:space="preserve">
-    <value>AutomaticBackupSettingsToolStripMenuItem</value>
-  </data>
   <data name="Counter.Location" type="System.Drawing.Point, System.Drawing">
     <value>436, 170</value>
   </data>
@@ -2600,8 +2594,8 @@
   <data name="&gt;&gt;ExitToolStripMenuItem.Name" xml:space="preserve">
     <value>ExitToolStripMenuItem</value>
   </data>
-  <data name="FolderPath.Location" type="System.Drawing.Point, System.Drawing">
-    <value>309, 43</value>
+  <data name="MenuStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
   </data>
   <data name="&gt;&gt;FilterChatLogToolStripMenuItem.Name" xml:space="preserve">
     <value>FilterChatLogToolStripMenuItem</value>
@@ -2621,8 +2615,8 @@
   <data name="&gt;&gt;ExitTrayToolStripMenuItem.Name" xml:space="preserve">
     <value>ExitTrayToolStripMenuItem</value>
   </data>
-  <data name="Counter.Text" xml:space="preserve">
-    <value>0 characters and 0 lines</value>
+  <data name="Parse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>309, 186</value>
   </data>
   <data name="Browse.Text" xml:space="preserve">
     <value>Browse</value>
@@ -2630,8 +2624,8 @@
   <data name="Counter.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>624, 221</value>
+  <data name="&gt;&gt;ExitTrayToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;TrayIconContextMenuStrip.Name" xml:space="preserve">
     <value>TrayIconContextMenuStrip</value>
@@ -2639,11 +2633,17 @@
   <data name="FilterChatLogToolStripMenuItem.Text" xml:space="preserve">
     <value>Filter Chat Log</value>
   </data>
+  <data name="Logo.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="PathLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="&gt;&gt;Parsed.ZOrder" xml:space="preserve">
     <value>10</value>
+  </data>
+  <data name="&gt;&gt;AutomaticBackupSettingsToolStripMenuItem.Name" xml:space="preserve">
+    <value>AutomaticBackupSettingsToolStripMenuItem</value>
   </data>
   <data name="FolderPath.MaxLength" type="System.Int32, mscorlib">
     <value>1024</value>
@@ -2657,8 +2657,8 @@
   <data name="Logo.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 140</value>
   </data>
-  <data name="Logo.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="Version.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 13</value>
   </data>
   <data name="Version.Location" type="System.Drawing.Point, System.Drawing">
     <value>536, 27</value>
@@ -2692,8 +2692,5 @@
   </metadata>
   <metadata name="MenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>148, 17</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>es-ES</value>
   </metadata>
 </root>

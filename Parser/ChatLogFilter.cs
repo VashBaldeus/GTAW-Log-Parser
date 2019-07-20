@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Drawing;
+using Parser.Localization;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Parser.Localization;
 
 namespace Parser
 {

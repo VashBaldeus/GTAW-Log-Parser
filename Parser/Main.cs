@@ -2,11 +2,11 @@
 using Octokit;
 using System.IO;
 using System.Threading;
+using Parser.Localization;
+using System.Globalization;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using System.Globalization;
-using Parser.Localization;
 
 namespace Parser
 {
