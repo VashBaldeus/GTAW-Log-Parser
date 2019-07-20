@@ -213,14 +213,14 @@
   <data name="Filtered.Size" type="System.Drawing.Size, System.Drawing">
     <value>277, 197</value>
   </data>
-  <data name="&gt;&gt;BrowseForParsed.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;WordsLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Filter.Parent" xml:space="preserve">
     <value>$this</value>
+  </data>
+  <data name="StatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>291, 13</value>
   </data>
   <data name="&gt;&gt;SaveFiltered.Name" xml:space="preserve">
     <value>SaveFiltered</value>
@@ -330,8 +330,8 @@
   <data name="LoadUnparsed.Size" type="System.Drawing.Size, System.Drawing">
     <value>135, 25</value>
   </data>
-  <data name="StatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 13</value>
+  <data name="&gt;&gt;LoadUnparsed.ZOrder" xml:space="preserve">
+    <value>10</value>
   </data>
   <data name="BrowseForParsed.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -411,8 +411,8 @@
   <data name="SaveFiltered.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;LoadUnparsed.ZOrder" xml:space="preserve">
-    <value>10</value>
+  <data name="&gt;&gt;BrowseForParsed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;Filter.Name" xml:space="preserve">
     <value>Filter</value>

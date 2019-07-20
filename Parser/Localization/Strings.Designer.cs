@@ -240,6 +240,17 @@ namespace Parser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The chosen language will be used to extract the chat log from the correct server.
+        ///
+        ///This means that if you chose English, you will only be able to parse the chat log generated from the English server. You will need to change the language of the application if you wish to parse other chat logs..
+        /// </summary>
+        internal static string LanguageInfo {
+            get {
+                return ResourceManager.GetString("LanguageInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 164.132.206.209_22005.
         /// </summary>
         internal static string MainIP {

@@ -635,8 +635,23 @@
         LGWpUAiaMzpFdjgjei4WxJD93CwJW5ayzIFE0f8DI7tgIlxp23cAAAAASUVORK5CYII=
 </value>
   </data>
+  <data name="FolderPath.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="Browse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>585, 40</value>
+  </data>
   <data name="Browse.Text" xml:space="preserve">
     <value>Buscar</value>
+  </data>
+  <data name="Parsed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>352, 95</value>
+  </data>
+  <data name="CopyParsedToClipboard.Location" type="System.Drawing.Point, System.Drawing">
+    <value>501, 186</value>
+  </data>
+  <data name="CopyParsedToClipboard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 25</value>
   </data>
   <data name="CopyParsedToClipboard.Text" xml:space="preserve">
     <value>Copiar al portapapeles</value>
@@ -647,8 +662,17 @@
   <data name="CheckForUpdatesOnStartup.Text" xml:space="preserve">
     <value>Comprobar actualizaciones automaticamente</value>
   </data>
+  <data name="SaveParsed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>405, 186</value>
+  </data>
+  <data name="SaveParsed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 25</value>
+  </data>
   <data name="SaveParsed.Text" xml:space="preserve">
     <value>Guardar</value>
+  </data>
+  <data name="Parse.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 25</value>
   </data>
   <data name="Parse.Text" xml:space="preserve">
     <value>Iniciar</value>
@@ -689,14 +713,26 @@
   <data name="ExitToolStripMenuItem.Text" xml:space="preserve">
     <value>Salir</value>
   </data>
+  <data name="MenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>670, 24</value>
+  </data>
   <data name="PathLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 13</value>
   </data>
   <data name="PathLabel.Text" xml:space="preserve">
     <value>Carpeta RAGEMP:</value>
   </data>
+  <data name="Version.Location" type="System.Drawing.Point, System.Drawing">
+    <value>585, 26</value>
+  </data>
   <data name="Version.Text" xml:space="preserve">
     <value>Versión: 1.0</value>
+  </data>
+  <data name="Counter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>501, 170</value>
+  </data>
+  <data name="Counter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 13</value>
   </data>
   <data name="Counter.Text" xml:space="preserve">
     <value>0 caracteres y 0 líneas</value>
@@ -711,8 +747,14 @@
   <data name="StatusLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
+  <data name="StatusLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>309, 170</value>
+  </data>
+  <data name="StatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 13</value>
+  </data>
   <data name="StatusLabel.Text" xml:space="preserve">
-    <value>Guardado automático: OFF</value>
+    <value>Guardado automático: Desactivado</value>
   </data>
   <data name="TrayIcon.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1477,6 +1519,9 @@
         0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ
         0DhB+P8YTgCYXQsKpQAAAABJRU5ErkJggg==
 </value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>670, 221</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

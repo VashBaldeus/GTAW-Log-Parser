@@ -12,7 +12,7 @@ namespace Parser
 {
     public partial class LanguagePicker : Form
     {
-        private bool isStarting = false;
+        public bool isStarting = false;
         private bool handleListChange = false;
 
         public LanguagePicker()
@@ -48,7 +48,12 @@ namespace Parser
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            welcomeLabel.Text = welcomeLabel.Text = welcomeLabel.Text.Substring(1, welcomeLabel.Text.Length - 1) + welcomeLabel.Text.Substring(0, 1); ;
+            //welcomeLabel.Text = welcomeLabel.Text = welcomeLabel.Text.Substring(1, welcomeLabel.Text.Length - 1) + welcomeLabel.Text.Substring(0, 1); ;
+
+            if (welcomeLabel.Left < -1422)
+                welcomeLabel.Left = -4;
+
+            welcomeLabel.Left -= 1;
         }
 
         private void LanguageList_SelectedIndexChanged(object sender, EventArgs e)

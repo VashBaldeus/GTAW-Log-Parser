@@ -125,7 +125,7 @@
     <value>Cargar chatlog sin analizar</value>
   </data>
   <data name="BrowseForParsed.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 28</value>
+    <value>180, 25</value>
   </data>
   <data name="BrowseForParsed.Text" xml:space="preserve">
     <value>Buscar chatlog analizado</value>
@@ -143,7 +143,7 @@
     <value>Nombre Apellido</value>
   </data>
   <data name="Filtered.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 56</value>
+    <value>180, 56</value>
   </data>
   <data name="Filter.Text" xml:space="preserve">
     <value>Filtrar</value>
@@ -155,13 +155,13 @@
     <value>Guardar como</value>
   </data>
   <data name="CopyFilteredToClipboard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 259</value>
+    <value>180, 259</value>
   </data>
   <data name="CopyFilteredToClipboard.Text" xml:space="preserve">
     <value>Copiar al portapapeles</value>
   </data>
   <data name="RemoveTimestamps.Location" type="System.Drawing.Point, System.Drawing">
-    <value>359, 33</value>
+    <value>348, 30</value>
   </data>
   <data name="RemoveTimestamps.Size" type="System.Drawing.Size, System.Drawing">
     <value>109, 17</value>
@@ -170,7 +170,7 @@
     <value>Quitar timestamps</value>
   </data>
   <data name="TimeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>347, 9</value>
+    <value>336, 9</value>
   </data>
   <data name="TimeLabel.Text" xml:space="preserve">
     <value>Hora actual: 23:23:23</value>
@@ -179,7 +179,7 @@
     <value>Palabras coinciden con:</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>488, 291</value>
+    <value>464, 291</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Filtrador de chatlog</value>

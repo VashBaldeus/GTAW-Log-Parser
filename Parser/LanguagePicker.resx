@@ -129,7 +129,7 @@
     <value>0</value>
   </data>
   <data name="StartButton.Text" xml:space="preserve">
-    <value>Comenzar</value>
+    <value>Start</value>
   </data>
   <data name="&gt;&gt;StartButton.Name" xml:space="preserve">
     <value>StartButton</value>
@@ -175,13 +175,13 @@
     <value>-4, 10</value>
   </data>
   <data name="welcomeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 24</value>
+    <value>2000, 24</value>
   </data>
   <data name="welcomeLabel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="welcomeLabel.Text" xml:space="preserve">
-    <value>Bonjour   Hola   Zdravstvuyte   Nǐn hǎo   Salve   Konnichiwa   Guten Tag   Olá   Anyoung haseyo   Asalaam alaikum   Shikamoo   Goedendag   Yassas   Dzień dobry   Selamat siang   Namaste   Merhaba   Shalom   God dag   </value>
+    <value>Bonjour   Hola   Zdravstvuyte   Nǐn hǎo   Salve   Konnichiwa   Guten Tag   Olá   Anyoung haseyo   Asalaam alaikum   Shikamoo   Goedendag   Yassas   Dzień dobry   Selamat siang   Namaste   Merhaba   Shalom   God dag   Bonjour   Hola   Zdravstvuyte   Nǐn hǎo</value>
   </data>
   <data name="&gt;&gt;welcomeLabel.Name" xml:space="preserve">
     <value>welcomeLabel</value>
@@ -207,11 +207,14 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>240, 120</value>
   </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Idioma</value>
+    <value>Language</value>
   </data>
   <data name="&gt;&gt;Timer.Name" xml:space="preserve">
     <value>Timer</value>

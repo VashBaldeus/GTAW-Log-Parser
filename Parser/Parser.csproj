@@ -114,9 +114,6 @@
     <EmbeddedResource Include="ChatLogFilter.resx">
       <DependentUpon>ChatLogFilter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LanguagePicker.es-ES.resx">
-      <DependentUpon>LanguagePicker.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="LanguagePicker.resx">
       <DependentUpon>LanguagePicker.cs</DependentUpon>
     </EmbeddedResource>

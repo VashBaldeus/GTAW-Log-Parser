@@ -182,6 +182,9 @@ Busque la ruta correcta manualmente si esto es incorrecto o si tiene varias inst
   <data name="Language" xml:space="preserve">
     <value>Idioma</value>
   </data>
+  <data name="LanguageInfo" xml:space="preserve">
+    <value />
+  </data>
   <data name="MainIP" xml:space="preserve">
     <value>164.132.206.209_22008</value>
   </data>

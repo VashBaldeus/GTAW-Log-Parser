@@ -117,18 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="CloseWindow.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 172</value>
+  </data>
   <data name="CloseWindow.Text" xml:space="preserve">
     <value>Cerrar</value>
+  </data>
+  <data name="Reset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>270, 172</value>
   </data>
   <data name="Reset.Text" xml:space="preserve">
     <value>Reiniciar</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="BackupPathLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 13</value>
   </data>
   <data name="BackupPathLabel.Text" xml:space="preserve">
     <value>Ruta de guardado:</value>
+  </data>
+  <data name="BackupPath.Size" type="System.Drawing.Size, System.Drawing">
+    <value>333, 22</value>
+  </data>
+  <data name="Browse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 26</value>
   </data>
   <data name="Browse.Text" xml:space="preserve">
     <value>Buscar</value>
@@ -151,11 +163,17 @@
   <data name="IntervalLabel1.Text" xml:space="preserve">
     <value>Guardar chatlog cada</value>
   </data>
+  <data name="IntervalLabel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>156, 107</value>
+  </data>
   <data name="IntervalLabel2.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 13</value>
   </data>
   <data name="IntervalLabel2.Text" xml:space="preserve">
     <value>minutos. (recomendado)</value>
+  </data>
+  <data name="Interval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>120, 105</value>
   </data>
   <data name="RemoveTimestamps.Size" type="System.Drawing.Size, System.Drawing">
     <value>174, 17</value>

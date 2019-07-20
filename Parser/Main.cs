@@ -45,6 +45,9 @@ namespace Parser
                 languagePicker.ShowDialog();
             }
 
+            if (!languagePicker.isStarting)
+                return;
+
             StartupHandler.Initialize();
 
             allowFormDisplay = !startMinimized;
@@ -111,11 +114,8 @@ namespace Parser
 
                 LookForMainFolder();
 
-                // Temporary
-                if (LocalizationManager.GetLanguage() == LocalizationManager.GetCodeFromLanguage(LocalizationManager.Language.Español))
-                {
-                    MessageBox.Show("La traducción al español no está completa todavía.\n\nSi desea ayudar, visite la página de GitHub y contribuya.", Strings.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                // Warning
+                MessageBox.Show(Strings.LanguageInfo, Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
                 FolderPath.Text = Properties.Settings.Default.FolderPath;

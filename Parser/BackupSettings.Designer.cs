@@ -168,7 +168,6 @@
             this.Name = "BackupSettings";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BackupSettings_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.Interval)).EndInit();
             this.ResumeLayout(false);
