@@ -117,7 +117,68 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CloseWindow.Text" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
   <data name="Reset.Text" xml:space="preserve">
     <value>Reiniciar</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="BackupPathLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 13</value>
+  </data>
+  <data name="BackupPathLabel.Text" xml:space="preserve">
+    <value>Ruta de guardado:</value>
+  </data>
+  <data name="Browse.Text" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="BackUpChatLogAutomatically.Size" type="System.Drawing.Size, System.Drawing">
+    <value>368, 17</value>
+  </data>
+  <data name="BackUpChatLogAutomatically.Text" xml:space="preserve">
+    <value>Analizar y guardar el chatlog automáticamente(cuando el juego se cierra)</value>
+  </data>
+  <data name="EnableIntervalBackup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>421, 17</value>
+  </data>
+  <data name="EnableIntervalBackup.Text" xml:space="preserve">
+    <value>Guardar el chatlog automáticamente cuando el juego está abierto (cada 10 minutos)</value>
+  </data>
+  <data name="IntervalLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 13</value>
+  </data>
+  <data name="IntervalLabel1.Text" xml:space="preserve">
+    <value>Guardar chatlog cada</value>
+  </data>
+  <data name="IntervalLabel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 13</value>
+  </data>
+  <data name="IntervalLabel2.Text" xml:space="preserve">
+    <value>minutos. (recomendado)</value>
+  </data>
+  <data name="RemoveTimestamps.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 17</value>
+  </data>
+  <data name="RemoveTimestamps.Text" xml:space="preserve">
+    <value>Quitar timestamps del guardado</value>
+  </data>
+  <data name="StartWithWindows.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 17</value>
+  </data>
+  <data name="StartWithWindows.Text" xml:space="preserve">
+    <value>Abrir con Windows (minimizado)</value>
+  </data>
+  <data name="SuppressNotifications.Size" type="System.Drawing.Size, System.Drawing">
+    <value>229, 17</value>
+  </data>
+  <data name="SuppressNotifications.Text" xml:space="preserve">
+    <value>Eliminar notificaciones de guardado exitoso</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>438, 208</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Ajustes de guardado automático</value>
   </data>
 </root>

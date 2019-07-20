@@ -635,85 +635,6 @@
         LGWpUAiaMzpFdjgjei4WxJD93CwJW5ayzIFE0f8DI7tgIlxp23cAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="Browse.Text" xml:space="preserve">
-    <value>Buscar</value>
-  </data>
-  <data name="CopyParsedToClipboard.Text" xml:space="preserve">
-    <value>Copiar al portapapeles</value>
-  </data>
-  <data name="CheckForUpdatesOnStartup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 17</value>
-  </data>
-  <data name="CheckForUpdatesOnStartup.Text" xml:space="preserve">
-    <value>Comprobar actualizaciones automaticamente</value>
-  </data>
-  <data name="SaveParsed.Text" xml:space="preserve">
-    <value>Guardar</value>
-  </data>
-  <data name="Parse.Text" xml:space="preserve">
-    <value>Iniciar</value>
-  </data>
-  <data name="CheckForUpdatesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 20</value>
-  </data>
-  <data name="CheckForUpdatesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Buscar actualizaciones</value>
-  </data>
-  <data name="AutomaticBackupSettingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 20</value>
-  </data>
-  <data name="AutomaticBackupSettingsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Copia de seguridad automática</value>
-  </data>
-  <data name="FilterChatLogToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 20</value>
-  </data>
-  <data name="FilterChatLogToolStripMenuItem.Text" xml:space="preserve">
-    <value>Filtrar el chat</value>
-  </data>
-  <data name="languageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 20</value>
-  </data>
-  <data name="languageToolStripMenuItem.Text" xml:space="preserve">
-    <value>Idioma</value>
-  </data>
-  <data name="AboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 20</value>
-  </data>
-  <data name="AboutToolStripMenuItem.Text" xml:space="preserve">
-    <value>Acerca de</value>
-  </data>
-  <data name="ExitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 20</value>
-  </data>
-  <data name="ExitToolStripMenuItem.Text" xml:space="preserve">
-    <value>Salir</value>
-  </data>
-  <data name="PathLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 13</value>
-  </data>
-  <data name="PathLabel.Text" xml:space="preserve">
-    <value>Carpeta RAGEMP:</value>
-  </data>
-  <data name="Version.Text" xml:space="preserve">
-    <value>Versión: 1.0</value>
-  </data>
-  <data name="Counter.Text" xml:space="preserve">
-    <value>0 caracteres y 0 líneas</value>
-  </data>
-  <data name="RemoveTimestamps.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 17</value>
-  </data>
-  <data name="RemoveTimestamps.Text" xml:space="preserve">
-    <value>Eliminar timestamps</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="StatusLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="StatusLabel.Text" xml:space="preserve">
-    <value>Guardado automático: OFF</value>
-  </data>
   <data name="TrayIcon.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAUAEBAAAAEAIABoBAAAVgAAABgYAAABACAAiAkAAL4EAAAgIAAAAQAgAKgQAABGDgAAMDAAAAEA
@@ -2241,8 +2162,5 @@
         0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ
         0DhB+P8YTgCYXQsKpQAAAABJRU5ErkJggg==
 </value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Analizador de chatlog de GTA World</value>
   </data>
 </root>
