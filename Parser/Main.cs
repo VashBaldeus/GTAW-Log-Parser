@@ -43,10 +43,10 @@ namespace Parser
                 }
 
                 languagePicker.ShowDialog();
-            }
 
-            if (!languagePicker.isStarting)
-                return;
+                if (!languagePicker.isStarting)
+                    return;
+            }
 
             StartupHandler.Initialize();
 
