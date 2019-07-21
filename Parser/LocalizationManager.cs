@@ -12,8 +12,8 @@ namespace Parser
 
         private static readonly Dictionary<Language, string> languages = new Dictionary<Language, string>
         {
-            { Language.English, "en_US" },
-            { Language.Español, "es_ES" }
+            { Language.English, "en-US" },
+            { Language.Español, "es-ES" }
         };
 
         private static string currentLanguage = string.Empty;

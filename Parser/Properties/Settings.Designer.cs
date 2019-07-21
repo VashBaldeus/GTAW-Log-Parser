@@ -190,7 +190,7 @@ namespace Parser.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("en_US")]
+        [global::System.Configuration.DefaultSettingValueAttribute("en-US")]
         public string LanguageCode {
             get {
                 return ((string)(this["LanguageCode"]));
