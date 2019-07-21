@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Diagnostics;
 
 namespace Parser
 {
@@ -16,6 +17,8 @@ namespace Parser
         private static Thread updateThread;
 
         private bool allowFormDisplay = false;
+
+        private bool isRestarting = false;
 
         protected override void SetVisibleCore(bool value)
         {
@@ -72,8 +75,16 @@ namespace Parser
                         LocalizationManager.SetLanguage(language);
 
                         Hide();
-                        System.Windows.Forms.Application.Restart();
-                        System.Windows.Forms.Application.Exit();
+                        isRestarting = true;
+
+                        ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;
+                        startInfo.FileName = System.Windows.Forms.Application.ExecutablePath;
+                        startInfo.Arguments=$"{Data.ParameterPrefix}restart";
+                        var exit = typeof(System.Windows.Forms.Application).GetMethod("ExitInternal",
+                                            System.Reflection.BindingFlags.NonPublic |
+                                            System.Reflection.BindingFlags.Static);
+                        exit.Invoke(null, null);
+                        Process.Start(startInfo);
                     }
                 };
 
@@ -515,23 +526,26 @@ namespace Parser
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Properties.Settings.Default.BackupChatLogAutomatically && TrayIcon.Visible == false)
+            if (!isRestarting)
             {
-                DialogResult result = MessageBox.Show(Strings.MinimizeInsteadOfClose, Strings.Warning, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
+                if (Properties.Settings.Default.BackupChatLogAutomatically && TrayIcon.Visible == false)
                 {
-                    e.Cancel = true;
+                    DialogResult result = MessageBox.Show(Strings.MinimizeInsteadOfClose, Strings.Warning, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
 
-                    Hide();
-                    TrayIcon.Visible = true;
+                    if (result == DialogResult.Yes)
+                    {
+                        e.Cancel = true;
 
-                    return;
-                }
-                else if (result == DialogResult.Cancel)
-                {
-                    e.Cancel = true;
-                    return;
+                        Hide();
+                        TrayIcon.Visible = true;
+
+                        return;
+                    }
+                    else if (result == DialogResult.Cancel)
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
                 }
             }
 

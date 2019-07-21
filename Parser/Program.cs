@@ -9,6 +9,7 @@ namespace Parser
     {
         private static bool startMinimized = false;
         private static bool startMinimizedWithoutTrayIcon = false;
+        private static bool isRestarted = false;
 
         /// <summary>
         /// The main entry point for the application.
@@ -16,28 +17,29 @@ namespace Parser
         [STAThread]
         static void Main()
         {
-            LocalizationManager.Initialize();
+            string[] args = Environment.GetCommandLineArgs();
+            if (args != null)
+            {
+                if (args.Any(arg => arg == $"{Data.ParameterPrefix}restart"))
+                    isRestarted = true;
 
-            Thread.Sleep(1000);
+                if (args.Any(arg => arg == $"{Data.ParameterPrefix}minimized"))
+                {
+                    startMinimized = true;
+
+                    if (args.Any(arg => arg == $"{Data.ParameterPrefix}notray"))
+                        startMinimizedWithoutTrayIcon = true;
+                }
+            }
 
             Mutex mutex = new Mutex(true, "UniqueAppId", out bool isUnique);
-
-            if (!isUnique)
+            if (!isUnique && !isRestarted)
             {
                 MessageBox.Show(Localization.Strings.OtherInstanceRunning, Localization.Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            var args = Environment.GetCommandLineArgs();
-
-            if (args != null && args.Any(arg => arg == $"{Data.ParameterPrefix}minimized"))
-            {
-                startMinimized = true;
-
-                if (args.Any(arg => arg == $"{Data.ParameterPrefix}notray"))
-                    startMinimizedWithoutTrayIcon = true;
-            }
-
+            LocalizationManager.Initialize();
             Data.Initialize();
 
             Application.EnableVisualStyles();
