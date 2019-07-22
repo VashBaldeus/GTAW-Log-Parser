@@ -143,12 +143,12 @@ namespace MetroParser.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FIlterNames {
+        public string FilterNames {
             get {
-                return ((string)(this["FIlterNames"]));
+                return ((string)(this["FilterNames"]));
             }
             set {
-                this["FIlterNames"] = value;
+                this["FilterNames"] = value;
             }
         }
         

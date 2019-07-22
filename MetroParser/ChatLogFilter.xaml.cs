@@ -17,7 +17,7 @@ namespace MetroParser
     /// <summary>
     /// Interaction logic for ChatLogFilter.xaml
     /// </summary>
-    public partial class ChatLogFilter : Window
+    public partial class ChatLogFilterWindow
     {
         public string ChatLog
         {
@@ -38,7 +38,7 @@ namespace MetroParser
         private string _chatLog;
         private bool chatLogLoaded;
 
-        public ChatLogFilter()
+        public ChatLogFilterWindow()
         {
             InitializeComponent();
 
@@ -284,7 +284,7 @@ namespace MetroParser
                 Clipboard.SetText(Filtered.Text.Replace("\n", Environment.NewLine));
         }
 
-        private void ChatLogFilter_FormClosing(object sender, FormClosingEventArgs e)
+        private void ChatLogFilter_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Properties.Settings.Default.FilterNames = Words.Text;
             Properties.Settings.Default.RemoveTimestampsFromFilter = RemoveTimestamps.Checked;
@@ -292,5 +292,4 @@ namespace MetroParser
             Properties.Settings.Default.Save();
         }
     }
-}
 }

@@ -17,9 +17,9 @@ namespace MetroParser
     /// <summary>
     /// Interaction logic for BackupSettings.xaml
     /// </summary>
-    public partial class BackupSettings : Window
+    public partial class BackupSettingsWindow
     {
-        public BackupSettings()
+        public BackupSettingsWindow()
         {
             InitializeComponent();
 
@@ -215,5 +215,4 @@ namespace MetroParser
             SaveSettings();
         }
     }
-}
 }
