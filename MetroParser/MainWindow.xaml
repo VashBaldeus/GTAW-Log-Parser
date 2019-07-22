@@ -8,10 +8,11 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
+        Closing="Main_Closing"
         Title="GTA World Chat Log Parser" Height="260" Width="638" Icon="AppIcon.ico" IsMaxRestoreButtonEnabled="False" IsMinButtonEnabled="False" TitleCaps="False" ShowIconOnTitleBar="False">
 
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
+        <Menu x:Name="MenuStrip" DockPanel.Dock="Top">
             <MenuItem x:Name="CheckForUpdatesToolStripMenuItem" Header="Check For Updates"/>
             <MenuItem x:Name="AutomaticBackupSettingsToolStripMenuItem" Header="Automatic Backup Settings"/>
             <MenuItem x:Name="FilterChatLogToolStripMenuItem" Header="Filter Chat Log"/>
@@ -28,21 +29,9 @@
             <Button x:Name="Parse" Content="Parse" HorizontalAlignment="Left" Margin="303,159,0,0" VerticalAlignment="Top" Width="75"/>
             <Button x:Name="SaveParsed" Content="Save As" HorizontalAlignment="Left" Margin="383,159,0,0" VerticalAlignment="Top" Width="75"/>
             <Button x:Name="CopyParsedToClipboard" Content="Copy To Clipboard" HorizontalAlignment="Left" Margin="463,159,0,0" VerticalAlignment="Top" Width="161"/>
-            <RichTextBox x:Name="Parsed" HorizontalAlignment="Left" Height="76" Margin="303,57,0,0" VerticalAlignment="Top" Width="321">
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text=""/>
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
+            <RichTextBox x:Name="Parsed" HorizontalAlignment="Left" Height="76" Margin="303,57,0,0" VerticalAlignment="Top" Width="321"/>
             <Button x:Name="Browse" Content="Browse" HorizontalAlignment="Left" Margin="549,23,0,0" VerticalAlignment="Top" Width="75"/>
-            <RichTextBox x:Name="FolderPath" HorizontalAlignment="Left" Height="24" Margin="303,23,0,0" VerticalAlignment="Top" Width="241">
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text=""/>
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
+            <RichTextBox x:Name="FolderPath" HorizontalAlignment="Left" Height="24" Margin="303,23,0,0" VerticalAlignment="Top" Width="241"/>
             <Label x:Name="StatusLabel" Content="Automatic Backup: OFF" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="298,133,0,0" VerticalAlignment="Top" Width="160"/>
             <Label x:Name="Counter" Content="0 characters and 0 lines" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="463,133,0,0" VerticalAlignment="Top" Width="161"/>
         </Grid>

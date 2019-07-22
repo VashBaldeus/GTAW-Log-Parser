@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MahApps.Metro.Controls;
-using MetroParser.Localization;
 using Octokit;
+using System.IO;
+using System.Windows;
+using System.Threading;
+using System.Diagnostics;
+using System.Windows.Input;
+using System.Globalization;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using MetroParser.Localization;
+using System.Text.RegularExpressions;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace MetroParser
 {
@@ -24,17 +19,23 @@ namespace MetroParser
     /// </summary>
     public partial class MainWindow
     {
+        private static System.Windows.Forms.NotifyIcon TrayIcon;
+
         private static readonly GitHubClient client = new GitHubClient(new ProductHeaderValue(Data.ProductHeader));
         private static Thread updateThread;
 
-        private bool allowFormDisplay = false;
+        private bool _allowFormDisplay = false;
+        private bool AllowFormDisplay
+        {
+            get { return _allowFormDisplay; }
+            set
+            {
+                _allowFormDisplay = value;
+                Visibility = _allowFormDisplay ? Visibility.Visible : Visibility.Hidden;
+            }
+        }
 
         private bool isRestarting = false;
-
-        protected override void SetVisibleCore(bool value)
-        {
-            base.SetVisibleCore(allowFormDisplay ? value : allowFormDisplay);
-        }
 
         private static LanguagePicker languagePicker;
 
@@ -49,9 +50,7 @@ namespace MetroParser
                 else
                 {
                     languagePicker.Initialize();
-
-                    languagePicker.WindowState = FormWindowState.Normal;
-                    languagePicker.BringToFront();
+                    BringToFront(languagePicker);
                 }
 
                 languagePicker.ShowDialog();
@@ -60,9 +59,11 @@ namespace MetroParser
                     return;
             }
 
+            InitializeTrayIcon();
+
             StartupHandler.Initialize();
 
-            allowFormDisplay = !startMinimized;
+            AllowFormDisplay = !startMinimized;
 
             InitializeComponent();
 
@@ -73,10 +74,16 @@ namespace MetroParser
             for (int i = 0; i < ((LocalizationManager.Language[])Enum.GetValues(typeof(LocalizationManager.Language))).Length; ++i)
             {
                 LocalizationManager.Language language = (LocalizationManager.Language)i;
-                ToolStripItem newLanguage = LanguageToolStripMenuItem.DropDownItems.Add(language.ToString());
-                newLanguage.Click += (s, e) =>
+
+                MenuItem menuItem = new MenuItem
                 {
-                    if (((ToolStripMenuItem)newLanguage).Checked == true)
+                    Header = language.ToString()
+                };
+
+                LanguageToolStripMenuItem.Items.Add(menuItem);
+                menuItem.Click += (s, e) =>
+                {
+                    if (menuItem.IsChecked == true)
                         return;
 
                     CultureInfo cultureInfo = new CultureInfo(LocalizationManager.GetCodeFromLanguage(language));
@@ -89,9 +96,10 @@ namespace MetroParser
                         isRestarting = true;
 
                         ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;
-                        startInfo.FileName = System.Windows.Forms.Application.ExecutablePath;
+                        startInfo.FileName = Data.ExecutablePath;
                         startInfo.Arguments = $"{Data.ParameterPrefix}restart";
-                        var exit = typeof(System.Windows.Forms.Application).GetMethod("ExitInternal",
+                        // TODO: Check if this works
+                        var exit = typeof(System.Windows.Application).GetMethod("ExitInternal",
                                             System.Reflection.BindingFlags.NonPublic |
                                             System.Reflection.BindingFlags.Static);
                         exit.Invoke(null, null);
@@ -100,7 +108,7 @@ namespace MetroParser
                 };
 
                 if (currentLanguage == language.ToString())
-                    ((ToolStripMenuItem)LanguageToolStripMenuItem.DropDownItems[i]).Checked = true;
+                    menuItem.IsChecked = true;
             }
 
             BackupHandler.Initialize();
@@ -114,18 +122,18 @@ namespace MetroParser
 
         private void SaveSettings()
         {
-            Properties.Settings.Default.FolderPath = FolderPath.Text;
-            Properties.Settings.Default.RemoveTimestamps = RemoveTimestamps.Checked;
-            Properties.Settings.Default.CheckForUpdatesAutomatically = CheckForUpdatesOnStartup.Checked;
+            Properties.Settings.Default.FolderPath = GetText(FolderPath);
+            Properties.Settings.Default.RemoveTimestamps = RemoveTimestamps.IsChecked == true;
+            Properties.Settings.Default.CheckForUpdatesAutomatically = CheckForUpdatesOnStartup.IsChecked == true;
 
             Properties.Settings.Default.Save();
         }
 
         private void LoadSettings()
         {
-            Version.Text = string.Format(Strings.VersionInfo, Properties.Settings.Default.Version);
-            StatusLabel.Text = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
-            Counter.Text = string.Format(Strings.CharacterCounter, 0, 0);
+            Version.Content = string.Format(Strings.VersionInfo, Properties.Settings.Default.Version);
+            StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
+            Counter.Content = string.Format(Strings.CharacterCounter, 0, 0);
 
             if (Properties.Settings.Default.FirstStart)
             {
@@ -138,10 +146,10 @@ namespace MetroParser
                 MessageBox.Show(Strings.LanguageInfo, Strings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
-                FolderPath.Text = Properties.Settings.Default.FolderPath;
+                SetText(FolderPath, Properties.Settings.Default.FolderPath);
 
-            RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestamps;
-            CheckForUpdatesOnStartup.Checked = Properties.Settings.Default.CheckForUpdatesAutomatically;
+            RemoveTimestamps.IsChecked = Properties.Settings.Default.RemoveTimestamps;
+            CheckForUpdatesOnStartup.IsChecked = Properties.Settings.Default.CheckForUpdatesAutomatically;
         }
 
         private void LookForMainFolder()
@@ -171,19 +179,19 @@ namespace MetroParser
                     return;
                 }
 
-                FolderPath.Text = folderPath;
+                SetText(FolderPath, folderPath);
                 MessageBox.Show(string.Format(Strings.FolderFinder, folderPath), Strings.FolderFinderTitle, MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch
             {
-                FolderPath.Text = string.Empty;
+                SetText(FolderPath, string.Empty);
                 MessageBox.Show(Strings.FolderFinderError, Strings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
         private void FolderPath_KeyDown(object sender, KeyEventArgs e)
         {
-            e.SuppressKeyPress = true;
+            e.Handled = true;
         }
 
         private void FolderPath_TextChanged(object sender, EventArgs e)
@@ -192,14 +200,14 @@ namespace MetroParser
             {
                 BackupSettings.ResetSettings();
 
-                StatusLabel.Text = string.Format(Strings.BackupStatus, Strings.Disabled);
+                StatusLabel.Content = string.Format(Strings.BackupStatus, Strings.Disabled);
                 MessageBox.Show(Strings.BackupTurnedOff, Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
         private void FolderPath_MouseClick(object sender, MouseEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(FolderPath.Text))
+            if (string.IsNullOrWhiteSpace(GetText(FolderPath)))
                 Browse_Click(this, EventArgs.Empty);
         }
 
@@ -207,7 +215,7 @@ namespace MetroParser
         {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog
             {
-                InitialDirectory = Path.GetPathRoot(Environment.SystemDirectory),
+                InitialDirectory = System.IO.Path.GetPathRoot(Environment.SystemDirectory),
                 IsFolderPicker = true
             };
 
@@ -215,11 +223,11 @@ namespace MetroParser
 
             while (!validLocation)
             {
-                if (dialog.ShowDialog() == CommonFileMessageBoxResult.Ok)
+                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
                     if (dialog.FileName[dialog.FileName.Length - 1] != '\\')
                     {
-                        FolderPath.Text = dialog.FileName + "\\";
+                        SetText(FolderPath, dialog.FileName + "\\");
                         validLocation = true;
                     }
                     else
@@ -232,18 +240,18 @@ namespace MetroParser
 
         private void Parse_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
+            if (string.IsNullOrWhiteSpace(GetText(FolderPath)) || !Directory.Exists(GetText(FolderPath) + "client_resources\\"))
             {
                 MessageBox.Show(Strings.InvalidFolderPath, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            else if (!File.Exists(FolderPath.Text + Data.LogLocation))
+            else if (!File.Exists(GetText(FolderPath) + Data.LogLocation))
             {
                 MessageBox.Show(Strings.NoChatLog, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            Parsed.Text = ParseChatLog(FolderPath.Text, RemoveTimestamps.Checked, showError: true);
+            SetText(Parsed, ParseChatLog(GetText(FolderPath), RemoveTimestamps.IsChecked == true, showError: true));
         }
 
         public static string ParseChatLog(string folderPath, bool removeTimestamps, bool showError = false)
@@ -346,33 +354,36 @@ namespace MetroParser
 
         private void Parsed_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Parsed.Text))
+            if (string.IsNullOrWhiteSpace(GetText(Parsed)))
             {
-                Counter.Text = string.Format(Strings.CharacterCounter, 0, 0);
+                Counter.Content= string.Format(Strings.CharacterCounter, 0, 0);
                 return;
             }
 
-            Counter.Text = string.Format(Strings.CharacterCounter, Parsed.Text.Length, Parsed.Text.Split('\n').Length);
+            Counter.Content= string.Format(Strings.CharacterCounter, GetText(Parsed).Length, GetText(Parsed).Split('\n').Length);
         }
 
         private void SaveParsed_Click(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(Parsed.Text))
+                if (string.IsNullOrWhiteSpace(GetText(Parsed)))
                 {
                     MessageBox.Show(Strings.NothingParsed, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                SaveFileDialog.FileName = "chatlog.txt";
-                SaveFileDialog.Filter = "Text File | *.txt";
-
-                if (SaveFileDialog.ShowDialog() == MessageBoxResult.OK)
+                Microsoft.Win32.SaveFileDialog dialog = new Microsoft.Win32.SaveFileDialog
                 {
-                    using (StreamWriter sw = new StreamWriter(SaveFileDialog.OpenFile()))
+                    FileName = "chatlog.txt",
+                    Filter = "Text File | *.txt"
+                };
+
+                if (dialog.ShowDialog() == true)
+                {
+                    using (StreamWriter sw = new StreamWriter(dialog.OpenFile()))
                     {
-                        sw.Write(Parsed.Text.Replace("\n", Environment.NewLine));
+                        sw.Write(GetText(Parsed).Replace("\n", Environment.NewLine));
                     }
                 }
             }
@@ -384,31 +395,31 @@ namespace MetroParser
 
         private void CopyParsedToClipboard_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Parsed.Text))
+            if (string.IsNullOrWhiteSpace(GetText(Parsed)))
                 MessageBox.Show(Strings.NothingParsed, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             else
-                Clipboard.SetText(Parsed.Text.Replace("\n", Environment.NewLine));
+                Clipboard.SetText(GetText(Parsed).Replace("\n", Environment.NewLine));
         }
 
         private void CheckForUpdatesOnStartup_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheckForUpdatesOnStartup.Checked)
+            if (CheckForUpdatesOnStartup.IsChecked == true)
                 TryCheckingForUpdates();
         }
 
         private static string previousLog = string.Empty;
         private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Parsed.Text) || string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\") || !File.Exists(FolderPath.Text + Data.LogLocation))
+            if (string.IsNullOrWhiteSpace(GetText(Parsed)) || string.IsNullOrWhiteSpace(GetText(FolderPath)) || !Directory.Exists(GetText(FolderPath) + "client_resources\\") || !File.Exists(GetText(FolderPath)+ Data.LogLocation))
                 return;
 
-            if (RemoveTimestamps.Checked)
+            if (RemoveTimestamps.IsChecked == true)
             {
-                previousLog = Parsed.Text;
-                Parsed.Text = Regex.Replace(previousLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
+                previousLog = GetText(Parsed);
+                SetText(Parsed, Regex.Replace(previousLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty));
             }
             else if (!string.IsNullOrWhiteSpace(previousLog))
-                Parsed.Text = previousLog;
+                SetText(Parsed, previousLog);
         }
 
         private void CheckForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -434,7 +445,7 @@ namespace MetroParser
 
                 if (string.Compare(installedVersion, currentVersion) < 0)
                 {
-                    if (!allowFormDisplay)
+                    if (!AllowFormDisplay)
                         ResumeTrayStripMenuItem_Click(this, EventArgs.Empty);
 
                     if (MessageBox.Show(string.Format(Strings.UpdateAvailable, installedVersion, currentVersion), Strings.UpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
@@ -453,7 +464,7 @@ namespace MetroParser
         private static BackupSettings backupSettings;
         private void AutomaticBackupSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
+            if (string.IsNullOrWhiteSpace(GetText(FolderPath)) || !Directory.Exists(GetText(FolderPath) + "client_resources\\"))
             {
                 MessageBox.Show(Strings.InvalidFolderPathBackup, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -464,7 +475,7 @@ namespace MetroParser
                 if (MessageBox.Show(Strings.BackupWillBeOff, Strings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                     return;
 
-                StatusLabel.Text = string.Format(Strings.BackupStatus, Strings.Disabled);
+                StatusLabel.Content = string.Format(Strings.BackupStatus, Strings.Disabled);
             }
             else
                 MessageBox.Show(Strings.SettingsAfterClose, Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
@@ -475,18 +486,16 @@ namespace MetroParser
             if (backupSettings == null)
             {
                 backupSettings = new BackupSettings();
-                backupSettings.FormClosed += (s, args) =>
+                backupSettings.Closed += (s, args) =>
                 {
                     BackupHandler.Initialize();
-                    StatusLabel.Text = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
+                    StatusLabel.Content= string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
                 };
             }
             else
             {
                 backupSettings.LoadSettings();
-
-                backupSettings.WindowState = FormWindowState.Normal;
-                backupSettings.BringToFront();
+                BringToFront(backupSettings);
             }
 
             backupSettings.ShowDialog();
@@ -495,7 +504,7 @@ namespace MetroParser
         private static ChatLogFilter chatLogFilter;
         private void FilterChatLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
+            if (string.IsNullOrWhiteSpace(GetText(FolderPath)) || !Directory.Exists(GetText(FolderPath) + "client_resources\\"))
             {
                 MessageBox.Show(Strings.InvalidFolderPathFilter, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -510,9 +519,7 @@ namespace MetroParser
             else
             {
                 chatLogFilter.Initialize();
-
-                chatLogFilter.WindowState = FormWindowState.Normal;
-                chatLogFilter.BringToFront();
+                BringToFront(chatLogFilter);
             }
 
             chatLogFilter.ShowDialog();
@@ -526,7 +533,7 @@ namespace MetroParser
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.Application.Exit();
+            System.Windows.Application.Current.Shutdown();
         }
 
         private void Logo_Click(object sender, EventArgs e)
@@ -535,7 +542,7 @@ namespace MetroParser
                 System.Diagnostics.Process.Start(Strings.ForumLink);
         }
 
-        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        private void Main_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (!isRestarting)
             {
@@ -564,28 +571,63 @@ namespace MetroParser
             SaveSettings();
         }
 
-        private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void TrayIcon_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            ResumeTrayStripMenuItem_Click(this, EventArgs.Empty);
+            ResumeTrayStripMenuItem_Click(sender, EventArgs.Empty);
         }
 
         private void ResumeTrayStripMenuItem_Click(object sender, EventArgs e)
         {
-            allowFormDisplay = true;
+            AllowFormDisplay = true;
 
-            Show();
-            WindowState = FormWindowState.Normal;
-            BringToFront();
+            BringToFront(this);
+
             TrayIcon.Visible = false;
         }
 
         private void ExitTrayToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!allowFormDisplay)
+            if (!AllowFormDisplay)
                 BackupHandler.quitting = true;
 
-            System.Windows.Forms.Application.Exit();
+            System.Windows.Application.Current.Shutdown();
+        }
+
+        private void BringToFront(Window window)
+        {
+            window.Show();
+            window.WindowState = WindowState.Normal;
+            window.Activate();
+            window.Topmost = true;
+            window.Topmost = false;
+            window.Focus();
+        }
+
+        public static void SetText(RichTextBox box, string text)
+        {
+            box.Document.Blocks.Clear();
+            box.Document.Blocks.Add(new Paragraph(new Run(text)));
+        }
+
+        public static string GetText(RichTextBox box)
+        {
+            return new TextRange(box.Document.ContentStart, box.Document.ContentEnd).Text;
+        }
+
+        private void InitializeTrayIcon()
+        {
+            TrayIcon = new System.Windows.Forms.NotifyIcon
+            {
+                Visible = false,
+                Icon = new System.Drawing.Icon("AppIcon.ico")
+            };
+
+            TrayIcon.MouseDoubleClick += TrayIcon_MouseDoubleClick;
+            TrayIcon.ContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[]
+            {
+                new System.Windows.Forms.MenuItem("Exit", ExitTrayToolStripMenuItem_Click),
+                new System.Windows.Forms.MenuItem("Open", ResumeTrayStripMenuItem_Click)
+            });
         }
     }
-}
 }
