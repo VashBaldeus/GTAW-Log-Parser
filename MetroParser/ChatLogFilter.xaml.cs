@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 namespace MetroParser
 {
     /// <summary>
-    /// Interaction logic for ChatLogFilter.xaml
+    /// Interaction logic for ChatLogFilterWindow.xaml
     /// </summary>
     public partial class ChatLogFilterWindow
     {
@@ -298,6 +298,10 @@ namespace MetroParser
             Properties.Settings.Default.RemoveTimestampsFromFilter = RemoveTimestamps.IsChecked == true;
 
             Properties.Settings.Default.Save();
+
+            Hide();
+
+            e.Cancel = true;
         }
     }
 }

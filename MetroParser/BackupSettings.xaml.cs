@@ -10,7 +10,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 namespace MetroParser
 {
     /// <summary>
-    /// Interaction logic for BackupSettings.xaml
+    /// Interaction logic for BackupSettingsWindow.xaml
     /// </summary>
     public partial class BackupSettingsWindow
     {
@@ -112,7 +112,7 @@ namespace MetroParser
             }
         }
 
-        private void BackupPath_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void BackupPath_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(MainWindow.GetText(BackupPath)))
                 Browse_Click(this, null);
@@ -120,6 +120,8 @@ namespace MetroParser
 
         private void Browse_Click(object sender, RoutedEventArgs e)
         {
+            Topmost = false;
+
             CommonOpenFileDialog dialog = new CommonOpenFileDialog
             {
                 InitialDirectory = Path.GetPathRoot(Environment.SystemDirectory),
@@ -143,6 +145,9 @@ namespace MetroParser
                 else
                     validLocation = true;
             }
+
+            Topmost = true;
+            Activate();
         }
 
         private void BackUpChatLogAutomatically_CheckedChanged(object sender, RoutedEventArgs e)
@@ -168,6 +173,9 @@ namespace MetroParser
 
         private void Interval_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            if (IntervalLabel2 == null)
+                return;
+
             IntervalLabel2.Content = string.Format(Strings.Recommended, Interval.Value > 1 ? Strings.MinutePlural : Strings.MinuteSingular);
             EnableIntervalBackup.Content= string.Format(Strings.IntervalHint, Interval.Value, Interval.Value > 1 ? Strings.MinutePlural : Strings.MinutePlural);
         }
@@ -203,6 +211,10 @@ namespace MetroParser
                 StartupHandler.ToggleStartup(StartWithWindows.IsChecked == true);
 
             SaveSettings();
+
+            Hide();
+
+            e.Cancel = true;
         }
     }
 }

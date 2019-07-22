@@ -54,8 +54,6 @@ namespace MetroParser
                     languagePicker.Topmost = true;
                 }
 
-                languagePicker.ShowDialog();
-
                 if (!languagePicker.isStarting)
                     return;
             }
@@ -99,12 +97,9 @@ namespace MetroParser
                         ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;
                         startInfo.FileName = Data.ExecutablePath;
                         startInfo.Arguments = $"{Data.ParameterPrefix}restart";
-                        // TODO: Check if this works
-                        var exit = typeof(System.Windows.Application).GetMethod("ExitInternal",
-                                            System.Reflection.BindingFlags.NonPublic |
-                                            System.Reflection.BindingFlags.Static);
-                        exit.Invoke(null, null);
                         Process.Start(startInfo);
+
+                        System.Windows.Application.Current.Shutdown();
                     }
                 };
 
@@ -201,7 +196,7 @@ namespace MetroParser
             }
         }
 
-        private void FolderPath_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void FolderPath_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(GetText(FolderPath)))
                 Browse_Click(this, null);
@@ -211,7 +206,7 @@ namespace MetroParser
         {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog
             {
-                InitialDirectory = System.IO.Path.GetPathRoot(Environment.SystemDirectory),
+                InitialDirectory = Path.GetPathRoot(Environment.SystemDirectory),
                 IsFolderPicker = true
             };
 
@@ -348,11 +343,14 @@ namespace MetroParser
             }
         }
 
-        private void Parsed_TextChanged(object sender, EventArgs e)
+        private void Parsed_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (Counter == null)
+                return;
+
             if (string.IsNullOrWhiteSpace(GetText(Parsed)))
             {
-                Counter.Content= string.Format(Strings.CharacterCounter, 0, 0);
+                Counter.Content = string.Format(Strings.CharacterCounter, 0, 0);
                 return;
             }
 
@@ -482,19 +480,18 @@ namespace MetroParser
             if (backupSettings == null)
             {
                 backupSettings = new BackupSettingsWindow();
-                backupSettings.Closed += (s, args) =>
+                backupSettings.IsVisibleChanged += (s, args) =>
                 {
-                    BackupHandler.Initialize();
-                    StatusLabel.Content= string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
+                    if ((bool)args.NewValue == false)
+                    {
+                        BackupHandler.Initialize();
+                        StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
+                    }
                 };
             }
-            else
-            {
-                backupSettings.LoadSettings();
-                BringToFront(backupSettings);
-            }
 
-            backupSettings.ShowDialog();
+            backupSettings.LoadSettings();
+            BringToFront(backupSettings);
         }
 
         private static ChatLogFilterWindow chatLogFilter;
@@ -512,13 +509,9 @@ namespace MetroParser
             {
                 chatLogFilter = new ChatLogFilterWindow();
             }
-            else
-            {
-                chatLogFilter.Initialize();
-                BringToFront(chatLogFilter);
-            }
 
-            chatLogFilter.ShowDialog();
+            chatLogFilter.Initialize();
+            BringToFront(chatLogFilter);
         }
 
         private void AboutToolStripMenuItem_Click(object sender, RoutedEventArgs e)
@@ -576,7 +569,7 @@ namespace MetroParser
         {
             AllowFormDisplay = true;
 
-            BringToFront(this);
+            BringToFront(this, topMost: false);
 
             TrayIcon.Visible = false;
         }
@@ -589,13 +582,14 @@ namespace MetroParser
             System.Windows.Application.Current.Shutdown();
         }
 
-        private void BringToFront(Window window)
+        private void BringToFront(Window window, bool topMost = true)
         {
             window.Show();
             window.WindowState = WindowState.Normal;
             window.Activate();
             window.Topmost = true;
-            window.Topmost = false;
+            if (!topMost)
+                window.Topmost = false;
             window.Focus();
         }
 
@@ -607,7 +601,7 @@ namespace MetroParser
 
         public static string GetText(RichTextBox box)
         {
-            return new TextRange(box.Document.ContentStart, box.Document.ContentEnd).Text;
+            return new TextRange(box.Document.ContentStart, box.Document.ContentEnd).Text.TrimEnd(new char[] { '\r', '\n' });
         }
 
         private void InitializeTrayIcon()
@@ -615,15 +609,15 @@ namespace MetroParser
             TrayIcon = new System.Windows.Forms.NotifyIcon
             {
                 Visible = false,
-                Icon = new System.Drawing.Icon("AppIcon.ico")
+                Icon = Properties.Resources.AppIcon
             };
 
             TrayIcon.MouseDoubleClick += TrayIcon_MouseDoubleClick;
-            TrayIcon.ContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[]
-            {
-                new System.Windows.Forms.MenuItem("Exit", ExitTrayToolStripMenuItem_Click),
-                new System.Windows.Forms.MenuItem("Open", ResumeTrayStripMenuItem_Click)
-            });
+
+            ContextMenu menu = new ContextMenu();
+            TrayIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+            TrayIcon.ContextMenuStrip.Items.Add("Open", null, ResumeTrayStripMenuItem_Click);
+            TrayIcon.ContextMenuStrip.Items.Add("Exit", null, ExitTrayToolStripMenuItem_Click);
         }
     }
 }

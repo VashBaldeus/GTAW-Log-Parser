@@ -6,10 +6,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MetroParser"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Closing="ChatLogFilter_Closing"              
-        Title="Filter Chat Log" Height="330" Width="500" ShowInTaskbar="False" IsMinButtonEnabled="False" IsMaxRestoreButtonEnabled="False" Icon="AppIcon.ico" ShowIconOnTitleBar="False" TitleCaps="False">
+        Title="Filter Chat Log" Height="330" Width="500" ShowInTaskbar="False" IsMinButtonEnabled="False" IsMaxRestoreButtonEnabled="False" ShowIconOnTitleBar="False" TitleCaps="False">
     <Grid>
         <Label x:Name="TimeLabel" Content="Current time: 23:23:23" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="344,10,0,0" VerticalAlignment="Top" Width="140"/>
         <Label x:Name="StatusLabel" Content="Chat log not loaded" FontWeight="DemiBold" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="329" Foreground="Red"/>
@@ -17,19 +17,10 @@
         <Button x:Name="LoadUnparsed" Click="LoadUnparsed_Click" Content="Load Unparsed Chat Log" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="150"/>
         <Button x:Name="BrowseForParsed" Click="BrowseForParsed_Click" Content="Browse For Parsed Chat Log" HorizontalAlignment="Left" Margin="165,41,0,0" VerticalAlignment="Top" Width="174"/>
         <Label x:Name="WordsLabel" Content="Words to filter in:" HorizontalAlignment="Left" Margin="7,68,0,0" VerticalAlignment="Top" Width="153"/>
-        <RichTextBox x:Name="Words" HorizontalAlignment="Left" Height="167" Margin="10,94,0,0" VerticalAlignment="Top" Width="150" HorizontalScrollBarVisibility="Disabled">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text="Firstname Lastname"/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
+        <RichTextBox x:Name="Words" HorizontalAlignment="Left" Height="167" Margin="10,94,0,0" VerticalAlignment="Top" Width="150" HorizontalScrollBarVisibility="Disabled"/>
         <Button x:Name="Filter" Click="Filter_Click" Content="Filter" HorizontalAlignment="Left" Margin="10,266,0,0" VerticalAlignment="Top" Width="72"/>
         <Button x:Name="SaveFiltered" Click="SaveFiltered_Click" Content="Save As" HorizontalAlignment="Left" Margin="88,266,0,0" VerticalAlignment="Top" Width="72"/>
-        <RichTextBox x:Name="Filtered" HorizontalAlignment="Left" Height="190" Margin="165,71,0,0" VerticalAlignment="Top" Width="319" HorizontalScrollBarVisibility="Disabled">
-            <FlowDocument>
-            </FlowDocument>
-        </RichTextBox>
+        <RichTextBox x:Name="Filtered" HorizontalAlignment="Left" Height="190" Margin="165,71,0,0" VerticalAlignment="Top" Width="319" HorizontalScrollBarVisibility="Disabled"/>
         <Button x:Name="CopyFilteredToClipboard" Click="CopyFilteredToClipboard_Click" Content="Copy To Clipboard" HorizontalAlignment="Left" Margin="165,266,0,0" VerticalAlignment="Top" Width="319"/>
 
     </Grid>

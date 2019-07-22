@@ -19,7 +19,7 @@ namespace MetroParser
 
             Timer = new System.Windows.Threading.DispatcherTimer();
             Timer.Tick += Timer_Tick;
-            Timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            Timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             Timer.Start();
 
             foreach (LocalizationManager.Language language in (LocalizationManager.Language[])Enum.GetValues(typeof(LocalizationManager.Language)))
