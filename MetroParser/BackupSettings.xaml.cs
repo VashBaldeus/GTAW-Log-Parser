@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using MetroParser.Localization;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace MetroParser
 {
@@ -28,30 +23,30 @@ namespace MetroParser
 
         private void SaveSettings()
         {
-            Properties.Settings.Default.BackupPath = BackupPath.Text;
+            Properties.Settings.Default.BackupPath = MainWindow.GetText(BackupPath);
 
-            Properties.Settings.Default.BackupChatLogAutomatically = BackUpChatLogAutomatically.Checked;
-            Properties.Settings.Default.EnableIntervalBackup = EnableIntervalBackup.Checked;
+            Properties.Settings.Default.BackupChatLogAutomatically = BackUpChatLogAutomatically.IsChecked == true;
+            Properties.Settings.Default.EnableIntervalBackup = EnableIntervalBackup.IsChecked == true;
             Properties.Settings.Default.IntervalTime = (int)Interval.Value;
-            Properties.Settings.Default.RemoveTimestampsFromBackup = RemoveTimestamps.Checked;
-            Properties.Settings.Default.StartWithWindows = StartWithWindows.Checked;
-            Properties.Settings.Default.SuppressNotifications = SuppressNotifications.Checked;
+            Properties.Settings.Default.RemoveTimestampsFromBackup = RemoveTimestamps.IsChecked == true;
+            Properties.Settings.Default.StartWithWindows = StartWithWindows.IsChecked == true;
+            Properties.Settings.Default.SuppressNotifications = SuppressNotifications.IsChecked == true;
 
             Properties.Settings.Default.Save();
         }
 
         public void LoadSettings()
         {
-            ActiveControl = Browse;
+            Browse.Focus();
 
-            BackupPath.Text = Properties.Settings.Default.BackupPath;
+            MainWindow.SetText(BackupPath, Properties.Settings.Default.BackupPath);
 
-            BackUpChatLogAutomatically.Checked = Properties.Settings.Default.BackupChatLogAutomatically;
-            EnableIntervalBackup.Checked = Properties.Settings.Default.EnableIntervalBackup;
+            BackUpChatLogAutomatically.IsChecked = Properties.Settings.Default.BackupChatLogAutomatically;
+            EnableIntervalBackup.IsChecked = Properties.Settings.Default.EnableIntervalBackup;
             Interval.Value = Properties.Settings.Default.IntervalTime;
-            RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestampsFromBackup;
-            StartWithWindows.Checked = Properties.Settings.Default.StartWithWindows;
-            SuppressNotifications.Checked = Properties.Settings.Default.SuppressNotifications;
+            RemoveTimestamps.IsChecked = Properties.Settings.Default.RemoveTimestampsFromBackup;
+            StartWithWindows.IsChecked = Properties.Settings.Default.StartWithWindows;
+            SuppressNotifications.IsChecked = Properties.Settings.Default.SuppressNotifications;
         }
 
         public static void ResetSettings()
@@ -68,12 +63,7 @@ namespace MetroParser
             Properties.Settings.Default.Save();
         }
 
-        private void BackupPath_KeyDown(object sender, KeyEventArgs e)
-        {
-            e.SuppressKeyPress = true;
-        }
-
-        private void BackupPath_TextChanged(object sender, EventArgs e)
+        private void BackupPath_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Properties.Settings.Default.BackupPath))
                 return;
@@ -92,43 +82,43 @@ namespace MetroParser
 
                 if (finalDirectories.Count > 0)
                 {
-                    if (MessageBox.Show(Strings.MoveBackups, Strings.Question, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show(Strings.MoveBackups, Strings.Question, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         List<string> moved = new List<string>();
                         List<string> notMoved = new List<string>();
 
                         foreach (DirectoryInfo directory in finalDirectories)
                         {
-                            if (!Directory.Exists(BackupPath.Text + directory.Name))
+                            if (!Directory.Exists(MainWindow.GetText(BackupPath) + directory.Name))
                             {
-                                Directory.Move(directory.FullName, BackupPath.Text + directory.Name);
+                                Directory.Move(directory.FullName, MainWindow.GetText(BackupPath) + directory.Name);
                                 moved.Add(directory.Name);
                             }
                             else
                                 notMoved.Add(directory.Name);
                         }
 
-                        Properties.Settings.Default.BackupPath = BackupPath.Text;
+                        Properties.Settings.Default.BackupPath = MainWindow.GetText(BackupPath);
                         Properties.Settings.Default.Save();
 
                         if (notMoved.Count > 0)
-                            MessageBox.Show((moved.Count > 0 ? string.Format(Strings.PartialMoveWarning, string.Join(", ", moved)) : Strings.NothingMovedWarning) + string.Format(Strings.AlreadyExistingFoldersWarning, string.Join(", ", notMoved)), Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show((moved.Count > 0 ? string.Format(Strings.PartialMoveWarning, string.Join(", ", moved)) : Strings.NothingMovedWarning) + string.Format(Strings.AlreadyExistingFoldersWarning, string.Join(", ", notMoved)), Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
             catch
             {
-                MessageBox.Show(Strings.BackupMoveError, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.BackupMoveError, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private void BackupPath_MouseClick(object sender, MouseEventArgs e)
+        private void BackupPath_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(BackupPath.Text))
-                Browse_Click(this, EventArgs.Empty);
+            if (string.IsNullOrWhiteSpace(MainWindow.GetText(BackupPath)))
+                Browse_Click(this, null);
         }
 
-        private void Browse_Click(object sender, EventArgs e)
+        private void Browse_Click(object sender, RoutedEventArgs e)
         {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog
             {
@@ -144,73 +134,73 @@ namespace MetroParser
                 {
                     if (dialog.FileName[dialog.FileName.Length - 1] != '\\')
                     {
-                        BackupPath.Text = dialog.FileName + "\\";
+                        MainWindow.SetText(BackupPath, dialog.FileName + "\\");
                         validLocation = true;
                     }
                     else
-                        MessageBox.Show(Strings.BadBackupPath, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Strings.BadBackupPath, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                     validLocation = true;
             }
         }
 
-        private void BackUpChatLogAutomatically_CheckedChanged(object sender, EventArgs e)
+        private void BackUpChatLogAutomatically_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            EnableIntervalBackup.Enabled = BackUpChatLogAutomatically.Checked;
-            RemoveTimestamps.Enabled = BackUpChatLogAutomatically.Checked;
-            StartWithWindows.Enabled = BackUpChatLogAutomatically.Checked;
-            SuppressNotifications.Enabled = BackUpChatLogAutomatically.Checked;
+            EnableIntervalBackup.IsEnabled = BackUpChatLogAutomatically.IsChecked == true;
+            RemoveTimestamps.IsEnabled = BackUpChatLogAutomatically.IsChecked == true;
+            StartWithWindows.IsEnabled = BackUpChatLogAutomatically.IsChecked == true;
+            SuppressNotifications.IsEnabled = BackUpChatLogAutomatically.IsChecked == true;
 
-            if (!BackUpChatLogAutomatically.Checked)
+            if (BackUpChatLogAutomatically.IsChecked != true)
             {
-                StartWithWindows.Checked = false;
-                RemoveTimestamps.Checked = false;
-                EnableIntervalBackup.Checked = false;
-                SuppressNotifications.Checked = false;
+                StartWithWindows.IsChecked = false;
+                RemoveTimestamps.IsChecked = false;
+                EnableIntervalBackup.IsChecked = false;
+                SuppressNotifications.IsChecked = false;
             }
         }
 
-        private void EnableIntervalBackup_CheckedChanged(object sender, EventArgs e)
+        private void EnableIntervalBackup_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            Interval.Enabled = EnableIntervalBackup.Checked;
+            Interval.IsEnabled = EnableIntervalBackup.IsChecked == true;
         }
 
-        private void Interval_ValueChanged(object sender, EventArgs e)
+        private void Interval_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            IntervalLabel2.Text = string.Format(Strings.Recommended, Interval.Value > 1 ? Strings.MinutePlural : Strings.MinuteSingular);
-            EnableIntervalBackup.Text = string.Format(Strings.IntervalHint, Interval.Value, Interval.Value > 1 ? Strings.MinutePlural : Strings.MinutePlural);
+            IntervalLabel2.Content = string.Format(Strings.Recommended, Interval.Value > 1 ? Strings.MinutePlural : Strings.MinuteSingular);
+            EnableIntervalBackup.Content= string.Format(Strings.IntervalHint, Interval.Value, Interval.Value > 1 ? Strings.MinutePlural : Strings.MinutePlural);
         }
 
-        private void StartWithWindows_CheckedChanged(object sender, EventArgs e)
+        private void StartWithWindows_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if (StartWithWindows.Checked && !StartupHandler.IsAddedToStartup())
-                MessageBox.Show(Strings.AutoStartWarning, Strings.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if (StartWithWindows.IsChecked == true && !StartupHandler.IsAddedToStartup())
+                MessageBox.Show(Strings.AutoStartWarning, Strings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
-        private void Reset_Click(object sender, EventArgs e)
+        private void Reset_Click(object sender, RoutedEventArgs e)
         {
             ResetSettings();
             LoadSettings();
         }
 
-        private void CloseWindow_Click(object sender, EventArgs e)
+        private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void BackupSettings_FormClosing(object sender, FormClosingEventArgs e)
+        private void BackupSettings_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (BackUpChatLogAutomatically.Checked && (string.IsNullOrWhiteSpace(BackupPath.Text) || !Directory.Exists(BackupPath.Text)))
+            if (BackUpChatLogAutomatically.IsChecked == true && (string.IsNullOrWhiteSpace(MainWindow.GetText(BackupPath)) || !Directory.Exists(MainWindow.GetText(BackupPath))))
             {
                 e.Cancel = true;
-                MessageBox.Show(Strings.BadBackupPathSave, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.BadBackupPathSave, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
 
                 return;
             }
 
-            if ((StartWithWindows.Checked && !StartupHandler.IsAddedToStartup()) || (!StartWithWindows.Checked && StartupHandler.IsAddedToStartup()))
-                StartupHandler.ToggleStartup(StartWithWindows.Checked);
+            if ((StartWithWindows.IsChecked == true && !StartupHandler.IsAddedToStartup()) || (!StartWithWindows.IsChecked == true && StartupHandler.IsAddedToStartup()))
+                StartupHandler.ToggleStartup(StartWithWindows.IsChecked == true);
 
             SaveSettings();
         }

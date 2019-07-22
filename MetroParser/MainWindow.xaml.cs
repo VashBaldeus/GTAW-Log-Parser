@@ -194,7 +194,7 @@ namespace MetroParser
         {
             if (Properties.Settings.Default.BackupChatLogAutomatically)
             {
-                BackupSettings.ResetSettings();
+                BackupSettingsWindow.ResetSettings();
 
                 StatusLabel.Content = string.Format(Strings.BackupStatus, Strings.Disabled);
                 MessageBox.Show(Strings.BackupTurnedOff, Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
@@ -457,7 +457,7 @@ namespace MetroParser
             }
         }
 
-        private static BackupSettings backupSettings;
+        private static BackupSettingsWindow backupSettings;
         private void AutomaticBackupSettingsToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(GetText(FolderPath)) || !Directory.Exists(GetText(FolderPath) + "client_resources\\"))
@@ -481,7 +481,7 @@ namespace MetroParser
 
             if (backupSettings == null)
             {
-                backupSettings = new BackupSettings();
+                backupSettings = new BackupSettingsWindow();
                 backupSettings.Closed += (s, args) =>
                 {
                     BackupHandler.Initialize();
@@ -497,7 +497,7 @@ namespace MetroParser
             backupSettings.ShowDialog();
         }
 
-        private static ChatLogFilter chatLogFilter;
+        private static ChatLogFilterWindow chatLogFilter;
         private void FilterChatLogToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(GetText(FolderPath)) || !Directory.Exists(GetText(FolderPath) + "client_resources\\"))
@@ -510,7 +510,7 @@ namespace MetroParser
 
             if (chatLogFilter == null)
             {
-                chatLogFilter = new ChatLogFilter();
+                chatLogFilter = new ChatLogFilterWindow();
             }
             else
             {
