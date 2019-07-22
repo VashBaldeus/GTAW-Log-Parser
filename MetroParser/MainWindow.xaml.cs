@@ -37,7 +37,7 @@ namespace MetroParser
 
         private bool isRestarting = false;
 
-        private static LanguagePicker languagePicker;
+        private static LanguagePickerWindow languagePicker;
 
         public MainWindow(bool startMinimized)
         {
@@ -45,12 +45,13 @@ namespace MetroParser
             {
                 if (languagePicker == null)
                 {
-                    languagePicker = new LanguagePicker();
+                    languagePicker = new LanguagePickerWindow();
                 }
                 else
                 {
                     languagePicker.Initialize();
                     BringToFront(languagePicker);
+                    languagePicker.Topmost = true;
                 }
 
                 languagePicker.ShowDialog();
@@ -189,12 +190,7 @@ namespace MetroParser
             }
         }
 
-        private void FolderPath_KeyDown(object sender, KeyEventArgs e)
-        {
-            e.Handled = true;
-        }
-
-        private void FolderPath_TextChanged(object sender, EventArgs e)
+        private void FolderPath_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Properties.Settings.Default.BackupChatLogAutomatically)
             {
@@ -205,13 +201,13 @@ namespace MetroParser
             }
         }
 
-        private void FolderPath_MouseClick(object sender, MouseEventArgs e)
+        private void FolderPath_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(GetText(FolderPath)))
-                Browse_Click(this, EventArgs.Empty);
+                Browse_Click(this, null);
         }
 
-        private void Browse_Click(object sender, EventArgs e)
+        private void Browse_Click(object sender, RoutedEventArgs e)
         {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog
             {
@@ -238,7 +234,7 @@ namespace MetroParser
             }
         }
 
-        private void Parse_Click(object sender, EventArgs e)
+        private void Parse_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(GetText(FolderPath)) || !Directory.Exists(GetText(FolderPath) + "client_resources\\"))
             {
@@ -363,7 +359,7 @@ namespace MetroParser
             Counter.Content= string.Format(Strings.CharacterCounter, GetText(Parsed).Length, GetText(Parsed).Split('\n').Length);
         }
 
-        private void SaveParsed_Click(object sender, EventArgs e)
+        private void SaveParsed_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -393,7 +389,7 @@ namespace MetroParser
             }
         }
 
-        private void CopyParsedToClipboard_Click(object sender, EventArgs e)
+        private void CopyParsedToClipboard_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(GetText(Parsed)))
                 MessageBox.Show(Strings.NothingParsed, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -401,14 +397,14 @@ namespace MetroParser
                 Clipboard.SetText(GetText(Parsed).Replace("\n", Environment.NewLine));
         }
 
-        private void CheckForUpdatesOnStartup_CheckedChanged(object sender, EventArgs e)
+        private void CheckForUpdatesOnStartup_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (CheckForUpdatesOnStartup.IsChecked == true)
                 TryCheckingForUpdates();
         }
 
         private static string previousLog = string.Empty;
-        private void RemoveTimestamps_CheckedChanged(object sender, EventArgs e)
+        private void RemoveTimestamps_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(GetText(Parsed)) || string.IsNullOrWhiteSpace(GetText(FolderPath)) || !Directory.Exists(GetText(FolderPath) + "client_resources\\") || !File.Exists(GetText(FolderPath)+ Data.LogLocation))
                 return;
@@ -422,9 +418,9 @@ namespace MetroParser
                 SetText(Parsed, previousLog);
         }
 
-        private void CheckForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CheckForUpdatesToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            TryCheckingForUpdates(true);
+            TryCheckingForUpdates(manual: true);
         }
 
         private void TryCheckingForUpdates(bool manual = false)
@@ -449,7 +445,7 @@ namespace MetroParser
                         ResumeTrayStripMenuItem_Click(this, EventArgs.Empty);
 
                     if (MessageBox.Show(string.Format(Strings.UpdateAvailable, installedVersion, currentVersion), Strings.UpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-                        System.Diagnostics.Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases");
+                        Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases");
                 }
                 else if (manual)
                     MessageBox.Show(string.Format(Strings.RunningLatest, installedVersion), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
@@ -462,7 +458,7 @@ namespace MetroParser
         }
 
         private static BackupSettings backupSettings;
-        private void AutomaticBackupSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AutomaticBackupSettingsToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(GetText(FolderPath)) || !Directory.Exists(GetText(FolderPath) + "client_resources\\"))
             {
@@ -502,7 +498,7 @@ namespace MetroParser
         }
 
         private static ChatLogFilter chatLogFilter;
-        private void FilterChatLogToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FilterChatLogToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(GetText(FolderPath)) || !Directory.Exists(GetText(FolderPath) + "client_resources\\"))
             {
@@ -525,21 +521,21 @@ namespace MetroParser
             chatLogFilter.ShowDialog();
         }
 
-        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show(string.Format(Strings.About, Properties.Settings.Default.Version), Strings.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-                System.Diagnostics.Process.Start("https://github.com/MapleToo/GTAW-Log-Parser");
+                Process.Start("https://github.com/MapleToo/GTAW-Log-Parser");
         }
 
-        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
         }
 
-        private void Logo_Click(object sender, EventArgs e)
+        private void Logo_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (MessageBox.Show(Strings.OpenDocumentation, Strings.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-                System.Diagnostics.Process.Start(Strings.ForumLink);
+                Process.Start(Strings.ForumLink);
         }
 
         private void Main_Closing(object sender, System.ComponentModel.CancelEventArgs e)

@@ -99,8 +99,8 @@
     <Compile Include="ChatLogFilter.xaml.cs">
       <DependentUpon>ChatLogFilter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LanguagePicker.xaml.cs">
-      <DependentUpon>LanguagePicker.xaml</DependentUpon>
+    <Compile Include="LanguagePickerWindow.xaml.cs">
+      <DependentUpon>LanguagePickerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Localization\Strings.Designer.cs">
       <DependentUpon>Strings.resx</DependentUpon>
@@ -116,7 +116,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LanguagePicker.xaml">
+    <Page Include="LanguagePickerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

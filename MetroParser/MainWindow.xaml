@@ -13,25 +13,31 @@
 
     <DockPanel>
         <Menu x:Name="MenuStrip" DockPanel.Dock="Top">
-            <MenuItem x:Name="CheckForUpdatesToolStripMenuItem" Header="Check For Updates"/>
-            <MenuItem x:Name="AutomaticBackupSettingsToolStripMenuItem" Header="Automatic Backup Settings"/>
-            <MenuItem x:Name="FilterChatLogToolStripMenuItem" Header="Filter Chat Log"/>
+            <MenuItem x:Name="CheckForUpdatesToolStripMenuItem" Header="Check For Updates" Click="CheckForUpdatesToolStripMenuItem_Click"/>
+            <MenuItem x:Name="AutomaticBackupSettingsToolStripMenuItem" Header="Automatic Backup Settings" Click="AutomaticBackupSettingsToolStripMenuItem_Click"/>
+            <MenuItem x:Name="FilterChatLogToolStripMenuItem" Header="Filter Chat Log" Click="FilterChatLogToolStripMenuItem_Click"/>
             <MenuItem x:Name="LanguageToolStripMenuItem" Header="Language"/>
-            <MenuItem x:Name="AboutToolStripMenuItem" Header="About"/>
-            <MenuItem x:Name="ExitToolStripMenuItem" Header="Exit"/>
+            <MenuItem x:Name="AboutToolStripMenuItem" Header="About" Click="AboutToolStripMenuItem_Click"/>
+            <MenuItem x:Name="ExitToolStripMenuItem" Header="Exit" Click="ExitToolStripMenuItem_Click"/>
         </Menu>
         <Grid>
-            <Image x:Name="Logo" HorizontalAlignment="Left" Height="140" VerticalAlignment="Top" Width="288" Source="pack://siteoforigin:,,,/Resources/Logo.png" Margin="10,0,0,0" Stretch="Fill"/>
-            <CheckBox x:Name="CheckForUpdatesOnStartup" Content="Check for updates automatically" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top" Width="288"/>
-            <CheckBox x:Name="RemoveTimestamps" Content="Remove timestamps" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" Width="288"/>
+            <Image x:Name="Logo" HorizontalAlignment="Left" Height="140" VerticalAlignment="Top" Width="288" Source="pack://siteoforigin:,,,/Resources/Logo.png" Margin="10,0,0,0" Stretch="Fill" MouseLeftButtonUp="Logo_MouseLeftButtonUp"/>
+            <CheckBox x:Name="CheckForUpdatesOnStartup" Checked="CheckForUpdatesOnStartup_CheckedChanged" Unchecked="CheckForUpdatesOnStartup_CheckedChanged" Content="Check for updates automatically" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top" Width="288"/>
+            <CheckBox x:Name="RemoveTimestamps" Checked="RemoveTimestamps_CheckedChanged" Unchecked="RemoveTimestamps_CheckedChanged" Content="Remove timestamps" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" Width="288"/>
             <Label x:Name="PathLabel" Content="RAGEMP Folder:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="298,0,0,0" VerticalAlignment="Top"/>
             <Label x:Name="Version" Content="Version: 1.0" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="549,0,0,0" VerticalAlignment="Top" Width="75"/>
-            <Button x:Name="Parse" Content="Parse" HorizontalAlignment="Left" Margin="303,159,0,0" VerticalAlignment="Top" Width="75"/>
-            <Button x:Name="SaveParsed" Content="Save As" HorizontalAlignment="Left" Margin="383,159,0,0" VerticalAlignment="Top" Width="75"/>
-            <Button x:Name="CopyParsedToClipboard" Content="Copy To Clipboard" HorizontalAlignment="Left" Margin="463,159,0,0" VerticalAlignment="Top" Width="161"/>
-            <RichTextBox x:Name="Parsed" HorizontalAlignment="Left" Height="76" Margin="303,57,0,0" VerticalAlignment="Top" Width="321"/>
-            <Button x:Name="Browse" Content="Browse" HorizontalAlignment="Left" Margin="549,23,0,0" VerticalAlignment="Top" Width="75"/>
-            <RichTextBox x:Name="FolderPath" HorizontalAlignment="Left" Height="24" Margin="303,23,0,0" VerticalAlignment="Top" Width="241"/>
+            <Button x:Name="Parse" Click="Parse_Click" Content="Parse" HorizontalAlignment="Left" Margin="303,159,0,0" VerticalAlignment="Top" Width="75"/>
+            <Button x:Name="SaveParsed" Click="SaveParsed_Click" Content="Save As" HorizontalAlignment="Left" Margin="383,159,0,0" VerticalAlignment="Top" Width="75"/>
+            <Button x:Name="CopyParsedToClipboard" Click="CopyParsedToClipboard_Click" Content="Copy To Clipboard" HorizontalAlignment="Left" Margin="463,159,0,0" VerticalAlignment="Top" Width="161"/>
+            <RichTextBox x:Name="Parsed" HorizontalAlignment="Left" Height="76" Margin="303,57,0,0" VerticalAlignment="Top" Width="321" HorizontalScrollBarVisibility="Disabled">
+                <FlowDocument>
+                </FlowDocument>
+            </RichTextBox>
+            <Button x:Name="Browse" Click="Browse_Click" Content="Browse" HorizontalAlignment="Left" Margin="549,23,0,0" VerticalAlignment="Top" Width="75"/>
+            <RichTextBox MouseLeftButtonUp="FolderPath_MouseLeftButtonUp" TextChanged="FolderPath_TextChanged" x:Name="FolderPath" HorizontalAlignment="Left" Height="24" Margin="303,23,0,0" VerticalAlignment="Top" Width="241" IsReadOnly="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
+                <FlowDocument>
+                </FlowDocument>
+            </RichTextBox>
             <Label x:Name="StatusLabel" Content="Automatic Backup: OFF" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="298,133,0,0" VerticalAlignment="Top" Width="160"/>
             <Label x:Name="Counter" Content="0 characters and 0 lines" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="463,133,0,0" VerticalAlignment="Top" Width="161"/>
         </Grid>
