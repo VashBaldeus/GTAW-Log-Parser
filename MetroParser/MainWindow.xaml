@@ -12,12 +12,12 @@
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Check For Updates"/>
-            <MenuItem Header="Automatic Backup Settings"/>
-            <MenuItem Header="Filter Chat Log"/>
-            <MenuItem Header="Language"/>
-            <MenuItem Header="About"/>
-            <MenuItem Header="Exit"/>
+            <MenuItem x:Name="CheckForUpdatesToolStripMenuItem" Header="Check For Updates"/>
+            <MenuItem x:Name="AutomaticBackupSettingsToolStripMenuItem" Header="Automatic Backup Settings"/>
+            <MenuItem x:Name="FilterChatLogToolStripMenuItem" Header="Filter Chat Log"/>
+            <MenuItem x:Name="LanguageToolStripMenuItem" Header="Language"/>
+            <MenuItem x:Name="AboutToolStripMenuItem" Header="About"/>
+            <MenuItem x:Name="ExitToolStripMenuItem" Header="Exit"/>
         </Menu>
         <Grid>
             <Image x:Name="Logo" HorizontalAlignment="Left" Height="140" VerticalAlignment="Top" Width="288" Source="pack://siteoforigin:,,,/Resources/Logo.png" Margin="10,0,0,0" Stretch="Fill"/>

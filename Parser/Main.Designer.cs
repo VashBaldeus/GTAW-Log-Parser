@@ -43,7 +43,7 @@
             this.CheckForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AutomaticBackupSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FilterChatLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LanguageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PathLabel = new System.Windows.Forms.Label();
@@ -69,8 +69,8 @@
             // 
             // FolderPath
             // 
-            resources.ApplyResources(this.FolderPath, "FolderPath");
             this.FolderPath.DetectUrls = false;
+            resources.ApplyResources(this.FolderPath, "FolderPath");
             this.FolderPath.Name = "FolderPath";
             this.FolderPath.ShortcutsEnabled = false;
             this.FolderPath.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FolderPath_MouseClick);
@@ -86,8 +86,8 @@
             // 
             // Parsed
             // 
-            resources.ApplyResources(this.Parsed, "Parsed");
             this.Parsed.DetectUrls = false;
+            resources.ApplyResources(this.Parsed, "Parsed");
             this.Parsed.Name = "Parsed";
             this.Parsed.TextChanged += new System.EventHandler(this.Parsed_TextChanged);
             // 
@@ -119,55 +119,51 @@
             this.Parse.UseVisualStyleBackColor = true;
             this.Parse.Click += new System.EventHandler(this.Parse_Click);
             // 
-            // SaveFileDialog
-            // 
-            resources.ApplyResources(this.SaveFileDialog, "SaveFileDialog");
-            // 
             // MenuStrip
             // 
-            resources.ApplyResources(this.MenuStrip, "MenuStrip");
             this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CheckForUpdatesToolStripMenuItem,
             this.AutomaticBackupSettingsToolStripMenuItem,
             this.FilterChatLogToolStripMenuItem,
-            this.languageToolStripMenuItem,
+            this.LanguageToolStripMenuItem,
             this.AboutToolStripMenuItem,
             this.ExitToolStripMenuItem});
+            resources.ApplyResources(this.MenuStrip, "MenuStrip");
             this.MenuStrip.Name = "MenuStrip";
             // 
             // CheckForUpdatesToolStripMenuItem
             // 
-            resources.ApplyResources(this.CheckForUpdatesToolStripMenuItem, "CheckForUpdatesToolStripMenuItem");
             this.CheckForUpdatesToolStripMenuItem.Name = "CheckForUpdatesToolStripMenuItem";
+            resources.ApplyResources(this.CheckForUpdatesToolStripMenuItem, "CheckForUpdatesToolStripMenuItem");
             this.CheckForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.CheckForUpdatesToolStripMenuItem_Click);
             // 
             // AutomaticBackupSettingsToolStripMenuItem
             // 
-            resources.ApplyResources(this.AutomaticBackupSettingsToolStripMenuItem, "AutomaticBackupSettingsToolStripMenuItem");
             this.AutomaticBackupSettingsToolStripMenuItem.Name = "AutomaticBackupSettingsToolStripMenuItem";
+            resources.ApplyResources(this.AutomaticBackupSettingsToolStripMenuItem, "AutomaticBackupSettingsToolStripMenuItem");
             this.AutomaticBackupSettingsToolStripMenuItem.Click += new System.EventHandler(this.AutomaticBackupSettingsToolStripMenuItem_Click);
             // 
             // FilterChatLogToolStripMenuItem
             // 
-            resources.ApplyResources(this.FilterChatLogToolStripMenuItem, "FilterChatLogToolStripMenuItem");
             this.FilterChatLogToolStripMenuItem.Name = "FilterChatLogToolStripMenuItem";
+            resources.ApplyResources(this.FilterChatLogToolStripMenuItem, "FilterChatLogToolStripMenuItem");
             this.FilterChatLogToolStripMenuItem.Click += new System.EventHandler(this.FilterChatLogToolStripMenuItem_Click);
             // 
-            // languageToolStripMenuItem
+            // LanguageToolStripMenuItem
             // 
-            resources.ApplyResources(this.languageToolStripMenuItem, "languageToolStripMenuItem");
-            this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
+            this.LanguageToolStripMenuItem.Name = "LanguageToolStripMenuItem";
+            resources.ApplyResources(this.LanguageToolStripMenuItem, "LanguageToolStripMenuItem");
             // 
             // AboutToolStripMenuItem
             // 
-            resources.ApplyResources(this.AboutToolStripMenuItem, "AboutToolStripMenuItem");
             this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
+            resources.ApplyResources(this.AboutToolStripMenuItem, "AboutToolStripMenuItem");
             this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // ExitToolStripMenuItem
             // 
-            resources.ApplyResources(this.ExitToolStripMenuItem, "ExitToolStripMenuItem");
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
+            resources.ApplyResources(this.ExitToolStripMenuItem, "ExitToolStripMenuItem");
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // PathLabel
@@ -194,8 +190,8 @@
             // 
             // StatusLabel
             // 
-            resources.ApplyResources(this.StatusLabel, "StatusLabel");
             this.StatusLabel.BackColor = System.Drawing.SystemColors.Control;
+            resources.ApplyResources(this.StatusLabel, "StatusLabel");
             this.StatusLabel.Name = "StatusLabel";
             // 
             // TrayIcon
@@ -207,22 +203,22 @@
             // 
             // TrayIconContextMenuStrip
             // 
-            resources.ApplyResources(this.TrayIconContextMenuStrip, "TrayIconContextMenuStrip");
             this.TrayIconContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ResumeTrayStripMenuItem,
             this.ExitTrayToolStripMenuItem});
             this.TrayIconContextMenuStrip.Name = "TrayIconContextMenuStrip";
+            resources.ApplyResources(this.TrayIconContextMenuStrip, "TrayIconContextMenuStrip");
             // 
             // ResumeTrayStripMenuItem
             // 
-            resources.ApplyResources(this.ResumeTrayStripMenuItem, "ResumeTrayStripMenuItem");
             this.ResumeTrayStripMenuItem.Name = "ResumeTrayStripMenuItem";
+            resources.ApplyResources(this.ResumeTrayStripMenuItem, "ResumeTrayStripMenuItem");
             this.ResumeTrayStripMenuItem.Click += new System.EventHandler(this.ResumeTrayStripMenuItem_Click);
             // 
             // ExitTrayToolStripMenuItem
             // 
-            resources.ApplyResources(this.ExitTrayToolStripMenuItem, "ExitTrayToolStripMenuItem");
             this.ExitTrayToolStripMenuItem.Name = "ExitTrayToolStripMenuItem";
+            resources.ApplyResources(this.ExitTrayToolStripMenuItem, "ExitTrayToolStripMenuItem");
             this.ExitTrayToolStripMenuItem.Click += new System.EventHandler(this.ExitTrayToolStripMenuItem_Click);
             // 
             // Main
@@ -283,7 +279,7 @@
         private System.Windows.Forms.ToolStripMenuItem ExitTrayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ResumeTrayStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem FilterChatLogToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem LanguageToolStripMenuItem;
     }
 }
 

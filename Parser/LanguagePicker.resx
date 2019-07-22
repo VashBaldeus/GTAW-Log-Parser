@@ -143,25 +143,25 @@
   <data name="&gt;&gt;StartButton.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="languageList.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="LanguageList.Location" type="System.Drawing.Point, System.Drawing">
     <value>55, 45</value>
   </data>
-  <data name="languageList.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="LanguageList.Size" type="System.Drawing.Size, System.Drawing">
     <value>128, 21</value>
   </data>
-  <data name="languageList.TabIndex" type="System.Int32, mscorlib">
+  <data name="LanguageList.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;languageList.Name" xml:space="preserve">
-    <value>languageList</value>
+  <data name="&gt;&gt;LanguageList.Name" xml:space="preserve">
+    <value>LanguageList</value>
   </data>
-  <data name="&gt;&gt;languageList.Type" xml:space="preserve">
+  <data name="&gt;&gt;LanguageList.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;languageList.Parent" xml:space="preserve">
+  <data name="&gt;&gt;LanguageList.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;languageList.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;LanguageList.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="WelcomeLabel.Font" type="System.Drawing.Font, System.Drawing">

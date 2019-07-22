@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LanguagePicker));
             this.StartButton = new System.Windows.Forms.Button();
-            this.languageList = new System.Windows.Forms.ComboBox();
+            this.LanguageList = new System.Windows.Forms.ComboBox();
             this.WelcomeLabel = new System.Windows.Forms.Label();
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
@@ -43,13 +43,13 @@
             this.StartButton.UseVisualStyleBackColor = true;
             this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
-            // languageList
+            // LanguageList
             // 
-            this.languageList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.languageList.FormattingEnabled = true;
-            resources.ApplyResources(this.languageList, "languageList");
-            this.languageList.Name = "languageList";
-            this.languageList.SelectedIndexChanged += new System.EventHandler(this.LanguageList_SelectedIndexChanged);
+            this.LanguageList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LanguageList.FormattingEnabled = true;
+            resources.ApplyResources(this.LanguageList, "LanguageList");
+            this.LanguageList.Name = "LanguageList";
+            this.LanguageList.SelectedIndexChanged += new System.EventHandler(this.LanguageList_SelectedIndexChanged);
             // 
             // WelcomeLabel
             // 
@@ -68,7 +68,7 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.WelcomeLabel);
-            this.Controls.Add(this.languageList);
+            this.Controls.Add(this.LanguageList);
             this.Controls.Add(this.StartButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -85,7 +85,7 @@
         #endregion
 
         private System.Windows.Forms.Button StartButton;
-        private System.Windows.Forms.ComboBox languageList;
+        private System.Windows.Forms.ComboBox LanguageList;
         private System.Windows.Forms.Label WelcomeLabel;
         private System.Windows.Forms.Timer Timer;
     }

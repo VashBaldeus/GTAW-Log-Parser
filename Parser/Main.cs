@@ -62,7 +62,7 @@ namespace Parser
             for (int i = 0; i < ((LocalizationManager.Language[])Enum.GetValues(typeof(LocalizationManager.Language))).Length; ++i)
             {
                 LocalizationManager.Language language = (LocalizationManager.Language)i;
-                ToolStripItem newLanguage = languageToolStripMenuItem.DropDownItems.Add(language.ToString());
+                ToolStripItem newLanguage = LanguageToolStripMenuItem.DropDownItems.Add(language.ToString());
                 newLanguage.Click += (s, e) =>
                 {
                     if (((ToolStripMenuItem)newLanguage).Checked == true)
@@ -89,7 +89,7 @@ namespace Parser
                 };
 
                 if (currentLanguage == language.ToString())
-                    ((ToolStripMenuItem)languageToolStripMenuItem.DropDownItems[i]).Checked = true;
+                    ((ToolStripMenuItem)LanguageToolStripMenuItem.DropDownItems[i]).Checked = true;
             }
 
             BackupHandler.Initialize();
