@@ -10,7 +10,6 @@ using System.Windows.Controls;
 using MetroParser.Localization;
 using System.Text.RegularExpressions;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using System.Windows.Media.Imaging;
 
 namespace MetroParser
 {
