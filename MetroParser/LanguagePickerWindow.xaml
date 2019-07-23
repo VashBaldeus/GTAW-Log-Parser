@@ -9,6 +9,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Closing="LanguagePicker_Closing"
+        WindowTransitionsEnabled="False"
         Title="Language" Height="159" Width="256" IsMaxRestoreButtonEnabled="False" IsMinButtonEnabled="False" ShowIconOnTitleBar="False" TitleCaps="False" Icon="Resources/AppIcon.ico">
     <Grid>
         <Grid.RowDefinitions>

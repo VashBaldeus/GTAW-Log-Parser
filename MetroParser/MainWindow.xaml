@@ -9,6 +9,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Closing="Main_Closing"
+        WindowTransitionsEnabled="False"
         Title="GTA World Chat Log Parser" Height="260" Width="638" IsMaxRestoreButtonEnabled="False" IsMinButtonEnabled="False" TitleCaps="False" ShowIconOnTitleBar="False" Icon="Resources/AppIcon.ico">
 
     <DockPanel>
