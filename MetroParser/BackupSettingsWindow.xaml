@@ -13,7 +13,6 @@
         Title="Automatic Backup Settings" Height="250" Width="476" ShowInTaskbar="False" IsMaxRestoreButtonEnabled="False" IsMinButtonEnabled="False" TitleCaps="False" ShowIconOnTitleBar="False" Topmost="True">
     <Grid>
         <Label x:Name="BackupPathLabel" Content="Backup Path:" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top"/>
-        <RichTextBox x:Name="BackupPath" PreviewMouseLeftButtonUp="BackupPath_PreviewMouseLeftButtonUp" TextChanged="BackupPath_TextChanged" HorizontalAlignment="Left" Height="27" Margin="10,36,0,0" VerticalAlignment="Top" Width="370" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" IsReadOnly="True"/>
         <Button x:Name="Browse" Click="Browse_Click" Content="Browse" HorizontalAlignment="Left" Margin="385,36,0,0" VerticalAlignment="Top" Width="75"/>
         <CheckBox x:Name="BackUpChatLogAutomatically" Checked="BackUpChatLogAutomatically_CheckedChanged" Unchecked="BackUpChatLogAutomatically_CheckedChanged" Content="Parse and back up the chat log automatically (when the game closes)" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="414"/>
         <CheckBox x:Name="EnableIntervalBackup" Checked="EnableIntervalBackup_CheckedChanged" Unchecked="EnableIntervalBackup_CheckedChanged" Content="Back up the chat log automatically while the game is running (every 10 minutes)" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top" Width="450" IsEnabled="False"/>
@@ -25,5 +24,6 @@
         <CheckBox x:Name="StartWithWindows" Checked="StartWithWindows_CheckedChanged" Unchecked="StartWithWindows_CheckedChanged" Content="Start with Windows (minimized)" HorizontalAlignment="Left" Margin="10,191,0,0" VerticalAlignment="Top" Width="290" IsEnabled="False"/>
         <Button x:Name="CloseWindow" Click="CloseWindow_Click" Content="Close" HorizontalAlignment="Left" Margin="385,184,0,0" VerticalAlignment="Top" Width="75"/>
         <Button x:Name="Reset" Click="Reset_Click" Content="Reset" HorizontalAlignment="Left" Margin="305,184,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="BackupPath" MouseLeftButtonUp="BackupPath_MouseLeftButtonUp" TextChanged="BackupPath_TextChanged" HorizontalAlignment="Left" Height="23" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="370" IsReadOnly="True" VerticalScrollBarVisibility="Disabled"/>
     </Grid>
 </Controls:MetroWindow>

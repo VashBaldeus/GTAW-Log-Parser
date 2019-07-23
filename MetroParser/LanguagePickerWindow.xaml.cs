@@ -13,25 +13,42 @@ namespace MetroParser
         public bool isStarting = false;
         private readonly bool handleListChange = false;
 
-        public LanguagePickerWindow()
+        private readonly bool firstStart = true;
+        private readonly bool startMinimized = false;
+
+        public LanguagePickerWindow(bool firstStart = true, bool startMinimized = false)
         {
+            this.firstStart = firstStart;
+            this.startMinimized = startMinimized;
+
             InitializeComponent();
 
-            Timer = new System.Windows.Threading.DispatcherTimer();
-            Timer.Tick += Timer_Tick;
-            Timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
-            Timer.Start();
+            if (firstStart)
+            {
+                Timer = new System.Windows.Threading.DispatcherTimer();
+                Timer.Tick += Timer_Tick;
+                Timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
+                Timer.Start();
 
-            foreach (LocalizationManager.Language language in (LocalizationManager.Language[])Enum.GetValues(typeof(LocalizationManager.Language)))
-                LanguageList.Items.Add(language.ToString());
+                foreach (LocalizationManager.Language language in (LocalizationManager.Language[])Enum.GetValues(typeof(LocalizationManager.Language)))
+                    LanguageList.Items.Add(language.ToString());
 
-            LanguageList.SelectedIndex = 0;
-            handleListChange = true;
+                LanguageList.SelectedIndex = 0;
+                handleListChange = true;
+
+                StartButton.Focus();
+            }
+            else
+                Hide();
         }
 
         public void Initialize()
         {
-            StartButton.Focus();
+            if (!firstStart)
+            {
+                isStarting = true;
+                Close();
+            }
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
@@ -76,6 +93,12 @@ namespace MetroParser
         {
             if (!isStarting)
                 Application.Current.Shutdown();
+            else
+            {
+                Hide();
+                MainWindow main = new MainWindow(startMinimized: startMinimized);
+                MainWindow.BringToFront(main, topMost: false);
+            }
         }
     }
 }

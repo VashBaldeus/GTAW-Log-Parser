@@ -23,7 +23,7 @@ namespace MetroParser
 
         private void SaveSettings()
         {
-            Properties.Settings.Default.BackupPath = MainWindow.GetText(BackupPath);
+            Properties.Settings.Default.BackupPath = BackupPath.Text;
 
             Properties.Settings.Default.BackupChatLogAutomatically = BackUpChatLogAutomatically.IsChecked == true;
             Properties.Settings.Default.EnableIntervalBackup = EnableIntervalBackup.IsChecked == true;
@@ -39,7 +39,7 @@ namespace MetroParser
         {
             Browse.Focus();
 
-            MainWindow.SetText(BackupPath, Properties.Settings.Default.BackupPath);
+            BackupPath.Text = Properties.Settings.Default.BackupPath;
 
             BackUpChatLogAutomatically.IsChecked = Properties.Settings.Default.BackupChatLogAutomatically;
             EnableIntervalBackup.IsChecked = Properties.Settings.Default.EnableIntervalBackup;
@@ -89,16 +89,16 @@ namespace MetroParser
 
                         foreach (DirectoryInfo directory in finalDirectories)
                         {
-                            if (!Directory.Exists(MainWindow.GetText(BackupPath) + directory.Name))
+                            if (!Directory.Exists(BackupPath.Text + directory.Name))
                             {
-                                Directory.Move(directory.FullName, MainWindow.GetText(BackupPath) + directory.Name);
+                                Directory.Move(directory.FullName, BackupPath.Text + directory.Name);
                                 moved.Add(directory.Name);
                             }
                             else
                                 notMoved.Add(directory.Name);
                         }
 
-                        Properties.Settings.Default.BackupPath = MainWindow.GetText(BackupPath);
+                        Properties.Settings.Default.BackupPath = BackupPath.Text;
                         Properties.Settings.Default.Save();
 
                         if (notMoved.Count > 0)
@@ -112,9 +112,9 @@ namespace MetroParser
             }
         }
 
-        private void BackupPath_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void BackupPath_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(MainWindow.GetText(BackupPath)))
+            if (string.IsNullOrWhiteSpace(BackupPath.Text))
                 Browse_Click(this, null);
         }
 
@@ -136,7 +136,7 @@ namespace MetroParser
                 {
                     if (dialog.FileName[dialog.FileName.Length - 1] != '\\')
                     {
-                        MainWindow.SetText(BackupPath, dialog.FileName + "\\");
+                        BackupPath.Text = dialog.FileName + "\\";
                         validLocation = true;
                     }
                     else
@@ -199,7 +199,7 @@ namespace MetroParser
 
         private void BackupSettings_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (BackUpChatLogAutomatically.IsChecked == true && (string.IsNullOrWhiteSpace(MainWindow.GetText(BackupPath)) || !Directory.Exists(MainWindow.GetText(BackupPath))))
+            if (BackUpChatLogAutomatically.IsChecked == true && (string.IsNullOrWhiteSpace(BackupPath.Text) || !Directory.Exists(BackupPath.Text)))
             {
                 e.Cancel = true;
                 MessageBox.Show(Strings.BadBackupPathSave, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);

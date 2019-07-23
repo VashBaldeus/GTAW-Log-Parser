@@ -108,11 +108,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BackupHandler.cs" />
-    <Compile Include="BackupSettings.xaml.cs">
-      <DependentUpon>BackupSettings.xaml</DependentUpon>
+    <Compile Include="BackupSettingsWindow.xaml.cs">
+      <DependentUpon>BackupSettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ChatLogFilter.xaml.cs">
-      <DependentUpon>ChatLogFilter.xaml</DependentUpon>
+    <Compile Include="ChatLogFilterWindow.xaml.cs">
+      <DependentUpon>ChatLogFilterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="LanguagePickerWindow.xaml.cs">
       <DependentUpon>LanguagePickerWindow.xaml</DependentUpon>
@@ -123,11 +123,11 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="StartupHandler.cs" />
-    <Page Include="BackupSettings.xaml">
+    <Page Include="BackupSettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ChatLogFilter.xaml">
+    <Page Include="ChatLogFilterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

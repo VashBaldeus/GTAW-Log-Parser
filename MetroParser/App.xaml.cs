@@ -45,15 +45,17 @@ namespace MetroParser
             LocalizationManager.Initialize();
             Data.Initialize();
 
-            if (!startMinimizedWithoutTrayIcon)
-            {
-                MainWindow mainWindow = new MainWindow(startMinimized);
-                mainWindow.Show();
-            }
-            else
+            if (startMinimizedWithoutTrayIcon)
             {
                 StartupHandler.Initialize();
                 BackupHandler.Initialize();
+            }
+            else
+            {
+                LanguagePickerWindow languagePicker = new LanguagePickerWindow(MetroParser.Properties.Settings.Default.FirstStart, startMinimized);
+                languagePicker.Show();
+
+                languagePicker.Initialize();
             }
 
             GC.KeepAlive(mutex);

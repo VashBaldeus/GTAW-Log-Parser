@@ -45,15 +45,14 @@ namespace MetroParser
 
             TimeLabel.Content = string.Format(Strings.CurrentTime, DateTime.Now.ToString("HH:mm:ss"));
 
-            MainWindow.SetText(Words, Properties.Settings.Default.FilterNames);
+            Words.Text = Properties.Settings.Default.FilterNames;
             RemoveTimestamps.IsChecked = Properties.Settings.Default.RemoveTimestampsFromFilter;
         }
 
         public void Initialize()
         {
             LoadUnparsed.Focus();
-            MainWindow.SetText(Filtered, string.Empty);
-            ChatLog = string.Empty;
+            Filtered.Text = ChatLog = string.Empty;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -78,7 +77,7 @@ namespace MetroParser
                     if (RemoveTimestamps.IsChecked == true)
                         chatLog = Regex.Replace(chatLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
 
-                    MainWindow.SetText(Filtered, chatLog);
+                    Filtered.Text = chatLog;
                 }
             }
         }
@@ -87,8 +86,7 @@ namespace MetroParser
         {
             try
             {
-                ChatLog = string.Empty;
-                MainWindow.SetText(Filtered, string.Empty);
+                ChatLog = Filtered.Text = string.Empty;
 
                 Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog
                 {
@@ -117,14 +115,13 @@ namespace MetroParser
                         if (RemoveTimestamps.IsChecked == true)
                             chatLog = Regex.Replace(chatLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
 
-                        MainWindow.SetText(Filtered, chatLog);
+                        Filtered.Text = chatLog;
                     }
                 }
             }
             catch
             {
-                ChatLog = string.Empty;
-                MainWindow.SetText(Filtered, string.Empty);
+                ChatLog = Filtered.Text = string.Empty;
 
                 MessageBox.Show(Strings.FilterReadError, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -133,16 +130,16 @@ namespace MetroParser
         private static string previousLog = string.Empty;
         private void RemoveTimestamps_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(MainWindow.GetText(Filtered)))
+            if (string.IsNullOrWhiteSpace(Filtered.Text))
                 return;
 
             if (RemoveTimestamps.IsChecked == true)
             {
-                previousLog = MainWindow.GetText(Filtered);
-                MainWindow.SetText(Filtered, Regex.Replace(previousLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty));
+                previousLog = Filtered.Text;
+                Filtered.Text = Regex.Replace(previousLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
             }
             else if (!string.IsNullOrWhiteSpace(previousLog))
-                MainWindow.SetText(Filtered, previousLog);
+                Filtered.Text = previousLog;
             else
                 TryToFilter(fastFilter: true);
         }
@@ -161,7 +158,7 @@ namespace MetroParser
             }
 
             List<string> wordsToCheck = GetWordsToFilterIn();
-            if (wordsToCheck.Count == 0 && !string.IsNullOrWhiteSpace(MainWindow.GetText(Words)))
+            if (wordsToCheck.Count == 0 && !string.IsNullOrWhiteSpace(Words.Text))
             {
                 MessageBox.Show(Strings.FilterHint, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -200,7 +197,7 @@ namespace MetroParser
                 if (RemoveTimestamps.IsChecked == true)
                     filtered = Regex.Replace(filtered, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
 
-                MainWindow.SetText(Filtered, filtered);
+                Filtered.Text = filtered;
             }
             else
             {
@@ -209,7 +206,7 @@ namespace MetroParser
                 if (RemoveTimestamps.IsChecked == true)
                     logToCheck = Regex.Replace(logToCheck, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
 
-                MainWindow.SetText(Filtered, logToCheck);
+                Filtered.Text = logToCheck;
 
                 if (!fastFilter)
                     MessageBox.Show(Strings.FilterHintNoMatches, Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
@@ -223,7 +220,7 @@ namespace MetroParser
         private List<string> GetWordsToFilterIn()
         {
             skippedWord = false;
-            string words = MainWindow.GetText(Words);
+            string words = Words.Text;
             string[] lines = words.Split('\n');
 
             List<string> finalWords = new List<string>();
@@ -258,7 +255,7 @@ namespace MetroParser
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(MainWindow.GetText(Filtered)))
+                if (string.IsNullOrWhiteSpace(Filtered.Text))
                 {
                     MessageBox.Show(Strings.NothingFiltered, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -274,7 +271,7 @@ namespace MetroParser
                 {
                     using (StreamWriter sw = new StreamWriter(dialog.OpenFile()))
                     {
-                        sw.Write(MainWindow.GetText(Filtered).Replace("\n", Environment.NewLine));
+                        sw.Write(Filtered.Text.Replace("\n", Environment.NewLine));
                     }
                 }
             }
@@ -286,15 +283,15 @@ namespace MetroParser
 
         private void CopyFilteredToClipboard_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(MainWindow.GetText(Filtered)))
+            if (string.IsNullOrWhiteSpace(Filtered.Text))
                 MessageBox.Show(Strings.NothingFiltered, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             else
-                Clipboard.SetText(MainWindow.GetText(Filtered).Replace("\n", Environment.NewLine));
+                Clipboard.SetText(Filtered.Text.Replace("\n", Environment.NewLine));
         }
 
         private void ChatLogFilter_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Properties.Settings.Default.FilterNames = MainWindow.GetText(Words);
+            Properties.Settings.Default.FilterNames = Words.Text;
             Properties.Settings.Default.RemoveTimestampsFromFilter = RemoveTimestamps.IsChecked == true;
 
             Properties.Settings.Default.Save();

@@ -29,11 +29,11 @@
             <Button x:Name="Parse" Click="Parse_Click" Content="Parse" HorizontalAlignment="Left" Margin="303,159,0,0" VerticalAlignment="Top" Width="75"/>
             <Button x:Name="SaveParsed" Click="SaveParsed_Click" Content="Save As" HorizontalAlignment="Left" Margin="383,159,0,0" VerticalAlignment="Top" Width="75"/>
             <Button x:Name="CopyParsedToClipboard" Click="CopyParsedToClipboard_Click" Content="Copy To Clipboard" HorizontalAlignment="Left" Margin="463,159,0,0" VerticalAlignment="Top" Width="161"/>
-            <RichTextBox x:Name="Parsed" TextChanged="Parsed_TextChanged" HorizontalAlignment="Left" Height="76" Margin="303,57,0,0" VerticalAlignment="Top" Width="321" HorizontalScrollBarVisibility="Disabled"/>
             <Button x:Name="Browse" Click="Browse_Click" Content="Browse" HorizontalAlignment="Left" Margin="549,23,0,0" VerticalAlignment="Top" Width="75"/>
-            <RichTextBox x:Name="FolderPath" PreviewMouseLeftButtonUp="FolderPath_PreviewMouseLeftButtonUp" TextChanged="FolderPath_TextChanged" HorizontalAlignment="Left" Height="24" Margin="303,23,0,0" VerticalAlignment="Top" Width="241" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" IsReadOnly="True"/>
             <Label x:Name="StatusLabel" Content="Automatic Backup: OFF" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="298,133,0,0" VerticalAlignment="Top" Width="160"/>
             <Label x:Name="Counter" Content="0 characters and 0 lines" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="463,133,0,0" VerticalAlignment="Top" Width="161"/>
+            <TextBox x:Name="FolderPath" MouseLeftButtonUp="FolderPath_MouseLeftButtonUp" TextChanged="FolderPath_TextChanged" HorizontalAlignment="Left" Height="23" Margin="303,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="241" IsReadOnly="True" VerticalScrollBarVisibility="Disabled"/>
+            <TextBox x:Name="Parsed" TextChanged="Parsed_TextChanged" HorizontalAlignment="Left" Height="79" Margin="303,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321" AcceptsReturn="True"/>
         </Grid>
     </DockPanel>
 </Controls:MetroWindow>
