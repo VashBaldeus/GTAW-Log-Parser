@@ -10,7 +10,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Closing="BackupSettings_Closing"
-        Title="Automatic Backup Settings" Height="250" Width="476" ShowInTaskbar="False" IsMaxRestoreButtonEnabled="False" IsMinButtonEnabled="False" TitleCaps="False" ShowIconOnTitleBar="False" Topmost="True">
+        Title="Automatic Backup Settings" Height="250" Width="476" ShowInTaskbar="False" IsMaxRestoreButtonEnabled="False" IsMinButtonEnabled="False" TitleCaps="False" ShowIconOnTitleBar="False" Topmost="True" Icon="Resources/AppIcon.ico">
     <Grid>
         <Label x:Name="BackupPathLabel" Content="Backup Path:" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top"/>
         <Button x:Name="Browse" Click="Browse_Click" Content="Browse" HorizontalAlignment="Left" Margin="385,36,0,0" VerticalAlignment="Top" Width="75"/>
