@@ -31,6 +31,13 @@ namespace MetroParser
             StartupHandler.Initialize();
 
             InitializeTrayIcon();
+
+            if (startMinimized)
+            {
+                TrayIcon.Visible = true;
+                Visibility = Visibility.Hidden;
+            }
+
             InitializeComponent();
 
             // Also checks for the RAGEMP folder on the first start
@@ -75,12 +82,6 @@ namespace MetroParser
             }
 
             BackupHandler.Initialize();
-
-            if (startMinimized)
-            {
-                TrayIcon.Visible = true;
-                Hide();
-            }
 
             if (Properties.Settings.Default.CheckForUpdatesAutomatically)
                 TryCheckingForUpdates(manual: false);
