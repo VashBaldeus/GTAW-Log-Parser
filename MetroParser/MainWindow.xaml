@@ -17,7 +17,7 @@
             <MenuItem x:Name="CheckForUpdatesToolStripMenuItem" Header="Check For Updates" Click="CheckForUpdatesToolStripMenuItem_Click"/>
             <MenuItem x:Name="AutomaticBackupSettingsToolStripMenuItem" Header="Automatic Backup Settings" Click="AutomaticBackupSettingsToolStripMenuItem_Click"/>
             <MenuItem x:Name="FilterChatLogToolStripMenuItem" Header="Filter Chat Log" Click="FilterChatLogToolStripMenuItem_Click"/>
-            <MenuItem x:Name="LanguageToolStripMenuItem" Header="Language"/>
+            <MenuItem x:Name="LanguageToolStripMenuItem" Header="Server"/>
             <MenuItem x:Name="AboutToolStripMenuItem" Header="About" Click="AboutToolStripMenuItem_Click"/>
             <MenuItem x:Name="ExitToolStripMenuItem" Header="Exit" Click="ExitToolStripMenuItem_Click"/>
         </Menu>

@@ -316,9 +316,9 @@ Would you like to delete these files?
     <value>{0}. (recommended)</value>
   </data>
   <data name="Restart" xml:space="preserve">
-    <value>The parser needs to restart in order to apply the selected language.
+    <value>The parser needs to restart in order to switch to the selected server.
 
-Would you like to apply the language and restart the application now?</value>
+Would you like to apply the changes and restart the application now?</value>
   </data>
   <data name="RestartTitle" xml:space="preserve">
     <value>Restart</value>

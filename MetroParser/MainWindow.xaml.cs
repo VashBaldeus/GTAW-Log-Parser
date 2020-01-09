@@ -112,7 +112,7 @@ namespace MetroParser
                 LookForMainFolder();
 
                 // Warning
-                MessageBox.Show(Strings.LanguageInfo, Strings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
+                //MessageBox.Show(Strings.LanguageInfo, Strings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
                 FolderPath.Text = Properties.Settings.Default.FolderPath;

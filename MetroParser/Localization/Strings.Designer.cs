@@ -601,9 +601,9 @@ namespace MetroParser.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The parser needs to restart in order to apply the selected language.
+        ///   Looks up a localized string similar to The parser needs to restart in order to switch to the selected server.
         ///
-        ///Would you like to apply the language and restart the application now?.
+        ///Would you like to apply the changes and restart the application now?.
         /// </summary>
         internal static string Restart {
             get {
