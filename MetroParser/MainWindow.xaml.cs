@@ -100,9 +100,9 @@ namespace MetroParser
 
         private void LoadSettings()
         {
-            Version.Content = string.Format(Strings.VersionInfo, Properties.Settings.Default.Version);
+            Version.Text = string.Format(Strings.VersionInfo, Properties.Settings.Default.Version);
             StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
-            Counter.Content = string.Format(Strings.CharacterCounter, 0, 0);
+            Counter.Text = string.Format(Strings.CharacterCounter, 0, 0);
 
             if (Properties.Settings.Default.FirstStart)
             {
@@ -326,11 +326,11 @@ namespace MetroParser
 
             if (string.IsNullOrWhiteSpace(Parsed.Text))
             {
-                Counter.Content = string.Format(Strings.CharacterCounter, 0, 0);
+                Counter.Text = string.Format(Strings.CharacterCounter, 0, 0);
                 return;
             }
 
-            Counter.Content= string.Format(Strings.CharacterCounter, Parsed.Text.Length, Parsed.Text.Split('\n').Length);
+            Counter.Text = string.Format(Strings.CharacterCounter, Parsed.Text.Length, Parsed.Text.Split('\n').Length);
         }
 
         private void SaveParsed_Click(object sender, RoutedEventArgs e)
