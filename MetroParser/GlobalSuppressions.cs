@@ -1,0 +1,19 @@
+﻿// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:MetroParser.StartupHandler.TryAddingToStartup(System.Boolean)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:MetroParser.BackupSettingsWindow.BackupPath_TextChanged(System.Object,System.Windows.Controls.TextChangedEventArgs)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:MetroParser.ChatLogFilterWindow.BrowseForParsed_Click(System.Object,System.Windows.RoutedEventArgs)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:MetroParser.StartupHandler.CheckIfLegitimate")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:MetroParser.MainWindow.CheckForUpdates(System.Boolean)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:MetroParser.MainWindow.ParseChatLog(System.String,System.Boolean,System.Boolean)~System.String")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:MetroParser.Data.Initialize")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:MetroParser.MainWindow.LookForMainFolder")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:MetroParser.BackupHandler.ParseThenSaveToFile(System.Boolean)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:MetroParser.StartupHandler.GetParserShortcuts~System.Collections.Generic.List{System.IO.FileInfo}")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:MetroParser.ChatLogFilterWindow.SaveFiltered_Click(System.Object,System.Windows.RoutedEventArgs)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:MetroParser.MainWindow.SaveParsed_Click(System.Object,System.Windows.RoutedEventArgs)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:MetroParser.BackupHandler.SortOldBackups")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:MetroParser.StartupHandler.TryRemovingFromStartup(System.Boolean)")]

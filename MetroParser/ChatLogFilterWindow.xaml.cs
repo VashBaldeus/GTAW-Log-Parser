@@ -21,7 +21,7 @@ namespace MetroParser
             set
             {
                 _chatLog = value;
-                chatLogLoaded = _chatLog != string.Empty;
+                chatLogLoaded = !string.IsNullOrEmpty(_chatLog);
                 loadedFrom = chatLogLoaded ? loadedFrom : LoadedFrom.None;
                 StatusLabel.Content = string.Format(Strings.FilterLogStatus, chatLogLoaded ? "" : Strings.Negation, chatLogLoaded ? string.Format(Strings.LoadedAt, DateTime.Now.ToString("HH:mm:ss")) : "");
                 StatusLabel.Foreground = chatLogLoaded ? Brushes.Green: Brushes.Red;
@@ -64,7 +64,7 @@ namespace MetroParser
         {
             ChatLog = MainWindow.ParseChatLog(Properties.Settings.Default.FolderPath, false, showError: true);
 
-            loadedFrom = ChatLog == string.Empty ? LoadedFrom.None : LoadedFrom.Unparsed;
+            loadedFrom = string.IsNullOrEmpty(ChatLog) ? LoadedFrom.None : LoadedFrom.Unparsed;
 
             if (chatLogLoaded)
             {
@@ -102,7 +102,7 @@ namespace MetroParser
                     }
                 }
 
-                loadedFrom = ChatLog == string.Empty ? LoadedFrom.None : LoadedFrom.Parsed;
+                loadedFrom = string.IsNullOrEmpty(ChatLog) ? LoadedFrom.None : LoadedFrom.Parsed;
 
                 if (chatLogLoaded)
                 {

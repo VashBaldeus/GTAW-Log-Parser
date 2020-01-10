@@ -88,12 +88,10 @@ namespace MetroParser
                         file.Delete();
                 }
             }
-#pragma warning disable CA1031 // Do not catch general exception types
             catch
             {
                 // Silent Exception
             }
-#pragma warning restore CA1031 // Do not catch general exception types
         }
 
         public static void AbortAutomaticBackup()
@@ -227,13 +225,11 @@ namespace MetroParser
                         MessageBox.Show(string.Format(Strings.SuccessfulBackup, path + fileName), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
-#pragma warning disable CA1031 // Do not catch general exception types
             catch
             {
                 if (gameClosed)
                     MessageBox.Show(Strings.BackupError, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
-#pragma warning restore CA1031 // Do not catch general exception types
         }
     }
 }
