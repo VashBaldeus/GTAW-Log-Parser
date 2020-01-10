@@ -18,7 +18,7 @@
         <CheckBox x:Name="BackUpChatLogAutomatically" Checked="BackUpChatLogAutomatically_CheckedChanged" Unchecked="BackUpChatLogAutomatically_CheckedChanged" Content="Parse and back up the chat log automatically (when the game closes)" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="414"/>
         <CheckBox x:Name="EnableIntervalBackup" Checked="EnableIntervalBackup_CheckedChanged" Unchecked="EnableIntervalBackup_CheckedChanged" Content="Back up the chat log automatically while the game is running (every 10 minutes)" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top" Width="450" IsEnabled="False"/>
         <Label x:Name="IntervalLabel1" Content="Back up chat log every" HorizontalAlignment="Left" Margin="5,114,0,0" VerticalAlignment="Top" Width="132"/>
-        <xctk:IntegerUpDown ValueChanged="Interval_ValueChanged" TextAlignment="Center" x:Name="Interval" Margin="137,116,288,79" Maximum="60" Minimum="-1" Value="10" Text="10" IsEnabled="False" />
+        <xctk:IntegerUpDown ValueChanged="Interval_ValueChanged" TextAlignment="Center" x:Name="Interval" Margin="137,116,288,79" Maximum="60" Minimum="1" Value="10" Text="10" IsEnabled="False" />
         <Label x:Name="IntervalLabel2" Content="minutes. (recommended)" HorizontalAlignment="Left" Margin="189,114,0,0" VerticalAlignment="Top" Width="271"/>
         <CheckBox x:Name="RemoveTimestamps" Content="Remove timestamps from backup" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top" Width="450" IsEnabled="False"/>
         <CheckBox x:Name="SuppressNotifications" Content="Suppress successful backup notifications" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" Width="290" IsEnabled="False"/>
