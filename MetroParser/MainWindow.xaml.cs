@@ -467,7 +467,7 @@ namespace MetroParser
             }
 
             backupSettings.LoadSettings();
-            BringToFront(backupSettings);
+            backupSettings.ShowDialog();
         }
 
         private static ChatLogFilterWindow chatLogFilter;
@@ -485,7 +485,7 @@ namespace MetroParser
                 chatLogFilter = new ChatLogFilterWindow();
 
             chatLogFilter.Initialize();
-            BringToFront(chatLogFilter);
+            chatLogFilter.ShowDialog();
         }
 
         private void AboutToolStripMenuItem_Click(object sender, RoutedEventArgs e)
@@ -543,7 +543,7 @@ namespace MetroParser
 
         private void ResumeTrayStripMenuItem_Click(object sender, EventArgs e)
         {
-            BringToFront(this, topMost: false);
+            Show();
             TrayIcon.Visible = false;
         }
 
@@ -553,17 +553,6 @@ namespace MetroParser
                 BackupHandler.quitting = true;
 
             System.Windows.Application.Current.Shutdown();
-        }
-
-        public static void BringToFront(Window window, bool topMost = true)
-        {
-            window.Show();
-            window.WindowState = WindowState.Normal;
-            window.Activate();
-            window.Topmost = true;
-            if (!topMost)
-                window.Topmost = false;
-            window.Focus();
         }
 
         private void InitializeTrayIcon()

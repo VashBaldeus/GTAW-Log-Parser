@@ -8,12 +8,12 @@ namespace MetroParser
 {
     public static class LocalizationManager
     {
-        public enum Language {English, Español};
+        public enum Language {English, Spanish};
 
         private static readonly Dictionary<Language, string> languages = new Dictionary<Language, string>
         {
             { Language.English, "en-US" },
-            { Language.Español, "es-ES" }
+            { Language.Spanish, "es-ES" }
         };
 
         private static string currentLanguage = string.Empty;
