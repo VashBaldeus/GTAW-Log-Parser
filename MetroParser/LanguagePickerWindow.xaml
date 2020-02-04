@@ -10,6 +10,7 @@
         ResizeMode="NoResize"
         Closing="LanguagePicker_Closing"
         WindowTransitionsEnabled="True"
+        GlowBrush="{DynamicResource AccentColorBrush}"
         Title="Server" Height="159" Width="256" IsMaxRestoreButtonEnabled="False" IsMinButtonEnabled="False" ShowIconOnTitleBar="False" TitleCaps="False" Icon="Resources/AppIcon.ico">
     <Grid>
         <Grid.RowDefinitions>

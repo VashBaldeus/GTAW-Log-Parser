@@ -11,6 +11,8 @@
         ResizeMode="NoResize"
         Closing="BackupSettings_Closing"
         WindowTransitionsEnabled="False"
+        BorderThickness="0" 
+        GlowBrush="Black"
         Title="Automatic Backup Settings" Height="250" Width="476" ShowInTaskbar="False" IsMaxRestoreButtonEnabled="False" IsMinButtonEnabled="False" TitleCaps="False" ShowIconOnTitleBar="False" Topmost="True" Icon="Resources/AppIcon.ico">
     <Grid>
         <Label x:Name="BackupPathLabel" Content="Backup Path:" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top"/>

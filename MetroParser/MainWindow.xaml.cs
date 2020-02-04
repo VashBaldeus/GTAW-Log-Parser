@@ -570,5 +570,10 @@ namespace MetroParser
             TrayIcon.ContextMenuStrip.Items.Add("Open", null, ResumeTrayStripMenuItem_Click);
             TrayIcon.ContextMenuStrip.Items.Add("Exit", null, ExitTrayToolStripMenuItem_Click);
         }
+
+        private void GoToGithub_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/MapleToo/GTAW-Log-Parser");
+        }
     }
 }
