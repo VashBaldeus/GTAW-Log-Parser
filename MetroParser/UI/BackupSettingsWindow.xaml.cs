@@ -178,7 +178,7 @@ namespace MetroParser.UI
                 return;
 
             IntervalLabel2.Content = string.Format(Strings.Recommended, Interval.Value > 1 ? Strings.MinutePlural : Strings.MinuteSingular);
-            EnableIntervalBackup.Content= string.Format(Strings.IntervalHint, Interval.Value, Interval.Value > 1 ? Strings.MinutePlural : Strings.MinutePlural);
+            EnableIntervalBackup.Content= string.Format(Strings.IntervalHint, Interval.Value, Interval.Value > 1 ? Strings.MinutePlural : Strings.MinuteSingular);
         }
 
         private void StartWithWindows_CheckedChanged(object sender, RoutedEventArgs e)
