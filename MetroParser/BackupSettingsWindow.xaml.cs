@@ -211,10 +211,7 @@ namespace MetroParser
                 StartupHandler.ToggleStartup(StartWithWindows.IsChecked == true);
 
             SaveSettings();
-
             Hide();
-
-            e.Cancel = true;
         }
     }
 }

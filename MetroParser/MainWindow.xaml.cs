@@ -464,6 +464,11 @@ namespace MetroParser
                         StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
                     }
                 };
+
+                backupSettings.Closing += (s, args) =>
+                {
+                    backupSettings = null;
+                };
             }
 
             backupSettings.LoadSettings();
@@ -482,7 +487,13 @@ namespace MetroParser
             SaveSettings();
 
             if (chatLogFilter == null)
+            {
                 chatLogFilter = new ChatLogFilterWindow();
+                chatLogFilter.Closing += (s, args) =>
+                {
+                    chatLogFilter = null;
+                };
+            }
 
             chatLogFilter.Initialize();
             chatLogFilter.ShowDialog();

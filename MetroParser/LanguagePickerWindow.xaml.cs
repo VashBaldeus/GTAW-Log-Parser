@@ -73,9 +73,7 @@ namespace MetroParser
 
         private void LanguagePicker_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!isStarting)
-                Application.Current.Shutdown();
-            else
+            if (isStarting)
             {
                 ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;
                 startInfo.FileName = Data.ExecutablePath;
@@ -84,6 +82,8 @@ namespace MetroParser
 
                 Application.Current.Shutdown();
             }
+
+            Application.Current.Shutdown();
         }
     }
 }
