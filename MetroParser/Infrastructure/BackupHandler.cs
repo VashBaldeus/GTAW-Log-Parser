@@ -5,8 +5,10 @@ using System.Diagnostics;
 using MetroParser.Localization;
 using System.Windows;
 using System.Text.RegularExpressions;
+using MetroParser.Utils;
+using MetroParser.UI;
 
-namespace MetroParser
+namespace MetroParser.Infrastructure
 {
     public static class BackupHandler
     {

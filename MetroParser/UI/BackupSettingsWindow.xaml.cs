@@ -6,8 +6,9 @@ using MetroParser.Localization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using MetroParser.Infrastructure;
 
-namespace MetroParser
+namespace MetroParser.UI
 {
     /// <summary>
     /// Interaction logic for BackupSettingsWindow.xaml

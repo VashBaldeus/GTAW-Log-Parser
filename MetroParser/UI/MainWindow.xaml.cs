@@ -10,8 +10,11 @@ using System.Windows.Controls;
 using MetroParser.Localization;
 using System.Text.RegularExpressions;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using MetroParser.Infrastructure;
+using MetroParser.Utils;
+using System.Windows.Media;
 
-namespace MetroParser
+namespace MetroParser.UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -21,8 +24,8 @@ namespace MetroParser
         private static System.Windows.Forms.NotifyIcon TrayIcon;
 
         private static readonly GitHubClient client = new GitHubClient(new ProductHeaderValue(Data.ProductHeader));
-        private static Thread updateThread;
-        private readonly bool loading = true;
+        private static bool isUpdateCheckRunning = false;
+        private static bool loading = true;
 
         private bool isRestarting = false;
 
@@ -374,7 +377,7 @@ namespace MetroParser
         private void CheckForUpdatesOnStartup_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (CheckForUpdatesOnStartup.IsChecked == true)
-                TryCheckingForUpdates();
+                TryCheckingForUpdates(manual: false);
         }
 
         private static string previousLog = string.Empty;
@@ -397,13 +400,38 @@ namespace MetroParser
             TryCheckingForUpdates(manual: true);
         }
 
+        private readonly ManualResetEvent _resetEvent = new ManualResetEvent(false);
         private void TryCheckingForUpdates(bool manual = false)
         {
-            if (updateThread == null || !updateThread.IsAlive)
+            if (!isUpdateCheckRunning)
             {
-                updateThread = new Thread(() => CheckForUpdates(manual));
-                updateThread.Start();
+                isUpdateCheckRunning = true;
+                _resetEvent.Reset();
+
+                if (manual)
+                {
+                    UpdateCheckProgress.Visibility = Visibility.Visible;
+                    UpdateCheckProgress.IsActive = true;
+                }
+
+                ThreadPool.QueueUserWorkItem(_ => CheckForUpdates(manual));
+                ThreadPool.QueueUserWorkItem(_ => ResetUpdateCheck());
             }
+        }
+
+        private void ResetUpdateCheck()
+        {
+            _resetEvent.WaitOne();
+            isUpdateCheckRunning = false;
+        }
+
+        private void StopUpdateCheckIndicator()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                UpdateCheckProgress.IsActive = false;
+                UpdateCheckProgress.Visibility = Visibility.Hidden;
+            });
         }
 
         private void CheckForUpdates(bool manual = false)
@@ -418,17 +446,26 @@ namespace MetroParser
                     if (Visibility != Visibility.Visible)
                         ResumeTrayStripMenuItem_Click(this, EventArgs.Empty);
 
+                    StopUpdateCheckIndicator();
                     if (MessageBox.Show(string.Format(Strings.UpdateAvailable, installedVersion, currentVersion), Strings.UpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                         Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases");
                 }
                 else if (manual)
+                {
+                    StopUpdateCheckIndicator();
                     MessageBox.Show(string.Format(Strings.RunningLatest, installedVersion), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
             catch
             {
                 if (manual)
+                {
+                    StopUpdateCheckIndicator();
                     MessageBox.Show(string.Format(Strings.NoInternet, Properties.Settings.Default.Version), Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
+
+            _resetEvent.Set();
         }
 
         private static BackupSettingsWindow backupSettings;
@@ -464,8 +501,7 @@ namespace MetroParser
                         StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
                     }
                 };
-
-                backupSettings.Closing += (s, args) =>
+                backupSettings.Closed += (s, args) =>
                 {
                     backupSettings = null;
                 };
@@ -489,7 +525,7 @@ namespace MetroParser
             if (chatLogFilter == null)
             {
                 chatLogFilter = new ChatLogFilterWindow();
-                chatLogFilter.Closing += (s, args) =>
+                chatLogFilter.Closed += (s, args) =>
                 {
                     chatLogFilter = null;
                 };

@@ -3,8 +3,9 @@ using System.IO;
 using IWshRuntimeLibrary;
 using System.Collections.Generic;
 using System.Windows;
+using MetroParser.Utils;
 
-namespace MetroParser
+namespace MetroParser.Infrastructure
 {
     public static class StartupHandler
     {

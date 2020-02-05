@@ -1,8 +1,10 @@
-﻿using System;
+﻿using MetroParser.Infrastructure;
+using MetroParser.Utils;
+using System;
 using System.Diagnostics;
 using System.Windows;
 
-namespace MetroParser
+namespace MetroParser.UI
 {
     /// <summary>
     /// Interaction logic for LanguagePickerWindow.xaml
@@ -11,7 +13,7 @@ namespace MetroParser
     {
         private readonly System.Windows.Threading.DispatcherTimer Timer;
 
-        public bool isStarting = false;
+        private bool isStarting = false;
         private readonly bool handleListChange = false;
 
         public LanguagePickerWindow()

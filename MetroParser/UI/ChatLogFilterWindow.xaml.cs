@@ -5,8 +5,9 @@ using System.Windows.Media;
 using MetroParser.Localization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using MetroParser.Utils;
 
-namespace MetroParser
+namespace MetroParser.UI
 {
     /// <summary>
     /// Interaction logic for ChatLogFilterWindow.xaml
