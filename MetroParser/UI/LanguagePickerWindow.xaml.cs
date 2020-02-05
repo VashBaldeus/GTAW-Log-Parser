@@ -50,9 +50,6 @@ namespace MetroParser.UI
                 return;
 
             LocalizationManager.SetLanguage((LocalizationManager.Language)LanguageList.SelectedIndex, save: false);
-
-            Title = Localization.Strings.Language;
-            StartButton.Content = Localization.Strings.Start;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
