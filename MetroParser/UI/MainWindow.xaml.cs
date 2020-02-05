@@ -213,6 +213,8 @@ namespace MetroParser.UI
 
         private void Parse_Click(object sender, RoutedEventArgs e)
         {
+            //ToggleControls(enable: false);
+
             Data.Initialize();
 
             if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
@@ -227,6 +229,8 @@ namespace MetroParser.UI
             }
 
             Parsed.Text = ParseChatLog(FolderPath.Text, RemoveTimestamps.IsChecked == true, showError: true);
+            
+            //ToggleControls(enable: true);
         }
 
         public static string ParseChatLog(string folderPath, bool removeTimestamps, bool showError = false)
@@ -399,6 +403,35 @@ namespace MetroParser.UI
                 Parsed.Text = previousLog;
         }
 
+        private void ToggleControls(bool enable = false)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                Parse.IsEnabled = enable;
+                SaveParsed.IsEnabled = enable;
+                CopyParsedToClipboard.IsEnabled = enable;
+                FolderPath.IsEnabled = enable;
+                Browse.IsEnabled = enable;
+                Parsed.IsEnabled = enable;
+                CheckForUpdatesOnStartup.IsEnabled = enable;
+                RemoveTimestamps.IsEnabled = enable;
+                Logo.IsEnabled = enable;
+
+                foreach (MenuItem item in MenuStrip.Items)
+                {
+                    item.IsEnabled = enable;
+                }
+
+                OpenProgramSettings.IsEnabled = enable;
+                OpenProfilePage.IsEnabled = enable;
+                OpenGithubProject.IsEnabled = enable;
+                OpenGithubReleases.IsEnabled = enable;
+                OpenUCP.IsEnabled = enable;
+                OpenFacebrowser.IsEnabled = enable;
+                OpenForums.IsEnabled = enable;
+            });
+        }
+
         private void CheckForUpdatesToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
             TryCheckingForUpdates(manual: true);
@@ -412,29 +445,43 @@ namespace MetroParser.UI
                 isUpdateCheckRunning = true;
                 _resetEvent.Reset();
 
-                if (manual)
-                {
-                    UpdateCheckProgress.Visibility = Visibility.Visible;
-                    UpdateCheckProgress.IsActive = true;
-                }
+                UpdateCheckProgress.Visibility = Visibility.Visible;
+                UpdateCheckProgress.IsActive = true;
+                ToggleControls(enable: false);
 
                 ThreadPool.QueueUserWorkItem(_ => CheckForUpdates(manual));
-                ThreadPool.QueueUserWorkItem(_ => ResetUpdateCheck());
+                ThreadPool.QueueUserWorkItem(_ => FinishUpdateCheck());
             }
         }
 
-        private void ResetUpdateCheck()
+        private void FinishUpdateCheck()
         {
             _resetEvent.WaitOne();
+            
+            ToggleControls(enable: true);
+            StopUpdateIndicator();
+            
             isUpdateCheckRunning = false;
         }
 
-        private void StopUpdateCheckIndicator()
+        private void StopUpdateIndicator()
         {
             Dispatcher.Invoke(() =>
             {
                 UpdateCheckProgress.IsActive = false;
                 UpdateCheckProgress.Visibility = Visibility.Hidden;
+            });
+        }
+
+        private void DisplayUpdateMessage(string text, string title, MessageBoxButton buttons, MessageBoxImage image)
+        {
+            ToggleControls(enable: true);
+            StopUpdateIndicator();
+
+            Dispatcher.Invoke(() =>
+            {
+                if (MessageBox.Show(text, title, buttons, image) == MessageBoxResult.Yes)
+                    Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases");
             });
         }
 
@@ -450,30 +497,22 @@ namespace MetroParser.UI
                     if (Visibility != Visibility.Visible)
                         ResumeTrayStripMenuItem_Click(this, EventArgs.Empty);
 
-                    StopUpdateCheckIndicator();
-                    if (MessageBox.Show(string.Format(Strings.UpdateAvailable, installedVersion, currentVersion), Strings.UpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-                        Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases");
+                    DisplayUpdateMessage(string.Format(Strings.UpdateAvailable, installedVersion, currentVersion), Strings.UpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
                 }
                 else if (manual)
-                {
-                    StopUpdateCheckIndicator();
-                    MessageBox.Show(string.Format(Strings.RunningLatest, installedVersion), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                    DisplayUpdateMessage(string.Format(Strings.RunningLatest, installedVersion), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch
             {
                 if (manual)
-                {
-                    StopUpdateCheckIndicator();
-                    MessageBox.Show(string.Format(Strings.NoInternet, Properties.Settings.Default.Version), Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                    DisplayUpdateMessage(string.Format(Strings.NoInternet, Properties.Settings.Default.Version), Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             _resetEvent.Set();
         }
 
         private static BackupSettingsWindow backupSettings;
-        private void AutomaticBackupSettingsToolStripMenuItem_Click(object sender, RoutedEventArgs e)
+        private void BackupSettingsToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
             {
@@ -624,9 +663,41 @@ namespace MetroParser.UI
             TrayIcon.ContextMenuStrip.Items.Add("Exit", null, ExitTrayToolStripMenuItem_Click);
         }
 
-        private void GoToGithub_Click(object sender, RoutedEventArgs e)
+        private void OpenProgramSettings_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://github.com/MapleToo/GTAW-Log-Parser");
+            // TODO
+            // Theming
+            // Supress message boxes
+        }
+
+        private void OpenProfilePage_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://forum.gta.world/en/index.php?/profile/4751-maple/");
+        }
+
+        private void OpenGithubProject_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/");
+        }
+
+        private void OpenGithubReleases_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases/");
+        }
+
+        private void OpenUCP_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/");
+        }
+
+        private void OpenFacebrowser_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://face.gta.world/");
+        }
+
+        private void OpenForums_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://forum.gta.world/en/");
         }
     }
 }

@@ -23,17 +23,48 @@
                                    IsActive="False"
                                    Visibility="Hidden"/>
 
-            <Button x:Name="GoToGithub"
-                    Click="GoToGithub_Click"
-                    Content="{iconPacks:Modern SocialGithubOctocat, Width=22, Height=22}"
-                    ToolTip="GTAW-Log-Parser on GitHub" />
+            <Button x:Name="OpenProgramSettings"
+                    Click="OpenProgramSettings_Click"
+                    Content="{iconPacks:Material Settings, Width=18, Height=18}"
+                    ToolTip="Open the program settings window" />
+
+            <Button x:Name="OpenProfilePage"
+                    Click="OpenProfilePage_Click"
+                    Content="{iconPacks:Material Heart, Width=18, Height=18}"
+                    ToolTip="Open Maple's profile on the GTA World forums" />
+
+            <Button x:Name="OpenGithubProject"
+                    Click="OpenGithubProject_Click"
+                    Content="{iconPacks:Material GithubFace, Width=20, Height=20}"
+                    ToolTip="Open the project page on GitHub" />
+
+            <Button x:Name="OpenGithubReleases"
+                    Click="OpenGithubReleases_Click"
+                    Content="{iconPacks:Material Download, Width=16, Height=16}"
+                    ToolTip="Open the releases page on GitHub" />
+
+            <Button x:Name="OpenUCP"
+                    Click="OpenUCP_Click"
+                    Content="{iconPacks:Material CardBulletedOutline, Width=20, Height=20}"
+                    ToolTip="Open the GTA World UCP" />
+
+            <Button x:Name="OpenFacebrowser"
+                    Click="OpenFacebrowser_Click"
+                    Content="{iconPacks:Material FacebookBox, Width=16, Height=16}"
+                    ToolTip="Open Facebrowser" />
+
+            <Button x:Name="OpenForums"
+                    Click="OpenForums_Click"
+                    Content="{iconPacks:Material Web, Width=18, Height=18}"
+                    ToolTip="Open the GTA World forums" />
+            
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
 
     <DockPanel>
         <Menu x:Name="MenuStrip" DockPanel.Dock="Top">
             <MenuItem x:Name="CheckForUpdatesToolStripMenuItem" Header="Check For Updates" Click="CheckForUpdatesToolStripMenuItem_Click"/>
-            <MenuItem x:Name="AutomaticBackupSettingsToolStripMenuItem" Header="Backup Settings" Click="AutomaticBackupSettingsToolStripMenuItem_Click"/>
+            <MenuItem x:Name="BackupSettingsToolStripMenuItem" Header="Backup Settings" Click="BackupSettingsToolStripMenuItem_Click"/>
             <MenuItem x:Name="FilterChatLogToolStripMenuItem" Header="Filter Chat Log" Click="FilterChatLogToolStripMenuItem_Click"/>
             <MenuItem x:Name="LanguageToolStripMenuItem" Header="Change Server"/>
             <MenuItem x:Name="AboutToolStripMenuItem" Header="About" Click="AboutToolStripMenuItem_Click"/>
