@@ -12,7 +12,6 @@ using System.Text.RegularExpressions;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using MetroParser.Infrastructure;
 using MetroParser.Utils;
-using System.Windows.Media;
 
 namespace MetroParser.UI
 {
@@ -537,8 +536,10 @@ namespace MetroParser.UI
 
         private void AboutToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show(string.Format(Strings.About, Properties.Settings.Default.Version), Strings.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-                Process.Start("https://github.com/MapleToo/GTAW-Log-Parser");
+            MessageBox.Show(string.Format(Strings.About, Properties.Settings.Default.Version, LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+            
+            //if (MessageBox.Show(string.Format(Strings.About, Properties.Settings.Default.Version, LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+            //    Process.Start("https://github.com/MapleToo/GTAW-Log-Parser");
         }
 
         private void ExitToolStripMenuItem_Click(object sender, RoutedEventArgs e)
@@ -548,8 +549,8 @@ namespace MetroParser.UI
 
         private void Logo_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (MessageBox.Show(Strings.OpenDocumentation, Strings.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-                Process.Start(Strings.ForumLink);
+            //if (MessageBox.Show(Strings.OpenDocumentation, Strings.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+            //    Process.Start(Strings.ForumLink);
         }
 
         private void Main_Closing(object sender, System.ComponentModel.CancelEventArgs e)

@@ -64,8 +64,9 @@ namespace MetroParser.Localization {
         ///   Looks up a localized string similar to Chat Log Parser created by Maple for GTA World.
         ///
         ///Installed Version: {0}
-        ///
-        ///Would you like to visit the repository page on GitHub?.
+        ///Server: {1}
+        ///Primary server IP: {2}
+        ///Secondary server IP: {3}.
         /// </summary>
         internal static string About {
             get {

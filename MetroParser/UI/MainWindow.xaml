@@ -7,12 +7,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MetroParser.UI"
         mc:Ignorable="d"
-        ResizeMode="NoResize"
+        ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen"
         Closing="Main_Closing"
         WindowTransitionsEnabled="True"
         GlowBrush="{DynamicResource AccentColorBrush}"
-        Title="GTA World Chat Log Parser" Height="260" Width="638" IsMaxRestoreButtonEnabled="False" IsMinButtonEnabled="False" TitleCaps="False" ShowIconOnTitleBar="False" Icon="../Resources/AppIcon.ico">
+        Title="GTA World Chat Log Parser" Height="260" Width="638" IsMaxRestoreButtonEnabled="False" IsMinButtonEnabled="True" TitleCaps="False" ShowIconOnTitleBar="False" Icon="../Resources/AppIcon.ico">
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
@@ -35,9 +35,9 @@
             <MenuItem x:Name="CheckForUpdatesToolStripMenuItem" Header="Check For Updates" Click="CheckForUpdatesToolStripMenuItem_Click"/>
             <MenuItem x:Name="AutomaticBackupSettingsToolStripMenuItem" Header="Automatic Backup Settings" Click="AutomaticBackupSettingsToolStripMenuItem_Click"/>
             <MenuItem x:Name="FilterChatLogToolStripMenuItem" Header="Filter Chat Log" Click="FilterChatLogToolStripMenuItem_Click"/>
-            <MenuItem x:Name="LanguageToolStripMenuItem" Header="Server"/>
+            <MenuItem x:Name="LanguageToolStripMenuItem" Header="Change Server"/>
             <MenuItem x:Name="AboutToolStripMenuItem" Header="About" Click="AboutToolStripMenuItem_Click"/>
-            <MenuItem x:Name="ExitToolStripMenuItem" Header="Exit" Click="ExitToolStripMenuItem_Click"/>
+            <MenuItem x:Name="ExitToolStripMenuItem" Header="Exit" Visibility="Hidden" Click="ExitToolStripMenuItem_Click"/>
         </Menu>
         <Grid>
             <Image x:Name="Logo" HorizontalAlignment="Left" Height="140" VerticalAlignment="Top" Width="288" Source="../Resources/Logo.png" Margin="10,0,0,0" Stretch="Fill" MouseLeftButtonUp="Logo_MouseLeftButtonUp"/>
