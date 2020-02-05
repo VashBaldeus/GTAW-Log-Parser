@@ -687,7 +687,7 @@ namespace MetroParser.UI
 
         private void OpenUCP_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/");
+            Process.Start("https://ucp.gta.world/");
         }
 
         private void OpenFacebrowser_Click(object sender, RoutedEventArgs e)
