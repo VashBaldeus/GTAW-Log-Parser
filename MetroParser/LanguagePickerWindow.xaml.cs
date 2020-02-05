@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 
 namespace MetroParser
@@ -13,47 +14,28 @@ namespace MetroParser
         public bool isStarting = false;
         private readonly bool handleListChange = false;
 
-        private readonly bool firstStart = true;
-        private readonly bool startMinimized = false;
-
-        public LanguagePickerWindow(bool firstStart = true, bool startMinimized = false)
+        public LanguagePickerWindow()
         {
-            this.firstStart = firstStart;
-            this.startMinimized = startMinimized;
-
             InitializeComponent();
 
-            if (firstStart)
-            {
-                Timer = new System.Windows.Threading.DispatcherTimer();
-                Timer.Tick += Timer_Tick;
-                Timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
-                Timer.Start();
+            Timer = new System.Windows.Threading.DispatcherTimer();
+            Timer.Tick += Timer_Tick;
+            Timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
+            Timer.Start();
 
-                foreach (LocalizationManager.Language language in (LocalizationManager.Language[])Enum.GetValues(typeof(LocalizationManager.Language)))
-                    LanguageList.Items.Add(language.ToString());
+            foreach (LocalizationManager.Language language in (LocalizationManager.Language[])Enum.GetValues(typeof(LocalizationManager.Language)))
+                LanguageList.Items.Add(language.ToString());
 
-                LanguageList.SelectedIndex = 0;
-                handleListChange = true;
+            LanguageList.SelectedIndex = 0;
+            handleListChange = true;
 
-                StartButton.Focus();
-            }
-            else
-                Hide();
-        }
-
-        public void Initialize()
-        {
-            if (!firstStart)
-            {
-                isStarting = true;
-                Close();
-            }
+            StartButton.Focus();
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.LanguageCode = LocalizationManager.GetLanguage();
+            Properties.Settings.Default.HasPickedLanguage = true;
             Properties.Settings.Default.Save();
 
             isStarting = true;
@@ -95,9 +77,12 @@ namespace MetroParser
                 Application.Current.Shutdown();
             else
             {
-                Hide();
-                MainWindow mainWindow = new MainWindow(startMinimized: startMinimized);
-                mainWindow.Show();
+                ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;
+                startInfo.FileName = Data.ExecutablePath;
+                startInfo.Arguments = $"{Data.ParameterPrefix}restart";
+                Process.Start(startInfo);
+
+                Application.Current.Shutdown();
             }
         }
     }

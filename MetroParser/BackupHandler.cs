@@ -165,6 +165,8 @@ namespace MetroParser
         {
             try
             {
+                Data.Initialize();
+
                 string parsed = MainWindow.ParseChatLog(folderPath, Properties.Settings.Default.RemoveTimestampsFromBackup, showError: gameClosed);
                 if (string.IsNullOrWhiteSpace(parsed))
                     return;

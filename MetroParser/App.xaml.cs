@@ -52,10 +52,16 @@ namespace MetroParser
             }
             else
             {
-                LanguagePickerWindow languagePicker = new LanguagePickerWindow(MetroParser.Properties.Settings.Default.FirstStart, startMinimized);
-                languagePicker.Show();
-
-                languagePicker.Initialize();
+                if (!MetroParser.Properties.Settings.Default.HasPickedLanguage)
+                {
+                    LanguagePickerWindow languagePicker = new LanguagePickerWindow();
+                    languagePicker.Show();
+                }
+                else
+                {
+                    MainWindow mainWindow = new MainWindow(startMinimized: startMinimized);
+                    mainWindow.Show();
+                }
             }
 
             GC.KeepAlive(mutex);

@@ -207,6 +207,8 @@ namespace MetroParser
 
         private void Parse_Click(object sender, RoutedEventArgs e)
         {
+            Data.Initialize();
+
             if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
             {
                 MessageBox.Show(Strings.InvalidFolderPath, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -225,8 +227,6 @@ namespace MetroParser
         {
             try
             {
-                Data.Initialize();
-
                 string log;
                 using (StreamReader sr = new StreamReader(folderPath + Data.LogLocation))
                 {

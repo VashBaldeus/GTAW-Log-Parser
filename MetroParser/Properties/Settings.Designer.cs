@@ -199,5 +199,17 @@ namespace MetroParser.Properties {
                 this["LanguageCode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool HasPickedLanguage {
+            get {
+                return ((bool)(this["HasPickedLanguage"]));
+            }
+            set {
+                this["HasPickedLanguage"] = value;
+            }
+        }
     }
 }

@@ -62,6 +62,7 @@ namespace MetroParser
 
         private void LoadUnparsed_Click(object sender, RoutedEventArgs e)
         {
+            Data.Initialize();
             ChatLog = MainWindow.ParseChatLog(Properties.Settings.Default.FolderPath, false, showError: true);
 
             loadedFrom = string.IsNullOrEmpty(ChatLog) ? LoadedFrom.None : LoadedFrom.Unparsed;
