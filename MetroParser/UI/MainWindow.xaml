@@ -12,7 +12,7 @@
         Closing="Main_Closing"
         WindowTransitionsEnabled="True"
         GlowBrush="{DynamicResource AccentColorBrush}"
-        Title="GTA World Chat Log Parser" Height="260" Width="638" IsMaxRestoreButtonEnabled="False" IsMinButtonEnabled="False" TitleCaps="False" ShowIconOnTitleBar="False" Icon="Resources/AppIcon.ico">
+        Title="GTA World Chat Log Parser" Height="260" Width="638" IsMaxRestoreButtonEnabled="False" IsMinButtonEnabled="False" TitleCaps="False" ShowIconOnTitleBar="False" Icon="../Resources/AppIcon.ico">
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
@@ -33,7 +33,7 @@
             <MenuItem x:Name="ExitToolStripMenuItem" Header="Exit" Click="ExitToolStripMenuItem_Click"/>
         </Menu>
         <Grid>
-            <Image x:Name="Logo" HorizontalAlignment="Left" Height="140" VerticalAlignment="Top" Width="288" Source="Resources/Logo.png" Margin="10,0,0,0" Stretch="Fill" MouseLeftButtonUp="Logo_MouseLeftButtonUp"/>
+            <Image x:Name="Logo" HorizontalAlignment="Left" Height="140" VerticalAlignment="Top" Width="288" Source="../Resources/Logo.png" Margin="10,0,0,0" Stretch="Fill" MouseLeftButtonUp="Logo_MouseLeftButtonUp"/>
             <CheckBox x:Name="CheckForUpdatesOnStartup" Checked="CheckForUpdatesOnStartup_CheckedChanged" Unchecked="CheckForUpdatesOnStartup_CheckedChanged" Content="Check for updates automatically" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top" Width="288"/>
             <CheckBox x:Name="RemoveTimestamps" Checked="RemoveTimestamps_CheckedChanged" Unchecked="RemoveTimestamps_CheckedChanged" Content="Remove timestamps" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" Width="288"/>
             <Label x:Name="PathLabel" Content="RAGEMP Folder:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="298,0,0,0" VerticalAlignment="Top"/>

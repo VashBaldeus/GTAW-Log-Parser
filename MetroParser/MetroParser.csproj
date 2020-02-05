@@ -173,15 +173,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BackupHandler.cs" />
-    <Compile Include="BackupSettingsWindow.xaml.cs">
+    <Compile Include="Infrastructure\BackupHandler.cs" />
+    <Compile Include="UI\BackupSettingsWindow.xaml.cs">
       <DependentUpon>BackupSettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ChatLogFilterWindow.xaml.cs">
+    <Compile Include="UI\ChatLogFilterWindow.xaml.cs">
       <DependentUpon>ChatLogFilterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="LanguagePickerWindow.xaml.cs">
+    <Compile Include="UI\LanguagePickerWindow.xaml.cs">
       <DependentUpon>LanguagePickerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Localization\Strings.Designer.cs">
@@ -189,20 +189,20 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="StartupHandler.cs" />
-    <Page Include="BackupSettingsWindow.xaml">
+    <Compile Include="Infrastructure\StartupHandler.cs" />
+    <Page Include="UI\BackupSettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ChatLogFilterWindow.xaml">
+    <Page Include="UI\ChatLogFilterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LanguagePickerWindow.xaml">
+    <Page Include="UI\LanguagePickerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="UI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -210,9 +210,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data.cs" />
-    <Compile Include="LocalizationManager.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Utils\Data.cs" />
+    <Compile Include="Infrastructure\LocalizationManager.cs" />
+    <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -239,10 +239,8 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="FodyWeavers.xsd">
       <SubType>Designer</SubType>
-    </None>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
