@@ -25,7 +25,7 @@ namespace MetroParser.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3.1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3.1.1")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -209,6 +209,18 @@ namespace MetroParser.Properties {
             }
             set {
                 this["HasPickedLanguage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastParsedHash {
+            get {
+                return ((string)(this["LastParsedHash"]));
+            }
+            set {
+                this["LastParsedHash"] = value;
             }
         }
     }

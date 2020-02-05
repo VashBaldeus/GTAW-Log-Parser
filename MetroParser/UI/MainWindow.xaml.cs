@@ -45,6 +45,17 @@ namespace MetroParser.UI
             // Also checks for the RAGEMP folder on the first start
             LoadSettings();
 
+            SetupServerList();
+            BackupHandler.Initialize();
+
+            if (Properties.Settings.Default.CheckForUpdatesAutomatically)
+                TryCheckingForUpdates(manual: false);
+
+            loading = false;
+        }
+
+        private void SetupServerList()
+        {
             string currentLanguage = LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage());
             for (int i = 0; i < ((LocalizationManager.Language[])Enum.GetValues(typeof(LocalizationManager.Language))).Length; ++i)
             {
@@ -82,13 +93,6 @@ namespace MetroParser.UI
                 if (currentLanguage == language.ToString())
                     menuItem.IsChecked = true;
             }
-
-            BackupHandler.Initialize();
-
-            if (Properties.Settings.Default.CheckForUpdatesAutomatically)
-                TryCheckingForUpdates(manual: false);
-
-            loading = false;
         }
 
         private void SaveSettings()
@@ -305,6 +309,7 @@ namespace MetroParser.UI
                 log = log.TrimEnd(new char[] { '\r', '\n' });   // Remove the `new line` characters from the end
 
                 previousLog = log;
+                Crypto.SaveParsedHash(log);
 
                 if (removeTimestamps)
                     log = Regex.Replace(log, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);

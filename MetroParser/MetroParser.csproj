@@ -146,6 +146,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Utils\Crypto.cs" />
     <Compile Include="Utils\Data.cs" />
     <Compile Include="Infrastructure\LocalizationManager.cs" />
     <Compile Include="UI\MainWindow.xaml.cs">

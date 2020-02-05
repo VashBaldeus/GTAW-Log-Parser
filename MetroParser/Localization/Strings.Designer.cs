@@ -65,6 +65,7 @@ namespace MetroParser.Localization {
         ///
         ///Installed Version: {0}
         ///Server: {1}
+        ///
         ///Primary server IP: {2}
         ///Secondary server IP: {3}.
         /// </summary>
