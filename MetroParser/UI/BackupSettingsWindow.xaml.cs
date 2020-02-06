@@ -57,7 +57,7 @@ namespace MetroParser.UI
             StartWithWindows.IsChecked = Properties.Settings.Default.StartWithWindows;
             SuppressNotifications.IsChecked = Properties.Settings.Default.SuppressNotifications;
 
-            Interval.Foreground = Properties.Settings.Default.DarkMode ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
+            Interval.Foreground = StyleManager.DarkMode ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
         }
 
         public static void ResetSettings()

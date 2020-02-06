@@ -113,7 +113,7 @@ namespace MetroParser.UI
             OpenGithubReleases.Visibility = Properties.Settings.Default.DisableReleasesButton ? Visibility.Collapsed : Visibility.Visible;
             OpenGithubProject.Visibility = Properties.Settings.Default.DisableProjectButton ? Visibility.Collapsed : Visibility.Visible;
             OpenProfilePage.Visibility = Properties.Settings.Default.DisableProfileButton ? Visibility.Collapsed : Visibility.Visible;
-            UpdateCheckProgress.Foreground = Properties.Settings.Default.DarkMode ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
+            UpdateCheckProgress.Foreground = StyleManager.DarkMode ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
 
             Version.Text = string.Format(Strings.VersionInfo, Properties.Settings.Default.Version);
             StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);

@@ -9,7 +9,18 @@ namespace MetroParser.Infrastructure
 {
     public static class StyleManager
     {
-        public const string DefaultStyle = "Amber";
+        public const string DefaultLightStyle = "Amber";
+        public const string DefaultDarkStyle = "Amber";
+        public static bool DarkMode
+        {
+            get { return Properties.Settings.Default.DarkMode; }
+            set
+            {
+                Properties.Settings.Default.DarkMode = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
         public static readonly List<string> ValidStyles = new List<string>
         {
             "Default",
@@ -41,16 +52,16 @@ namespace MetroParser.Infrastructure
         public static string GetValidStyle(string style)
         {
             if (style.ToLower() == "default")
-                return DefaultStyle;
+                return DarkMode ? DefaultDarkStyle : DefaultLightStyle;
 
-            return ValidStyles.Contains(style) ? style : DefaultStyle;
+            return ValidStyles.Contains(style) ? style : (DarkMode ? DefaultDarkStyle : DefaultLightStyle);
         }
 
         public static void UpdateTheme()
         {
             ThemeManager.ChangeAppStyle(System.Windows.Application.Current,
                                         ThemeManager.GetAccent(GetValidStyle(Properties.Settings.Default.Theme)),
-                                        ThemeManager.GetAppTheme(Properties.Settings.Default.DarkMode ? "BaseDark" : "BaseLight"));
+                                        ThemeManager.GetAppTheme(DarkMode ? "BaseDark" : "BaseLight"));
         }
     }
 }

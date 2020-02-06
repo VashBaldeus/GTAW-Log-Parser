@@ -24,9 +24,26 @@ namespace MetroParser
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            if (!MetroParser.Properties.Settings.Default.HasPickedLanguage)
+            {
+                bool darkMode = false;
+                try
+                {
+                    var v = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", "1");
+                    if (v != null && v.ToString() == "0")
+                        darkMode = true;
+                }
+                catch
+                {
+                    // Silent exception
+                }
+
+                StyleManager.DarkMode = darkMode;
+            }
+
             ThemeManager.ChangeAppStyle(Current,
                                         ThemeManager.GetAccent(StyleManager.GetValidStyle(MetroParser.Properties.Settings.Default.Theme)),
-                                        ThemeManager.GetAppTheme(MetroParser.Properties.Settings.Default.DarkMode ? "BaseDark" : "BaseLight"));
+                                        ThemeManager.GetAppTheme(StyleManager.DarkMode ? "BaseDark" : "BaseLight"));
 
             base.OnStartup(e);
         }

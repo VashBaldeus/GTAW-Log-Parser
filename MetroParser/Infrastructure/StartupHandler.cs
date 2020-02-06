@@ -83,7 +83,7 @@ namespace MetroParser.Infrastructure
             }
             catch
             {
-                // Silent Exception
+                // Silent exception
             }
         }
 

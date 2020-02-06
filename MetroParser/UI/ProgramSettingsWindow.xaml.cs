@@ -37,7 +37,7 @@ namespace MetroParser.UI
             Properties.Settings.Default.DisableWarningPopups = DisableWarningPopups.IsChecked == true;
             Properties.Settings.Default.DisableErrorPopups = DisableErrorPopups.IsChecked == true;
 
-            Properties.Settings.Default.DarkMode = ToggleDarkMode.IsChecked == true;
+            Infrastructure.StyleManager.DarkMode = ToggleDarkMode.IsChecked == true;
             Properties.Settings.Default.Theme = Themes.SelectedItem.ToString();
 
             Properties.Settings.Default.Save();
@@ -57,7 +57,7 @@ namespace MetroParser.UI
             DisableWarningPopups.IsChecked = Properties.Settings.Default.DisableWarningPopups;
             DisableErrorPopups.IsChecked = Properties.Settings.Default.DisableErrorPopups;
 
-            ToggleDarkMode.IsChecked = Properties.Settings.Default.DarkMode;
+            ToggleDarkMode.IsChecked = Infrastructure.StyleManager.DarkMode;
             Timeout.Foreground = _mainWindow.UpdateCheckProgress.Foreground = ToggleDarkMode.IsChecked == true ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
 
             Themes.Items.Clear();
@@ -82,8 +82,8 @@ namespace MetroParser.UI
             Properties.Settings.Default.DisableWarningPopups = false;
             Properties.Settings.Default.DisableErrorPopups = false;
 
-            Properties.Settings.Default.DarkMode = false;
-            Properties.Settings.Default.Theme = Infrastructure.StyleManager.DefaultStyle;
+            Infrastructure.StyleManager.DarkMode = false;
+            Properties.Settings.Default.Theme = Infrastructure.StyleManager.DefaultLightStyle;
 
             Properties.Settings.Default.Save();
         }
@@ -143,7 +143,7 @@ namespace MetroParser.UI
 
         private void ToggleDarkMode_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.DarkMode = ToggleDarkMode.IsChecked == true;
+            Infrastructure.StyleManager.DarkMode = ToggleDarkMode.IsChecked == true;
             Properties.Settings.Default.Save();
 
             Infrastructure.StyleManager.UpdateTheme();
