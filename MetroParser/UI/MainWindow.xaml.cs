@@ -24,6 +24,7 @@ namespace MetroParser.UI
 
         private static GitHubClient client = new GitHubClient(new ProductHeaderValue(Data.ProductHeader));
         private static bool isUpdateCheckRunning = false;
+        private static bool isUpdateCheckManual = false;
         private static bool loading = true;
 
         private bool isRestarting = false;
@@ -461,10 +462,18 @@ namespace MetroParser.UI
 
                 UpdateCheckProgress.Visibility = Visibility.Visible;
                 UpdateCheckProgress.IsActive = true;
-                ToggleControls(enable: false);
 
-                ThreadPool.QueueUserWorkItem(_ => CheckForUpdates(manual));
+                if (manual)
+                    ToggleControls(enable: false);
+
+                isUpdateCheckManual = manual;
+                ThreadPool.QueueUserWorkItem(_ => CheckForUpdates(ref isUpdateCheckManual));
                 ThreadPool.QueueUserWorkItem(_ => FinishUpdateCheck());
+            }
+            else if (manual)
+            {
+                isUpdateCheckManual = true;
+                ToggleControls(enable: false);
             }
         }
 
@@ -499,7 +508,7 @@ namespace MetroParser.UI
             });
         }
 
-        private void CheckForUpdates(bool manual = false)
+        private void CheckForUpdates(ref bool manual)
         {
             try
             {

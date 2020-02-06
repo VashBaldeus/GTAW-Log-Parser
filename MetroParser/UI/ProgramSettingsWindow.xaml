@@ -26,8 +26,8 @@
         <Button x:Name="CloseWindow" Click="CloseWindow_Click" Content="Close" HorizontalAlignment="Left" Margin="430,235,0,0" VerticalAlignment="Top" Width="75"/>
         <Button x:Name="Reset" Click="Reset_Click" Content="Reset" HorizontalAlignment="Left" Margin="350,235,0,0" VerticalAlignment="Top" Width="75"/>
 
-        <Label x:Name="TimeoutLabel1" Content="Stop checking for updates after " HorizontalAlignment="Left" Margin="230,107,0,0" VerticalAlignment="Top" Width="177"/>
-        <xctk:IntegerUpDown ValueChanged="Timeout_ValueChanged" TextAlignment="Center" x:Name="Timeout" Margin="410,108,0,0" Maximum="60" Minimum="1" Value="4" Text="4" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="45" />
+        <Label x:Name="TimeoutLabel1" Content="Abort checking for updates after " HorizontalAlignment="Left" Margin="230,107,0,0" VerticalAlignment="Top" Width="195"/>
+        <xctk:IntegerUpDown ValueChanged="Timeout_ValueChanged" TextAlignment="Center" x:Name="Timeout" Margin="413,108,0,0" Maximum="60" Minimum="1" Value="4" Text="4" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="45" />
         <Label x:Name="TimeoutLabel2" Content="seconds." HorizontalAlignment="Left" Margin="459,107,0,0" VerticalAlignment="Top" Width="57"/>
         <Label Content="Title Bar" HorizontalAlignment="Left" Margin="4,10,0,0" VerticalAlignment="Top" FontSize="14"/>
         <Label Content="Other" HorizontalAlignment="Left" Margin="229,10,0,0" VerticalAlignment="Top" FontSize="14"/>

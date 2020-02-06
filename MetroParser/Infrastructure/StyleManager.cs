@@ -1,16 +1,13 @@
 ﻿using MahApps.Metro;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MetroParser.Infrastructure
 {
     public static class StyleManager
     {
         public const string DefaultLightStyle = "Amber";
-        public const string DefaultDarkStyle = "Amber";
+        public const string DefaultDarkStyle = "Steel";
         public static bool DarkMode
         {
             get { return Properties.Settings.Default.DarkMode; }
