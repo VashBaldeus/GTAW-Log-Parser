@@ -110,6 +110,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Infrastructure\BackupHandler.cs" />
+    <Compile Include="Infrastructure\StyleManager.cs" />
+    <Compile Include="UI\ProgramSettingsWindow.xaml.cs">
+      <DependentUpon>ProgramSettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\BackupSettingsWindow.xaml.cs">
       <DependentUpon>BackupSettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -126,6 +130,10 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Infrastructure\StartupHandler.cs" />
+    <Page Include="UI\ProgramSettingsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\BackupSettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

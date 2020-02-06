@@ -1,0 +1,43 @@
+﻿<Controls:MetroWindow x:Name="ProgramSettings" x:Class="MetroParser.UI.ProgramSettingsWindow"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:local="clr-namespace:MetroParser.UI"
+                      mc:Ignorable="d"
+                      WindowStartupLocation="Manual"
+                      ResizeMode="NoResize"
+                      Closing="ProgramSettings_Closing"
+                      WindowTransitionsEnabled="True"
+                      BorderThickness="0" 
+                      GlowBrush="Black"
+                      Title="Program Settings" Height="308" Width="520" ShowInTaskbar="False" IsMaxRestoreButtonEnabled="False" IsMinButtonEnabled="False" TitleCaps="False" ShowIconOnTitleBar="False" Topmost="True" Icon="../Resources/AppIcon.ico">
+
+    <Grid>
+        <CheckBox x:Name="DisableForumsButton" Checked="DisableForumsButton_CheckedChanged" Unchecked="DisableForumsButton_CheckedChanged" Content="Disable the forums icon" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="193"/>
+        <CheckBox x:Name="DisableFacebrowserButton" Checked="DisableFacebrowserButton_CheckedChanged" Unchecked="DisableFacebrowserButton_CheckedChanged" Content="Disable the Facebrowser icon" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top" Width="193"/>
+        <CheckBox x:Name="DisableUCPButton" Checked="DisableUCPButton_CheckedChanged" Unchecked="DisableUCPButton_CheckedChanged" Content="Disable the UCP icon" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="193"/>
+        <CheckBox x:Name="DisableReleasesButton" Checked="DisableReleasesButton_CheckedChanged" Unchecked="DisableReleasesButton_CheckedChanged" Content="Disable the releases page icon" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top" Width="193"/>
+        <CheckBox x:Name="DisableProjectButton" Checked="DisableProjectButton_CheckedChanged" Unchecked="DisableProjectButton_CheckedChanged" Content="Disable the project page icon" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Width="193"/>
+        <CheckBox x:Name="DisableProfileButton" Checked="DisableProfileButton_CheckedChanged" Unchecked="DisableProfileButton_CheckedChanged" Content="Disable Maple's profile icon" HorizontalAlignment="Left" Margin="10,153,0,0" VerticalAlignment="Top" Width="193"/>
+
+        <Button x:Name="CloseWindow" Click="CloseWindow_Click" Content="Close" HorizontalAlignment="Left" Margin="430,235,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="Reset" Click="Reset_Click" Content="Reset" HorizontalAlignment="Left" Margin="350,235,0,0" VerticalAlignment="Top" Width="75"/>
+
+        <Label x:Name="TimeoutLabel1" Content="Stop checking for updates after " HorizontalAlignment="Left" Margin="230,107,0,0" VerticalAlignment="Top" Width="177"/>
+        <xctk:IntegerUpDown ValueChanged="Timeout_ValueChanged" TextAlignment="Center" x:Name="Timeout" Margin="410,108,0,0" Maximum="60" Minimum="1" Value="4" Text="4" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="45" />
+        <Label x:Name="TimeoutLabel2" Content="seconds." HorizontalAlignment="Left" Margin="459,107,0,0" VerticalAlignment="Top" Width="57"/>
+        <Label Content="Title Bar" HorizontalAlignment="Left" Margin="4,10,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label Content="Other" HorizontalAlignment="Left" Margin="229,10,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <CheckBox x:Name="DisableInformationPopups" Checked="DisableInformationPopups_CheckedChanged" Unchecked="DisableInformationPopups_CheckedChanged" Content="Disable most Information popups" HorizontalAlignment="Left" Margin="235,38,0,0" VerticalAlignment="Top" Width="281"/>
+        <CheckBox x:Name="DisableWarningPopups" Checked="DisableWarningPopups_CheckedChanged" Unchecked="DisableWarningPopups_CheckedChanged" Content="Disable most Warning popups" HorizontalAlignment="Left" Margin="235,61,0,0" VerticalAlignment="Top" Width="281"/>
+        <CheckBox x:Name="DisableErrorPopups" Checked="DisableErrorPopups_CheckedChanged" Unchecked="DisableErrorPopups_CheckedChanged" Content="Disable most Error popups" HorizontalAlignment="Left" Margin="235,84,0,0" VerticalAlignment="Top" Width="281"/>
+        <Label Content="Theme" HorizontalAlignment="Left" Margin="4,181,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <CheckBox x:Name="ToggleDarkMode" Checked="ToggleDarkMode_CheckedChanged" Unchecked="ToggleDarkMode_CheckedChanged" Content="Dark Mode" HorizontalAlignment="Left" Margin="10,244,0,0" VerticalAlignment="Top" Width="193"/>
+        <ComboBox x:Name="Themes" SelectionChanged="Themes_SelectionChanged" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="193"/>
+        <Label Content="|" HorizontalAlignment="Left" Margin="195,-40,0,0" VerticalAlignment="Top" FontSize="160" Width="25"/>
+
+    </Grid>
+</Controls:MetroWindow>

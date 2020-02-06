@@ -15,9 +15,15 @@ namespace MetroParser.UI
     /// </summary>
     public partial class BackupSettingsWindow
     {
-        public BackupSettingsWindow()
+        private readonly MainWindow _mainWindow;
+
+        public BackupSettingsWindow(MainWindow mainWindow)
         {
+            _mainWindow = mainWindow;
             InitializeComponent();
+
+            Left = _mainWindow.Left + (_mainWindow.Width / 2 - Width / 2);
+            Top = _mainWindow.Top + (_mainWindow.Height / 2 - Height / 2);
 
             LoadSettings();
         }
@@ -30,13 +36,14 @@ namespace MetroParser.UI
             Properties.Settings.Default.EnableIntervalBackup = EnableIntervalBackup.IsChecked == true;
             Properties.Settings.Default.IntervalTime = (int)Interval.Value;
             Properties.Settings.Default.RemoveTimestampsFromBackup = RemoveTimestamps.IsChecked == true;
+            Properties.Settings.Default.AlwaysMinimizeToTray = AlwaysMinimizeToTray.IsChecked == true;
             Properties.Settings.Default.StartWithWindows = StartWithWindows.IsChecked == true;
             Properties.Settings.Default.SuppressNotifications = SuppressNotifications.IsChecked == true;
 
             Properties.Settings.Default.Save();
         }
 
-        public void LoadSettings()
+        private void LoadSettings()
         {
             Browse.Focus();
 
@@ -46,8 +53,11 @@ namespace MetroParser.UI
             EnableIntervalBackup.IsChecked = Properties.Settings.Default.EnableIntervalBackup;
             Interval.Value = Properties.Settings.Default.IntervalTime;
             RemoveTimestamps.IsChecked = Properties.Settings.Default.RemoveTimestampsFromBackup;
+            AlwaysMinimizeToTray.IsChecked = Properties.Settings.Default.AlwaysMinimizeToTray;
             StartWithWindows.IsChecked = Properties.Settings.Default.StartWithWindows;
             SuppressNotifications.IsChecked = Properties.Settings.Default.SuppressNotifications;
+
+            Interval.Foreground = Properties.Settings.Default.DarkMode ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
         }
 
         public static void ResetSettings()
@@ -58,6 +68,7 @@ namespace MetroParser.UI
             Properties.Settings.Default.EnableIntervalBackup = false;
             Properties.Settings.Default.IntervalTime = 10;
             Properties.Settings.Default.RemoveTimestampsFromBackup = false;
+            Properties.Settings.Default.AlwaysMinimizeToTray = false;
             Properties.Settings.Default.StartWithWindows = false;
             Properties.Settings.Default.SuppressNotifications = false;
 
@@ -155,11 +166,13 @@ namespace MetroParser.UI
         {
             EnableIntervalBackup.IsEnabled = BackUpChatLogAutomatically.IsChecked == true;
             RemoveTimestamps.IsEnabled = BackUpChatLogAutomatically.IsChecked == true;
+            AlwaysMinimizeToTray.IsEnabled = BackUpChatLogAutomatically.IsChecked == true;
             StartWithWindows.IsEnabled = BackUpChatLogAutomatically.IsChecked == true;
             SuppressNotifications.IsEnabled = BackUpChatLogAutomatically.IsChecked == true;
 
             if (BackUpChatLogAutomatically.IsChecked != true)
             {
+                AlwaysMinimizeToTray.IsChecked = false;
                 StartWithWindows.IsChecked = false;
                 RemoveTimestamps.IsChecked = false;
                 EnableIntervalBackup.IsChecked = false;
@@ -183,7 +196,7 @@ namespace MetroParser.UI
 
         private void StartWithWindows_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if (StartWithWindows.IsChecked == true && !StartupHandler.IsAddedToStartup())
+            if (StartWithWindows.IsChecked == true && !StartupHandler.IsAddedToStartup() && !Properties.Settings.Default.DisableWarningPopups)
                 MessageBox.Show(Strings.AutoStartWarning, Strings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 

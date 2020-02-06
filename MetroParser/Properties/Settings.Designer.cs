@@ -25,7 +25,7 @@ namespace MetroParser.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3.1.1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("4.0")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -209,6 +209,186 @@ namespace MetroParser.Properties {
             }
             set {
                 this["HasPickedLanguage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int UpdateCheckTimeout {
+            get {
+                return ((int)(this["UpdateCheckTimeout"]));
+            }
+            set {
+                this["UpdateCheckTimeout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisableForumsButton {
+            get {
+                return ((bool)(this["DisableForumsButton"]));
+            }
+            set {
+                this["DisableForumsButton"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisableFacebrowserButton {
+            get {
+                return ((bool)(this["DisableFacebrowserButton"]));
+            }
+            set {
+                this["DisableFacebrowserButton"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisableUCPButton {
+            get {
+                return ((bool)(this["DisableUCPButton"]));
+            }
+            set {
+                this["DisableUCPButton"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisableReleasesButton {
+            get {
+                return ((bool)(this["DisableReleasesButton"]));
+            }
+            set {
+                this["DisableReleasesButton"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisableProjectButton {
+            get {
+                return ((bool)(this["DisableProjectButton"]));
+            }
+            set {
+                this["DisableProjectButton"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisableProfileButton {
+            get {
+                return ((bool)(this["DisableProfileButton"]));
+            }
+            set {
+                this["DisableProfileButton"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DarkMode {
+            get {
+                return ((bool)(this["DarkMode"]));
+            }
+            set {
+                this["DarkMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Default")]
+        public string Theme {
+            get {
+                return ((string)(this["Theme"]));
+            }
+            set {
+                this["Theme"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisableInformationPopups {
+            get {
+                return ((bool)(this["DisableInformationPopups"]));
+            }
+            set {
+                this["DisableInformationPopups"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisableWarningPopups {
+            get {
+                return ((bool)(this["DisableWarningPopups"]));
+            }
+            set {
+                this["DisableWarningPopups"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisableErrorPopups {
+            get {
+                return ((bool)(this["DisableErrorPopups"]));
+            }
+            set {
+                this["DisableErrorPopups"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AlwaysMinimizeToTray {
+            get {
+                return ((bool)(this["AlwaysMinimizeToTray"]));
+            }
+            set {
+                this["AlwaysMinimizeToTray"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastParsedManualHash {
+            get {
+                return ((string)(this["LastParsedManualHash"]));
+            }
+            set {
+                this["LastParsedManualHash"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastParsedAutoHash {
+            get {
+                return ((string)(this["LastParsedAutoHash"]));
+            }
+            set {
+                this["LastParsedAutoHash"] = value;
             }
         }
         

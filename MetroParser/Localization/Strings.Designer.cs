@@ -64,10 +64,10 @@ namespace MetroParser.Localization {
         ///   Looks up a localized string similar to Chat Log Parser created by Maple for GTA World.
         ///
         ///Installed Version: {0}
-        ///Server: {1}
+        ///Parsing From: {1} Server
         ///
-        ///Primary server IP: {2}
-        ///Secondary server IP: {3}.
+        ///Primary Server IP: {2}
+        ///Secondary Server IP: {3}.
         /// </summary>
         internal static string About {
             get {
@@ -254,7 +254,8 @@ namespace MetroParser.Localization {
         /// <summary>
         ///   Looks up a localized string similar to No matches found.
         ///
-        ///Make sure you only have one word, number, or valid name pair on each line.\nExample: Boat, $500, John, John Doe or John_Doe.
+        ///Make sure you only have one word, number, or valid name pair on each line.
+        ///Example: Boat, $500, John, John Doe or John_Doe.
         /// </summary>
         internal static string FilterHintNoMatches {
             get {
@@ -499,7 +500,8 @@ namespace MetroParser.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No updates could be found, try checking your internet connection.
+        ///   Looks up a localized string similar to No updates could be found.
+        ///Try checking your internet connection or increasing the update check timeout in the settings window.
         ///
         ///Installed Version: {0}.
         /// </summary>
@@ -648,6 +650,24 @@ namespace MetroParser.Localization {
         internal static string SecondaryIP {
             get {
                 return ResourceManager.GetString("SecondaryIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to seconds.
+        /// </summary>
+        internal static string SecondPlural {
+            get {
+                return ResourceManager.GetString("SecondPlural", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to second.
+        /// </summary>
+        internal static string SecondSingular {
+            get {
+                return ResourceManager.GetString("SecondSingular", resourceCulture);
             }
         }
         

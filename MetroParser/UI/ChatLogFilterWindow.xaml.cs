@@ -14,6 +14,7 @@ namespace MetroParser.UI
     /// </summary>
     public partial class ChatLogFilterWindow
     {
+        private readonly MainWindow _mainWindow;
         private readonly System.Windows.Threading.DispatcherTimer Timer;
 
         public string ChatLog
@@ -35,9 +36,16 @@ namespace MetroParser.UI
         private string _chatLog;
         private bool chatLogLoaded;
 
-        public ChatLogFilterWindow()
+        public ChatLogFilterWindow(MainWindow mainWindow)
         {
+            _mainWindow = mainWindow;
+
             InitializeComponent();
+
+            Left = _mainWindow.Left + (_mainWindow.Width / 2 - Width / 2);
+            Top = _mainWindow.Top + (_mainWindow.Height / 2 - Height / 2);
+
+            Initialize();
 
             Timer = new System.Windows.Threading.DispatcherTimer();
             Timer.Tick += Timer_Tick;
@@ -50,7 +58,7 @@ namespace MetroParser.UI
             RemoveTimestamps.IsChecked = Properties.Settings.Default.RemoveTimestampsFromFilter;
         }
 
-        public void Initialize()
+        private void Initialize()
         {
             LoadUnparsed.Focus();
             Filtered.Text = ChatLog = string.Empty;
@@ -64,7 +72,7 @@ namespace MetroParser.UI
         private void LoadUnparsed_Click(object sender, RoutedEventArgs e)
         {
             Data.Initialize();
-            ChatLog = MainWindow.ParseChatLog(Properties.Settings.Default.FolderPath, false, showError: true);
+            ChatLog = MainWindow.ParseChatLog(Properties.Settings.Default.FolderPath, removeTimestamps: false, isManualParse: true, showError: true);
 
             loadedFrom = string.IsNullOrEmpty(ChatLog) ? LoadedFrom.None : LoadedFrom.Unparsed;
 
@@ -160,9 +168,11 @@ namespace MetroParser.UI
             }
 
             List<string> wordsToCheck = GetWordsToFilterIn();
-            if (wordsToCheck.Count == 0 && !string.IsNullOrWhiteSpace(Words.Text))
+            if (wordsToCheck.Count == 0)
             {
-                MessageBox.Show(Strings.FilterHint, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                if (!string.IsNullOrWhiteSpace(Words.Text))
+                    MessageBox.Show(Strings.FilterHint, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+
                 return;
             }
 
@@ -211,10 +221,15 @@ namespace MetroParser.UI
                 Filtered.Text = logToCheck;
 
                 if (!fastFilter)
-                    MessageBox.Show(Strings.FilterHintNoMatches, Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+                {
+                    if (!Properties.Settings.Default.DisableInformationPopups)
+                        MessageBox.Show(Strings.FilterHintNoMatches, Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+                    else
+                        Filtered.Text = string.Empty;
+                }
             }
 
-            if (skippedWord)
+            if (skippedWord && !Properties.Settings.Default.DisableInformationPopups)
                 MessageBox.Show(Strings.FilterHintSkipped, Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -259,7 +274,9 @@ namespace MetroParser.UI
             {
                 if (string.IsNullOrWhiteSpace(Filtered.Text))
                 {
-                    MessageBox.Show(Strings.NothingFiltered, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (!Properties.Settings.Default.DisableErrorPopups)
+                        MessageBox.Show(Strings.NothingFiltered, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    
                     return;
                 }
 
@@ -285,7 +302,7 @@ namespace MetroParser.UI
 
         private void CopyFilteredToClipboard_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Filtered.Text))
+            if (string.IsNullOrWhiteSpace(Filtered.Text) && !Properties.Settings.Default.DisableErrorPopups)
                 MessageBox.Show(Strings.NothingFiltered, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             else
                 Clipboard.SetText(Filtered.Text.Replace("\n", Environment.NewLine));

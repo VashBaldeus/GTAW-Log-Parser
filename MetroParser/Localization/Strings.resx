@@ -121,10 +121,10 @@
     <value>Chat Log Parser created by Maple for GTA World.
 
 Installed Version: {0}
-Server: {1}
+Parsing From: {1} Server
 
-Primary server IP: {2}
-Secondary server IP: {3}</value>
+Primary Server IP: {2}
+Secondary Server IP: {3}</value>
   </data>
   <data name="AlreadyExistingFoldersWarning" xml:space="preserve">
     <value> because the "{0}" folder(s) already exist(s).</value>
@@ -191,7 +191,8 @@ Example: Boat, $500, John, John Doe or John_Doe</value>
   <data name="FilterHintNoMatches" xml:space="preserve">
     <value>No matches found.
 
-Make sure you only have one word, number, or valid name pair on each line.\nExample: Boat, $500, John, John Doe or John_Doe</value>
+Make sure you only have one word, number, or valid name pair on each line.
+Example: Boat, $500, John, John Doe or John_Doe</value>
   </data>
   <data name="FilterHintSkipped" xml:space="preserve">
     <value>One or more words were skipped during the filtering operation because they are not in a valid format.
@@ -280,7 +281,8 @@ Keep either "{0}" or "{1}".</value>
     <value>You haven't loaded a chat log yet.</value>
   </data>
   <data name="NoInternet" xml:space="preserve">
-    <value>No updates could be found, try checking your internet connection.
+    <value>No updates could be found.
+Try checking your internet connection or increasing the update check timeout in the settings window.
 
 Installed Version: {0}</value>
   </data>
@@ -335,6 +337,12 @@ Installed Version: {0}</value>
   </data>
   <data name="SecondaryIP" xml:space="preserve">
     <value>play.gta.world_22005</value>
+  </data>
+  <data name="SecondPlural" xml:space="preserve">
+    <value>seconds</value>
+  </data>
+  <data name="SecondSingular" xml:space="preserve">
+    <value>second</value>
   </data>
   <data name="SettingsAfterClose" xml:space="preserve">
     <value>Settings will only be applied once you close the settings dialog.</value>

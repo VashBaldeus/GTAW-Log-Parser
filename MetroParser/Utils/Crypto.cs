@@ -6,11 +6,17 @@ namespace MetroParser.Utils
 {
     public static class Crypto
     {
-        public static void SaveParsedHash(string log)
+        public static void SaveParsedHash(string log, bool isManual)
         {
             using (MD5 md5Hash = MD5.Create())
             {
                 string hash = GetMD5Hash(md5Hash, log);
+
+                if (isManual)
+                    Properties.Settings.Default.LastParsedManualHash = hash;
+                else
+                    Properties.Settings.Default.LastParsedAutoHash = hash;
+                
                 Properties.Settings.Default.LastParsedHash = hash;
                 Properties.Settings.Default.Save();
             }

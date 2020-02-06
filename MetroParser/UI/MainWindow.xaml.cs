@@ -22,7 +22,7 @@ namespace MetroParser.UI
     {
         private static System.Windows.Forms.NotifyIcon TrayIcon;
 
-        private static readonly GitHubClient client = new GitHubClient(new ProductHeaderValue(Data.ProductHeader));
+        private static GitHubClient client = new GitHubClient(new ProductHeaderValue(Data.ProductHeader));
         private static bool isUpdateCheckRunning = false;
         private static bool loading = true;
 
@@ -30,6 +30,7 @@ namespace MetroParser.UI
 
         public MainWindow(bool startMinimized)
         {
+            client.SetRequestTimeout(new TimeSpan(0, 0, 0, 0, Properties.Settings.Default.UpdateCheckTimeout * 1000));
             StartupHandler.Initialize();
 
             InitializeTrayIcon();
@@ -106,6 +107,14 @@ namespace MetroParser.UI
 
         private void LoadSettings()
         {
+            OpenForums.Visibility = Properties.Settings.Default.DisableForumsButton ? Visibility.Collapsed : Visibility.Visible;
+            OpenFacebrowser.Visibility = Properties.Settings.Default.DisableFacebrowserButton ? Visibility.Collapsed : Visibility.Visible;
+            OpenUCP.Visibility = Properties.Settings.Default.DisableUCPButton ? Visibility.Collapsed : Visibility.Visible;
+            OpenGithubReleases.Visibility = Properties.Settings.Default.DisableReleasesButton ? Visibility.Collapsed : Visibility.Visible;
+            OpenGithubProject.Visibility = Properties.Settings.Default.DisableProjectButton ? Visibility.Collapsed : Visibility.Visible;
+            OpenProfilePage.Visibility = Properties.Settings.Default.DisableProfileButton ? Visibility.Collapsed : Visibility.Visible;
+            UpdateCheckProgress.Foreground = Properties.Settings.Default.DarkMode ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
+
             Version.Text = string.Format(Strings.VersionInfo, Properties.Settings.Default.Version);
             StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
             Counter.Text = string.Format(Strings.CharacterCounter, 0, 0);
@@ -228,12 +237,12 @@ namespace MetroParser.UI
                 return;
             }
 
-            Parsed.Text = ParseChatLog(FolderPath.Text, RemoveTimestamps.IsChecked == true, showError: true);
+            Parsed.Text = ParseChatLog(FolderPath.Text, RemoveTimestamps.IsChecked == true, isManualParse: true, showError: true);
             
             //ToggleControls(enable: true);
         }
 
-        public static string ParseChatLog(string folderPath, bool removeTimestamps, bool showError = false)
+        public static string ParseChatLog(string folderPath, bool removeTimestamps, bool isManualParse, bool showError = false)
         {
             try
             {
@@ -313,7 +322,7 @@ namespace MetroParser.UI
                 log = log.TrimEnd(new char[] { '\r', '\n' });   // Remove the `new line` characters from the end
 
                 previousLog = log;
-                Crypto.SaveParsedHash(log);
+                Crypto.SaveParsedHash(log, isManual: isManualParse);
 
                 if (removeTimestamps)
                     log = Regex.Replace(log, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
@@ -350,7 +359,9 @@ namespace MetroParser.UI
             {
                 if (string.IsNullOrWhiteSpace(Parsed.Text))
                 {
-                    MessageBox.Show(Strings.NothingParsed, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (!Properties.Settings.Default.DisableErrorPopups)
+                        MessageBox.Show(Strings.NothingParsed, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    
                     return;
                 }
 
@@ -376,7 +387,7 @@ namespace MetroParser.UI
 
         private void CopyParsedToClipboard_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Parsed.Text))
+            if (string.IsNullOrWhiteSpace(Parsed.Text) && !Properties.Settings.Default.DisableErrorPopups)
                 MessageBox.Show(Strings.NothingParsed, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             else
                 Clipboard.SetText(Parsed.Text.Replace("\n", Environment.NewLine));
@@ -407,6 +418,9 @@ namespace MetroParser.UI
         {
             Dispatcher.Invoke(() =>
             {
+                IsMinButtonEnabled = enable;
+                //IsCloseButtonEnabled = enable;
+
                 Parse.IsEnabled = enable;
                 SaveParsed.IsEnabled = enable;
                 CopyParsedToClipboard.IsEnabled = enable;
@@ -469,7 +483,7 @@ namespace MetroParser.UI
             Dispatcher.Invoke(() =>
             {
                 UpdateCheckProgress.IsActive = false;
-                UpdateCheckProgress.Visibility = Visibility.Hidden;
+                UpdateCheckProgress.Visibility = Visibility.Collapsed;
             });
         }
 
@@ -481,7 +495,7 @@ namespace MetroParser.UI
             Dispatcher.Invoke(() =>
             {
                 if (MessageBox.Show(text, title, buttons, image) == MessageBoxResult.Yes)
-                    Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases");
+                    Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases/");
             });
         }
 
@@ -522,20 +536,21 @@ namespace MetroParser.UI
 
             if (Properties.Settings.Default.BackupChatLogAutomatically)
             {
-                if (MessageBox.Show(Strings.BackupWillBeOff, Strings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                if (!Properties.Settings.Default.DisableWarningPopups && MessageBox.Show(Strings.BackupWillBeOff, Strings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                     return;
 
                 StatusLabel.Content = string.Format(Strings.BackupStatus, Strings.Disabled);
             }
             else
-                MessageBox.Show(Strings.SettingsAfterClose, Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+                if (!Properties.Settings.Default.DisableInformationPopups)
+                    MessageBox.Show(Strings.SettingsAfterClose, Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
 
             BackupHandler.AbortAll();
             SaveSettings();
 
             if (backupSettings == null)
             {
-                backupSettings = new BackupSettingsWindow();
+                backupSettings = new BackupSettingsWindow(this);
                 backupSettings.IsVisibleChanged += (s, args) =>
                 {
                     if ((bool)args.NewValue == false)
@@ -550,7 +565,6 @@ namespace MetroParser.UI
                 };
             }
 
-            backupSettings.LoadSettings();
             backupSettings.ShowDialog();
         }
 
@@ -567,14 +581,13 @@ namespace MetroParser.UI
 
             if (chatLogFilter == null)
             {
-                chatLogFilter = new ChatLogFilterWindow();
+                chatLogFilter = new ChatLogFilterWindow(this);
                 chatLogFilter.Closed += (s, args) =>
                 {
                     chatLogFilter = null;
                 };
             }
 
-            chatLogFilter.Initialize();
             chatLogFilter.ShowDialog();
         }
 
@@ -583,7 +596,7 @@ namespace MetroParser.UI
             MessageBox.Show(string.Format(Strings.About, Properties.Settings.Default.Version, LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
             
             //if (MessageBox.Show(string.Format(Strings.About, Properties.Settings.Default.Version, LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-            //    Process.Start("https://github.com/MapleToo/GTAW-Log-Parser");
+            //    Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/");
         }
 
         private void ExitToolStripMenuItem_Click(object sender, RoutedEventArgs e)
@@ -603,7 +616,9 @@ namespace MetroParser.UI
             {
                 if (Properties.Settings.Default.BackupChatLogAutomatically && TrayIcon.Visible == false)
                 {
-                    MessageBoxResult result = MessageBox.Show(Strings.MinimizeInsteadOfClose, Strings.Warning, MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+                    MessageBoxResult result = MessageBoxResult.Yes;
+                    if (!Properties.Settings.Default.AlwaysMinimizeToTray)
+                        result = MessageBox.Show(Strings.MinimizeInsteadOfClose, Strings.Warning, MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
 
                     if (result == MessageBoxResult.Yes)
                     {
@@ -635,15 +650,20 @@ namespace MetroParser.UI
 
         private void ResumeTrayStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (isRestarting)
+                return;
+
             Show();
             TrayIcon.Visible = false;
         }
 
         private void ExitTrayToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Visibility != Visibility.Visible)
+            //if (Visibility != Visibility.Visible)
                 BackupHandler.quitting = true;
 
+            TrayIcon.Visible = false;
+            isRestarting = true;
             System.Windows.Application.Current.Shutdown();
         }
 
@@ -663,11 +683,24 @@ namespace MetroParser.UI
             TrayIcon.ContextMenuStrip.Items.Add("Exit", null, ExitTrayToolStripMenuItem_Click);
         }
 
+        private static ProgramSettingsWindow programSettings;
         private void OpenProgramSettings_Click(object sender, RoutedEventArgs e)
         {
-            // TODO
-            // Theming
-            // Supress message boxes
+            SaveSettings();
+
+            if (programSettings == null)
+            {
+                programSettings = new ProgramSettingsWindow(this);
+                programSettings.Closed += (s, args) =>
+                {
+                    client = new GitHubClient(new ProductHeaderValue(Data.ProductHeader));
+                    client.SetRequestTimeout(new TimeSpan(0, 0, 0, 0, Properties.Settings.Default.UpdateCheckTimeout * 1000));
+                    programSettings = null;
+                };
+            }
+
+            programSettings.LoadSettings();
+            programSettings.ShowDialog();
         }
 
         private void OpenProfilePage_Click(object sender, RoutedEventArgs e)

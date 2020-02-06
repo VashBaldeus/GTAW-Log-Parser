@@ -1,4 +1,5 @@
-﻿using MetroParser.Infrastructure;
+﻿using MahApps.Metro;
+using MetroParser.Infrastructure;
 using MetroParser.UI;
 using MetroParser.Utils;
 using System;
@@ -20,6 +21,15 @@ namespace MetroParser
         private static bool startMinimized = false;
         private static bool startMinimizedWithoutTrayIcon = false;
         private static bool isRestarted = false;
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            ThemeManager.ChangeAppStyle(Current,
+                                        ThemeManager.GetAccent(StyleManager.GetValidStyle(MetroParser.Properties.Settings.Default.Theme)),
+                                        ThemeManager.GetAppTheme(MetroParser.Properties.Settings.Default.DarkMode ? "BaseDark" : "BaseLight"));
+
+            base.OnStartup(e);
+        }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
