@@ -406,13 +406,13 @@ namespace MetroParser.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool CheckForPrereleases {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IgnorePrereleases {
             get {
-                return ((bool)(this["CheckForPrereleases"]));
+                return ((bool)(this["IgnorePrereleases"]));
             }
             set {
-                this["CheckForPrereleases"] = value;
+                this["IgnorePrereleases"] = value;
             }
         }
     }

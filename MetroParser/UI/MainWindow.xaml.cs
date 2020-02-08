@@ -518,7 +518,7 @@ namespace MetroParser.UI
                 // If the user does not want to
                 // look for prereleases during
                 // the update check, ignore them
-                if (!Properties.Settings.Default.CheckForPrereleases)
+                if (Properties.Settings.Default.IgnorePrereleases)
                 {
                     foreach (Release release in releases)
                     {

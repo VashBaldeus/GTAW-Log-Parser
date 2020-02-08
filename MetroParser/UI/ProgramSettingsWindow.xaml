@@ -38,7 +38,7 @@
         <CheckBox x:Name="ToggleDarkMode" Checked="ToggleDarkMode_CheckedChanged" Unchecked="ToggleDarkMode_CheckedChanged" Content="Dark Mode" HorizontalAlignment="Left" Margin="10,244,0,0" VerticalAlignment="Top" Width="193"/>
         <ComboBox x:Name="Themes" SelectionChanged="Themes_SelectionChanged" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="193"/>
         <Label Content="|" HorizontalAlignment="Left" Margin="195,-40,0,0" VerticalAlignment="Top" FontSize="160" Width="25"/>
-        <CheckBox x:Name="CheckForPrereleases" Checked="CheckForPrereleases_CheckedChanged" Unchecked="CheckForPrereleases_CheckedChanged" Content="Check for prereleases" HorizontalAlignment="Left" Margin="235,138,-2,0" VerticalAlignment="Top" Width="281"/>
+        <CheckBox x:Name="IgnorePrereleases" Checked="IgnorePrereleases_CheckedChanged" Unchecked="IgnorePrereleases_CheckedChanged" Content="Ignore prereleases in the update check" HorizontalAlignment="Left" Margin="235,138,-2,0" VerticalAlignment="Top" Width="281"/>
 
     </Grid>
 </Controls:MetroWindow>
