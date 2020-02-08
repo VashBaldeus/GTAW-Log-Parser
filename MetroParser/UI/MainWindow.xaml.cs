@@ -11,7 +11,7 @@ using MetroParser.Localization;
 using System.Text.RegularExpressions;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using MetroParser.Infrastructure;
-using MetroParser.Utils;
+using MetroParser.Utilities;
 using System.Collections.Generic;
 
 namespace MetroParser.UI

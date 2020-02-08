@@ -2,7 +2,7 @@
 using System.Text;
 using System.Security.Cryptography;
 
-namespace MetroParser.Utils
+namespace MetroParser.Utilities
 {
     public static class Crypto
     {

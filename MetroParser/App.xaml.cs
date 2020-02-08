@@ -1,7 +1,7 @@
 ﻿using MahApps.Metro;
 using MetroParser.Infrastructure;
 using MetroParser.UI;
-using MetroParser.Utils;
+using MetroParser.Utilities;
 using System;
 using System.Linq;
 using System.Threading;

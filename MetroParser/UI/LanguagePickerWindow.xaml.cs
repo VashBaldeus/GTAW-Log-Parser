@@ -1,5 +1,5 @@
 ﻿using MetroParser.Infrastructure;
-using MetroParser.Utils;
+using MetroParser.Utilities;
 using System;
 using System.Diagnostics;
 using System.Windows;

@@ -3,7 +3,7 @@ using System.IO;
 using IWshRuntimeLibrary;
 using System.Collections.Generic;
 using System.Windows;
-using MetroParser.Utils;
+using MetroParser.Utilities;
 
 namespace MetroParser.Infrastructure
 {

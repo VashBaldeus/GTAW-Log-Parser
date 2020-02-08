@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace MetroParser.Utils
+namespace MetroParser.Utilities
 {
     public static class Data
     {
