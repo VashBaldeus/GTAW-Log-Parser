@@ -83,7 +83,7 @@ namespace MetroParser.UI
             Properties.Settings.Default.DisableInformationPopups = false;
             Properties.Settings.Default.DisableWarningPopups = false;
             Properties.Settings.Default.DisableErrorPopups = false;
-            Properties.Settings.Default.IgnorePrereleases = false;
+            Properties.Settings.Default.IgnorePrereleases = true;
 
             Infrastructure.StyleController.DarkMode = false;
             Properties.Settings.Default.Theme = Infrastructure.StyleController.DefaultLightStyle;
