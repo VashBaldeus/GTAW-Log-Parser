@@ -10,7 +10,7 @@ using MetroParser.UI;
 
 namespace MetroParser.Infrastructure
 {
-    public static class BackupHandler
+    public static class BackupController
     {
         private static Thread backupThread;
         private static Thread intervalThread;

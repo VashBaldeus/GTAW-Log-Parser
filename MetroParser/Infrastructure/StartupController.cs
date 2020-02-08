@@ -7,7 +7,7 @@ using MetroParser.Utils;
 
 namespace MetroParser.Infrastructure
 {
-    public static class StartupHandler
+    public static class StartupController
     {
         public static readonly string startUpFolder = $"{Environment.GetFolderPath(Environment.SpecialFolder.Startup)}\\";
         public static readonly string shortcutName = "gtaw-parser.lnk";

@@ -37,7 +37,7 @@ namespace MetroParser.UI
             Properties.Settings.Default.DisableWarningPopups = DisableWarningPopups.IsChecked == true;
             Properties.Settings.Default.DisableErrorPopups = DisableErrorPopups.IsChecked == true;
 
-            Infrastructure.StyleManager.DarkMode = ToggleDarkMode.IsChecked == true;
+            Infrastructure.StyleController.DarkMode = ToggleDarkMode.IsChecked == true;
             Properties.Settings.Default.Theme = Themes.SelectedItem.ToString();
 
             Properties.Settings.Default.Save();
@@ -57,15 +57,15 @@ namespace MetroParser.UI
             DisableWarningPopups.IsChecked = Properties.Settings.Default.DisableWarningPopups;
             DisableErrorPopups.IsChecked = Properties.Settings.Default.DisableErrorPopups;
 
-            ToggleDarkMode.IsChecked = Infrastructure.StyleManager.DarkMode;
+            ToggleDarkMode.IsChecked = Infrastructure.StyleController.DarkMode;
             Timeout.Foreground = _mainWindow.UpdateCheckProgress.Foreground = ToggleDarkMode.IsChecked == true ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
 
             Themes.Items.Clear();
-            foreach (string style in Infrastructure.StyleManager.ValidStyles)
+            foreach (string style in Infrastructure.StyleController.ValidStyles)
             {
                 Themes.Items.Add(style);
             }
-            Themes.SelectedItem = Infrastructure.StyleManager.GetValidStyle(Properties.Settings.Default.Theme);
+            Themes.SelectedItem = Infrastructure.StyleController.GetValidStyle(Properties.Settings.Default.Theme);
         }
 
         public static void ResetSettings()
@@ -82,8 +82,8 @@ namespace MetroParser.UI
             Properties.Settings.Default.DisableWarningPopups = false;
             Properties.Settings.Default.DisableErrorPopups = false;
 
-            Infrastructure.StyleManager.DarkMode = false;
-            Properties.Settings.Default.Theme = Infrastructure.StyleManager.DefaultLightStyle;
+            Infrastructure.StyleController.DarkMode = false;
+            Properties.Settings.Default.Theme = Infrastructure.StyleController.DefaultLightStyle;
 
             Properties.Settings.Default.Save();
         }
@@ -143,22 +143,22 @@ namespace MetroParser.UI
 
         private void ToggleDarkMode_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            Infrastructure.StyleManager.DarkMode = ToggleDarkMode.IsChecked == true;
+            Infrastructure.StyleController.DarkMode = ToggleDarkMode.IsChecked == true;
             Properties.Settings.Default.Save();
 
-            Infrastructure.StyleManager.UpdateTheme();
+            Infrastructure.StyleController.UpdateTheme();
             Timeout.Foreground = _mainWindow.UpdateCheckProgress.Foreground = ToggleDarkMode.IsChecked == true ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
         }
 
         private void Themes_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (Themes.Items.Count < Infrastructure.StyleManager.ValidStyles.Count)
+            if (Themes.Items.Count < Infrastructure.StyleController.ValidStyles.Count)
                 return;
 
             Properties.Settings.Default.Theme = Themes.SelectedItem.ToString();
             Properties.Settings.Default.Save();
 
-            Infrastructure.StyleManager.UpdateTheme();
+            Infrastructure.StyleController.UpdateTheme();
         }
 
         private void Reset_Click(object sender, RoutedEventArgs e)

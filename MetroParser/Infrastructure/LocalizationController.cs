@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace MetroParser.Infrastructure
 {
-    public static class LocalizationManager
+    public static class LocalizationController
     {
         public enum Language {English, Spanish};
 

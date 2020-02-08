@@ -34,12 +34,12 @@ namespace MetroParser
                     // Silent exception
                 }
 
-                StyleManager.DarkMode = darkMode;
+                StyleController.DarkMode = darkMode;
             }
 
             ThemeManager.ChangeAppStyle(Current,
-                                        ThemeManager.GetAccent(StyleManager.GetValidStyle(MetroParser.Properties.Settings.Default.Theme)),
-                                        ThemeManager.GetAppTheme(StyleManager.DarkMode ? "BaseDark" : "BaseLight"));
+                                        ThemeManager.GetAccent(StyleController.GetValidStyle(MetroParser.Properties.Settings.Default.Theme)),
+                                        ThemeManager.GetAppTheme(StyleController.DarkMode ? "BaseDark" : "BaseLight"));
 
             base.OnStartup(e);
         }
@@ -68,13 +68,13 @@ namespace MetroParser
                 return;
             }
 
-            LocalizationManager.Initialize();
+            LocalizationController.Initialize();
             Data.Initialize();
 
             if (startMinimizedWithoutTrayIcon)
             {
-                StartupHandler.Initialize();
-                BackupHandler.Initialize();
+                StartupController.Initialize();
+                BackupController.Initialize();
             }
             else
             {

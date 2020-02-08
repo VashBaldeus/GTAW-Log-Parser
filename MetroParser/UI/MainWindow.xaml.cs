@@ -26,14 +26,14 @@ namespace MetroParser.UI
         private static GitHubClient client = new GitHubClient(new ProductHeaderValue(Data.ProductHeader));
         private static bool isUpdateCheckRunning = false;
         private static bool isUpdateCheckManual = false;
-        private static bool loading = true;
+        private static bool isLoading = true;
 
         private bool isRestarting = false;
 
         public MainWindow(bool startMinimized)
         {
             client.SetRequestTimeout(new TimeSpan(0, 0, 0, Properties.Settings.Default.UpdateCheckTimeout));
-            StartupHandler.Initialize();
+            StartupController.Initialize();
 
             InitializeTrayIcon();
 
@@ -49,16 +49,16 @@ namespace MetroParser.UI
             LoadSettings();
 
             SetupServerList();
-            BackupHandler.Initialize();
-            loading = false;
+            BackupController.Initialize();
+            isLoading = false;
         }
 
         private void SetupServerList()
         {
-            string currentLanguage = LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage());
-            for (int i = 0; i < ((LocalizationManager.Language[])Enum.GetValues(typeof(LocalizationManager.Language))).Length; ++i)
+            string currentLanguage = LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage());
+            for (int i = 0; i < ((LocalizationController.Language[])Enum.GetValues(typeof(LocalizationController.Language))).Length; ++i)
             {
-                LocalizationManager.Language language = (LocalizationManager.Language)i;
+                LocalizationController.Language language = (LocalizationController.Language)i;
 
                 MenuItem menuItem = new MenuItem
                 {
@@ -71,11 +71,11 @@ namespace MetroParser.UI
                     if (menuItem.IsChecked == true)
                         return;
 
-                    CultureInfo cultureInfo = new CultureInfo(LocalizationManager.GetCodeFromLanguage(language));
+                    CultureInfo cultureInfo = new CultureInfo(LocalizationController.GetCodeFromLanguage(language));
 
                     if (MessageBox.Show(Strings.ResourceManager.GetString("Restart", cultureInfo), Strings.ResourceManager.GetString("RestartTitle", cultureInfo), MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
-                        LocalizationManager.SetLanguage(language);
+                        LocalizationController.SetLanguage(language);
 
                         Hide();
                         isRestarting = true;
@@ -111,7 +111,7 @@ namespace MetroParser.UI
             OpenGithubReleases.Visibility = Properties.Settings.Default.DisableReleasesButton ? Visibility.Collapsed : Visibility.Visible;
             OpenGithubProject.Visibility = Properties.Settings.Default.DisableProjectButton ? Visibility.Collapsed : Visibility.Visible;
             OpenProfilePage.Visibility = Properties.Settings.Default.DisableProfileButton ? Visibility.Collapsed : Visibility.Visible;
-            UpdateCheckProgress.Foreground = StyleManager.DarkMode ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
+            UpdateCheckProgress.Foreground = StyleController.DarkMode ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
 
             Version.Text = string.Format(Strings.VersionInfo, Properties.Settings.Default.Version);
             StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
@@ -173,7 +173,7 @@ namespace MetroParser.UI
 
         private void FolderPath_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (loading)
+            if (isLoading)
                 return;
 
             if (Properties.Settings.Default.BackupChatLogAutomatically)
@@ -572,7 +572,7 @@ namespace MetroParser.UI
                 if (!Properties.Settings.Default.DisableInformationPopups)
                     MessageBox.Show(Strings.SettingsAfterClose, Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
 
-            BackupHandler.AbortAll();
+            BackupController.AbortAll();
             SaveSettings();
 
             if (backupSettings == null)
@@ -582,7 +582,7 @@ namespace MetroParser.UI
                 {
                     if ((bool)args.NewValue == false)
                     {
-                        BackupHandler.Initialize();
+                        BackupController.Initialize();
                         StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
                     }
                 };
@@ -620,7 +620,7 @@ namespace MetroParser.UI
 
         private void AboutToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(string.Format(Strings.About, Properties.Settings.Default.Version, LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(string.Format(Strings.About, Properties.Settings.Default.Version, LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
             
             //if (MessageBox.Show(string.Format(Strings.About, Properties.Settings.Default.Version, LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             //    Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/");
@@ -664,7 +664,7 @@ namespace MetroParser.UI
                 }
             }
 
-            BackupHandler.quitting = true;
+            BackupController.quitting = true;
             SaveSettings();
 
             System.Windows.Application.Current.Shutdown();
@@ -687,7 +687,7 @@ namespace MetroParser.UI
         private void ExitTrayToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //if (Visibility != Visibility.Visible)
-                BackupHandler.quitting = true;
+                BackupController.quitting = true;
 
             TrayIcon.Visible = false;
             isRestarting = true;

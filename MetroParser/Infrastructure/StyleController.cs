@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MetroParser.Infrastructure
 {
-    public static class StyleManager
+    public static class StyleController
     {
         public const string DefaultLightStyle = "Amber";
         public const string DefaultDarkStyle = "Steel";

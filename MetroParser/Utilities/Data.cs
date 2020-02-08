@@ -36,10 +36,10 @@ namespace MetroParser.Utils
             }
         }
 
-        public static readonly string ParameterPrefix = "--";
-        public static readonly string ProcessName = "GTA5";
-        public static readonly string ProductHeader = "GTAW-Log-Parser";
-        public static readonly string[] ServerIPs = { string.Empty, string.Empty, "e"};
+        public const string ParameterPrefix = "--";
+        public const string ProcessName = "GTA5";
+        public const string ProductHeader = "GTAW-Log-Parser";
+        public static string[] ServerIPs = { string.Empty, string.Empty, "e"};
         public static string LogLocation = $"client_resources\\{ServerIPs[0]}\\.storage";
 
         public static readonly string[] PossibleFolderLocations = { "RAGEMP\\", "\\RAGEMP\\", "Games\\RAGEMP\\", "\\Games\\RAGEMP\\" };

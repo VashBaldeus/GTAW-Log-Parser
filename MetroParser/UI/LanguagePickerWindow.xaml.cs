@@ -25,7 +25,7 @@ namespace MetroParser.UI
             Timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             Timer.Start();
 
-            foreach (LocalizationManager.Language language in (LocalizationManager.Language[])Enum.GetValues(typeof(LocalizationManager.Language)))
+            foreach (LocalizationController.Language language in (LocalizationController.Language[])Enum.GetValues(typeof(LocalizationController.Language)))
                 LanguageList.Items.Add(language.ToString());
 
             LanguageList.SelectedIndex = 0;
@@ -36,7 +36,7 @@ namespace MetroParser.UI
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.LanguageCode = LocalizationManager.GetLanguage();
+            Properties.Settings.Default.LanguageCode = LocalizationController.GetLanguage();
             Properties.Settings.Default.HasPickedLanguage = true;
             Properties.Settings.Default.Save();
 
@@ -49,7 +49,7 @@ namespace MetroParser.UI
             if (!handleListChange)
                 return;
 
-            LocalizationManager.SetLanguage((LocalizationManager.Language)LanguageList.SelectedIndex, save: false);
+            LocalizationController.SetLanguage((LocalizationController.Language)LanguageList.SelectedIndex, save: false);
         }
 
         private void Timer_Tick(object sender, EventArgs e)

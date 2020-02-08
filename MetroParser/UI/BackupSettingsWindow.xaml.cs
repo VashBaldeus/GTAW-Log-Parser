@@ -57,7 +57,7 @@ namespace MetroParser.UI
             StartWithWindows.IsChecked = Properties.Settings.Default.StartWithWindows;
             SuppressNotifications.IsChecked = Properties.Settings.Default.SuppressNotifications;
 
-            Interval.Foreground = StyleManager.DarkMode ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
+            Interval.Foreground = StyleController.DarkMode ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
         }
 
         public static void ResetSettings()
@@ -196,7 +196,7 @@ namespace MetroParser.UI
 
         private void StartWithWindows_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if (StartWithWindows.IsChecked == true && !StartupHandler.IsAddedToStartup() && !Properties.Settings.Default.DisableWarningPopups)
+            if (StartWithWindows.IsChecked == true && !StartupController.IsAddedToStartup() && !Properties.Settings.Default.DisableWarningPopups)
                 MessageBox.Show(Strings.AutoStartWarning, Strings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
@@ -221,8 +221,8 @@ namespace MetroParser.UI
                 return;
             }
 
-            if ((StartWithWindows.IsChecked == true && !StartupHandler.IsAddedToStartup()) || (!StartWithWindows.IsChecked == true && StartupHandler.IsAddedToStartup()))
-                StartupHandler.ToggleStartup(StartWithWindows.IsChecked == true);
+            if ((StartWithWindows.IsChecked == true && !StartupController.IsAddedToStartup()) || (!StartWithWindows.IsChecked == true && StartupController.IsAddedToStartup()))
+                StartupController.ToggleStartup(StartWithWindows.IsChecked == true);
 
             SaveSettings();
             Hide();
