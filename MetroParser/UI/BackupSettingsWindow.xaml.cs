@@ -132,8 +132,6 @@ namespace MetroParser.UI
 
         private void Browse_Click(object sender, RoutedEventArgs e)
         {
-            Topmost = false;
-
             CommonOpenFileDialog dialog = new CommonOpenFileDialog
             {
                 InitialDirectory = Path.GetPathRoot(Environment.SystemDirectory),
@@ -158,7 +156,6 @@ namespace MetroParser.UI
                     validLocation = true;
             }
 
-            Topmost = true;
             Activate();
         }
 
