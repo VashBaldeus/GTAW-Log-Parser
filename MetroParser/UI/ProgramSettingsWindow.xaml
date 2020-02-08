@@ -13,7 +13,7 @@
                       WindowTransitionsEnabled="True"
                       BorderThickness="0" 
                       GlowBrush="Black"
-                      Title="Program Settings" Height="308" Width="520" ShowInTaskbar="False" IsMaxRestoreButtonEnabled="False" IsMinButtonEnabled="False" TitleCaps="False" ShowIconOnTitleBar="False" Topmost="True" Icon="../Resources/AppIcon.ico">
+                      Title="Program Settings" Height="308" Width="520" ShowInTaskbar="True" IsMaxRestoreButtonEnabled="False" IsMinButtonEnabled="False" TitleCaps="False" ShowIconOnTitleBar="False" Topmost="True" Icon="../Resources/AppIcon.ico">
 
     <Grid>
         <CheckBox x:Name="DisableForumsButton" Checked="DisableForumsButton_CheckedChanged" Unchecked="DisableForumsButton_CheckedChanged" Content="Disable the forums icon" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="193"/>
@@ -38,6 +38,7 @@
         <CheckBox x:Name="ToggleDarkMode" Checked="ToggleDarkMode_CheckedChanged" Unchecked="ToggleDarkMode_CheckedChanged" Content="Dark Mode" HorizontalAlignment="Left" Margin="10,244,0,0" VerticalAlignment="Top" Width="193"/>
         <ComboBox x:Name="Themes" SelectionChanged="Themes_SelectionChanged" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="193"/>
         <Label Content="|" HorizontalAlignment="Left" Margin="195,-40,0,0" VerticalAlignment="Top" FontSize="160" Width="25"/>
+        <CheckBox x:Name="CheckForPrereleases" Checked="CheckForPrereleases_CheckedChanged" Unchecked="CheckForPrereleases_CheckedChanged" Content="Check for prereleases" HorizontalAlignment="Left" Margin="235,138,-2,0" VerticalAlignment="Top" Width="281"/>
 
     </Grid>
 </Controls:MetroWindow>

@@ -109,6 +109,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\BackupController.cs" />
     <Compile Include="Infrastructure\StyleController.cs" />
     <Compile Include="UI\ProgramSettingsWindow.xaml.cs">

@@ -16,6 +16,7 @@ namespace MetroParser.UI
     {
         private readonly MainWindow _mainWindow;
         private readonly System.Windows.Threading.DispatcherTimer Timer;
+        private bool advancedFilter = true;
 
         public string ChatLog
         {
@@ -306,6 +307,14 @@ namespace MetroParser.UI
                 MessageBox.Show(Strings.NothingFiltered, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             else
                 Clipboard.SetText(Filtered.Text.Replace("\n", Environment.NewLine));
+        }
+
+        private void AdvancedFilter_Click(object sender, RoutedEventArgs e)
+        {
+            advancedFilter = !advancedFilter;
+
+            AdvancedFilter.Content = advancedFilter ? "Simple Filter" : "Advanced Filter";
+            Width = advancedFilter ? 656 : 494;
         }
 
         private void ChatLogFilter_Closing(object sender, System.ComponentModel.CancelEventArgs e)

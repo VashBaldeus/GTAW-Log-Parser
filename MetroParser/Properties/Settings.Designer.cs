@@ -403,5 +403,17 @@ namespace MetroParser.Properties {
                 this["LastParsedHash"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CheckForPrereleases {
+            get {
+                return ((bool)(this["CheckForPrereleases"]));
+            }
+            set {
+                this["CheckForPrereleases"] = value;
+            }
+        }
     }
 }

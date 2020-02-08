@@ -515,13 +515,10 @@ namespace MetroParser.UI
                 // Assume user does not care if the latest release is a prerelease
                 string currentVersion = releases[0].TagName;
 
-                // TODO: Implement option to include
-                // prereleases in the update check,
-                // skip them for now
-
-                // If the user does not want to look for
-                // prereleases during the update check
-                if (true)
+                // If the user does not want to
+                // look for prereleases during
+                // the update check, ignore them
+                if (!Properties.Settings.Default.CheckForPrereleases)
                 {
                     foreach (Release release in releases)
                     {
