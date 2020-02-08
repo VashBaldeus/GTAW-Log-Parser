@@ -40,7 +40,7 @@ namespace MetroParser.UI
             if (startMinimized)
             {
                 TrayIcon.Visible = true;
-                Visibility = Visibility.Hidden;
+                Hide();
             }
 
             InitializeComponent();
