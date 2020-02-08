@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using MetroParser.Infrastructure;
 using MetroParser.Utils;
+using System.Collections.Generic;
 
 namespace MetroParser.UI
 {
@@ -31,7 +32,7 @@ namespace MetroParser.UI
 
         public MainWindow(bool startMinimized)
         {
-            client.SetRequestTimeout(new TimeSpan(0, 0, 0, 0, Properties.Settings.Default.UpdateCheckTimeout * 1000));
+            client.SetRequestTimeout(new TimeSpan(0, 0, 0, Properties.Settings.Default.UpdateCheckTimeout));
             StartupHandler.Initialize();
 
             InitializeTrayIcon();
@@ -49,10 +50,6 @@ namespace MetroParser.UI
 
             SetupServerList();
             BackupHandler.Initialize();
-
-            if (Properties.Settings.Default.CheckForUpdatesAutomatically)
-                TryCheckingForUpdates(manual: false);
-
             loading = false;
         }
 
@@ -470,7 +467,7 @@ namespace MetroParser.UI
                 ThreadPool.QueueUserWorkItem(_ => CheckForUpdates(ref isUpdateCheckManual));
                 ThreadPool.QueueUserWorkItem(_ => FinishUpdateCheck());
             }
-            else if (manual)
+            else if (manual && !isUpdateCheckManual)
             {
                 isUpdateCheckManual = true;
                 ToggleControls(enable: false);
@@ -513,7 +510,28 @@ namespace MetroParser.UI
             try
             {
                 string installedVersion = Properties.Settings.Default.Version;
-                string currentVersion = client.Repository.Release.GetAll("MapleToo", "GTAW-Log-Parser").Result[0].TagName;
+                IReadOnlyList<Release> releases = client.Repository.Release.GetAll("MapleToo", "GTAW-Log-Parser").Result;
+
+                // Assume user does not care if the latest release is a prerelease
+                string currentVersion = releases[0].TagName;
+
+                // TODO: Implement option to include
+                // prereleases in the update check,
+                // skip them for now
+
+                // If the user does not want to look for
+                // prereleases during the update check
+                if (true)
+                {
+                    foreach (Release release in releases)
+                    {
+                        if (release.Prerelease)
+                            continue;
+
+                        currentVersion = release.TagName;
+                        break;
+                    }
+                }
 
                 if (string.Compare(installedVersion, currentVersion) < 0)
                 {
@@ -703,7 +721,7 @@ namespace MetroParser.UI
                 programSettings.Closed += (s, args) =>
                 {
                     client = new GitHubClient(new ProductHeaderValue(Data.ProductHeader));
-                    client.SetRequestTimeout(new TimeSpan(0, 0, 0, 0, Properties.Settings.Default.UpdateCheckTimeout * 1000));
+                    client.SetRequestTimeout(new TimeSpan(0, 0, 0, Properties.Settings.Default.UpdateCheckTimeout));
                     programSettings = null;
                 };
             }

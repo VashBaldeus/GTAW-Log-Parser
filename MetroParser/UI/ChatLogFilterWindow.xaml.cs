@@ -49,7 +49,7 @@ namespace MetroParser.UI
 
             Timer = new System.Windows.Threading.DispatcherTimer();
             Timer.Tick += Timer_Tick;
-            Timer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
+            Timer.Interval = new TimeSpan(0, 0, 0, 1);
             Timer.Start();
 
             TimeLabel.Content = string.Format(Strings.CurrentTime, DateTime.Now.ToString("HH:mm:ss"));
