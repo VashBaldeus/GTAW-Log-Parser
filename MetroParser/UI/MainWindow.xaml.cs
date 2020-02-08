@@ -28,7 +28,7 @@ namespace MetroParser.UI
         private static bool isUpdateCheckManual = false;
         private static bool isLoading = true;
 
-        private bool isRestarting = false;
+        private static bool isRestarting = false;
 
         public MainWindow(bool startMinimized)
         {
@@ -101,6 +101,7 @@ namespace MetroParser.UI
             Properties.Settings.Default.CheckForUpdatesAutomatically = CheckForUpdatesOnStartup.IsChecked == true;
 
             Properties.Settings.Default.Save();
+            Data.Initialize();
         }
 
         private void LoadSettings()
@@ -123,6 +124,7 @@ namespace MetroParser.UI
                 Properties.Settings.Default.Save();
 
                 LookForMainFolder();
+                SaveSettings();
 
                 // Warning
                 //MessageBox.Show(Strings.LanguageInfo, Strings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -183,6 +185,8 @@ namespace MetroParser.UI
                 StatusLabel.Content = string.Format(Strings.BackupStatus, Strings.Disabled);
                 MessageBox.Show(Strings.BackupTurnedOff, Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
             }
+
+            SaveSettings();
         }
 
         private void FolderPath_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
