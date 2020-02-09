@@ -25,6 +25,14 @@ namespace MetroParser.Infrastructure
         private static bool runBackgroundInterval = false;
         public static bool quitting = false;
 
+        private static void DisplayBackupResultMessage(string text, string title, MessageBoxButton buttons, MessageBoxImage image)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                MessageBox.Show(text, title, buttons, image);
+            });
+        }
+
         public static void Initialize()
         {
             folderPath = Properties.Settings.Default.FolderPath;
@@ -200,7 +208,7 @@ namespace MetroParser.Infrastructure
                     }
 
                     if (gameClosed && !Properties.Settings.Default.SuppressNotifications)
-                        MessageBox.Show(string.Format(Strings.SuccessfulBackup, path + fileName), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+                        DisplayBackupResultMessage(string.Format(Strings.SuccessfulBackup, path + fileName), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -224,13 +232,13 @@ namespace MetroParser.Infrastructure
                         File.Delete(path + ".temp");
 
                     if (gameClosed && !Properties.Settings.Default.SuppressNotifications)
-                        MessageBox.Show(string.Format(Strings.SuccessfulBackup, path + fileName), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+                        DisplayBackupResultMessage(string.Format(Strings.SuccessfulBackup, path + fileName), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch
             {
                 if (gameClosed)
-                    MessageBox.Show(Strings.BackupError, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    DisplayBackupResultMessage(Strings.BackupError, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
