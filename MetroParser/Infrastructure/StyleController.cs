@@ -7,7 +7,7 @@ namespace MetroParser.Infrastructure
     public static class StyleController
     {
         public const string DefaultLightStyle = "Amber";
-        public const string DefaultDarkStyle = "Steel";
+        public const string DefaultDarkStyle = "Cyan";
         public static bool DarkMode
         {
             get { return Properties.Settings.Default.DarkMode; }
