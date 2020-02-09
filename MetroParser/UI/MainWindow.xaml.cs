@@ -516,14 +516,14 @@ namespace MetroParser.UI
                 string installedVersion = Properties.Settings.Default.Version;
                 IReadOnlyList<Release> releases = client.Repository.Release.GetAll("MapleToo", "GTAW-Log-Parser").Result;
 
-                // Assume user does not care if the latest release is a prerelease
-                string currentVersion = releases[0].TagName;
-
-                // If the user does not want to
-                // look for prereleases during
-                // the update check, ignore them
-                if (Properties.Settings.Default.IgnorePrereleases)
+                string currentVersion = string.Empty;
+                if (!Properties.Settings.Default.IgnorePrereleases)
+                    currentVersion = releases[0].TagName;
+                else
                 {
+                    // If the user does not want to
+                    // look for prereleases during
+                    // the update check, ignore them
                     foreach (Release release in releases)
                     {
                         if (release.Prerelease)
