@@ -723,11 +723,11 @@ namespace MetroParser.UI
                 {
                     client = new GitHubClient(new ProductHeaderValue(Data.ProductHeader));
                     client.SetRequestTimeout(new TimeSpan(0, 0, 0, Properties.Settings.Default.UpdateCheckTimeout));
+
                     programSettings = null;
                 };
             }
 
-            programSettings.LoadSettings();
             programSettings.ShowDialog();
         }
 

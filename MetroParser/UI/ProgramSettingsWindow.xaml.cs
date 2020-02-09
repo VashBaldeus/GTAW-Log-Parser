@@ -152,7 +152,6 @@ namespace MetroParser.UI
         private void ToggleDarkMode_CheckedChanged(object sender, RoutedEventArgs e)
         {
             Infrastructure.StyleController.DarkMode = ToggleDarkMode.IsChecked == true;
-            Properties.Settings.Default.Save();
 
             Infrastructure.StyleController.UpdateTheme();
             Timeout.Foreground = _mainWindow.UpdateCheckProgress.Foreground = ToggleDarkMode.IsChecked == true ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
