@@ -36,7 +36,7 @@ namespace MetroParser.UI
             Properties.Settings.Default.DisableInformationPopups = DisableInformationPopups.IsChecked == true;
             Properties.Settings.Default.DisableWarningPopups = DisableWarningPopups.IsChecked == true;
             Properties.Settings.Default.DisableErrorPopups = DisableErrorPopups.IsChecked == true;
-            Properties.Settings.Default.IgnorePrereleases = IgnorePrereleases.IsChecked == true;
+            Properties.Settings.Default.IgnoreBetaVersions = IgnoreBetaVersions.IsChecked == true;
 
             Infrastructure.StyleController.DarkMode = ToggleDarkMode.IsChecked == true;
             Properties.Settings.Default.Theme = Themes.SelectedItem.ToString();
@@ -57,7 +57,7 @@ namespace MetroParser.UI
             DisableInformationPopups.IsChecked = Properties.Settings.Default.DisableInformationPopups;
             DisableWarningPopups.IsChecked = Properties.Settings.Default.DisableWarningPopups;
             DisableErrorPopups.IsChecked = Properties.Settings.Default.DisableErrorPopups;
-            IgnorePrereleases.IsChecked = Properties.Settings.Default.IgnorePrereleases;
+            IgnoreBetaVersions.IsChecked = Properties.Settings.Default.IgnoreBetaVersions;
 
             ToggleDarkMode.IsChecked = Infrastructure.StyleController.DarkMode;
             Timeout.Foreground = _mainWindow.UpdateCheckProgress.Foreground = ToggleDarkMode.IsChecked == true ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
@@ -83,7 +83,7 @@ namespace MetroParser.UI
             Properties.Settings.Default.DisableInformationPopups = false;
             Properties.Settings.Default.DisableWarningPopups = false;
             Properties.Settings.Default.DisableErrorPopups = false;
-            Properties.Settings.Default.IgnorePrereleases = true;
+            Properties.Settings.Default.IgnoreBetaVersions = true;
 
             Infrastructure.StyleController.DarkMode = false;
             Properties.Settings.Default.Theme = Infrastructure.StyleController.DefaultLightStyle;
@@ -144,9 +144,9 @@ namespace MetroParser.UI
             Properties.Settings.Default.DisableErrorPopups = DisableErrorPopups.IsChecked == true;
         }
 
-        private void IgnorePrereleases_CheckedChanged(object sender, RoutedEventArgs e)
+        private void IgnoreBetaVersions_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.IgnorePrereleases = IgnorePrereleases.IsChecked == true;
+            Properties.Settings.Default.IgnoreBetaVersions = IgnoreBetaVersions.IsChecked == true;
         }
 
         private void ToggleDarkMode_CheckedChanged(object sender, RoutedEventArgs e)

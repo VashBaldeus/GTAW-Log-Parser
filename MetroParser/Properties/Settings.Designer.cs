@@ -407,12 +407,21 @@ namespace MetroParser.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool IgnorePrereleases {
+        public bool IgnoreBetaVersions {
             get {
-                return ((bool)(this["IgnorePrereleases"]));
+                return ((bool)(this["IgnoreBetaVersions"]));
             }
             set {
-                this["IgnorePrereleases"] = value;
+                this["IgnoreBetaVersions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsBetaVersion {
+            get {
+                return ((bool)(this["IsBetaVersion"]));
             }
         }
     }

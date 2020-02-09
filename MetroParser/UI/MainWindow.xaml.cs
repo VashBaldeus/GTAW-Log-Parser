@@ -511,9 +511,13 @@ namespace MetroParser.UI
                 string installedVersion = Properties.Settings.Default.Version;
                 IReadOnlyList<Release> releases = client.Repository.Release.GetAll("MapleToo", "GTAW-Log-Parser").Result;
 
-                string currentVersion = string.Empty;
-                if (!Properties.Settings.Default.IgnorePrereleases)
-                    currentVersion = releases[0].TagName;
+                string newVersion = string.Empty;
+                bool isNewVersionBeta = false;
+                if (!Properties.Settings.Default.IgnoreBetaVersions)
+                {
+                    newVersion = releases[0].TagName;
+                    isNewVersionBeta = releases[0].Prerelease;
+                }
                 else
                 {
                     // If the user does not want to
@@ -524,25 +528,26 @@ namespace MetroParser.UI
                         if (release.Prerelease)
                             continue;
 
-                        currentVersion = release.TagName;
+                        newVersion = release.TagName;
+                        isNewVersionBeta = release.Prerelease;
                         break;
                     }
                 }
 
-                if (string.Compare(installedVersion, currentVersion) < 0)
+                if ((Properties.Settings.Default.IsBetaVersion && !isNewVersionBeta && string.Compare(installedVersion, newVersion) == 0) || string.Compare(installedVersion, newVersion) < 0)
                 {
                     if (Visibility != Visibility.Visible)
                         ResumeTrayStripMenuItem_Click(this, EventArgs.Empty);
 
-                    DisplayUpdateMessage(string.Format(Strings.UpdateAvailable, installedVersion, currentVersion), Strings.UpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
+                    DisplayUpdateMessage(string.Format(Strings.UpdateAvailable, installedVersion + (Properties.Settings.Default.IsBetaVersion ? " Beta" : string.Empty), newVersion + (isNewVersionBeta ? " Beta" : string.Empty)), Strings.UpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
                 }
                 else if (manual)
-                    DisplayUpdateMessage(string.Format(Strings.RunningLatest, installedVersion), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+                    DisplayUpdateMessage(string.Format(Strings.RunningLatest, installedVersion + (Properties.Settings.Default.IsBetaVersion ? " Beta" : string.Empty)), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch
             {
                 if (manual)
-                    DisplayUpdateMessage(string.Format(Strings.NoInternet, Properties.Settings.Default.Version), Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    DisplayUpdateMessage(string.Format(Strings.NoInternet, Properties.Settings.Default.Version + (Properties.Settings.Default.IsBetaVersion ? " Beta" : string.Empty)), Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             _resetEvent.Set();
@@ -616,7 +621,7 @@ namespace MetroParser.UI
 
         private void AboutToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(string.Format(Strings.About, Properties.Settings.Default.Version, LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(string.Format(Strings.About, Properties.Settings.Default.Version + (Properties.Settings.Default.IsBetaVersion ? " Beta" : string.Empty), LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
             
             //if (MessageBox.Show(string.Format(Strings.About, Properties.Settings.Default.Version, LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             //    Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/");
