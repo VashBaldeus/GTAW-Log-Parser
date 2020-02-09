@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MetroParser.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Version" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">4.0</Value>
-    </Setting>
     <Setting Name="FolderPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
@@ -100,9 +97,6 @@
     </Setting>
     <Setting Name="IgnoreBetaVersions" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="IsBetaVersion" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

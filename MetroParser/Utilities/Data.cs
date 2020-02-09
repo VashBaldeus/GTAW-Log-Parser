@@ -6,6 +6,9 @@ namespace MetroParser.Utilities
 {
     public static class Data
     {
+        public const string Version = "4.0";
+        public const bool IsBetaVersion = false;
+
         public static void Initialize()
         {
             string folderPath = Properties.Settings.Default.FolderPath;

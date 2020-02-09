@@ -109,7 +109,7 @@ namespace MetroParser.UI
             OpenProfilePage.Visibility = Properties.Settings.Default.DisableProfileButton ? Visibility.Collapsed : Visibility.Visible;
             UpdateCheckProgress.Foreground = StyleController.DarkMode ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
 
-            Version.Text = string.Format(Strings.VersionInfo, Properties.Settings.Default.Version + (Properties.Settings.Default.IsBetaVersion ? "b" : string.Empty));
+            Version.Text = string.Format(Strings.VersionInfo, Data.Version + (Data.IsBetaVersion ? "b" : string.Empty));
             StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
             Counter.Text = string.Format(Strings.CharacterCounter, 0, 0);
 
@@ -508,7 +508,7 @@ namespace MetroParser.UI
         {
             try
             {
-                string installedVersion = Properties.Settings.Default.Version;
+                string installedVersion = Data.Version;
                 IReadOnlyList<Release> releases = client.Repository.Release.GetAll("MapleToo", "GTAW-Log-Parser").Result;
 
                 string newVersion = string.Empty;
@@ -534,20 +534,20 @@ namespace MetroParser.UI
                     }
                 }
 
-                if ((Properties.Settings.Default.IsBetaVersion && !isNewVersionBeta && string.Compare(installedVersion, newVersion) == 0) || string.Compare(installedVersion, newVersion) < 0)
+                if ((Data.IsBetaVersion && !isNewVersionBeta && string.Compare(installedVersion, newVersion) == 0) || string.Compare(installedVersion, newVersion) < 0)
                 {
                     if (Visibility != Visibility.Visible)
                         ResumeTrayStripMenuItem_Click(this, EventArgs.Empty);
 
-                    DisplayUpdateMessage(string.Format(Strings.UpdateAvailable, installedVersion + (Properties.Settings.Default.IsBetaVersion ? " Beta" : string.Empty), newVersion + (isNewVersionBeta ? " Beta" : string.Empty)), Strings.UpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
+                    DisplayUpdateMessage(string.Format(Strings.UpdateAvailable, installedVersion + (Data.IsBetaVersion ? " Beta" : string.Empty), newVersion + (isNewVersionBeta ? " Beta" : string.Empty)), Strings.UpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
                 }
                 else if (manual)
-                    DisplayUpdateMessage(string.Format(Strings.RunningLatest, installedVersion + (Properties.Settings.Default.IsBetaVersion ? " Beta" : string.Empty)), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+                    DisplayUpdateMessage(string.Format(Strings.RunningLatest, installedVersion + (Data.IsBetaVersion ? " Beta" : string.Empty)), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch
             {
                 if (manual)
-                    DisplayUpdateMessage(string.Format(Strings.NoInternet, Properties.Settings.Default.Version + (Properties.Settings.Default.IsBetaVersion ? " Beta" : string.Empty)), Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    DisplayUpdateMessage(string.Format(Strings.NoInternet, Data.Version + (Data.IsBetaVersion ? " Beta" : string.Empty)), Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             _resetEvent.Set();
@@ -621,9 +621,9 @@ namespace MetroParser.UI
 
         private void AboutToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(string.Format(Strings.About, Properties.Settings.Default.Version + (Properties.Settings.Default.IsBetaVersion ? " Beta" : string.Empty), LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(string.Format(Strings.About, Data.Version + (Data.IsBetaVersion ? " Beta" : string.Empty), LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
             
-            //if (MessageBox.Show(string.Format(Strings.About, Properties.Settings.Default.Version, LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+            //if (MessageBox.Show(string.Format(Strings.About, Data.Version, LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             //    Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/");
         }
 
