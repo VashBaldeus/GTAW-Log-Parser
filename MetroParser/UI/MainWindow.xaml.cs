@@ -109,7 +109,7 @@ namespace MetroParser.UI
             OpenProfilePage.Visibility = Properties.Settings.Default.DisableProfileButton ? Visibility.Collapsed : Visibility.Visible;
             UpdateCheckProgress.Foreground = StyleController.DarkMode ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
 
-            Version.Text = string.Format(Strings.VersionInfo, Properties.Settings.Default.Version);
+            Version.Text = string.Format(Strings.VersionInfo, Properties.Settings.Default.Version + (Properties.Settings.Default.IsBetaVersion ? "b" : string.Empty));
             StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
             Counter.Text = string.Format(Strings.CharacterCounter, 0, 0);
 
