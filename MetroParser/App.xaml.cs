@@ -86,7 +86,8 @@ namespace MetroParser
                 else
                 {
                     MainWindow mainWindow = new MainWindow(startMinimized: startMinimized);
-                    mainWindow.Show();
+                    if (!startMinimized)
+                        mainWindow.Show();
                 }
             }
 

@@ -35,15 +35,11 @@ namespace MetroParser.UI
             client.SetRequestTimeout(new TimeSpan(0, 0, 0, Properties.Settings.Default.UpdateCheckTimeout));
             StartupController.Initialize();
 
+            InitializeComponent();
             InitializeTrayIcon();
 
             if (startMinimized)
-            {
                 TrayIcon.Visible = true;
-                Hide();
-            }
-
-            InitializeComponent();
 
             // Also checks for the RAGEMP folder on the first start
             LoadSettings();
@@ -72,7 +68,6 @@ namespace MetroParser.UI
                         return;
 
                     CultureInfo cultureInfo = new CultureInfo(LocalizationController.GetCodeFromLanguage(language));
-
                     if (MessageBox.Show(Strings.ResourceManager.GetString("Restart", cultureInfo), Strings.ResourceManager.GetString("RestartTitle", cultureInfo), MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         LocalizationController.SetLanguage(language);
