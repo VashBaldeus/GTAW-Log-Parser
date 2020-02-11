@@ -18,11 +18,10 @@ namespace MetroParser.Utilities
 
                 Properties.Settings.Default.SameHashAutoCount = lastAutoHash == hash ? Properties.Settings.Default.SameHashAutoCount + 1 : 1;
                 Properties.Settings.Default.LastParsedAutoHash = hash;
+                Properties.Settings.Default.Save();
 
                 if (Properties.Settings.Default.SameHashAutoCount > 2)
                     MessageBox.Show(Strings.SameHashWarning, Strings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
-
-                Properties.Settings.Default.Save();
             }
         }
 
