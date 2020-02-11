@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using MetroParser.Utilities;
 using System.Windows;
-using System.IO;
 using System.Windows.Media;
 
 namespace MetroParser.Infrastructure
@@ -82,7 +81,7 @@ namespace MetroParser.Infrastructure
             }
         }
 
-        private static Color IdealTextColor(Color color)
+        private static Color GetIdealTextColor(Color color)
         {
             const int nThreshold = 105;
             var bgDelta = Convert.ToInt32((color.R * 0.299) + (color.G * 0.587) + (color.B * 0.114));
@@ -142,7 +141,7 @@ namespace MetroParser.Infrastructure
                 resourceDictionary.Add("CheckmarkFill", GetSolidColorBrush((Color)resourceDictionary["AccentColor"]));
                 resourceDictionary.Add("RightArrowFill", GetSolidColorBrush((Color)resourceDictionary["AccentColor"]));
 
-                resourceDictionary.Add("IdealForegroundColor", IdealTextColor(color));
+                resourceDictionary.Add("IdealForegroundColor", GetIdealTextColor(color));
                 resourceDictionary.Add("IdealForegroundColorBrush", GetSolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]));
                 resourceDictionary.Add("IdealForegroundDisabledBrush", GetSolidColorBrush((Color)resourceDictionary["IdealForegroundColor"], 0.4));
                 resourceDictionary.Add("AccentSelectedColorBrush", GetSolidColorBrush((Color)resourceDictionary["IdealForegroundColor"]));

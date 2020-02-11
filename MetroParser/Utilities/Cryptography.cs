@@ -12,11 +12,22 @@ namespace MetroParser.Utilities
             {
                 string hash = GetMD5Hash(md5Hash, log);
 
+                string lastHash = Properties.Settings.Default.LastParsedHash;
+                string lastManualHash = Properties.Settings.Default.LastParsedManualHash;
+                string lastAutoHash = Properties.Settings.Default.LastParsedAutoHash;
+
                 if (isManual)
+                {
+                    Properties.Settings.Default.SameHashManualCount = lastManualHash == hash ? Properties.Settings.Default.SameHashManualCount + 1 : 1;
                     Properties.Settings.Default.LastParsedManualHash = hash;
+                }
                 else
+                {
+                    Properties.Settings.Default.SameHashAutoCount = lastAutoHash == hash ? Properties.Settings.Default.SameHashAutoCount + 1 : 1;
                     Properties.Settings.Default.LastParsedAutoHash = hash;
-                
+                }
+
+                Properties.Settings.Default.SameHashCount = lastHash == hash ? Properties.Settings.Default.SameHashCount + 1 : 1;
                 Properties.Settings.Default.LastParsedHash = hash;
                 Properties.Settings.Default.Save();
             }

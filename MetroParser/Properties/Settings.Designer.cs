@@ -430,5 +430,41 @@ namespace MetroParser.Properties {
                 this["FollowSystemColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SameHashCount {
+            get {
+                return ((int)(this["SameHashCount"]));
+            }
+            set {
+                this["SameHashCount"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SameHashAutoCount {
+            get {
+                return ((int)(this["SameHashAutoCount"]));
+            }
+            set {
+                this["SameHashAutoCount"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SameHashManualCount {
+            get {
+                return ((int)(this["SameHashManualCount"]));
+            }
+            set {
+                this["SameHashManualCount"] = value;
+            }
+        }
     }
 }
