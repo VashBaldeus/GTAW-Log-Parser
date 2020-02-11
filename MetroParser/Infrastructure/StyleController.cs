@@ -64,7 +64,8 @@ namespace MetroParser.Infrastructure
         {
             try
             {
-                Data.CanFollowSystemMode = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", 1) != null;
+                var keyValue = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", null);
+                Data.CanFollowSystemMode = keyValue != null;
             }
             catch
             {
@@ -73,7 +74,8 @@ namespace MetroParser.Infrastructure
 
             try
             {
-                Data.CanFollowSystemColor = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM", "ColorizationColor", 0) != null;
+                var keyValue = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM", "ColorizationColor", null);
+                Data.CanFollowSystemColor = keyValue != null && Data.CanFollowSystemMode;
             }
             catch
             {
@@ -101,14 +103,11 @@ namespace MetroParser.Infrastructure
             try
             {
                 Color color = SystemParameters.WindowGlassColor;
-                var keyValue = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM", "ColorizationColor", 0);
+                var keyValue = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM", "ColorizationColor", null);
                 if (keyValue != null)
                 {
-                    if ((UInt32)(int)keyValue > 0)
-                    {
-                        var bytes = BitConverter.GetBytes((UInt32)(int)keyValue);
-                        color = Color.FromArgb(bytes[3], bytes[2], bytes[1], bytes[0]);
-                    }
+                    var bytes = BitConverter.GetBytes((UInt32)(int)keyValue);
+                    color = Color.FromArgb(bytes[3], bytes[2], bytes[1], bytes[0]);
                 }
 
                 #pragma warning disable IDE0028 // Simplify collection initialization
@@ -176,7 +175,7 @@ namespace MetroParser.Infrastructure
             bool darkMode = false;
             try
             {
-                var keyValue = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", 1);
+                var keyValue = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", null);
                 if (keyValue != null && (UInt32)(int)keyValue == 0)
                     darkMode = true;
             }
