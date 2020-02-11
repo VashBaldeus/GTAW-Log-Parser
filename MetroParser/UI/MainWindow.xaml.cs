@@ -68,7 +68,7 @@ namespace MetroParser.UI
                         return;
 
                     CultureInfo cultureInfo = new CultureInfo(LocalizationController.GetCodeFromLanguage(language));
-                    if (MessageBox.Show(Strings.ResourceManager.GetString("Restart", cultureInfo), Strings.ResourceManager.GetString("RestartTitle", cultureInfo), MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    if (MessageBox.Show(Strings.ResourceManager.GetString("SwitchServer", cultureInfo), Strings.ResourceManager.GetString("Restart", cultureInfo), MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         LocalizationController.SetLanguage(language);
 
@@ -109,7 +109,7 @@ namespace MetroParser.UI
             OpenProfilePage.Visibility = Properties.Settings.Default.DisableProfileButton ? Visibility.Collapsed : Visibility.Visible;
             UpdateCheckProgress.Foreground = StyleController.DarkMode ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
 
-            Version.Text = string.Format(Strings.VersionInfo, Data.Version + (Data.IsBetaVersion ? "b" : string.Empty));
+            Version.Text = string.Format(Strings.VersionInfo, Data.Version, Data.IsBetaVersion ? Strings.BetaShort : string.Empty);
             StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
             Counter.Text = string.Format(Strings.CharacterCounter, 0, 0);
 
@@ -621,7 +621,7 @@ namespace MetroParser.UI
 
         private void AboutToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(string.Format(Strings.About, Data.Version + (Data.IsBetaVersion ? " Beta" : string.Empty), LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(string.Format(Strings.About, Data.Version, Data.IsBetaVersion ? Strings.Beta : string.Empty, LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
             
             //if (MessageBox.Show(string.Format(Strings.About, Data.Version, LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             //    Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/");

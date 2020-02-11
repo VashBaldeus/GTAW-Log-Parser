@@ -120,11 +120,11 @@
   <data name="About" xml:space="preserve">
     <value>Chat Log Parser created by Maple for GTA World.
 
-Installed Version: {0}
-Parsing From: {1} Server
+Installed Version: {0} {1}
+Parsing From: {2} Server
 
-Primary Server IP: {2}
-Secondary Server IP: {3}</value>
+Primary Server IP: {3}
+Secondary Server IP: {4}</value>
   </data>
   <data name="AlreadyExistingFoldersWarning" xml:space="preserve">
     <value> because the "{0}" folder(s) already exist(s).</value>
@@ -165,6 +165,12 @@ Would you like to continue?</value>
   </data>
   <data name="BadFolderPath" xml:space="preserve">
     <value>Please pick a non-root directory for your RAGEMP folder location.</value>
+  </data>
+  <data name="Beta" xml:space="preserve">
+    <value>Beta</value>
+  </data>
+  <data name="BetaShort" xml:space="preserve">
+    <value>b</value>
   </data>
   <data name="CharacterCounter" xml:space="preserve">
     <value>{0} characters and {1} lines</value>
@@ -320,11 +326,6 @@ Would you like to delete these files?
     <value>{0}. (recommended)</value>
   </data>
   <data name="Restart" xml:space="preserve">
-    <value>The parser needs to restart in order to switch to the selected server.
-
-Would you like to apply the changes and restart the application now?</value>
-  </data>
-  <data name="RestartTitle" xml:space="preserve">
     <value>Restart</value>
   </data>
   <data name="RunningLatest" xml:space="preserve">
@@ -353,6 +354,11 @@ Installed Version: {0}</value>
   <data name="SuccessfulBackup" xml:space="preserve">
     <value>Successfully parsed and backed up chat log to {0}</value>
   </data>
+  <data name="SwitchServer" xml:space="preserve">
+    <value>The parser needs to restart in order to switch to the selected server.
+
+Would you like to apply the changes and restart the application now?</value>
+  </data>
   <data name="UpdateAbortTime" xml:space="preserve">
     <value>{0}.</value>
   </data>
@@ -368,7 +374,7 @@ Would you like to visit the releases page now?</value>
     <value>Update Available</value>
   </data>
   <data name="VersionInfo" xml:space="preserve">
-    <value>Version: {0}</value>
+    <value>Version: {0}{1}</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>

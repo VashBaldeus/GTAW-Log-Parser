@@ -63,11 +63,11 @@ namespace MetroParser.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Chat Log Parser created by Maple for GTA World.
         ///
-        ///Installed Version: {0}
-        ///Parsing From: {1} Server
+        ///Installed Version: {0} {1}
+        ///Parsing From: {2} Server
         ///
-        ///Primary Server IP: {2}
-        ///Secondary Server IP: {3}.
+        ///Primary Server IP: {3}
+        ///Secondary Server IP: {4}.
         /// </summary>
         internal static string About {
             get {
@@ -184,6 +184,24 @@ namespace MetroParser.Localization {
         internal static string BadFolderPath {
             get {
                 return ResourceManager.GetString("BadFolderPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beta.
+        /// </summary>
+        internal static string Beta {
+            get {
+                return ResourceManager.GetString("Beta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to b.
+        /// </summary>
+        internal static string BetaShort {
+            get {
+                return ResourceManager.GetString("BetaShort", resourceCulture);
             }
         }
         
@@ -605,22 +623,11 @@ namespace MetroParser.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The parser needs to restart in order to switch to the selected server.
-        ///
-        ///Would you like to apply the changes and restart the application now?.
+        ///   Looks up a localized string similar to Restart.
         /// </summary>
         internal static string Restart {
             get {
                 return ResourceManager.GetString("Restart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Restart.
-        /// </summary>
-        internal static string RestartTitle {
-            get {
-                return ResourceManager.GetString("RestartTitle", resourceCulture);
             }
         }
         
@@ -699,6 +706,17 @@ namespace MetroParser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The parser needs to restart in order to switch to the selected server.
+        ///
+        ///Would you like to apply the changes and restart the application now?.
+        /// </summary>
+        internal static string SwitchServer {
+            get {
+                return ResourceManager.GetString("SwitchServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}..
         /// </summary>
         internal static string UpdateAbortTime {
@@ -731,7 +749,7 @@ namespace MetroParser.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Version: {0}.
+        ///   Looks up a localized string similar to Version: {0}{1}.
         /// </summary>
         internal static string VersionInfo {
             get {
