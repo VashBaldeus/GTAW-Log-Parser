@@ -41,10 +41,12 @@
         <CheckBox x:Name="DisableWarningPopups" Checked="DisableWarningPopups_CheckedChanged" Unchecked="DisableWarningPopups_CheckedChanged" Content="Disable most Warning popups" HorizontalAlignment="Left" Margin="235,61,0,0" VerticalAlignment="Top" Width="281"/>
         <CheckBox x:Name="DisableErrorPopups" Checked="DisableErrorPopups_CheckedChanged" Unchecked="DisableErrorPopups_CheckedChanged" Content="Disable most Error popups" HorizontalAlignment="Left" Margin="235,84,0,0" VerticalAlignment="Top" Width="281"/>
         <Label Content="Theme" HorizontalAlignment="Left" Margin="4,181,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <CheckBox x:Name="ToggleDarkMode" Checked="ToggleDarkMode_CheckedChanged" Unchecked="ToggleDarkMode_CheckedChanged" Content="Dark Mode" HorizontalAlignment="Left" Margin="10,244,0,0" VerticalAlignment="Top" Width="193"/>
-        <ComboBox x:Name="Themes" SelectionChanged="Themes_SelectionChanged" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="193"/>
+        <CheckBox x:Name="ToggleDarkMode" IsEnabled="False" Checked="ToggleDarkMode_CheckedChanged" Unchecked="ToggleDarkMode_CheckedChanged" Content="Dark Mode" HorizontalAlignment="Left" Margin="10,244,0,0" VerticalAlignment="Top" Width="193"/>
+        <ComboBox x:Name="Themes" IsEnabled="False" SelectionChanged="Themes_SelectionChanged" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="193"/>
         <Label Content="|" HorizontalAlignment="Left" Margin="195,-40,0,0" VerticalAlignment="Top" FontSize="160" Width="25"/>
-        <CheckBox x:Name="IgnoreBetaVersions" Checked="IgnoreBetaVersions_CheckedChanged" Unchecked="IgnoreBetaVersions_CheckedChanged" IsChecked="True" Content="Ignore beta versions in the update check" HorizontalAlignment="Left" Margin="235,138,-2,0" VerticalAlignment="Top" Width="281"/>
+        <CheckBox x:Name="IgnoreBetaVersions" Checked="IgnoreBetaVersions_CheckedChanged" Unchecked="IgnoreBetaVersions_CheckedChanged" Content="Ignore beta versions in the update check" HorizontalAlignment="Left" Margin="235,138,-2,0" VerticalAlignment="Top" Width="281"/>
+        <CheckBox x:Name="FollowSystemColor" IsEnabled="False" Checked="FollowSystemColor_CheckedChanged" Unchecked="FollowSystemColor_CheckedChanged" Content="Use system accent color (Windows 10)" HorizontalAlignment="Left" Margin="235,161,-2,0" VerticalAlignment="Top" Width="281"/>
+        <CheckBox x:Name="FollowSystemMode" IsEnabled="False" Checked="FollowSystemMode_CheckedChanged" Unchecked="FollowSystemMode_CheckedChanged" Content="Follow system app mode (Windows 10)" HorizontalAlignment="Left" Margin="235,184,-2,0" VerticalAlignment="Top" Width="281"/>
 
     </Grid>
 </Controls:MetroWindow>

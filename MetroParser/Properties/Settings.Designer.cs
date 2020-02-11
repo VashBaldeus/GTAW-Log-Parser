@@ -61,7 +61,7 @@ namespace MetroParser.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool CheckForUpdatesAutomatically {
             get {
                 return ((bool)(this["CheckForUpdatesAutomatically"]));
@@ -217,7 +217,7 @@ namespace MetroParser.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool DisableForumsButton {
             get {
                 return ((bool)(this["DisableForumsButton"]));
@@ -229,7 +229,7 @@ namespace MetroParser.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool DisableFacebrowserButton {
             get {
                 return ((bool)(this["DisableFacebrowserButton"]));
@@ -241,7 +241,7 @@ namespace MetroParser.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool DisableUCPButton {
             get {
                 return ((bool)(this["DisableUCPButton"]));
@@ -265,7 +265,7 @@ namespace MetroParser.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool DisableProjectButton {
             get {
                 return ((bool)(this["DisableProjectButton"]));
@@ -350,12 +350,12 @@ namespace MetroParser.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AlwaysMinimizeToTray {
+        public bool AlwaysCloseToTray {
             get {
-                return ((bool)(this["AlwaysMinimizeToTray"]));
+                return ((bool)(this["AlwaysCloseToTray"]));
             }
             set {
-                this["AlwaysMinimizeToTray"] = value;
+                this["AlwaysCloseToTray"] = value;
             }
         }
         
@@ -404,6 +404,30 @@ namespace MetroParser.Properties {
             }
             set {
                 this["IgnoreBetaVersions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool FollowSystemMode {
+            get {
+                return ((bool)(this["FollowSystemMode"]));
+            }
+            set {
+                this["FollowSystemMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool FollowSystemColor {
+            get {
+                return ((bool)(this["FollowSystemColor"]));
+            }
+            set {
+                this["FollowSystemColor"] = value;
             }
         }
     }

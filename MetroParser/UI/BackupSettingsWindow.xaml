@@ -35,6 +35,6 @@
         <Button x:Name="CloseWindow" Click="CloseWindow_Click" Content="Close" HorizontalAlignment="Left" Margin="385,210,0,0" VerticalAlignment="Top" Width="75"/>
         <Button x:Name="Reset" Click="Reset_Click" Content="Reset" HorizontalAlignment="Left" Margin="305,210,0,0" VerticalAlignment="Top" Width="75"/>
         <TextBox x:Name="BackupPath" MouseLeftButtonUp="BackupPath_MouseLeftButtonUp" TextChanged="BackupPath_TextChanged" HorizontalAlignment="Left" Height="23" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="370" IsReadOnly="True" VerticalScrollBarVisibility="Disabled"/>
-        <CheckBox x:Name="AlwaysMinimizeToTray" Content="Always minimize to the system tray" HorizontalAlignment="Left" Margin="10,191,0,0" VerticalAlignment="Top" Width="290" IsEnabled="False"/>
+        <CheckBox x:Name="AlwaysCloseToTray" Content="Always close to the system tray" HorizontalAlignment="Left" Margin="10,191,0,0" VerticalAlignment="Top" Width="290" IsEnabled="False"/>
     </Grid>
 </Controls:MetroWindow>

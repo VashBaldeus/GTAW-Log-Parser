@@ -78,8 +78,6 @@ namespace MetroParser.UI
                 startInfo.FileName = Data.ExecutablePath;
                 startInfo.Arguments = $"{Data.ParameterPrefix}restart";
                 Process.Start(startInfo);
-
-                Application.Current.Shutdown();
             }
 
             Application.Current.Shutdown();

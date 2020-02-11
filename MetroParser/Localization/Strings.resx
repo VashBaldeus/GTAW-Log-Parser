@@ -353,6 +353,9 @@ Installed Version: {0}</value>
   <data name="SuccessfulBackup" xml:space="preserve">
     <value>Successfully parsed and backed up chat log to {0}</value>
   </data>
+  <data name="UpdateAbortTime" xml:space="preserve">
+    <value>{0}.</value>
+  </data>
   <data name="UpdateAvailable" xml:space="preserve">
     <value>A new version of the chat log parser is now available on GitHub.
 

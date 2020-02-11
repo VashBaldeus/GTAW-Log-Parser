@@ -699,6 +699,15 @@ namespace MetroParser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}..
+        /// </summary>
+        internal static string UpdateAbortTime {
+            get {
+                return ResourceManager.GetString("UpdateAbortTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A new version of the chat log parser is now available on GitHub.
         ///
         ///Installed Version: {0}

@@ -12,7 +12,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="CheckForUpdatesAutomatically" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="BackupChatLogAutomatically" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -51,19 +51,19 @@
       <Value Profile="(Default)">4</Value>
     </Setting>
     <Setting Name="DisableForumsButton" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="DisableFacebrowserButton" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="DisableUCPButton" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="DisableReleasesButton" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="DisableProjectButton" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="DisableProfileButton" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -83,7 +83,7 @@
     <Setting Name="DisableErrorPopups" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="AlwaysMinimizeToTray" Type="System.Boolean" Scope="User">
+    <Setting Name="AlwaysCloseToTray" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="LastParsedManualHash" Type="System.String" Scope="User">
@@ -96,6 +96,12 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="IgnoreBetaVersions" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FollowSystemMode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FollowSystemColor" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>

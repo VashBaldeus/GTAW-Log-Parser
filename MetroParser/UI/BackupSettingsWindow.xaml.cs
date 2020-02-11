@@ -36,7 +36,7 @@ namespace MetroParser.UI
             Properties.Settings.Default.EnableIntervalBackup = EnableIntervalBackup.IsChecked == true;
             Properties.Settings.Default.IntervalTime = (int)Interval.Value;
             Properties.Settings.Default.RemoveTimestampsFromBackup = RemoveTimestamps.IsChecked == true;
-            Properties.Settings.Default.AlwaysMinimizeToTray = AlwaysMinimizeToTray.IsChecked == true;
+            Properties.Settings.Default.AlwaysCloseToTray = AlwaysCloseToTray.IsChecked == true;
             Properties.Settings.Default.StartWithWindows = StartWithWindows.IsChecked == true;
             Properties.Settings.Default.SuppressNotifications = SuppressNotifications.IsChecked == true;
 
@@ -53,7 +53,7 @@ namespace MetroParser.UI
             EnableIntervalBackup.IsChecked = Properties.Settings.Default.EnableIntervalBackup;
             Interval.Value = Properties.Settings.Default.IntervalTime;
             RemoveTimestamps.IsChecked = Properties.Settings.Default.RemoveTimestampsFromBackup;
-            AlwaysMinimizeToTray.IsChecked = Properties.Settings.Default.AlwaysMinimizeToTray;
+            AlwaysCloseToTray.IsChecked = Properties.Settings.Default.AlwaysCloseToTray;
             StartWithWindows.IsChecked = Properties.Settings.Default.StartWithWindows;
             SuppressNotifications.IsChecked = Properties.Settings.Default.SuppressNotifications;
 
@@ -68,7 +68,7 @@ namespace MetroParser.UI
             Properties.Settings.Default.EnableIntervalBackup = false;
             Properties.Settings.Default.IntervalTime = 10;
             Properties.Settings.Default.RemoveTimestampsFromBackup = false;
-            Properties.Settings.Default.AlwaysMinimizeToTray = false;
+            Properties.Settings.Default.AlwaysCloseToTray = false;
             Properties.Settings.Default.StartWithWindows = false;
             Properties.Settings.Default.SuppressNotifications = false;
 
@@ -163,13 +163,13 @@ namespace MetroParser.UI
         {
             EnableIntervalBackup.IsEnabled = BackUpChatLogAutomatically.IsChecked == true;
             RemoveTimestamps.IsEnabled = BackUpChatLogAutomatically.IsChecked == true;
-            AlwaysMinimizeToTray.IsEnabled = BackUpChatLogAutomatically.IsChecked == true;
+            AlwaysCloseToTray.IsEnabled = BackUpChatLogAutomatically.IsChecked == true;
             StartWithWindows.IsEnabled = BackUpChatLogAutomatically.IsChecked == true;
             SuppressNotifications.IsEnabled = BackUpChatLogAutomatically.IsChecked == true;
 
             if (BackUpChatLogAutomatically.IsChecked != true)
             {
-                AlwaysMinimizeToTray.IsChecked = false;
+                AlwaysCloseToTray.IsChecked = false;
                 StartWithWindows.IsChecked = false;
                 RemoveTimestamps.IsChecked = false;
                 EnableIntervalBackup.IsChecked = false;

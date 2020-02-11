@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 using MetroParser.Localization;
+using MetroParser.Infrastructure;
+using MetroParser.Utilities;
 
 namespace MetroParser.UI
 {
@@ -37,14 +39,16 @@ namespace MetroParser.UI
             Properties.Settings.Default.DisableWarningPopups = DisableWarningPopups.IsChecked == true;
             Properties.Settings.Default.DisableErrorPopups = DisableErrorPopups.IsChecked == true;
             Properties.Settings.Default.IgnoreBetaVersions = IgnoreBetaVersions.IsChecked == true;
+            Properties.Settings.Default.FollowSystemColor = FollowSystemColor.IsChecked == true;
+            Properties.Settings.Default.FollowSystemMode = FollowSystemMode.IsChecked == true;
 
-            Infrastructure.StyleController.DarkMode = ToggleDarkMode.IsChecked == true;
-            Properties.Settings.Default.Theme = Themes.SelectedItem.ToString();
+            StyleController.DarkMode = ToggleDarkMode.IsChecked == true;
+            StyleController.Style = Themes.SelectedItem.ToString();
 
             Properties.Settings.Default.Save();
         }
 
-        public void LoadSettings()
+        private void LoadSettings()
         {
             DisableForumsButton.IsChecked = Properties.Settings.Default.DisableForumsButton;
             DisableFacebrowserButton.IsChecked = Properties.Settings.Default.DisableFacebrowserButton;
@@ -59,24 +63,37 @@ namespace MetroParser.UI
             DisableErrorPopups.IsChecked = Properties.Settings.Default.DisableErrorPopups;
             IgnoreBetaVersions.IsChecked = Properties.Settings.Default.IgnoreBetaVersions;
 
-            ToggleDarkMode.IsChecked = Infrastructure.StyleController.DarkMode;
+            StyleController.ValidStyles.Remove("Windows");
+            FollowSystemColor.IsChecked = Properties.Settings.Default.FollowSystemColor;
+            FollowSystemMode.IsChecked = Properties.Settings.Default.FollowSystemMode;
+            FollowSystemColor.IsEnabled = Data.CanFollowSystemColor;
+            FollowSystemMode.IsEnabled = Data.CanFollowSystemMode;
+
+            ToggleDarkMode.IsChecked = StyleController.DarkMode;
+            ToggleDarkMode.IsEnabled = !Properties.Settings.Default.FollowSystemMode;
             Timeout.Foreground = _mainWindow.UpdateCheckProgress.Foreground = ToggleDarkMode.IsChecked == true ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
 
+            Themes.IsEnabled = !Properties.Settings.Default.FollowSystemColor;
+            UpdateThemeSwitcher();
+        }
+
+        private void UpdateThemeSwitcher()
+        {
             Themes.Items.Clear();
-            foreach (string style in Infrastructure.StyleController.ValidStyles)
+            foreach (string style in StyleController.ValidStyles)
             {
                 Themes.Items.Add(style);
             }
-            Themes.SelectedItem = Infrastructure.StyleController.GetValidStyle(Properties.Settings.Default.Theme);
+            Themes.SelectedItem = StyleController.Style;
         }
 
-        public static void ResetSettings()
+        private void ResetSettings()
         {
-            Properties.Settings.Default.DisableForumsButton = false;
-            Properties.Settings.Default.DisableFacebrowserButton = false;
-            Properties.Settings.Default.DisableUCPButton = false;
+            Properties.Settings.Default.DisableForumsButton = true;
+            Properties.Settings.Default.DisableFacebrowserButton = true;
+            Properties.Settings.Default.DisableUCPButton = true;
             Properties.Settings.Default.DisableReleasesButton= false;
-            Properties.Settings.Default.DisableProjectButton = false;
+            Properties.Settings.Default.DisableProjectButton = true;
             Properties.Settings.Default.DisableProfileButton = false;
             Properties.Settings.Default.UpdateCheckTimeout = 4;
 
@@ -84,9 +101,11 @@ namespace MetroParser.UI
             Properties.Settings.Default.DisableWarningPopups = false;
             Properties.Settings.Default.DisableErrorPopups = false;
             Properties.Settings.Default.IgnoreBetaVersions = true;
+            Properties.Settings.Default.FollowSystemColor = Data.CanFollowSystemColor;
+            Properties.Settings.Default.FollowSystemMode = Data.CanFollowSystemMode;
 
-            Infrastructure.StyleController.DarkMode = false;
-            Properties.Settings.Default.Theme = Infrastructure.StyleController.DefaultLightStyle;
+            StyleController.DarkMode = Data.CanFollowSystemMode ? StyleController.GetAppMode() : false;
+            StyleController.Style = Data.CanFollowSystemColor ? "Windows" : "Default";
 
             Properties.Settings.Default.Save();
         }
@@ -96,7 +115,7 @@ namespace MetroParser.UI
             if (TimeoutLabel2 == null)
                 return;
 
-            TimeoutLabel2.Content = string.Format("{0}.", Timeout.Value > 1 ? Strings.SecondPlural : Strings.SecondSingular);
+            TimeoutLabel2.Content = string.Format(Strings.UpdateAbortTime, Timeout.Value > 1 ? Strings.SecondPlural : Strings.SecondSingular);
         }
 
         private void DisableForumsButton_CheckedChanged(object sender, RoutedEventArgs e)
@@ -149,23 +168,43 @@ namespace MetroParser.UI
             Properties.Settings.Default.IgnoreBetaVersions = IgnoreBetaVersions.IsChecked == true;
         }
 
+        private void FollowSystemColor_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.FollowSystemColor = FollowSystemColor.IsChecked == true;
+
+            Themes.IsEnabled = FollowSystemColor.IsChecked != true;
+            if (FollowSystemColor.IsChecked == true)
+                StyleController.ValidStyles.Add("Windows");
+            else
+                StyleController.ValidStyles.Remove("Windows");
+
+            UpdateThemeSwitcher();
+            Themes.SelectedItem = FollowSystemColor.IsChecked == true ? "Windows" : "Default";
+        }
+
+        private void FollowSystemMode_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.FollowSystemMode = FollowSystemMode.IsChecked == true;
+
+            ToggleDarkMode.IsEnabled = FollowSystemMode.IsChecked != true;
+            ToggleDarkMode.IsChecked = FollowSystemMode.IsChecked == true ? StyleController.GetAppMode() : false;
+        }
+
         private void ToggleDarkMode_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            Infrastructure.StyleController.DarkMode = ToggleDarkMode.IsChecked == true;
-
-            Infrastructure.StyleController.UpdateTheme();
+            StyleController.DarkMode = ToggleDarkMode.IsChecked == true;
+            StyleController.UpdateTheme();
+            
             Timeout.Foreground = _mainWindow.UpdateCheckProgress.Foreground = ToggleDarkMode.IsChecked == true ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
         }
 
         private void Themes_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (Themes.Items.Count < Infrastructure.StyleController.ValidStyles.Count)
+            if (Themes.Items.Count < StyleController.ValidStyles.Count)
                 return;
 
-            Properties.Settings.Default.Theme = Themes.SelectedItem.ToString();
-            Properties.Settings.Default.Save();
-
-            Infrastructure.StyleController.UpdateTheme();
+            StyleController.Style = Themes.SelectedItem.ToString();
+            StyleController.UpdateTheme();
         }
 
         private void Reset_Click(object sender, RoutedEventArgs e)

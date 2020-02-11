@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using MetroParser.Properties;
 
 namespace MetroParser
 {
@@ -20,27 +21,28 @@ namespace MetroParser
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            if (!MetroParser.Properties.Settings.Default.HasPickedLanguage)
+            StyleController.InitializeFollowEligibility();
+
+            if (Settings.Default.FollowSystemMode)
             {
-                bool darkMode = false;
-                try
-                {
-                    var v = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", "1");
-                    if (v != null && v.ToString() == "0")
-                        darkMode = true;
-                }
-                catch
-                {
-                    // Silent exception
-                }
-
-                StyleController.DarkMode = darkMode;
+                if (Data.CanFollowSystemMode)
+                    StyleController.DarkMode = StyleController.GetAppMode();
+                else
+                    Settings.Default.FollowSystemMode = false;
             }
+            if (Settings.Default.FollowSystemColor)
+            {
+                if (Data.CanFollowSystemColor)
+                {
+                    StyleController.ValidStyles.Add("Windows");
+                    StyleController.Style = "Windows";
+                }
+                else
+                    Settings.Default.FollowSystemColor = false;
+            }
+            Settings.Default.Save();
 
-            ThemeManager.ChangeAppStyle(Current,
-                                        ThemeManager.GetAccent(StyleController.GetValidStyle(MetroParser.Properties.Settings.Default.Theme)),
-                                        ThemeManager.GetAppTheme(StyleController.DarkMode ? "BaseDark" : "BaseLight"));
-
+            StyleController.UpdateTheme();
             base.OnStartup(e);
         }
 
@@ -78,7 +80,7 @@ namespace MetroParser
             }
             else
             {
-                if (!MetroParser.Properties.Settings.Default.HasPickedLanguage)
+                if (!Settings.Default.HasPickedLanguage)
                 {
                     LanguagePickerWindow languagePicker = new LanguagePickerWindow();
                     languagePicker.Show();

@@ -113,6 +113,9 @@ namespace MetroParser.UI
             StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
             Counter.Text = string.Format(Strings.CharacterCounter, 0, 0);
 
+            RemoveTimestamps.IsChecked = Properties.Settings.Default.RemoveTimestamps;
+            CheckForUpdatesOnStartup.IsChecked = Properties.Settings.Default.CheckForUpdatesAutomatically;
+
             if (Properties.Settings.Default.FirstStart)
             {
                 Properties.Settings.Default.FirstStart = false;
@@ -126,9 +129,6 @@ namespace MetroParser.UI
             }
             else
                 FolderPath.Text = Properties.Settings.Default.FolderPath;
-
-            RemoveTimestamps.IsChecked = Properties.Settings.Default.RemoveTimestamps;
-            CheckForUpdatesOnStartup.IsChecked = Properties.Settings.Default.CheckForUpdatesAutomatically;
         }
 
         private void LookForMainFolder()
@@ -645,7 +645,7 @@ namespace MetroParser.UI
                 if (Properties.Settings.Default.BackupChatLogAutomatically && TrayIcon.Visible == false)
                 {
                     MessageBoxResult result = MessageBoxResult.Yes;
-                    if (!Properties.Settings.Default.AlwaysMinimizeToTray)
+                    if (!Properties.Settings.Default.AlwaysCloseToTray)
                         result = MessageBox.Show(Strings.MinimizeInsteadOfClose, Strings.Warning, MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
 
                     if (result == MessageBoxResult.Yes)
