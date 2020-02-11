@@ -1,6 +1,7 @@
 # GTAW-Log-Parser
+This program is used to parse the chat logs generated while playing on GTA World.
 
-This program can be used to parse the chat logs generated while playing on GTA World.
+![](header.png)
 
 Feature documentation thread: https://forum.gta.world/en/index.php?/topic/7690-chat-logs/.
 
