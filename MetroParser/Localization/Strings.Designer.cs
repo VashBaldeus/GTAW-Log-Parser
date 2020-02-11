@@ -377,6 +377,15 @@ namespace MetroParser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. (recommended).
+        /// </summary>
+        internal static string IntervalRecommended {
+            get {
+                return ResourceManager.GetString("IntervalRecommended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid RAGEMP folder path..
         /// </summary>
         internal static string InvalidFolderPath {
@@ -614,15 +623,6 @@ namespace MetroParser.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. (recommended).
-        /// </summary>
-        internal static string Recommended {
-            get {
-                return ResourceManager.GetString("Recommended", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Restart.
         /// </summary>
         internal static string Restart {
@@ -639,6 +639,17 @@ namespace MetroParser.Localization {
         internal static string RunningLatest {
             get {
                 return ResourceManager.GetString("RunningLatest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The same chat log has been backed up 3 or more times which means that the RAGEMP client script responsible for logging your chat is broken.
+        ///
+        ///This usually happens when the server crashes and the only known way of fixing the issue is deleting the resource folder (or both) for the server you are playing on..
+        /// </summary>
+        internal static string SameHashWarning {
+            get {
+                return ResourceManager.GetString("SameHashWarning", resourceCulture);
             }
         }
         

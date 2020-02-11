@@ -234,12 +234,12 @@ namespace MetroParser.UI
                 return;
             }
 
-            Parsed.Text = ParseChatLog(FolderPath.Text, RemoveTimestamps.IsChecked == true, isManualParse: true, showError: true);
+            Parsed.Text = ParseChatLog(folderPath: FolderPath.Text, removeTimestamps: RemoveTimestamps.IsChecked == true, showError: true);
             
             //ToggleControls(enable: true);
         }
 
-        public static string ParseChatLog(string folderPath, bool removeTimestamps, bool isManualParse, bool showError = false)
+        public static string ParseChatLog(string folderPath, bool removeTimestamps, bool showError = false)
         {
             try
             {
@@ -319,7 +319,6 @@ namespace MetroParser.UI
                 log = log.TrimEnd(new char[] { '\r', '\n' });   // Remove the `new line` characters from the end
 
                 previousLog = log;
-                Cryptography.SaveParsedHash(log, isManual: isManualParse);
 
                 if (removeTimestamps)
                     log = Regex.Replace(log, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);

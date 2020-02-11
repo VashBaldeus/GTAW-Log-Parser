@@ -235,6 +235,9 @@ Please browse for the correct path manually if this is incorrect or you have mul
   <data name="IntervalHint" xml:space="preserve">
     <value>Back up the chat log automatically while the game is running (every {0} {1})</value>
   </data>
+  <data name="IntervalRecommended" xml:space="preserve">
+    <value>{0}. (recommended)</value>
+  </data>
   <data name="InvalidFolderPath" xml:space="preserve">
     <value>Invalid RAGEMP folder path.</value>
   </data>
@@ -322,9 +325,6 @@ Would you like to delete these files?
   <data name="Question" xml:space="preserve">
     <value>Question</value>
   </data>
-  <data name="Recommended" xml:space="preserve">
-    <value>{0}. (recommended)</value>
-  </data>
   <data name="Restart" xml:space="preserve">
     <value>Restart</value>
   </data>
@@ -332,6 +332,11 @@ Would you like to delete these files?
     <value>You are running the latest version of the chat log parser.
 
 Installed Version: {0}</value>
+  </data>
+  <data name="SameHashWarning" xml:space="preserve">
+    <value>The same chat log has been backed up 3 or more times which means that the RAGEMP client script responsible for logging your chat is broken.
+
+This usually happens when the server crashes and the only known way of fixing the issue is deleting the resource folder (or both) for the server you are playing on.</value>
   </data>
   <data name="SaveError" xml:space="preserve">
     <value>An error occurred while trying to save the file.</value>

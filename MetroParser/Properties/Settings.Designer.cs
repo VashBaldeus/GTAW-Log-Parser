@@ -362,36 +362,12 @@ namespace MetroParser.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastParsedManualHash {
-            get {
-                return ((string)(this["LastParsedManualHash"]));
-            }
-            set {
-                this["LastParsedManualHash"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string LastParsedAutoHash {
             get {
                 return ((string)(this["LastParsedAutoHash"]));
             }
             set {
                 this["LastParsedAutoHash"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastParsedHash {
-            get {
-                return ((string)(this["LastParsedHash"]));
-            }
-            set {
-                this["LastParsedHash"] = value;
             }
         }
         
@@ -434,36 +410,12 @@ namespace MetroParser.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int SameHashCount {
-            get {
-                return ((int)(this["SameHashCount"]));
-            }
-            set {
-                this["SameHashCount"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int SameHashAutoCount {
             get {
                 return ((int)(this["SameHashAutoCount"]));
             }
             set {
                 this["SameHashAutoCount"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int SameHashManualCount {
-            get {
-                return ((int)(this["SameHashManualCount"]));
-            }
-            set {
-                this["SameHashManualCount"] = value;
             }
         }
     }

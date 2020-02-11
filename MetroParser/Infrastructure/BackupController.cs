@@ -175,7 +175,9 @@ namespace MetroParser.Infrastructure
         {
             try
             {
-                string parsed = MainWindow.ParseChatLog(folderPath, Properties.Settings.Default.RemoveTimestampsFromBackup, isManualParse: false, showError: gameClosed);
+                string parsed = MainWindow.ParseChatLog(folderPath: folderPath, removeTimestamps: Properties.Settings.Default.RemoveTimestampsFromBackup, showError: gameClosed);
+                Cryptography.SaveParsedHash(parsed);
+
                 if (string.IsNullOrWhiteSpace(parsed))
                     return;
 
