@@ -98,7 +98,7 @@ namespace MetroParser.UI
 
                 Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog
                 {
-                    InitialDirectory = string.IsNullOrWhiteSpace(Properties.Settings.Default.BackupPath) ? System.IO.Path.GetPathRoot(Environment.SystemDirectory) : Properties.Settings.Default.BackupPath,
+                    InitialDirectory = string.IsNullOrWhiteSpace(Properties.Settings.Default.BackupPath) ? Path.GetPathRoot(Environment.SystemDirectory) : Properties.Settings.Default.BackupPath,
                     Filter = "Text File | *.txt"
                 };
 
