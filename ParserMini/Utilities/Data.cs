@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 
-namespace MetroParser.Utilities
+namespace ParserMini.Utilities
 {
     public static class Data
     {
-        public const string Version = "4.0";
+        public const string Version = "1.0";
         public const bool IsBetaVersion = false;
-        public static bool CanFollowSystemColor;
-        public static bool CanFollowSystemMode;
 
         public static void Initialize()
         {
@@ -42,15 +39,7 @@ namespace MetroParser.Utilities
         }
 
         public const string ParameterPrefix = "--";
-        public const string ProcessName = "GTA5";
-        public const string ProductHeader = "GTAW-Log-Parser";
         public static string[] ServerIPs = { string.Empty, string.Empty, "e"};
         public static string LogLocation = $"client_resources\\{ServerIPs[0]}\\.storage";
-
-        public static readonly string[] PossibleFolderLocations = { "RAGEMP\\", "\\RAGEMP\\", "Games\\RAGEMP\\", "\\Games\\RAGEMP\\" };
-        public static readonly string[] PotentiallyOldFiles = { "index.js", "chatlog.js", "chat_extra.js", "chat\\js\\chat.js", "chat\\index.html", "chat\\style\\main_left.css", "chat\\style\\checkbox.css" };
-
-        public static string ExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
-        public static string StartupPath = Path.GetDirectoryName(ExecutablePath);
     }
 }
