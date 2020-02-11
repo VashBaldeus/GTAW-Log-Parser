@@ -22,6 +22,7 @@ namespace MetroParser.UI
             Top = _mainWindow.Top + (_mainWindow.Height / 2 - Height / 2) + 55;
 
             CloseWindow.Focus();
+            StyleController.ValidStyles.Remove("Windows");
             LoadSettings();
         }
 
@@ -63,7 +64,6 @@ namespace MetroParser.UI
             DisableErrorPopups.IsChecked = Properties.Settings.Default.DisableErrorPopups;
             IgnoreBetaVersions.IsChecked = Properties.Settings.Default.IgnoreBetaVersions;
 
-            StyleController.ValidStyles.Remove("Windows");
             FollowSystemColor.IsChecked = Properties.Settings.Default.FollowSystemColor;
             FollowSystemMode.IsChecked = Properties.Settings.Default.FollowSystemMode;
             FollowSystemColor.IsEnabled = Data.CanFollowSystemColor;
@@ -104,8 +104,8 @@ namespace MetroParser.UI
             Properties.Settings.Default.FollowSystemColor = Data.CanFollowSystemColor;
             Properties.Settings.Default.FollowSystemMode = Data.CanFollowSystemMode;
 
-            StyleController.DarkMode = Data.CanFollowSystemMode ? StyleController.GetAppMode() : false;
-            StyleController.Style = Data.CanFollowSystemColor ? "Windows" : "Default";
+            //StyleController.DarkMode = Data.CanFollowSystemMode ? StyleController.GetAppMode() : false;
+            //StyleController.Style = Data.CanFollowSystemColor ? "Windows" : "Default";
 
             Properties.Settings.Default.Save();
         }
