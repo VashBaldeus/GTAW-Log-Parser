@@ -8,8 +8,8 @@ namespace MetroParser.Utilities
     {
         public const string Version = "4.0";
         public const bool IsBetaVersion = false;
-        public static bool CanFollowSystemColor = true;
-        public static bool CanFollowSystemMode = true;
+        public static bool CanFollowSystemColor;
+        public static bool CanFollowSystemMode;
 
         public static void Initialize()
         {
