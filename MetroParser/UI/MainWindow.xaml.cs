@@ -319,7 +319,7 @@ namespace MetroParser.UI
                 log = log.TrimEnd(new char[] { '\r', '\n' });   // Remove the `new line` characters from the end
 
                 previousLog = log;
-                Crypto.SaveParsedHash(log, isManual: isManualParse);
+                Cryptography.SaveParsedHash(log, isManual: isManualParse);
 
                 if (removeTimestamps)
                     log = Regex.Replace(log, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
