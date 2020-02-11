@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 
 namespace MetroParser.Utilities
 {
-    public static class Crypto
+    public static class Cryptography
     {
         public static void SaveParsedHash(string log, bool isManual)
         {
