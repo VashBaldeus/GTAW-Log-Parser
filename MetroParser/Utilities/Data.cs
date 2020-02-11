@@ -19,7 +19,6 @@ namespace MetroParser.Utilities
             string folderPath = Properties.Settings.Default.FolderPath;
             if (!string.IsNullOrWhiteSpace(folderPath))
             {
-                
                 string mainStorage = $"{folderPath}client_resources\\{ServerIPs[0]}\\.storage";
                 string secondaryStorage = $"{folderPath}client_resources\\{ServerIPs[1]}\\.storage";
                 string serverIP = ServerIPs[File.Exists(mainStorage) ? (!File.Exists(secondaryStorage) ? 0 : 2) : (File.Exists(secondaryStorage) ? 1 : 0 /* neither file exists in this case but we'll go with 0 */)];

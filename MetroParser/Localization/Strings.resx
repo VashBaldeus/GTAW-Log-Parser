@@ -126,6 +126,9 @@ Parsing From: {2} Server
 Primary Server IP: {3}
 Secondary Server IP: {4}</value>
   </data>
+  <data name="AdvancedFilter" xml:space="preserve">
+    <value>Advanced Filter</value>
+  </data>
   <data name="AlreadyExistingFoldersWarning" xml:space="preserve">
     <value> because the "{0}" folder(s) already exist(s).</value>
   </data>
@@ -352,6 +355,9 @@ This usually happens when the server crashes and the only known way of fixing th
   </data>
   <data name="SettingsAfterClose" xml:space="preserve">
     <value>Settings will only be applied once you close the settings dialog.</value>
+  </data>
+  <data name="SimpleFilter" xml:space="preserve">
+    <value>Simple Filter</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>

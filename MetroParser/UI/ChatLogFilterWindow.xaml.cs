@@ -25,7 +25,7 @@ namespace MetroParser.UI
                 _chatLog = value;
                 chatLogLoaded = !string.IsNullOrEmpty(_chatLog);
                 loadedFrom = chatLogLoaded ? loadedFrom : LoadedFrom.None;
-                StatusLabel.Content = string.Format(Strings.FilterLogStatus, chatLogLoaded ? "" : Strings.Negation, chatLogLoaded ? string.Format(Strings.LoadedAt, DateTime.Now.ToString("HH:mm:ss")) : "");
+                StatusLabel.Content = string.Format(Strings.FilterLogStatus, chatLogLoaded ? string.Empty : Strings.Negation, chatLogLoaded ? string.Format(Strings.LoadedAt, DateTime.Now.ToString("HH:mm:ss")) : string.Empty);
                 StatusLabel.Foreground = chatLogLoaded ? Brushes.Green: Brushes.Red;
             }
         }
@@ -310,7 +310,7 @@ namespace MetroParser.UI
         {
             advancedFilter = !advancedFilter;
 
-            AdvancedFilter.Content = advancedFilter ? "Simple Filter" : "Advanced Filter";
+            AdvancedFilter.Content = advancedFilter ? Strings.SimpleFilter : Strings.AdvancedFilter;
             Width = advancedFilter ? 656 : 494;
         }
 

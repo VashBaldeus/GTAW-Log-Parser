@@ -76,6 +76,15 @@ namespace MetroParser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advanced Filter.
+        /// </summary>
+        internal static string AdvancedFilter {
+            get {
+                return ResourceManager.GetString("AdvancedFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  because the &quot;{0}&quot; folder(s) already exist(s)..
         /// </summary>
         internal static string AlreadyExistingFoldersWarning {
@@ -695,6 +704,15 @@ namespace MetroParser.Localization {
         internal static string SettingsAfterClose {
             get {
                 return ResourceManager.GetString("SettingsAfterClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Simple Filter.
+        /// </summary>
+        internal static string SimpleFilter {
+            get {
+                return ResourceManager.GetString("SimpleFilter", resourceCulture);
             }
         }
         
