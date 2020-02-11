@@ -86,14 +86,14 @@ namespace MetroParser.Infrastructure
         private static Color GetIdealTextColor(Color color)
         {
             const int nThreshold = 105;
-            var bgDelta = Convert.ToInt32((color.R * 0.299) + (color.G * 0.587) + (color.B * 0.114));
-            var foreColor = (255 - bgDelta < nThreshold) ? Colors.Black : Colors.White;
+            int bgDelta = Convert.ToInt32((color.R * 0.299) + (color.G * 0.587) + (color.B * 0.114));
+            Color foreColor = (255 - bgDelta < nThreshold) ? Colors.Black : Colors.White;
             return foreColor;
         }
 
         private static SolidColorBrush GetSolidColorBrush(Color color, double opacity = 1d)
         {
-            var brush = new SolidColorBrush(color) { Opacity = opacity };
+            SolidColorBrush brush = new SolidColorBrush(color) { Opacity = opacity };
             brush.Freeze();
             return brush;
         }
@@ -106,7 +106,7 @@ namespace MetroParser.Infrastructure
                 var keyValue = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM", "ColorizationColor", null);
                 if (keyValue != null)
                 {
-                    var bytes = BitConverter.GetBytes((UInt32)(int)keyValue);
+                    byte[] bytes = BitConverter.GetBytes((UInt32)(int)keyValue);
                     color = Color.FromArgb(bytes[3], bytes[2], bytes[1], bytes[0]);
                 }
 

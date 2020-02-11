@@ -137,7 +137,7 @@ namespace MetroParser.UI
             {
                 string folderPath = string.Empty;
 
-                foreach (var drive in DriveInfo.GetDrives())
+                foreach (DriveInfo drive in DriveInfo.GetDrives())
                 {
                     foreach (string possibleFolder in Data.PossibleFolderLocations)
                     {
