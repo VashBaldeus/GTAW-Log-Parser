@@ -19,8 +19,9 @@ namespace MetroParser.UI
 
         private readonly Dictionary<string, Tuple<string, bool>> filterCriteria = new Dictionary<string, Tuple<string, bool>>
         {
-            { "OOC", Tuple.Create( "", true ) },
-            { "IC", Tuple.Create( "", true ) }
+            // Filter,    regex pattern, isEnabled (false = remove from log)
+            { "OOC", Tuple.Create(@"aa", true) },
+            { "IC", Tuple.Create(@"aaa", true) }
         };
 
         public string ChatLog
@@ -201,7 +202,6 @@ namespace MetroParser.UI
                         filtered += line + "\n";
 
                     // Next line
-                    break;
                 }
             }
             else
