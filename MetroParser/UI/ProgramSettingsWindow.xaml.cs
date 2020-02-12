@@ -221,7 +221,6 @@ namespace MetroParser.UI
         private void ProgramSettings_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveSettings();
-            Hide();
         }
     }
 }

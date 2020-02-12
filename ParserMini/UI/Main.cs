@@ -37,7 +37,6 @@ namespace ParserMini.UI
                     if (MessageBox.Show(Strings.SwitchServer, Strings.Restart, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         LocalizationController.SetLanguage(language);
-                        Hide();
 
                         ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;
                         startInfo.FileName = Application.ExecutablePath;

@@ -222,7 +222,6 @@ namespace MetroParser.UI
                 StartupController.ToggleStartup(StartWithWindows.IsChecked == true);
 
             SaveSettings();
-            Hide();
         }
     }
 }

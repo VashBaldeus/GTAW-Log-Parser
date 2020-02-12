@@ -72,7 +72,6 @@ namespace MetroParser.UI
                     {
                         LocalizationController.SetLanguage(language);
 
-                        Hide();
                         isRestarting = true;
 
                         ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;

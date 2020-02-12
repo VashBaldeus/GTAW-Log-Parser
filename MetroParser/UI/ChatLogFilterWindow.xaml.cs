@@ -364,7 +364,6 @@ namespace MetroParser.UI
             Properties.Settings.Default.RemoveTimestampsFromFilter = RemoveTimestamps.IsChecked == true;
 
             Properties.Settings.Default.Save();
-            Hide();
         }
     }
 }
