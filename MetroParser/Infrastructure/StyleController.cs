@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using MetroParser.Utilities;
 using System.Windows;
 using System.Windows.Media;
+using System.Management;
+using System.Security.Principal;
 
 namespace MetroParser.Infrastructure
 {
@@ -60,12 +62,47 @@ namespace MetroParser.Infrastructure
             "Sienna"
         };
 
+        private static ManagementEventWatcher appModeWatcher = null;
+        private static ManagementEventWatcher systemAccentWatcher = null;
+
+        private static void AppModeChanged()
+        {
+            if (Data.CanFollowSystemMode && Properties.Settings.Default.FollowSystemMode)
+            {
+                DarkMode = GetAppMode();
+                UpdateTheme();
+            }
+        }
+
+        private static void SystemAccentChanged()
+        {
+            if (Data.CanFollowSystemColor && Properties.Settings.Default.FollowSystemColor)
+            {
+                Style = "Default";
+                UpdateTheme();
+
+                Style = "Windows";
+                UpdateTheme();
+            }
+        }
+
         public static void InitializeFollowEligibility()
         {
             try
             {
                 var keyValue = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", null);
-                Data.CanFollowSystemMode = keyValue != null;
+                if (keyValue != null)
+                {
+                    Data.CanFollowSystemMode = true;
+
+                    WqlEventQuery appModeQuery = new WqlEventQuery("SELECT * FROM RegistryValueChangeEvent WHERE " +
+                    "Hive='HKEY_USERS' " +
+                     @"AND KeyPath='" + WindowsIdentity.GetCurrent().User.Value + @"\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize' " +
+                     @"AND ValueName='AppsUseLightTheme'");
+                    appModeWatcher = new ManagementEventWatcher(appModeQuery);
+                    appModeWatcher.EventArrived += (sender, args) => AppModeChanged();
+                    appModeWatcher.Start();
+                }
             }
             catch
             {
@@ -75,12 +112,31 @@ namespace MetroParser.Infrastructure
             try
             {
                 var keyValue = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM", "ColorizationColor", null);
-                Data.CanFollowSystemColor = keyValue != null && Data.CanFollowSystemMode;
+                if (keyValue != null && Data.CanFollowSystemMode)
+                {
+                    Data.CanFollowSystemColor = true;
+
+                    WqlEventQuery systemAccentQuery = new WqlEventQuery("SELECT * FROM RegistryValueChangeEvent WHERE " +
+                    "Hive='HKEY_USERS' " +
+                     @"AND KeyPath='" + WindowsIdentity.GetCurrent().User.Value + @"\\Software\\Microsoft\\Windows\\DWM' " +
+                     @"AND ValueName='ColorizationColor'");
+                    systemAccentWatcher = new ManagementEventWatcher(systemAccentQuery);
+                    systemAccentWatcher.EventArrived += (sender, args) => SystemAccentChanged();
+                    systemAccentWatcher.Start();
+                }
             }
             catch
             {
                 Data.CanFollowSystemColor = false;
             }
+        }
+
+        public static void StopWatchers()
+        {
+            if (appModeWatcher != null)
+                appModeWatcher.Stop();
+            if (systemAccentWatcher != null)
+                systemAccentWatcher.Stop();
         }
 
         private static Color GetIdealTextColor(Color color)
@@ -195,9 +251,12 @@ namespace MetroParser.Infrastructure
             if (!ValidStyles.Contains(Style))
                 Style = "Default";
 
-            ThemeManager.ChangeAppStyle(Application.Current,
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                ThemeManager.ChangeAppStyle(Application.Current,
                                         Style == "Windows" ? GetSystemAccent() : ThemeManager.GetAccent(Style == "Default" ? (DarkMode ? DefaultDarkStyle : DefaultLightStyle) : Style),
                                         ThemeManager.GetAppTheme(DarkMode ? "BaseDark" : "BaseLight"));
+            });
         }
     }
 }

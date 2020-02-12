@@ -95,5 +95,11 @@ namespace MetroParser
 
             GC.KeepAlive(mutex);
         }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            StyleController.StopWatchers();
+            BackupController.quitting = true;
+        }
     }
 }
