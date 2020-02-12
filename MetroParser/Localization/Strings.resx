@@ -313,6 +313,11 @@ Installed Version: {0}</value>
   <data name="NothingParsed" xml:space="preserve">
     <value>You haven't parsed anything yet.</value>
   </data>
+  <data name="NoWordsToFilter" xml:space="preserve">
+    <value>You haven't entered any words to filter in.
+
+Use the simple filter if you don't want to filter for words.</value>
+  </data>
   <data name="OldChatLog" xml:space="preserve">
     <value>An old format was detected while parsing the chat log and it is advised you delete it and all other scripts that didn't update correcly.
 

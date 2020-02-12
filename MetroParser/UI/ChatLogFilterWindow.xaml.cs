@@ -6,6 +6,7 @@ using MetroParser.Localization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.Windows.Input;
 
 namespace MetroParser.UI
 {
@@ -16,7 +17,7 @@ namespace MetroParser.UI
     {
         private readonly MainWindow _mainWindow;
         private readonly System.Windows.Threading.DispatcherTimer Timer;
-        private bool advancedFilter = true;
+        private bool advancedFilter = false;
 
         private readonly Dictionary<string, Tuple<string, bool>> filterCriteria = new Dictionary<string, Tuple<string, bool>>
         {
@@ -40,16 +41,21 @@ namespace MetroParser.UI
         private string _chatLog;
         private bool chatLogLoaded;
 
+        private void GainFocus(object sender, KeyboardFocusChangedEventArgs args)
+        {
+            Focus();
+        }
+
         public ChatLogFilterWindow(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
+            _mainWindow.GotKeyboardFocus += GainFocus;
             InitializeComponent();
 
             Left = _mainWindow.Left + (_mainWindow.Width / 2 - Width / 2);
             Top = _mainWindow.Top + (_mainWindow.Height / 2 - Height / 2);
 
             LoadSettings();
-
             Timer = new System.Windows.Threading.DispatcherTimer();
             Timer.Tick += Timer_Tick;
             Timer.Interval = new TimeSpan(0, 0, 0, 1);
@@ -203,6 +209,8 @@ namespace MetroParser.UI
                 {
                     if (!string.IsNullOrWhiteSpace(Words.Text))
                         MessageBox.Show(Strings.FilterHint, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    else
+                        MessageBox.Show(Strings.NoWordsToFilter, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
 
                     return;
                 }
@@ -356,22 +364,30 @@ namespace MetroParser.UI
                 Clipboard.SetText(Filtered.Text.Replace("\n", Environment.NewLine));
         }
 
-        private void AdvancedFilter_Click(object sender, RoutedEventArgs e)
+        private void FilterModeToggle_Click(object sender, RoutedEventArgs e)
         {
             advancedFilter = !advancedFilter;
 
-            AdvancedFilter.Content = advancedFilter ? Strings.SimpleFilter : Strings.AdvancedFilter;
+            FilterModeToggle.Content = advancedFilter ? Strings.SimpleFilter : Strings.AdvancedFilter;
             Width = advancedFilter ? 656 : 494;
         }
 
         private void ChatLogFilter_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveSettings();
+            _mainWindow.GotKeyboardFocus -= GainFocus;
         }
 
-        private void ChatLogFilter_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        private void Words_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            Focus();
+            if (!advancedFilter)
+                LoadUnparsed.Focus();
+        }
+
+        private void Filter_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (!advancedFilter)
+                LoadUnparsed.Focus();
         }
     }
 }

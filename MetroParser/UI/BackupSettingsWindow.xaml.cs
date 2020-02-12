@@ -16,9 +16,15 @@ namespace MetroParser.UI
     {
         private readonly MainWindow _mainWindow;
 
+        private void GainFocus(object sender, KeyboardFocusChangedEventArgs args)
+        {
+            Focus();
+        }
+
         public BackupSettingsWindow(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
+            _mainWindow.GotKeyboardFocus += GainFocus;
             InitializeComponent();
 
             Left = _mainWindow.Left + (_mainWindow.Width / 2 - Width / 2);
@@ -222,11 +228,7 @@ namespace MetroParser.UI
                 StartupController.ToggleStartup(StartWithWindows.IsChecked == true);
 
             SaveSettings();
-        }
-
-        private void BackupSettings_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            Focus();
+            _mainWindow.GotKeyboardFocus -= GainFocus;
         }
     }
 }

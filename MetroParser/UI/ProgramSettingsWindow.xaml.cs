@@ -3,6 +3,7 @@ using System.Windows;
 using MetroParser.Localization;
 using MetroParser.Infrastructure;
 using MetroParser.Utilities;
+using System.Windows.Input;
 
 namespace MetroParser.UI
 {
@@ -13,9 +14,15 @@ namespace MetroParser.UI
     {
         private readonly MainWindow _mainWindow;
 
+        private void GainFocus(object sender, KeyboardFocusChangedEventArgs args)
+        {
+            Focus();
+        }
+
         public ProgramSettingsWindow(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
+            _mainWindow.GotKeyboardFocus += GainFocus;
             InitializeComponent();
 
             Left = _mainWindow.Left + (_mainWindow.Width / 2 - Width / 2);
@@ -221,11 +228,7 @@ namespace MetroParser.UI
         private void ProgramSettings_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveSettings();
-        }
-
-        private void ProgramSettings_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
-        {
-            Focus();
+            _mainWindow.GotKeyboardFocus -= GainFocus;
         }
     }
 }

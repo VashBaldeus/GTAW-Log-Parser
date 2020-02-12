@@ -593,6 +593,17 @@ namespace MetroParser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You haven&apos;t entered any words to filter in.
+        ///
+        ///Use the simple filter if you don&apos;t want to filter for words..
+        /// </summary>
+        internal static string NoWordsToFilter {
+            get {
+                return ResourceManager.GetString("NoWordsToFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An old format was detected while parsing the chat log and it is advised you delete it and all other scripts that didn&apos;t update correcly.
         ///
         ///Would you like to delete these files?
