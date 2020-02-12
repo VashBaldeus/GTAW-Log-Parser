@@ -26,10 +26,14 @@
         <Button x:Name="LoadUnparsed" Click="LoadUnparsed_Click" Content="Load Unparsed Chat Log" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="150"/>
         <Button x:Name="BrowseForParsed" Click="BrowseForParsed_Click" Content="Browse For Parsed Chat Log" HorizontalAlignment="Left" Margin="165,41,0,0" VerticalAlignment="Top" Width="174"/>
         <Button x:Name="FilterModeToggle" Click="FilterModeToggle_Click" Content="Simple Filter" HorizontalAlignment="Left" Margin="344,41,0,0" VerticalAlignment="Top" Width="140"/>
+
+        
+        <CheckBox x:Name="RemoveTimestamps" Checked="RemoveTimestamps_CheckedChanged" Unchecked="RemoveTimestamps_CheckedChanged" Content="Remove timestamps" HorizontalAlignment="Left" Margin="10,243,0,0" VerticalAlignment="Top" Width="150"/>
+
         <Button x:Name="SaveFiltered" Click="SaveFiltered_Click" Content="Save As" HorizontalAlignment="Left" Margin="10,266,0,0" VerticalAlignment="Top" Width="150"/>
         <Button x:Name="CopyFilteredToClipboard" Click="CopyFilteredToClipboard_Click" Content="Copy To Clipboard" HorizontalAlignment="Left" Margin="165,266,0,0" VerticalAlignment="Top" Width="319"/>
         <TextBox x:Name="Filtered" HorizontalAlignment="Left" Height="188" Margin="165,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="319" AcceptsReturn="True"/>
-        <CheckBox x:Name="RemoveTimestamps" Checked="RemoveTimestamps_CheckedChanged" Unchecked="RemoveTimestamps_CheckedChanged" Content="Remove timestamps" HorizontalAlignment="Left" Margin="10,243,0,0" VerticalAlignment="Top" Width="150"/>
+        
         <Label x:Name="WordsLabel" Content="Words to filter in:" HorizontalAlignment="Left" Margin="492,73,0,0" VerticalAlignment="Top" Width="150"/>
         <TextBox x:Name="Words" HorizontalAlignment="Left" Height="162" Margin="496,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Text="Firstname Lastname" AcceptsReturn="True" GotKeyboardFocus="Words_GotKeyboardFocus"/>
         <Button x:Name="Filter" Click="Filter_Click" Content="Filter" HorizontalAlignment="Left" Margin="496,266,0,0" VerticalAlignment="Top" Width="150" GotKeyboardFocus="Filter_GotKeyboardFocus"/>
