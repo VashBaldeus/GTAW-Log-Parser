@@ -67,6 +67,7 @@ namespace MetroParser
             if (!isUnique && !isRestarted)
             {
                 MessageBox.Show(Localization.Strings.OtherInstanceRunning, Localization.Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                Current.Shutdown();
                 return;
             }
 
