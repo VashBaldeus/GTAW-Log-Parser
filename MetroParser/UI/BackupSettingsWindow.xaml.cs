@@ -132,21 +132,22 @@ namespace MetroParser.UI
 
         private void Browse_Click(object sender, RoutedEventArgs e)
         {
-            CommonOpenFileDialog dialog = new CommonOpenFileDialog
+            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog
             {
-                InitialDirectory = Path.GetPathRoot(Environment.SystemDirectory),
-                IsFolderPicker = true
+                Description = "Backup Path",
+                RootFolder = Environment.SpecialFolder.MyComputer,
+                SelectedPath = Path.GetPathRoot(Environment.SystemDirectory),
+                ShowNewFolderButton = true
             };
 
             bool validLocation = false;
-
             while (!validLocation)
             {
-                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    if (dialog.FileName[dialog.FileName.Length - 1] != '\\')
+                    if (dialog.SelectedPath[dialog.SelectedPath.Length - 1] != '\\')
                     {
-                        BackupPath.Text = dialog.FileName + "\\";
+                        BackupPath.Text = dialog.SelectedPath + "\\";
                         validLocation = true;
                     }
                     else
@@ -222,6 +223,11 @@ namespace MetroParser.UI
                 StartupController.ToggleStartup(StartWithWindows.IsChecked == true);
 
             SaveSettings();
+        }
+
+        private void BackupSettings_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            Focus();
         }
     }
 }

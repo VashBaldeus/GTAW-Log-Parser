@@ -191,21 +191,22 @@ namespace MetroParser.UI
 
         private void Browse_Click(object sender, RoutedEventArgs e)
         {
-            CommonOpenFileDialog dialog = new CommonOpenFileDialog
+            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog
             {
-                InitialDirectory = Path.GetPathRoot(Environment.SystemDirectory),
-                IsFolderPicker = true
+                Description = "RAGEMP Folder Path",
+                RootFolder = Environment.SpecialFolder.MyComputer,
+                SelectedPath = Path.GetPathRoot(Environment.SystemDirectory),
+                ShowNewFolderButton = false
             };
 
             bool validLocation = false;
-
             while (!validLocation)
             {
-                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    if (dialog.FileName[dialog.FileName.Length - 1] != '\\')
+                    if (dialog.SelectedPath[dialog.SelectedPath.Length - 1] != '\\')
                     {
-                        FolderPath.Text = dialog.FileName + "\\";
+                        FolderPath.Text = dialog.SelectedPath + "\\";
                         validLocation = true;
                     }
                     else
@@ -663,6 +664,7 @@ namespace MetroParser.UI
                 }
             }
 
+            StyleController.StopWatchers();
             BackupController.quitting = true;
             SaveSettings();
 
@@ -687,6 +689,7 @@ namespace MetroParser.UI
         {
             //if (Visibility != Visibility.Visible)
                 BackupController.quitting = true;
+            StyleController.StopWatchers();
 
             TrayIcon.Visible = false;
             isRestarting = true;

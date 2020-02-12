@@ -86,6 +86,8 @@ namespace ParserMini.UI
 
         private void Browse_Click(object sender, EventArgs e)
         {
+            FolderBrowserDialog.SelectedPath = Path.GetPathRoot(Environment.SystemDirectory);
+
             bool validLocation = false;
             while (!validLocation)
             {

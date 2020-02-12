@@ -365,5 +365,10 @@ namespace MetroParser.UI
 
             Properties.Settings.Default.Save();
         }
+
+        private void ChatLogFilter_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            Focus();
+        }
     }
 }

@@ -12,7 +12,7 @@
                       WindowTransitionsEnabled="True"
                       BorderThickness="0" 
                       GlowBrush="Black"
-                      Title="Filter Chat Log" Height="334" Width="656" ShowInTaskbar="True" IsMinButtonEnabled="False" IsMaxRestoreButtonEnabled="False" ShowIconOnTitleBar="False" TitleCaps="False" Icon="../Resources/AppIcon.ico">
+                      Title="Filter Chat Log" Height="334" Width="656" ShowInTaskbar="True" IsMinButtonEnabled="False" IsMaxRestoreButtonEnabled="False" ShowIconOnTitleBar="False" TitleCaps="False" Icon="../Resources/AppIcon.ico" LostKeyboardFocus="ChatLogFilter_LostKeyboardFocus">
 
     <Controls:MetroWindow.WindowButtonCommands>
         <Controls:WindowButtonCommands 

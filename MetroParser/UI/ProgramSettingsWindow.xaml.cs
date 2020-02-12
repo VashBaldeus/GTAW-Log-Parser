@@ -222,5 +222,10 @@ namespace MetroParser.UI
         {
             SaveSettings();
         }
+
+        private void ProgramSettings_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            Focus();
+        }
     }
 }

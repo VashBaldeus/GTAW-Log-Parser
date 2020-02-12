@@ -108,6 +108,7 @@
             // 
             // FolderBrowserDialog
             // 
+            resources.ApplyResources(this.FolderBrowserDialog, "FolderBrowserDialog");
             this.FolderBrowserDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
             this.FolderBrowserDialog.ShowNewFolderButton = false;
             // 
