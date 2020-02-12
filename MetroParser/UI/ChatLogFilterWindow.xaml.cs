@@ -230,7 +230,6 @@ namespace MetroParser.UI
                         {
                             // If word found on line (advanced filter)
                             // also check simple filter
-
                             bool isCriterionEnabled = true;
                             foreach (KeyValuePair<string, Tuple<string, bool>> keyValuePair in filterCriteria)
                             {
