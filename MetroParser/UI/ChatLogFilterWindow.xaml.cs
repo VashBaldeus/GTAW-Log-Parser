@@ -17,6 +17,12 @@ namespace MetroParser.UI
         private readonly System.Windows.Threading.DispatcherTimer Timer;
         private bool advancedFilter = true;
 
+        private readonly Dictionary<string, Tuple<string, bool>> filterCriteria = new Dictionary<string, Tuple<string, bool>>
+        {
+            { "OOC", Tuple.Create( "", true ) },
+            { "IC", Tuple.Create( "", true ) }
+        };
+
         public string ChatLog
         {
             get { return _chatLog; }
@@ -104,9 +110,9 @@ namespace MetroParser.UI
 
                 if (dialog.ShowDialog() == true)
                 {
-                    using (StreamReader sr = new StreamReader(dialog.FileName))
+                    using (StreamReader streamReader = new StreamReader(dialog.FileName))
                     {
-                        ChatLog = sr.ReadToEnd();
+                        ChatLog = streamReader.ReadToEnd();
                     }
                 }
 
@@ -154,7 +160,7 @@ namespace MetroParser.UI
 
         private void Filter_Click(object sender, RoutedEventArgs e)
         {
-            TryToFilter();
+            TryToFilter(fastFilter: false);
         }
 
         private void TryToFilter(bool fastFilter = false)
@@ -165,36 +171,74 @@ namespace MetroParser.UI
                 return;
             }
 
-            List<string> wordsToCheck = GetWordsToFilterIn();
-            if (wordsToCheck.Count == 0)
-            {
-                if (!string.IsNullOrWhiteSpace(Words.Text))
-                    MessageBox.Show(Strings.FilterHint, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-
-                return;
-            }
-
+            skippedWord = false;
             string logToCheck = ChatLog;
-
             string[] lines = logToCheck.Split('\n');
             string filtered = string.Empty;
 
-            foreach (string line in lines)
+            if (!advancedFilter)
             {
-                if (string.IsNullOrWhiteSpace(line))
-                    continue;
-
-                foreach (string word in wordsToCheck)
+                foreach (string line in lines)
                 {
-                    if (string.IsNullOrWhiteSpace(word))
+                    if (string.IsNullOrWhiteSpace(line))
                         continue;
 
-                    // ONE (substring): Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty).ToLower().Contains(word.ToLower())
-                    // TWO (string): Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), $"\\b{word}\\b", RegexOptions.IgnoreCase)
-                    if (Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty).ToLower().Contains(word.ToLower()))
+                    foreach (KeyValuePair<string, Tuple<string, bool>> keyValuePair in filterCriteria)
                     {
-                        filtered += line + "\n";
-                        break;
+                        if (string.IsNullOrWhiteSpace(keyValuePair.Key) || string.IsNullOrWhiteSpace(keyValuePair.Value.Item1))
+                            continue;
+
+                        if (keyValuePair.Value.Item2 == true)
+                            if (Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), keyValuePair.Value.Item1, RegexOptions.IgnoreCase))
+                                filtered += line + "\n";
+                    }
+                }
+            }
+            else
+            {
+                List<string> wordsToCheck = GetWordsToFilterIn();
+                if (wordsToCheck.Count == 0)
+                {
+                    if (!string.IsNullOrWhiteSpace(Words.Text))
+                        MessageBox.Show(Strings.FilterHint, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    return;
+                }
+
+                foreach (string line in lines)
+                {
+                    if (string.IsNullOrWhiteSpace(line))
+                        continue;
+
+                    foreach (string word in wordsToCheck)
+                    {
+                        if (string.IsNullOrWhiteSpace(word))
+                            continue;
+
+                        // ONE (substring): Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty).ToLower().Contains(word.ToLower())
+                        // TWO (string): Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), $"\\b{word}\\b", RegexOptions.IgnoreCase)
+                        if (Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty).ToLower().Contains(word.ToLower()))
+                        {
+                            bool isCriterionEnabled = false;
+                            foreach (KeyValuePair<string, Tuple<string, bool>> keyValuePair in filterCriteria)
+                            {
+                                if (string.IsNullOrWhiteSpace(keyValuePair.Key) || string.IsNullOrWhiteSpace(keyValuePair.Value.Item1))
+                                    continue;
+
+                                if (keyValuePair.Value.Item2 == true)
+                                    if (Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), keyValuePair.Value.Item1, RegexOptions.IgnoreCase))
+                                    {
+                                        isCriterionEnabled = true;
+                                        break;
+                                    }
+                            }
+
+                            if (isCriterionEnabled)
+                                filtered += line + "\n";
+                            
+                            // Next line
+                            break;
+                        }
                     }
                 }
             }
