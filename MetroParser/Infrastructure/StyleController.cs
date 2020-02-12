@@ -67,7 +67,7 @@ namespace MetroParser.Infrastructure
 
         private static void AppModeChanged()
         {
-            if (Data.CanFollowSystemMode && Properties.Settings.Default.FollowSystemMode)
+            if (Properties.Settings.Default.FollowSystemMode)
             {
                 DarkMode = GetAppMode();
                 UpdateTheme();
@@ -76,7 +76,7 @@ namespace MetroParser.Infrastructure
 
         private static void SystemAccentChanged()
         {
-            if (Data.CanFollowSystemColor && Properties.Settings.Default.FollowSystemColor)
+            if (Properties.Settings.Default.FollowSystemColor)
             {
                 Style = "Default";
                 UpdateTheme();

@@ -9,7 +9,6 @@ using System.Globalization;
 using System.Windows.Controls;
 using MetroParser.Localization;
 using System.Text.RegularExpressions;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using MetroParser.Infrastructure;
 using MetroParser.Utilities;
 using System.Collections.Generic;

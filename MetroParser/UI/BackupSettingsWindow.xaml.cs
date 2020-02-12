@@ -5,7 +5,6 @@ using System.Windows.Input;
 using MetroParser.Localization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using MetroParser.Infrastructure;
 
 namespace MetroParser.UI
