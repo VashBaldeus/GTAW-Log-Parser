@@ -183,15 +183,25 @@ namespace MetroParser.UI
                     if (string.IsNullOrWhiteSpace(line))
                         continue;
 
+                    bool isCriterionEnabled = true;
                     foreach (KeyValuePair<string, Tuple<string, bool>> keyValuePair in filterCriteria)
                     {
                         if (string.IsNullOrWhiteSpace(keyValuePair.Key) || string.IsNullOrWhiteSpace(keyValuePair.Value.Item1))
                             continue;
 
-                        if (keyValuePair.Value.Item2 == true)
+                        if (keyValuePair.Value.Item2 == false)
                             if (Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), keyValuePair.Value.Item1, RegexOptions.IgnoreCase))
-                                filtered += line + "\n";
+                            {
+                                isCriterionEnabled = false;
+                                break;
+                            }
                     }
+
+                    if (isCriterionEnabled)
+                        filtered += line + "\n";
+
+                    // Next line
+                    break;
                 }
             }
             else
@@ -219,16 +229,19 @@ namespace MetroParser.UI
                         // TWO (string): Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), $"\\b{word}\\b", RegexOptions.IgnoreCase)
                         if (Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty).ToLower().Contains(word.ToLower()))
                         {
-                            bool isCriterionEnabled = false;
+                            // If word found on line (advanced filter)
+                            // also check simple filter
+
+                            bool isCriterionEnabled = true;
                             foreach (KeyValuePair<string, Tuple<string, bool>> keyValuePair in filterCriteria)
                             {
                                 if (string.IsNullOrWhiteSpace(keyValuePair.Key) || string.IsNullOrWhiteSpace(keyValuePair.Value.Item1))
                                     continue;
 
-                                if (keyValuePair.Value.Item2 == true)
+                                if (keyValuePair.Value.Item2 == false)
                                     if (Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), keyValuePair.Value.Item1, RegexOptions.IgnoreCase))
                                     {
-                                        isCriterionEnabled = true;
+                                        isCriterionEnabled = false;
                                         break;
                                     }
                             }
