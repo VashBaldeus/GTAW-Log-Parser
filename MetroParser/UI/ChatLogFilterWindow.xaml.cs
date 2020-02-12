@@ -5,6 +5,7 @@ using System.Windows.Media;
 using MetroParser.Localization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace MetroParser.UI
 {
@@ -31,14 +32,10 @@ namespace MetroParser.UI
             {
                 _chatLog = value;
                 chatLogLoaded = !string.IsNullOrEmpty(_chatLog);
-                loadedFrom = chatLogLoaded ? loadedFrom : LoadedFrom.None;
                 StatusLabel.Content = string.Format(Strings.FilterLogStatus, chatLogLoaded ? string.Empty : Strings.Negation, chatLogLoaded ? string.Format(Strings.LoadedAt, DateTime.Now.ToString("HH:mm:ss")) : string.Empty);
                 StatusLabel.Foreground = chatLogLoaded ? Brushes.Green: Brushes.Red;
             }
         }
-
-        enum LoadedFrom { None, Unparsed, Parsed };
-        private LoadedFrom loadedFrom = LoadedFrom.None;
 
         private string _chatLog;
         private bool chatLogLoaded;
@@ -46,18 +43,23 @@ namespace MetroParser.UI
         public ChatLogFilterWindow(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
-
             InitializeComponent();
 
             Left = _mainWindow.Left + (_mainWindow.Width / 2 - Width / 2);
             Top = _mainWindow.Top + (_mainWindow.Height / 2 - Height / 2);
 
-            Initialize();
+            LoadSettings();
 
             Timer = new System.Windows.Threading.DispatcherTimer();
             Timer.Tick += Timer_Tick;
             Timer.Interval = new TimeSpan(0, 0, 0, 1);
             Timer.Start();
+        }
+
+        private void LoadSettings()
+        {
+            LoadUnparsed.Focus();
+            Filtered.Text = ChatLog = string.Empty;
 
             TimeLabel.Content = string.Format(Strings.CurrentTime, DateTime.Now.ToString("HH:mm:ss"));
 
@@ -65,10 +67,12 @@ namespace MetroParser.UI
             RemoveTimestamps.IsChecked = Properties.Settings.Default.RemoveTimestampsFromFilter;
         }
 
-        private void Initialize()
+        private void SaveSettings()
         {
-            LoadUnparsed.Focus();
-            Filtered.Text = ChatLog = string.Empty;
+            Properties.Settings.Default.FilterNames = Words.Text;
+            Properties.Settings.Default.RemoveTimestampsFromFilter = RemoveTimestamps.IsChecked == true;
+
+            Properties.Settings.Default.Save();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -79,22 +83,8 @@ namespace MetroParser.UI
         private void LoadUnparsed_Click(object sender, RoutedEventArgs e)
         {
             ChatLog = MainWindow.ParseChatLog(folderPath: Properties.Settings.Default.FolderPath, removeTimestamps: false, showError: true);
-            loadedFrom = string.IsNullOrEmpty(ChatLog) ? LoadedFrom.None : LoadedFrom.Unparsed;
-
             if (chatLogLoaded)
-            {
-                if (GetWordsToFilterIn().Count > 0)
-                    TryToFilter(fastFilter: true);
-                else
-                {
-                    string chatLog = previousLog = ChatLog;
-
-                    if (RemoveTimestamps.IsChecked == true)
-                        chatLog = Regex.Replace(chatLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
-
-                    Filtered.Text = chatLog;
-                }
-            }
+                Filtered.Text = ChatLog;
         }
 
         private void BrowseForParsed_Click(object sender, RoutedEventArgs e)
@@ -117,46 +107,48 @@ namespace MetroParser.UI
                     }
                 }
 
-                loadedFrom = string.IsNullOrEmpty(ChatLog) ? LoadedFrom.None : LoadedFrom.Parsed;
-
                 if (chatLogLoaded)
-                {
-                    if (GetWordsToFilterIn().Count > 0)
-                        TryToFilter(fastFilter: true);
-                    else
-                    {
-                        string chatLog = previousLog = ChatLog;
-
-                        if (RemoveTimestamps.IsChecked == true)
-                            chatLog = Regex.Replace(chatLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
-
-                        Filtered.Text = chatLog;
-                    }
-                }
+                    Filtered.Text = ChatLog;
             }
             catch
             {
                 ChatLog = Filtered.Text = string.Empty;
-
                 MessageBox.Show(Strings.FilterReadError, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private static string previousLog = string.Empty;
         private void RemoveTimestamps_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Filtered.Text))
+            if (chatLogLoaded)
+                TryToFilter(fastFilter: true);
+        }
+
+        private void Criterion_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (!chatLogLoaded)
                 return;
 
-            if (RemoveTimestamps.IsChecked == true)
+            string criterionName;
+            try
             {
-                previousLog = Filtered.Text;
-                Filtered.Text = Regex.Replace(previousLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
+                criterionName = ((System.Windows.Controls.CheckBox)sender).Name;
             }
-            else if (!string.IsNullOrWhiteSpace(previousLog))
-                Filtered.Text = previousLog;
-            else
+            catch
+            {
+                criterionName = string.Empty;
+            }
+            if (string.IsNullOrWhiteSpace(criterionName))
+                return;
+
+            KeyValuePair<string, Tuple<string, bool>>? entry = filterCriteria.Where(pair => pair.Key == criterionName)
+                            .Select(pair => (KeyValuePair<string, Tuple<string, bool>>?)pair)
+                            .FirstOrDefault();
+
+            if (entry != null)
+            {
+                filterCriteria[entry.Value.Key] = Tuple.Create(filterCriteria[entry.Value.Key].Item1, !filterCriteria[entry.Value.Key].Item2);
                 TryToFilter(fastFilter: true);
+            }
         }
 
         private void Filter_Click(object sender, RoutedEventArgs e)
@@ -252,14 +244,17 @@ namespace MetroParser.UI
                             // Next line
                             break;
                         }
+
+                        // Next word
                     }
+
+                    // Next line
                 }
             }
 
             if (filtered.Length > 0)
             {
                 filtered = filtered.TrimEnd(new char[] { '\r', '\n' });
-                previousLog = filtered;
 
                 if (RemoveTimestamps.IsChecked == true)
                     filtered = Regex.Replace(filtered, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
@@ -268,8 +263,6 @@ namespace MetroParser.UI
             }
             else
             {
-                previousLog = logToCheck;
-
                 if (RemoveTimestamps.IsChecked == true)
                     logToCheck = Regex.Replace(logToCheck, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
 
@@ -284,7 +277,7 @@ namespace MetroParser.UI
                 }
             }
 
-            if (skippedWord && !Properties.Settings.Default.DisableInformationPopups)
+            if (advancedFilter && skippedWord && !Properties.Settings.Default.DisableInformationPopups)
                 MessageBox.Show(Strings.FilterHintSkipped, Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -373,10 +366,7 @@ namespace MetroParser.UI
 
         private void ChatLogFilter_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Properties.Settings.Default.FilterNames = Words.Text;
-            Properties.Settings.Default.RemoveTimestampsFromFilter = RemoveTimestamps.IsChecked == true;
-
-            Properties.Settings.Default.Save();
+            SaveSettings();
         }
 
         private void ChatLogFilter_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
