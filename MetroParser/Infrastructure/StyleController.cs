@@ -100,7 +100,7 @@ namespace MetroParser.Infrastructure
                      @"AND KeyPath='" + WindowsIdentity.GetCurrent().User.Value + @"\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize' " +
                      @"AND ValueName='AppsUseLightTheme'");
                     appModeWatcher = new ManagementEventWatcher(appModeQuery);
-                    appModeWatcher.EventArrived += (sender, args) => AppModeChanged();
+                    appModeWatcher.EventArrived += (s, args) => AppModeChanged();
                     appModeWatcher.Start();
                 }
             }
@@ -121,7 +121,7 @@ namespace MetroParser.Infrastructure
                      @"AND KeyPath='" + WindowsIdentity.GetCurrent().User.Value + @"\\Software\\Microsoft\\Windows\\DWM' " +
                      @"AND ValueName='ColorizationColor'");
                     systemAccentWatcher = new ManagementEventWatcher(systemAccentQuery);
-                    systemAccentWatcher.EventArrived += (sender, args) => SystemAccentChanged();
+                    systemAccentWatcher.EventArrived += (s, args) => SystemAccentChanged();
                     systemAccentWatcher.Start();
                 }
             }

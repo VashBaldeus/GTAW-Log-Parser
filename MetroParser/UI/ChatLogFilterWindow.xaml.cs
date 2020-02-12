@@ -41,7 +41,7 @@ namespace MetroParser.UI
         private string _chatLog;
         private bool chatLogLoaded;
 
-        private void GainFocus(object sender, KeyboardFocusChangedEventArgs args)
+        private void GainFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             Focus();
         }

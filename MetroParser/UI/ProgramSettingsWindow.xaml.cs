@@ -14,7 +14,7 @@ namespace MetroParser.UI
     {
         private readonly MainWindow _mainWindow;
 
-        private void GainFocus(object sender, KeyboardFocusChangedEventArgs args)
+        private void GainFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             Focus();
         }
