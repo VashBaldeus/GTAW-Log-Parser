@@ -131,9 +131,6 @@ namespace MetroParser.UI
 
         private void Criterion_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if (!chatLogLoaded)
-                return;
-
             string criterionName;
             try
             {
@@ -153,7 +150,9 @@ namespace MetroParser.UI
             if (entry != null)
             {
                 filterCriteria[entry.Value.Key] = Tuple.Create(filterCriteria[entry.Value.Key].Item1, !filterCriteria[entry.Value.Key].Item2);
-                TryToFilter(fastFilter: true);
+                
+                if (chatLogLoaded)
+                    TryToFilter(fastFilter: true);
             }
         }
 
