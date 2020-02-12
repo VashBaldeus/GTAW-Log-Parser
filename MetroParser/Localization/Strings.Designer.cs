@@ -260,6 +260,24 @@ namespace MetroParser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://face.gta.world/.
+        /// </summary>
+        internal static string FacebrowserLink {
+            get {
+                return ResourceManager.GetString("FacebrowserLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://forum.gta.world/en/index.php?/topic/7690-chat-logs/.
+        /// </summary>
+        internal static string FeatureShowcaseLink {
+            get {
+                return ResourceManager.GetString("FeatureShowcaseLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while trying to delete the file..
         /// </summary>
         internal static string FileDeleteError {
@@ -359,11 +377,11 @@ namespace MetroParser.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://forum.gta.world/en/index.php?/topic/7690-chat-logs/.
+        ///   Looks up a localized string similar to https://forum.gta.world/en/.
         /// </summary>
-        internal static string ForumLink {
+        internal static string ForumsLink {
             get {
-                return ResourceManager.GetString("ForumLink", resourceCulture);
+                return ResourceManager.GetString("ForumsLink", resourceCulture);
             }
         }
         
@@ -623,11 +641,38 @@ namespace MetroParser.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://forum.gta.world/en/index.php?/profile/4751-maple/.
+        /// </summary>
+        internal static string ProfileLink {
+            get {
+                return ResourceManager.GetString("ProfileLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://github.com/MapleToo/GTAW-Log-Parser.
+        /// </summary>
+        internal static string ProjectLink {
+            get {
+                return ResourceManager.GetString("ProjectLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Question.
         /// </summary>
         internal static string Question {
             get {
                 return ResourceManager.GetString("Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://github.com/MapleToo/GTAW-Log-Parser/releases.
+        /// </summary>
+        internal static string ReleasesLink {
+            get {
+                return ResourceManager.GetString("ReleasesLink", resourceCulture);
             }
         }
         
@@ -742,6 +787,15 @@ namespace MetroParser.Localization {
         internal static string SwitchServer {
             get {
                 return ResourceManager.GetString("SwitchServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://ucp.gta.world/.
+        /// </summary>
+        internal static string UCPLink {
+            get {
+                return ResourceManager.GetString("UCPLink", resourceCulture);
             }
         }
         

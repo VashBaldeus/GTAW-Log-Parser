@@ -190,6 +190,12 @@ Would you like to continue?</value>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="FacebrowserLink" xml:space="preserve">
+    <value>https://face.gta.world/</value>
+  </data>
+  <data name="FeatureShowcaseLink" xml:space="preserve">
+    <value>https://forum.gta.world/en/index.php?/topic/7690-chat-logs/</value>
+  </data>
   <data name="FileDeleteError" xml:space="preserve">
     <value>An error occurred while trying to delete the file.</value>
   </data>
@@ -229,8 +235,8 @@ Please browse for the correct path manually if this is incorrect or you have mul
   <data name="FolderFinderTitle" xml:space="preserve">
     <value>Information (First Start)</value>
   </data>
-  <data name="ForumLink" xml:space="preserve">
-    <value>https://forum.gta.world/en/index.php?/topic/7690-chat-logs/</value>
+  <data name="ForumsLink" xml:space="preserve">
+    <value>https://forum.gta.world/en/</value>
   </data>
   <data name="Information" xml:space="preserve">
     <value>Information</value>
@@ -325,8 +331,17 @@ Would you like to delete these files?
   <data name="PartialMoveWarning" xml:space="preserve">
     <value>Only moved the "{0}" folder(s) to the new location</value>
   </data>
+  <data name="ProfileLink" xml:space="preserve">
+    <value>https://forum.gta.world/en/index.php?/profile/4751-maple/</value>
+  </data>
+  <data name="ProjectLink" xml:space="preserve">
+    <value>https://github.com/MapleToo/GTAW-Log-Parser</value>
+  </data>
   <data name="Question" xml:space="preserve">
     <value>Question</value>
+  </data>
+  <data name="ReleasesLink" xml:space="preserve">
+    <value>https://github.com/MapleToo/GTAW-Log-Parser/releases</value>
   </data>
   <data name="Restart" xml:space="preserve">
     <value>Restart</value>
@@ -369,6 +384,9 @@ This usually happens when the server crashes and the only known way of fixing th
     <value>The parser needs to restart in order to switch to the selected server.
 
 Would you like to apply the changes and restart the application now?</value>
+  </data>
+  <data name="UCPLink" xml:space="preserve">
+    <value>https://ucp.gta.world/</value>
   </data>
   <data name="UpdateAbortTime" xml:space="preserve">
     <value>{0}.</value>

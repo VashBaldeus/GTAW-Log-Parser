@@ -498,7 +498,7 @@ namespace MetroParser.UI
             Dispatcher.Invoke(() =>
             {
                 if (MessageBox.Show(text, title, buttons, image) == MessageBoxResult.Yes)
-                    Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases/");
+                    Process.Start(Strings.ReleasesLink);
             });
         }
 
@@ -620,9 +620,9 @@ namespace MetroParser.UI
         private void AboutToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(string.Format(Strings.About, Data.Version, Data.IsBetaVersion ? Strings.Beta : string.Empty, LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
-            
+
             //if (MessageBox.Show(string.Format(Strings.About, Data.Version, LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-            //    Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/");
+            //    Process.Start(Strings.ProjectLink);
         }
 
         private void ExitToolStripMenuItem_Click(object sender, RoutedEventArgs e)
@@ -633,7 +633,7 @@ namespace MetroParser.UI
         private void Logo_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             //if (MessageBox.Show(Strings.OpenDocumentation, Strings.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-            //    Process.Start(Strings.ForumLink);
+            //    Process.Start(Strings.FeatureShowcaseLink);
         }
 
         private void Main_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -733,32 +733,32 @@ namespace MetroParser.UI
 
         private void OpenProfilePage_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://forum.gta.world/en/index.php?/profile/4751-maple/");
+            Process.Start(Strings.ProfileLink);
         }
 
         private void OpenGithubProject_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/");
+            Process.Start(Strings.ProjectLink);
         }
 
         private void OpenGithubReleases_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://github.com/MapleToo/GTAW-Log-Parser/releases/");
+            Process.Start(Strings.ReleasesLink);
         }
 
         private void OpenUCP_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://ucp.gta.world/");
+            Process.Start(Strings.UCPLink);
         }
 
         private void OpenFacebrowser_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://face.gta.world/");
+            Process.Start(Strings.FacebrowserLink);
         }
 
         private void OpenForums_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://forum.gta.world/en/");
+            Process.Start(Strings.ForumsLink);
         }
     }
 }
