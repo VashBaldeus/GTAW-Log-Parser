@@ -454,5 +454,65 @@ namespace MetroParser.Properties {
                 this["ICCriterionEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EmoteCriterionEnabled {
+            get {
+                return ((bool)(this["EmoteCriterionEnabled"]));
+            }
+            set {
+                this["EmoteCriterionEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ActionCriterionEnabled {
+            get {
+                return ((bool)(this["ActionCriterionEnabled"]));
+            }
+            set {
+                this["ActionCriterionEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PMCriterionEnabled {
+            get {
+                return ((bool)(this["PMCriterionEnabled"]));
+            }
+            set {
+                this["PMCriterionEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool RadioCriterionEnabled {
+            get {
+                return ((bool)(this["RadioCriterionEnabled"]));
+            }
+            set {
+                this["RadioCriterionEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AdsCriterionEnabled {
+            get {
+                return ((bool)(this["AdsCriterionEnabled"]));
+            }
+            set {
+                this["AdsCriterionEnabled"] = value;
+            }
+        }
     }
 }

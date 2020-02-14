@@ -17,14 +17,20 @@ namespace MetroParser.UI
     {
         private readonly MainWindow _mainWindow;
         private readonly System.Windows.Threading.DispatcherTimer Timer;
+        
+        private readonly bool isLoading = true;
         private bool usingAdvancedFilter = false;
-        private bool isLoading = true;
 
         private readonly Dictionary<string, Tuple<string, bool>> filterCriteria = new Dictionary<string, Tuple<string, bool>>
         {
             // Filter, regex pattern, isEnabled (false = remove from log)
-            { "OOC", Tuple.Create(@"^\(\( \(\d*\) [A-Za-z]+( [A-Za-z]+){0,1}:.*?\)\)$", Properties.Settings.Default.OOCCriterionEnabled) },
-            { "IC", Tuple.Create(@"^[A-Za-z]+( [A-Za-z]+){0,1} (says|shouts)( \[low\]){0,1}:.*$", Properties.Settings.Default.ICCriterionEnabled) }
+            { "OOC", Tuple.Create(@"^\(\( \(\d*\) [A-Za-z]+ {0,1}([A-Za-z]+){0,1}:.*?\)\)$", Properties.Settings.Default.OOCCriterionEnabled) },
+            { "IC", Tuple.Create(@"^[A-Za-z]+ {0,1}([A-Za-z]+){0,1} (says|shouts)( \[low\]){0,1}:.*$", Properties.Settings.Default.ICCriterionEnabled) },
+            { "Emote", Tuple.Create(@"^\* [A-Za-z]+ {0,1}([A-Za-z]+){0,1} .*$", Properties.Settings.Default.EmoteCriterionEnabled) },
+            { "Action", Tuple.Create(@"^\* .* \(\([A-Za-z]+ {0,1}([A-Za-z]+){0,1}\)\)\*$", Properties.Settings.Default.ActionCriterionEnabled) },
+            { "PM", Tuple.Create(@"^\(\( PM (to|from) \(\d*\) [A-Za-z]+ {0,1}([A-Za-z]+){0,1}:.*?\)\)$", Properties.Settings.Default.PMCriterionEnabled) },
+            { "Radio", Tuple.Create(@"^\*\*\[S: .* CH: .*\] [A-Za-z]+ {0,1}([A-Za-z]+){0,1}.*$", Properties.Settings.Default.RadioCriterionEnabled) },
+            { "Ads", Tuple.Create(@"^\[.*Advertisement.*\] .*$", Properties.Settings.Default.AdsCriterionEnabled) }
         };
 
         private bool OtherEnabled
@@ -79,6 +85,11 @@ namespace MetroParser.UI
 
             OOC.IsChecked = Properties.Settings.Default.OOCCriterionEnabled;
             IC.IsChecked = Properties.Settings.Default.ICCriterionEnabled;
+            Emote.IsChecked = Properties.Settings.Default.EmoteCriterionEnabled;
+            Action.IsChecked = Properties.Settings.Default.ActionCriterionEnabled;
+            PM.IsChecked = Properties.Settings.Default.PMCriterionEnabled;
+            Radio.IsChecked = Properties.Settings.Default.RadioCriterionEnabled;
+            Ads.IsChecked = Properties.Settings.Default.AdsCriterionEnabled;
             Other.IsChecked = Properties.Settings.Default.OtherCriterionEnabled;
             RemoveTimestamps.IsChecked = Properties.Settings.Default.RemoveTimestampsFromFilter;
         }
@@ -89,6 +100,11 @@ namespace MetroParser.UI
 
             Properties.Settings.Default.OOCCriterionEnabled = OOC.IsChecked == true;
             Properties.Settings.Default.ICCriterionEnabled = IC.IsChecked == true;
+            Properties.Settings.Default.EmoteCriterionEnabled = Emote.IsChecked == true;
+            Properties.Settings.Default.ActionCriterionEnabled = Action.IsChecked == true;
+            Properties.Settings.Default.PMCriterionEnabled = PM.IsChecked == true;
+            Properties.Settings.Default.RadioCriterionEnabled = Radio.IsChecked == true;
+            Properties.Settings.Default.AdsCriterionEnabled = Ads.IsChecked == true;
             Properties.Settings.Default.OtherCriterionEnabled = Other.IsChecked == true;
             Properties.Settings.Default.RemoveTimestampsFromFilter = RemoveTimestamps.IsChecked == true;
 
