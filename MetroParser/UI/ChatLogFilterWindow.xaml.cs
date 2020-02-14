@@ -26,7 +26,12 @@ namespace MetroParser.UI
             { "IC", Tuple.Create(@"aaa", true) }
         };
 
-        public string ChatLog
+        private bool OtherEnabled
+        {
+            get { return Other.IsChecked == true; }
+        }
+
+        private string ChatLog
         {
             get { return _chatLog; }
             set
@@ -68,14 +73,17 @@ namespace MetroParser.UI
             Filtered.Text = ChatLog = string.Empty;
 
             TimeLabel.Content = string.Format(Strings.CurrentTime, DateTime.Now.ToString("HH:mm:ss"));
-
             Words.Text = Properties.Settings.Default.FilterNames;
+
+            Other.IsChecked = Properties.Settings.Default.OtherCriterionEnabled;
             RemoveTimestamps.IsChecked = Properties.Settings.Default.RemoveTimestampsFromFilter;
         }
 
         private void SaveSettings()
         {
             Properties.Settings.Default.FilterNames = Words.Text;
+
+            Properties.Settings.Default.OtherCriterionEnabled = Other.IsChecked == true;
             Properties.Settings.Default.RemoveTimestampsFromFilter = RemoveTimestamps.IsChecked == true;
 
             Properties.Settings.Default.Save();
@@ -89,8 +97,10 @@ namespace MetroParser.UI
         private void LoadUnparsed_Click(object sender, RoutedEventArgs e)
         {
             ChatLog = MainWindow.ParseChatLog(folderPath: Properties.Settings.Default.FolderPath, removeTimestamps: false, showError: true);
+            
             if (chatLogLoaded)
-                Filtered.Text = ChatLog;
+                TryToFilter(fastFilter: true);
+                //Filtered.Text = ChatLog;
         }
 
         private void BrowseForParsed_Click(object sender, RoutedEventArgs e)
@@ -114,7 +124,8 @@ namespace MetroParser.UI
                 }
 
                 if (chatLogLoaded)
-                    Filtered.Text = ChatLog;
+                    TryToFilter(fastFilter: true);
+                    //Filtered.Text = ChatLog;
             }
             catch
             {
@@ -148,12 +159,10 @@ namespace MetroParser.UI
                             .FirstOrDefault();
 
             if (entry != null)
-            {
                 filterCriteria[entry.Value.Key] = Tuple.Create(filterCriteria[entry.Value.Key].Item1, !filterCriteria[entry.Value.Key].Item2);
-                
-                if (chatLogLoaded)
-                    TryToFilter(fastFilter: true);
-            }
+            
+            if (chatLogLoaded)
+                TryToFilter(fastFilter: true);
         }
 
         private void Filter_Click(object sender, RoutedEventArgs e)
@@ -181,21 +190,26 @@ namespace MetroParser.UI
                     if (string.IsNullOrWhiteSpace(line))
                         continue;
 
-                    bool isCriterionEnabled = true;
+                    bool isCriterionEnabled = false;
+                    bool matchedRegularCriterion = false;
                     foreach (KeyValuePair<string, Tuple<string, bool>> keyValuePair in filterCriteria)
                     {
                         if (string.IsNullOrWhiteSpace(keyValuePair.Key) || string.IsNullOrWhiteSpace(keyValuePair.Value.Item1))
                             continue;
 
-                        if (keyValuePair.Value.Item2 == false)
-                            if (Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), keyValuePair.Value.Item1, RegexOptions.IgnoreCase))
+                        if (Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), keyValuePair.Value.Item1, RegexOptions.IgnoreCase))
+                        {
+                            matchedRegularCriterion = true;
+
+                            if (keyValuePair.Value.Item2 == true)
                             {
-                                isCriterionEnabled = false;
+                                isCriterionEnabled = true;
                                 break;
                             }
+                        }
                     }
 
-                    if (isCriterionEnabled)
+                    if (isCriterionEnabled || (!matchedRegularCriterion && OtherEnabled))
                         filtered += line + "\n";
 
                     // Next line
@@ -230,23 +244,28 @@ namespace MetroParser.UI
                         {
                             // If word found on line (advanced filter)
                             // also check simple filter
-                            bool isCriterionEnabled = true;
+                            bool isCriterionEnabled = false;
+                            bool matchedRegularCriterion = false;
                             foreach (KeyValuePair<string, Tuple<string, bool>> keyValuePair in filterCriteria)
                             {
                                 if (string.IsNullOrWhiteSpace(keyValuePair.Key) || string.IsNullOrWhiteSpace(keyValuePair.Value.Item1))
                                     continue;
 
-                                if (keyValuePair.Value.Item2 == false)
-                                    if (Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), keyValuePair.Value.Item1, RegexOptions.IgnoreCase))
+                                if (Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), keyValuePair.Value.Item1, RegexOptions.IgnoreCase))
+                                {
+                                    matchedRegularCriterion = true;
+
+                                    if (keyValuePair.Value.Item2 == true)
                                     {
-                                        isCriterionEnabled = false;
+                                        isCriterionEnabled = true;
                                         break;
                                     }
+                                }
                             }
 
-                            if (isCriterionEnabled)
+                            if (isCriterionEnabled || (!matchedRegularCriterion && OtherEnabled))
                                 filtered += line + "\n";
-                            
+
                             // Next line
                             break;
                         }

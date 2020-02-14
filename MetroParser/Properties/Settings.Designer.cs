@@ -418,5 +418,17 @@ namespace MetroParser.Properties {
                 this["SameHashAutoCount"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool OtherCriterionEnabled {
+            get {
+                return ((bool)(this["OtherCriterionEnabled"]));
+            }
+            set {
+                this["OtherCriterionEnabled"] = value;
+            }
+        }
     }
 }
