@@ -412,6 +412,9 @@ namespace MetroParser.UI
 
             FilterModeToggle.Content = usingAdvancedFilter ? Strings.SimpleFilter : Strings.AdvancedFilter;
             Width = usingAdvancedFilter ? 656 : 494;
+
+            if (chatLogLoaded && !usingAdvancedFilter)
+                TryToFilter(fastFilter: true);
         }
 
         private void ChatLogFilter_Closing(object sender, System.ComponentModel.CancelEventArgs e)

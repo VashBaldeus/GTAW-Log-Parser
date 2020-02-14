@@ -219,7 +219,6 @@ namespace MetroParser.UI
         private void Parse_Click(object sender, RoutedEventArgs e)
         {
             //ToggleControls(enable: false);
-
             Data.Initialize();
 
             if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
@@ -240,6 +239,8 @@ namespace MetroParser.UI
 
         public static string ParseChatLog(string folderPath, bool removeTimestamps, bool showError = false)
         {
+            Data.Initialize();
+
             try
             {
                 string log;
