@@ -13,7 +13,6 @@ namespace MetroParser.Utilities
             using (MD5 md5Hash = MD5.Create())
             {
                 string hash = GetMD5Hash(md5Hash, log);
-
                 string lastAutoHash = Properties.Settings.Default.LastParsedAutoHash;
 
                 Properties.Settings.Default.SameHashAutoCount = lastAutoHash == hash ? Properties.Settings.Default.SameHashAutoCount + 1 : 1;

@@ -78,7 +78,7 @@ namespace MetroParser.Infrastructure
         {
             if (Properties.Settings.Default.FollowSystemColor)
             {
-                Style = "Default";
+                Style = "Steel";
                 UpdateTheme();
 
                 Style = "Windows";

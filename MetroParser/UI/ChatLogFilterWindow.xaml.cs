@@ -21,7 +21,7 @@ namespace MetroParser.UI
 
         private readonly Dictionary<string, Tuple<string, bool>> filterCriteria = new Dictionary<string, Tuple<string, bool>>
         {
-            // Filter,    regex pattern, isEnabled (false = remove from log)
+            // Filter, regex pattern, isEnabled (false = remove from log)
             { "OOC", Tuple.Create(@"aa", true) },
             { "IC", Tuple.Create(@"aaa", true) }
         };

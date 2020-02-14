@@ -176,8 +176,6 @@ namespace MetroParser.Infrastructure
             try
             {
                 string parsed = MainWindow.ParseChatLog(folderPath: folderPath, removeTimestamps: Properties.Settings.Default.RemoveTimestampsFromBackup, showError: gameClosed);
-                Cryptography.SaveParsedHash(parsed);
-
                 if (string.IsNullOrWhiteSpace(parsed))
                     return;
 
@@ -209,8 +207,13 @@ namespace MetroParser.Infrastructure
                         sw.Write(parsed.Replace("\n", Environment.NewLine));
                     }
 
-                    if (gameClosed && !Properties.Settings.Default.SuppressNotifications)
-                        DisplayBackupResultMessage(string.Format(Strings.SuccessfulBackup, path + fileName), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+                    if (gameClosed)
+                    {
+                        if (!Properties.Settings.Default.SuppressNotifications)
+                            DisplayBackupResultMessage(string.Format(Strings.SuccessfulBackup, path + fileName), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        Cryptography.SaveParsedHash(parsed);
+                    }
                 }
                 else
                 {
@@ -233,8 +236,13 @@ namespace MetroParser.Infrastructure
                     else
                         File.Delete(path + ".temp");
 
-                    if (gameClosed && !Properties.Settings.Default.SuppressNotifications)
-                        DisplayBackupResultMessage(string.Format(Strings.SuccessfulBackup, path + fileName), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+                    if (gameClosed)
+                    {
+                        if (!Properties.Settings.Default.SuppressNotifications)
+                            DisplayBackupResultMessage(string.Format(Strings.SuccessfulBackup, path + fileName), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        Cryptography.SaveParsedHash(parsed);
+                    }
                 }
             }
             catch
