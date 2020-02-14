@@ -24,7 +24,7 @@ namespace MetroParser.UI
         {
             // Filter, regex pattern, isEnabled (false = remove from log)
             { "OOC", Tuple.Create(@"^\(\( \(\d*\) [A-Za-z]+( [A-Za-z]+){0,1}:.*?\)\)$", Properties.Settings.Default.OOCCriterionEnabled) },
-            { "IC", Tuple.Create(@"^[A-Za-z]+( [A-Za-z]+){0,1} says:.*$", Properties.Settings.Default.ICCriterionEnabled) }
+            { "IC", Tuple.Create(@"^[A-Za-z]+( [A-Za-z]+){0,1} (says|shouts)( \[low\]){0,1}:.*$", Properties.Settings.Default.ICCriterionEnabled) }
         };
 
         private bool OtherEnabled
