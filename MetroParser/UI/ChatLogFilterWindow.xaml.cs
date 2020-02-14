@@ -17,13 +17,14 @@ namespace MetroParser.UI
     {
         private readonly MainWindow _mainWindow;
         private readonly System.Windows.Threading.DispatcherTimer Timer;
-        private bool advancedFilter = false;
+        private bool usingAdvancedFilter = false;
+        private bool isLoading = true;
 
         private readonly Dictionary<string, Tuple<string, bool>> filterCriteria = new Dictionary<string, Tuple<string, bool>>
         {
             // Filter, regex pattern, isEnabled (false = remove from log)
-            { "OOC", Tuple.Create(@"aa", true) },
-            { "IC", Tuple.Create(@"aaa", true) }
+            { "OOC", Tuple.Create(@"aaa", Properties.Settings.Default.OOCCriterionEnabled) },
+            { "IC", Tuple.Create(@"bbb", Properties.Settings.Default.ICCriterionEnabled) }
         };
 
         private bool OtherEnabled
@@ -65,6 +66,7 @@ namespace MetroParser.UI
             Timer.Tick += Timer_Tick;
             Timer.Interval = new TimeSpan(0, 0, 0, 1);
             Timer.Start();
+            isLoading = false;
         }
 
         private void LoadSettings()
@@ -75,6 +77,8 @@ namespace MetroParser.UI
             TimeLabel.Content = string.Format(Strings.CurrentTime, DateTime.Now.ToString("HH:mm:ss"));
             Words.Text = Properties.Settings.Default.FilterNames;
 
+            OOC.IsChecked = Properties.Settings.Default.OOCCriterionEnabled;
+            IC.IsChecked = Properties.Settings.Default.ICCriterionEnabled;
             Other.IsChecked = Properties.Settings.Default.OtherCriterionEnabled;
             RemoveTimestamps.IsChecked = Properties.Settings.Default.RemoveTimestampsFromFilter;
         }
@@ -83,6 +87,8 @@ namespace MetroParser.UI
         {
             Properties.Settings.Default.FilterNames = Words.Text;
 
+            Properties.Settings.Default.OOCCriterionEnabled = OOC.IsChecked == true;
+            Properties.Settings.Default.ICCriterionEnabled = IC.IsChecked == true;
             Properties.Settings.Default.OtherCriterionEnabled = Other.IsChecked == true;
             Properties.Settings.Default.RemoveTimestampsFromFilter = RemoveTimestamps.IsChecked == true;
 
@@ -142,6 +148,9 @@ namespace MetroParser.UI
 
         private void Criterion_CheckedChanged(object sender, RoutedEventArgs e)
         {
+            if (isLoading)
+                return;
+
             string criterionName;
             try
             {
@@ -183,7 +192,7 @@ namespace MetroParser.UI
             string[] lines = logToCheck.Split('\n');
             string filtered = string.Empty;
 
-            if (!advancedFilter)
+            if (!usingAdvancedFilter)
             {
                 foreach (string line in lines)
                 {
@@ -302,7 +311,7 @@ namespace MetroParser.UI
                 }
             }
 
-            if (advancedFilter && skippedWord && !Properties.Settings.Default.DisableInformationPopups)
+            if (usingAdvancedFilter && skippedWord && !Properties.Settings.Default.DisableInformationPopups)
                 MessageBox.Show(Strings.FilterHintSkipped, Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -383,10 +392,10 @@ namespace MetroParser.UI
 
         private void FilterModeToggle_Click(object sender, RoutedEventArgs e)
         {
-            advancedFilter = !advancedFilter;
+            usingAdvancedFilter = !usingAdvancedFilter;
 
-            FilterModeToggle.Content = advancedFilter ? Strings.SimpleFilter : Strings.AdvancedFilter;
-            Width = advancedFilter ? 656 : 494;
+            FilterModeToggle.Content = usingAdvancedFilter ? Strings.SimpleFilter : Strings.AdvancedFilter;
+            Width = usingAdvancedFilter ? 656 : 494;
         }
 
         private void ChatLogFilter_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -397,13 +406,13 @@ namespace MetroParser.UI
 
         private void Words_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            if (!advancedFilter)
+            if (!usingAdvancedFilter)
                 LoadUnparsed.Focus();
         }
 
         private void Filter_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            if (!advancedFilter)
+            if (!usingAdvancedFilter)
                 LoadUnparsed.Focus();
         }
     }

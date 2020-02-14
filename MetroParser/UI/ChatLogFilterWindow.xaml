@@ -27,6 +27,8 @@
         <Button x:Name="BrowseForParsed" Click="BrowseForParsed_Click" Content="Browse For Parsed Chat Log" HorizontalAlignment="Left" Margin="165,41,0,0" VerticalAlignment="Top" Width="174"/>
         <Button x:Name="FilterModeToggle" Click="FilterModeToggle_Click" Content="Advanced Filter" HorizontalAlignment="Left" Margin="344,41,0,0" VerticalAlignment="Top" Width="140"/>
 
+        <CheckBox x:Name="OOC" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="OOC" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" Width="150"/>
+        <CheckBox x:Name="IC" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="IC" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="150"/>
         <CheckBox x:Name="Other" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="Other" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Width="150"/>
         <CheckBox x:Name="RemoveTimestamps" Checked="RemoveTimestamps_CheckedChanged" Unchecked="RemoveTimestamps_CheckedChanged" Content="Remove timestamps" HorizontalAlignment="Left" Margin="10,243,0,0" VerticalAlignment="Top" Width="150"/>
         

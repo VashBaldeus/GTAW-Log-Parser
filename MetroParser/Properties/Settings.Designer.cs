@@ -430,5 +430,29 @@ namespace MetroParser.Properties {
                 this["OtherCriterionEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool OOCCriterionEnabled {
+            get {
+                return ((bool)(this["OOCCriterionEnabled"]));
+            }
+            set {
+                this["OOCCriterionEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ICCriterionEnabled {
+            get {
+                return ((bool)(this["ICCriterionEnabled"]));
+            }
+            set {
+                this["ICCriterionEnabled"] = value;
+            }
+        }
     }
 }
