@@ -23,8 +23,8 @@ namespace MetroParser.UI
         private readonly Dictionary<string, Tuple<string, bool>> filterCriteria = new Dictionary<string, Tuple<string, bool>>
         {
             // Filter, regex pattern, isEnabled (false = remove from log)
-            { "OOC", Tuple.Create(@"aaa", Properties.Settings.Default.OOCCriterionEnabled) },
-            { "IC", Tuple.Create(@"bbb", Properties.Settings.Default.ICCriterionEnabled) }
+            { "OOC", Tuple.Create(@"^\(\( \(\d*\) [A-Za-z]+( [A-Za-z]+){0,1}:.*?\)\)$", Properties.Settings.Default.OOCCriterionEnabled) },
+            { "IC", Tuple.Create(@"^[A-Za-z]+( [A-Za-z]+){0,1} says:.*$", Properties.Settings.Default.ICCriterionEnabled) }
         };
 
         private bool OtherEnabled

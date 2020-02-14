@@ -29,7 +29,7 @@
 
         <CheckBox x:Name="OOC" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="OOC" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" Width="150"/>
         <CheckBox x:Name="IC" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="IC" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="150"/>
-        <CheckBox x:Name="Other" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="Other" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Width="150"/>
+        <CheckBox x:Name="Other" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="Other (is not above)" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Width="150"/>
         <CheckBox x:Name="RemoveTimestamps" Checked="RemoveTimestamps_CheckedChanged" Unchecked="RemoveTimestamps_CheckedChanged" Content="Remove timestamps" HorizontalAlignment="Left" Margin="10,243,0,0" VerticalAlignment="Top" Width="150"/>
         
         <Button x:Name="SaveFiltered" Click="SaveFiltered_Click" Content="Save As" HorizontalAlignment="Left" Margin="10,266,0,0" VerticalAlignment="Top" Width="150"/>
