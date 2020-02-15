@@ -8,8 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1A4ABA12-1374-4EFB-94A6-3F28D99A581B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>MetroParser</RootNamespace>
-    <AssemblyName>MetroParser</AssemblyName>
+    <RootNamespace>GTAWAssistant</RootNamespace>
+    <AssemblyName>GTAWAssistant</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

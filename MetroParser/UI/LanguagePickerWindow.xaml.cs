@@ -1,10 +1,10 @@
-﻿using MetroParser.Infrastructure;
-using MetroParser.Utilities;
+﻿using GTAWAssistant.Infrastructure;
+using GTAWAssistant.Utilities;
 using System;
 using System.Diagnostics;
 using System.Windows;
 
-namespace MetroParser.UI
+namespace GTAWAssistant.UI
 {
     /// <summary>
     /// Interaction logic for LanguagePickerWindow.xaml

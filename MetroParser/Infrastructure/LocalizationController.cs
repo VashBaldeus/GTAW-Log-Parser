@@ -4,7 +4,7 @@ using System.Threading;
 using System.Globalization;
 using System.Collections.Generic;
 
-namespace MetroParser.Infrastructure
+namespace GTAWAssistant.Infrastructure
 {
     public static class LocalizationController
     {

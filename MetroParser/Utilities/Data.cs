@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace MetroParser.Utilities
+namespace GTAWAssistant.Utilities
 {
     public static class Data
     {

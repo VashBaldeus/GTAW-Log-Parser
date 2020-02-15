@@ -2,12 +2,12 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using MetroParser.Localization;
+using GTAWAssistant.Localization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using MetroParser.Infrastructure;
+using GTAWAssistant.Infrastructure;
 
-namespace MetroParser.UI
+namespace GTAWAssistant.UI
 {
     /// <summary>
     /// Interaction logic for BackupSettingsWindow.xaml

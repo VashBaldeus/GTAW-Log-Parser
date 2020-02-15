@@ -1,13 +1,13 @@
 ﻿using MahApps.Metro;
 using System;
 using System.Collections.Generic;
-using MetroParser.Utilities;
+using GTAWAssistant.Utilities;
 using System.Windows;
 using System.Windows.Media;
 using System.Management;
 using System.Security.Principal;
 
-namespace MetroParser.Infrastructure
+namespace GTAWAssistant.Infrastructure
 {
     public static class StyleController
     {

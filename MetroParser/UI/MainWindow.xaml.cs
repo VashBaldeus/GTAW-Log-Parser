@@ -7,13 +7,13 @@ using System.Diagnostics;
 using System.Windows.Input;
 using System.Globalization;
 using System.Windows.Controls;
-using MetroParser.Localization;
+using GTAWAssistant.Localization;
 using System.Text.RegularExpressions;
-using MetroParser.Infrastructure;
-using MetroParser.Utilities;
+using GTAWAssistant.Infrastructure;
+using GTAWAssistant.Utilities;
 using System.Collections.Generic;
 
-namespace MetroParser.UI
+namespace GTAWAssistant.UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

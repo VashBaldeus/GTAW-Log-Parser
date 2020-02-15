@@ -3,9 +3,9 @@ using System.IO;
 using IWshRuntimeLibrary;
 using System.Collections.Generic;
 using System.Windows;
-using MetroParser.Utilities;
+using GTAWAssistant.Utilities;
 
-namespace MetroParser.Infrastructure
+namespace GTAWAssistant.Infrastructure
 {
     public static class StartupController
     {

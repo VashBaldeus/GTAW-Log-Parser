@@ -1,14 +1,14 @@
 ﻿using MahApps.Metro;
-using MetroParser.Infrastructure;
-using MetroParser.UI;
-using MetroParser.Utilities;
+using GTAWAssistant.Infrastructure;
+using GTAWAssistant.UI;
+using GTAWAssistant.Utilities;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Windows;
-using MetroParser.Properties;
+using GTAWAssistant.Properties;
 
-namespace MetroParser
+namespace GTAWAssistant
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -2,13 +2,13 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
-using MetroParser.Localization;
+using GTAWAssistant.Localization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Windows.Input;
 
-namespace MetroParser.UI
+namespace GTAWAssistant.UI
 {
     /// <summary>
     /// Interaction logic for ChatLogFilterWindow.xaml

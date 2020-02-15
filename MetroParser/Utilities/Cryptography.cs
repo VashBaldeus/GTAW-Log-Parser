@@ -2,9 +2,9 @@
 using System.Text;
 using System.Security.Cryptography;
 using System.Windows;
-using MetroParser.Localization;
+using GTAWAssistant.Localization;
 
-namespace MetroParser.Utilities
+namespace GTAWAssistant.Utilities
 {
     public static class Cryptography
     {

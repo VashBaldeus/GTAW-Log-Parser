@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows;
-using MetroParser.Localization;
-using MetroParser.Infrastructure;
-using MetroParser.Utilities;
+using GTAWAssistant.Localization;
+using GTAWAssistant.Infrastructure;
+using GTAWAssistant.Utilities;
 using System.Windows.Input;
 
-namespace MetroParser.UI
+namespace GTAWAssistant.UI
 {
     /// <summary>
     /// Interaction logic for ProgramSettingsWindow.xaml
