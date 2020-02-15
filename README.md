@@ -9,10 +9,6 @@ No installation is required. Simply download the latest [release](https://github
 
 For a brief overview, please refer to the [feature showcase thread](https://forum.gta.world/en/index.php?/topic/7690-chat-logs/) on the GTA World forums.
 
-## Roadmap
-
-- Refactor and document code
-
 ## Building
 
 The NuGet package dependencies must be restored before compiling the project.
@@ -24,6 +20,10 @@ The NuGet package dependencies must be restored before compiling the project.
 3. Commit (`git commit -am "Add feature_name"`)
 4. Push (`git push origin branch_name`)
 5. Create Pull Request
+
+## Roadmap
+
+- Refactor and document code
 
 ## Additional Information
 
