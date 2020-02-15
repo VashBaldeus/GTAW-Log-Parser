@@ -12,7 +12,7 @@
                       WindowTransitionsEnabled="True"
                       BorderThickness="0" 
                       GlowBrush="Black"
-                      Title="Filter Chat Log" Height="334" Width="494" ShowInTaskbar="True" IsMinButtonEnabled="False" IsMaxRestoreButtonEnabled="False" ShowIconOnTitleBar="False" TitleCaps="False" Icon="../Resources/AppIcon.ico">
+                      Title="Filter Chat Log" Height="324" Width="494" ShowInTaskbar="True" IsMinButtonEnabled="False" IsMaxRestoreButtonEnabled="False" ShowIconOnTitleBar="False" TitleCaps="False" Icon="../Resources/AppIcon.ico">
 
     <Controls:MetroWindow.WindowButtonCommands>
         <Controls:WindowButtonCommands 
@@ -27,22 +27,30 @@
         <Button x:Name="BrowseForParsed" Click="BrowseForParsed_Click" Content="Browse For Parsed Chat Log" HorizontalAlignment="Left" Margin="165,41,0,0" VerticalAlignment="Top" Width="174"/>
         <Button x:Name="FilterModeToggle" Click="FilterModeToggle_Click" Content="Advanced Filter" HorizontalAlignment="Left" Margin="344,41,0,0" VerticalAlignment="Top" Width="140"/>
 
+
         <CheckBox x:Name="IC" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="Local" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" Width="70"/>
         <CheckBox x:Name="OOC" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="OOC" HorizontalAlignment="Left" Margin="90,73,0,0" VerticalAlignment="Top" Width="70"/>
         <CheckBox x:Name="Emote" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="Emote" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="70"/>
         <CheckBox x:Name="Action" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="Action" HorizontalAlignment="Left" Margin="90,96,0,0" VerticalAlignment="Top" Width="70"/>
         <CheckBox x:Name="Radio" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="Radio" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top" Width="70"/>
         <CheckBox x:Name="Ads" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="Ads" HorizontalAlignment="Left" Margin="90,119,0,0" VerticalAlignment="Top" Width="70"/>
+        <CheckBox x:Name="None1" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="None" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top" Width="70"/>
         <CheckBox x:Name="PM" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="PM" HorizontalAlignment="Left" Margin="90,142,0,0" VerticalAlignment="Top" Width="70"/>
-        <CheckBox x:Name="Other" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="Others (not above)" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" Width="150"/>
-        <CheckBox x:Name="RemoveTimestamps" Checked="RemoveTimestamps_CheckedChanged" Unchecked="RemoveTimestamps_CheckedChanged" Content="Remove timestamps" HorizontalAlignment="Left" Margin="10,243,0,0" VerticalAlignment="Top" Width="150"/>
-        
-        <Button x:Name="SaveFiltered" Click="SaveFiltered_Click" Content="Save As" HorizontalAlignment="Left" Margin="10,266,0,0" VerticalAlignment="Top" Width="150"/>
-        <Button x:Name="CopyFilteredToClipboard" Click="CopyFilteredToClipboard_Click" Content="Copy To Clipboard" HorizontalAlignment="Left" Margin="165,266,0,0" VerticalAlignment="Top" Width="319"/>
-        <TextBox x:Name="Filtered" HorizontalAlignment="Left" Height="188" Margin="165,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="319" AcceptsReturn="True"/>
-        
-        <Label x:Name="WordsLabel" Content="Words to filter in:" HorizontalAlignment="Left" Margin="492,73,0,0" VerticalAlignment="Top" Width="150"/>
-        <TextBox x:Name="Words" HorizontalAlignment="Left" Height="162" Margin="496,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Text="Firstname Lastname" AcceptsReturn="True" GotKeyboardFocus="Words_GotKeyboardFocus"/>
-        <Button x:Name="Filter" Click="Filter_Click" Content="Filter" HorizontalAlignment="Left" Margin="496,266,0,0" VerticalAlignment="Top" Width="150" GotKeyboardFocus="Filter_GotKeyboardFocus"/>
+        <CheckBox x:Name="None2" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="None" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Width="70"/>
+        <CheckBox x:Name="None3" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="None" HorizontalAlignment="Left" Margin="90,165,0,0" VerticalAlignment="Top" Width="70"/>
+        <CheckBox x:Name="None4" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="None" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Width="70"/>
+        <CheckBox x:Name="None5" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="None" HorizontalAlignment="Left" Margin="90,188,0,0" VerticalAlignment="Top" Width="70"/>
+
+        <CheckBox x:Name="Other" Checked="Criterion_CheckedChanged" Unchecked="Criterion_CheckedChanged" Content="Others (not above)" HorizontalAlignment="Left" Margin="10,211,0,0" VerticalAlignment="Top" Width="150"/>
+        <CheckBox x:Name="RemoveTimestamps" Checked="RemoveTimestamps_CheckedChanged" Unchecked="RemoveTimestamps_CheckedChanged" Content="Remove timestamps" HorizontalAlignment="Left" Margin="10,234,0,0" VerticalAlignment="Top" Width="150"/>
+
+
+        <Button x:Name="SaveFiltered" Click="SaveFiltered_Click" Content="Save As" HorizontalAlignment="Left" Margin="10,257,0,0" VerticalAlignment="Top" Width="150"/>
+        <Button x:Name="CopyFilteredToClipboard" Click="CopyFilteredToClipboard_Click" Content="Copy To Clipboard" HorizontalAlignment="Left" Margin="165,257,0,0" VerticalAlignment="Top" Width="319"/>
+        <TextBox x:Name="Filtered" HorizontalAlignment="Left" Height="179" Margin="165,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="319" AcceptsReturn="True"/>
+
+        <Label x:Name="WordsLabel" Content="Words to filter in:" HorizontalAlignment="Left" Margin="492,48,0,0" VerticalAlignment="Top" Width="150"/>
+        <TextBox x:Name="Words" HorizontalAlignment="Left" Height="179" Margin="496,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Text="Firstname Lastname" AcceptsReturn="True" GotKeyboardFocus="Words_GotKeyboardFocus"/>
+        <Button x:Name="Filter" Click="Filter_Click" Content="Filter" HorizontalAlignment="Left" Margin="496,257,0,0" VerticalAlignment="Top" Width="150" GotKeyboardFocus="Filter_GotKeyboardFocus"/>
     </Grid>
 </Controls:MetroWindow>
