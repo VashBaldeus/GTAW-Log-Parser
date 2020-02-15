@@ -195,7 +195,7 @@ namespace ParserMini.UI
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(string.Format(Strings.About, Data.Version, Data.IsBetaVersion ? Strings.Beta : string.Empty, LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            MessageBox.Show(string.Format(Strings.About, Data.Version, Data.IsBetaVersion ? Strings.Beta : string.Empty, LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
