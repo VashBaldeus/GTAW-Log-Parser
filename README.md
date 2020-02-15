@@ -13,10 +13,6 @@ For a brief overview, please refer to the [feature showcase thread](https://foru
 
 The NuGet package dependencies must be restored before compiling the project.
 
-## Roadmap
-
-- Refactor and document code
-
 ## Contributing
 
 1. Fork Project (<https://github.com/your_name/GTAW-Log-Parser>)
@@ -24,6 +20,10 @@ The NuGet package dependencies must be restored before compiling the project.
 3. Commit (`git commit -am "Add feature_name"`)
 4. Push (`git push origin branch_name`)
 5. Create Pull Request
+
+## Roadmap
+
+- Refactor and document code
 
 ## Additional Information
 
