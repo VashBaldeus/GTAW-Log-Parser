@@ -1,4 +1,4 @@
-# GTA World Chat Log Parser
+# GTA World Chat Log Assistant
 This program is used to convert the chat logs generated while playing on GTA World into readable text.
 
 ![](header.png)
