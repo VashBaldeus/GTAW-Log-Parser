@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserMini", "ParserMini\ParserMini.csproj", "{A5F504D1-BD89-479D-AB75-C7209FFE8BE2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parser", "Parser\Parser.csproj", "{A5F504D1-BD89-479D-AB75-C7209FFE8BE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTAWAssistant", "ChatLogAssistant\GTAWAssistant.csproj", "{1A4ABA12-1374-4EFB-94A6-3F28D99A581B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assistant", "Assistant\Assistant.csproj", "{1A4ABA12-1374-4EFB-94A6-3F28D99A581B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
