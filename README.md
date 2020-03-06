@@ -7,8 +7,6 @@ This program is used to convert the chat logs generated while playing on GTA Wor
 
 No installation is required. Simply download the latest [release](https://github.com/MapleToo/GTAW-Log-Parser/releases) and run the executable.
 
-For a brief overview, please refer to the [feature showcase thread](https://forum.gta.world/en/index.php?/topic/7690-chat-logs/) on the GTA World forums.
-
 ## Building
 
 The NuGet package dependencies must be restored before compiling the project.
