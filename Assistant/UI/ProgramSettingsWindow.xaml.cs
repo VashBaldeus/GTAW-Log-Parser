@@ -40,7 +40,6 @@ namespace Assistant.UI
             Properties.Settings.Default.DisableUCPButton = DisableUCPButton.IsChecked == true;
             Properties.Settings.Default.DisableReleasesButton = DisableReleasesButton.IsChecked == true;
             Properties.Settings.Default.DisableProjectButton = DisableProjectButton.IsChecked == true;
-            Properties.Settings.Default.DisableProfileButton = DisableProfileButton.IsChecked == true;
             Properties.Settings.Default.UpdateCheckTimeout = (int)Timeout.Value;
 
             Properties.Settings.Default.DisableInformationPopups = DisableInformationPopups.IsChecked == true;
@@ -63,7 +62,6 @@ namespace Assistant.UI
             DisableUCPButton.IsChecked = Properties.Settings.Default.DisableUCPButton;
             DisableReleasesButton.IsChecked = Properties.Settings.Default.DisableReleasesButton;
             DisableProjectButton.IsChecked = Properties.Settings.Default.DisableProjectButton;
-            DisableProfileButton.IsChecked = Properties.Settings.Default.DisableProfileButton;
             Timeout.Value = Properties.Settings.Default.UpdateCheckTimeout;
 
             DisableInformationPopups.IsChecked = Properties.Settings.Default.DisableInformationPopups;
@@ -148,11 +146,6 @@ namespace Assistant.UI
         private void DisableProjectButton_CheckedChanged(object sender, RoutedEventArgs e)
         {
             _mainWindow.OpenGithubProject.Visibility = DisableProjectButton.IsChecked == true ? Visibility.Collapsed : Visibility.Visible;
-        }
-
-        private void DisableProfileButton_CheckedChanged(object sender, RoutedEventArgs e)
-        {
-            _mainWindow.OpenProfilePage.Visibility = DisableProfileButton.IsChecked == true ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void DisableInformationPopups_CheckedChanged(object sender, RoutedEventArgs e)

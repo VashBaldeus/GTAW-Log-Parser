@@ -61,7 +61,7 @@ namespace Parser.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chat Log Parser created by Maple for GTA World.
+        ///   Looks up a localized string similar to A chat log parser for GTA World.
         ///
         ///Installed Version: {0} {1}
         ///Parsing From: {2} Server

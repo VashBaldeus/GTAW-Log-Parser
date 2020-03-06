@@ -27,12 +27,6 @@
                     Content="{iconPacks:Material Settings, Width=18, Height=18}"
                     ToolTip="Settings" />
 
-            <Button x:Name="OpenProfilePage"
-                    Visibility="Collapsed"
-                    Click="OpenProfilePage_Click"
-                    Content="{iconPacks:Material Heart, Width=18, Height=18}"
-                    ToolTip="Open Maple's profile on the GTA World forums" />
-
             <Button x:Name="OpenGithubProject"
                     Visibility="Collapsed"
                     Click="OpenGithubProject_Click"

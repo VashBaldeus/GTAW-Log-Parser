@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>Chat Log Parser created by Maple for GTA World.
+    <value>A chat log assistant for GTA World.
 
 Installed Version: {0} {1}
 Parsing From: {2} Server
@@ -336,17 +336,14 @@ Would you like to delete these files?
   <data name="PartialMoveWarning" xml:space="preserve">
     <value>Only moved the "{0}" folder(s) to the new location</value>
   </data>
-  <data name="ProfileLink" xml:space="preserve">
-    <value>https://forum.gta.world/en/index.php?/profile/4751-maple/</value>
-  </data>
   <data name="ProjectLink" xml:space="preserve">
-    <value>https://github.com/MapleToo/GTAW-Log-Parser</value>
+    <value>https://github.com/davidcristian/GTAW-Log-Parser</value>
   </data>
   <data name="Question" xml:space="preserve">
     <value>Question</value>
   </data>
   <data name="ReleasesLink" xml:space="preserve">
-    <value>https://github.com/MapleToo/GTAW-Log-Parser/releases</value>
+    <value>https://github.com/davidcristian/GTAW-Log-Parser/releases</value>
   </data>
   <data name="Restart" xml:space="preserve">
     <value>Restart</value>

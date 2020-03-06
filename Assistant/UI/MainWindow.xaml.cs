@@ -104,7 +104,6 @@ namespace Assistant.UI
             OpenUCP.Visibility = Properties.Settings.Default.DisableUCPButton ? Visibility.Collapsed : Visibility.Visible;
             OpenGithubReleases.Visibility = Properties.Settings.Default.DisableReleasesButton ? Visibility.Collapsed : Visibility.Visible;
             OpenGithubProject.Visibility = Properties.Settings.Default.DisableProjectButton ? Visibility.Collapsed : Visibility.Visible;
-            OpenProfilePage.Visibility = Properties.Settings.Default.DisableProfileButton ? Visibility.Collapsed : Visibility.Visible;
             UpdateCheckProgress.Foreground = StyleController.DarkMode ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
 
             Version.Text = string.Format(Strings.VersionInfo, Data.Version, Data.IsBetaVersion ? Strings.BetaShort : string.Empty);
@@ -433,7 +432,6 @@ namespace Assistant.UI
                 }
 
                 OpenProgramSettings.IsEnabled = enable;
-                OpenProfilePage.IsEnabled = enable;
                 OpenGithubProject.IsEnabled = enable;
                 OpenGithubReleases.IsEnabled = enable;
                 OpenUCP.IsEnabled = enable;
@@ -508,7 +506,7 @@ namespace Assistant.UI
             try
             {
                 string installedVersion = Data.Version;
-                IReadOnlyList<Release> releases = client.Repository.Release.GetAll("MapleToo", "GTAW-Log-Parser").Result;
+                IReadOnlyList<Release> releases = client.Repository.Release.GetAll("davidcristian", Data.ProductHeader).Result;
 
                 string newVersion = string.Empty;
                 bool isNewVersionBeta = false;
@@ -730,11 +728,6 @@ namespace Assistant.UI
             }
 
             programSettings.ShowDialog();
-        }
-
-        private void OpenProfilePage_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start(Strings.ProfileLink);
         }
 
         private void OpenGithubProject_Click(object sender, RoutedEventArgs e)

@@ -61,7 +61,7 @@ namespace Assistant.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chat Log Parser created by Maple for GTA World.
+        ///   Looks up a localized string similar to A chat log assistant for GTA World.
         ///
         ///Installed Version: {0} {1}
         ///Parsing From: {2} Server
@@ -652,16 +652,7 @@ namespace Assistant.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://forum.gta.world/en/index.php?/profile/4751-maple/.
-        /// </summary>
-        internal static string ProfileLink {
-            get {
-                return ResourceManager.GetString("ProfileLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://github.com/MapleToo/GTAW-Log-Parser.
+        ///   Looks up a localized string similar to https://github.com/davidcristian/GTAW-Log-Parser.
         /// </summary>
         internal static string ProjectLink {
             get {
@@ -679,7 +670,7 @@ namespace Assistant.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://github.com/MapleToo/GTAW-Log-Parser/releases.
+        ///   Looks up a localized string similar to https://github.com/davidcristian/GTAW-Log-Parser/releases.
         /// </summary>
         internal static string ReleasesLink {
             get {

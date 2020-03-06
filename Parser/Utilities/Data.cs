@@ -5,7 +5,7 @@ namespace Parser.Utilities
 {
     public static class Data
     {
-        public const string Version = "1.0";
+        public const string Version = "1.0.1";
         public const bool IsBetaVersion = false;
 
         public static void Initialize()

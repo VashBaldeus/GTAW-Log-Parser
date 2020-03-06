@@ -6,7 +6,7 @@ namespace Assistant.Utilities
 {
     public static class Data
     {
-        public const string Version = "4.0";
+        public const string Version = "4.0.1";
         public const bool IsBetaVersion = false;
         public static bool CanFollowSystemColor = false;
         public static bool CanFollowSystemMode = false;

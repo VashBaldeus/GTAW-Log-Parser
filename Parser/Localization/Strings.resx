@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>Chat Log Parser created by Maple for GTA World.
+    <value>A chat log parser for GTA World.
 
 Installed Version: {0} {1}
 Parsing From: {2} Server
