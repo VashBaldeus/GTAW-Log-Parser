@@ -21,7 +21,6 @@ The NuGet package dependencies must be restored before compiling the project.
 
 ## Roadmap
 
-- Refactor and document code
 - Switch to .NET Core 3.1, then .NET 5 (when available)
 
 ## Additional Information
