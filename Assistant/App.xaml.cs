@@ -1,38 +1,46 @@
-﻿using MahApps.Metro;
-using System;
+﻿using System;
 using System.Linq;
-using System.Threading;
-using System.Windows;
-using Assistant.Infrastructure;
 using Assistant.UI;
-using Assistant.Utilities;
+using System.Windows;
+using System.Threading;
 using Assistant.Properties;
+using Assistant.Controllers;
 
 namespace Assistant
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
-        private static bool startMinimized = false;
-        private static bool startMinimizedWithoutTrayIcon = false;
-        private static bool isRestarted = false;
+        private static bool startMinimized;
+        private static bool isRestarted;
 
+        /// <summary>
+        /// Initializes the "follow system eligibility"
+        /// for the app mode and system accent color
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnStartup(StartupEventArgs e)
         {
+            // Initialize the eligibility
             StyleController.InitializeFollowEligibility();
 
+            // Set the current app mode depending
+            // on the "follow system eligibility"
             if (Settings.Default.FollowSystemMode)
             {
-                if (Data.CanFollowSystemMode)
+                if (ContinuityController.CanFollowSystemMode)
                     StyleController.DarkMode = StyleController.GetAppMode();
                 else
                     Settings.Default.FollowSystemMode = false;
             }
+
+            // Set the current app theme depending
+            // on the "follow system eligibility"
             if (Settings.Default.FollowSystemColor)
             {
-                if (Data.CanFollowSystemColor)
+                if (ContinuityController.CanFollowSystemColor)
                 {
                     StyleController.ValidStyles.Add("Windows");
                     StyleController.Style = "Windows";
@@ -42,27 +50,30 @@ namespace Assistant
             }
             Settings.Default.Save();
 
+            // Apply the changes
             StyleController.UpdateTheme();
             base.OnStartup(e);
         }
 
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            // Get the command line arguments and check
+            // if the current session is a restart or
+            // a minimized start
             string[] args = Environment.GetCommandLineArgs();
-            if (args != null)
-            {
-                if (args.Any(arg => arg == $"{Data.ParameterPrefix}restart"))
-                    isRestarted = true;
+            if (args.Any(arg => arg == $"{ContinuityController.ParameterPrefix}restart"))
+                isRestarted = true;
 
-                if (args.Any(arg => arg == $"{Data.ParameterPrefix}minimized"))
-                {
-                    startMinimized = true;
+            if (args.Any(arg => arg == $"{ContinuityController.ParameterPrefix}minimized"))
+                startMinimized = true;
 
-                    if (args.Any(arg => arg == $"{Data.ParameterPrefix}notray"))
-                        startMinimizedWithoutTrayIcon = true;
-                }
-            }
-
+            // Make sure only one instance is running
+            // if the application is not currently restarting
             Mutex mutex = new Mutex(true, "UniqueAppId", out bool isUnique);
             if (!isUnique && !isRestarted)
             {
@@ -71,36 +82,40 @@ namespace Assistant
                 return;
             }
 
-            LocalizationController.Initialize();
-            Data.Initialize();
+            // Initialize the controllers and
+            // display the server picker on the
+            // first start, or the main window
+            // on subsequent starts
+            LocalizationController.InitializeLocale();
+            ContinuityController.InitializeMemory();
 
-            if (startMinimizedWithoutTrayIcon)
+            if (!Settings.Default.HasPickedLanguage)
             {
-                StartupController.Initialize();
-                BackupController.Initialize();
+                LanguagePickerWindow languagePicker = new LanguagePickerWindow();
+                languagePicker.Show();
             }
             else
             {
-                if (!Settings.Default.HasPickedLanguage)
-                {
-                    LanguagePickerWindow languagePicker = new LanguagePickerWindow();
-                    languagePicker.Show();
-                }
-                else
-                {
-                    MainWindow mainWindow = new MainWindow(startMinimized: startMinimized);
-                    if (!startMinimized)
-                        mainWindow.Show();
-                }
+                MainWindow mainWindow = new MainWindow(startMinimized);
+                if (!startMinimized)
+                    mainWindow.Show();
             }
 
+            // Don't let the garbage
+            // collector touch the Mutex
             GC.KeepAlive(mutex);
         }
 
+        /// <summary>
+        /// Stops the running threads when
+        /// quitting the application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             StyleController.StopWatchers();
-            BackupController.quitting = true;
+            BackupController.Quitting = true;
         }
     }
 }

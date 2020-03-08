@@ -1,12 +1,14 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
+using Assistant.Controllers;
 using Assistant.Localization;
+using System.Windows.Threading;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Linq;
-using System.Windows.Input;
 
 namespace Assistant.UI
 {
@@ -15,13 +17,14 @@ namespace Assistant.UI
     /// </summary>
     public partial class ChatLogFilterWindow
     {
-        private readonly MainWindow _mainWindow;
-        private readonly System.Windows.Threading.DispatcherTimer Timer;
-        
-        private readonly bool isLoading = true;
-        private bool usingAdvancedFilter = false;
+        private static MainWindow mainWindow;
 
-        private readonly Dictionary<string, Tuple<string, bool>> filterCriteria = new Dictionary<string, Tuple<string, bool>>
+        private static bool isLoading = true;
+        private static bool usingAdvancedFilter;
+        private static bool skippedWord;
+
+        // Assign each filter criterion to a regex pattern
+        private readonly Dictionary<string, Tuple<string, bool>> _filterCriteria = new Dictionary<string, Tuple<string, bool>>
         {
             // Filter, regex pattern, isEnabled (false = remove from log)
             { "OOC", Tuple.Create(@"^\(\( \(\d*\) [A-Za-z]+ {0,1}([A-Za-z]+){0,1}:.*?\)\)$", Properties.Settings.Default.OOCCriterionEnabled) },
@@ -33,48 +36,79 @@ namespace Assistant.UI
             { "Ads", Tuple.Create(@"^\[.*Advertisement.*\] .*$", Properties.Settings.Default.AdsCriterionEnabled) }
         };
 
-        private bool OtherEnabled
-        {
-            get { return Other.IsChecked == true; }
-        }
+        private bool OtherEnabled => Other.IsChecked == true;
 
         private string ChatLog
         {
-            get { return _chatLog; }
+            get => _chatLog;
             set
             {
                 _chatLog = value;
-                chatLogLoaded = !string.IsNullOrEmpty(_chatLog);
-                StatusLabel.Content = string.Format(Strings.FilterLogStatus, chatLogLoaded ? string.Empty : Strings.Negation, chatLogLoaded ? string.Format(Strings.LoadedAt, DateTime.Now.ToString("HH:mm:ss")) : string.Empty);
-                StatusLabel.Foreground = chatLogLoaded ? Brushes.Green: Brushes.Red;
+                _chatLogLoaded = !string.IsNullOrEmpty(_chatLog);
+                StatusLabel.Content = string.Format(Strings.FilterLogStatus, _chatLogLoaded ? string.Empty : Strings.Negation, _chatLogLoaded ? string.Format(Strings.LoadedAt, DateTime.Now.ToString("HH:mm:ss")) : string.Empty);
+                StatusLabel.Foreground = _chatLogLoaded ? Brushes.Green: Brushes.Red;
             }
         }
 
         private string _chatLog;
-        private bool chatLogLoaded;
+        private bool _chatLogLoaded;
 
+        /// <summary>
+        /// Focuses back on this window if
+        /// another window from this application
+        /// gains focus (workaround for MahApps)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GainFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             Focus();
         }
 
+        /// <summary>
+        /// Initializes the chat log filter window
+        /// </summary>
+        /// <param name="mainWindow"></param>
         public ChatLogFilterWindow(MainWindow mainWindow)
         {
-            _mainWindow = mainWindow;
-            _mainWindow.GotKeyboardFocus += GainFocus;
+            ChatLogFilterWindow.mainWindow = mainWindow;
+            ChatLogFilterWindow.mainWindow.GotKeyboardFocus += GainFocus;
             InitializeComponent();
 
-            Left = _mainWindow.Left + (_mainWindow.Width / 2 - Width / 2);
-            Top = _mainWindow.Top + (_mainWindow.Height / 2 - Height / 2);
+            Left = ChatLogFilterWindow.mainWindow.Left + (ChatLogFilterWindow.mainWindow.Width / 2 - Width / 2);
+            Top = ChatLogFilterWindow.mainWindow.Top + (ChatLogFilterWindow.mainWindow.Height / 2 - Height / 2);
 
             LoadSettings();
-            Timer = new System.Windows.Threading.DispatcherTimer();
-            Timer.Tick += Timer_Tick;
-            Timer.Interval = new TimeSpan(0, 0, 0, 1);
-            Timer.Start();
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Tick += Timer_Tick;
+            timer.Interval = new TimeSpan(0, 0, 0, 1);
+            timer.Start();
             isLoading = false;
         }
 
+        /// <summary>
+        /// Saves the chat log filter settings
+        /// </summary>
+        private void SaveSettings()
+        {
+            Properties.Settings.Default.FilterNames = Words.Text;
+
+            Properties.Settings.Default.OOCCriterionEnabled = OOC.IsChecked == true;
+            Properties.Settings.Default.ICCriterionEnabled = IC.IsChecked == true;
+            Properties.Settings.Default.EmoteCriterionEnabled = Emote.IsChecked == true;
+            Properties.Settings.Default.ActionCriterionEnabled = Action.IsChecked == true;
+            Properties.Settings.Default.PMCriterionEnabled = PM.IsChecked == true;
+            Properties.Settings.Default.RadioCriterionEnabled = Radio.IsChecked == true;
+            Properties.Settings.Default.AdsCriterionEnabled = Ads.IsChecked == true;
+            Properties.Settings.Default.OtherCriterionEnabled = Other.IsChecked == true;
+            Properties.Settings.Default.RemoveTimestampsFromFilter = RemoveTimestamps.IsChecked == true;
+
+            Properties.Settings.Default.Save();
+        }
+
+        /// <summary>
+        /// Loads the chat log filter settings
+        /// </summary>
         private void LoadSettings()
         {
             LoadUnparsed.Focus();
@@ -94,37 +128,37 @@ namespace Assistant.UI
             RemoveTimestamps.IsChecked = Properties.Settings.Default.RemoveTimestampsFromFilter;
         }
 
-        private void SaveSettings()
-        {
-            Properties.Settings.Default.FilterNames = Words.Text;
-
-            Properties.Settings.Default.OOCCriterionEnabled = OOC.IsChecked == true;
-            Properties.Settings.Default.ICCriterionEnabled = IC.IsChecked == true;
-            Properties.Settings.Default.EmoteCriterionEnabled = Emote.IsChecked == true;
-            Properties.Settings.Default.ActionCriterionEnabled = Action.IsChecked == true;
-            Properties.Settings.Default.PMCriterionEnabled = PM.IsChecked == true;
-            Properties.Settings.Default.RadioCriterionEnabled = Radio.IsChecked == true;
-            Properties.Settings.Default.AdsCriterionEnabled = Ads.IsChecked == true;
-            Properties.Settings.Default.OtherCriterionEnabled = Other.IsChecked == true;
-            Properties.Settings.Default.RemoveTimestampsFromFilter = RemoveTimestamps.IsChecked == true;
-
-            Properties.Settings.Default.Save();
-        }
-
+        /// <summary>
+        /// Updates the time label to the
+        /// current system time every tick
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Timer_Tick(object sender, EventArgs e)
         {
             TimeLabel.Content = string.Format(Strings.CurrentTime, DateTime.Now.ToString("HH:mm:ss"));
         }
 
+        /// <summary>
+        /// Parses the most recent chat
+        /// log and loads it into memory
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LoadUnparsed_Click(object sender, RoutedEventArgs e)
         {
-            ChatLog = MainWindow.ParseChatLog(folderPath: Properties.Settings.Default.FolderPath, removeTimestamps: false, showError: true);
+            ChatLog = AppController.ParseChatLog(Properties.Settings.Default.DirectoryPath, false, true);
             
-            if (chatLogLoaded)
-                TryToFilter(fastFilter: true);
-                //Filtered.Text = ChatLog;
+            if (_chatLogLoaded)
+                TryToFilter(true);
         }
 
+        /// <summary>
+        /// Displays a file picker for the user
+        /// to select a previously parsed chat log
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BrowseForParsed_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -145,9 +179,8 @@ namespace Assistant.UI
                     }
                 }
 
-                if (chatLogLoaded)
-                    TryToFilter(fastFilter: true);
-                    //Filtered.Text = ChatLog;
+                if (_chatLogLoaded)
+                    TryToFilter(true);
             }
             catch
             {
@@ -156,12 +189,23 @@ namespace Assistant.UI
             }
         }
 
+        /// <summary>
+        /// Removes timestamps from the filtered chat log
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveTimestamps_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if (chatLogLoaded)
-                TryToFilter(fastFilter: true);
+            if (_chatLogLoaded)
+                TryToFilter(true);
         }
 
+        /// <summary>
+        /// Updates the dictionary with the
+        /// current state of each criterion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Criterion_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (isLoading)
@@ -179,25 +223,34 @@ namespace Assistant.UI
             if (string.IsNullOrWhiteSpace(criterionName))
                 return;
 
-            KeyValuePair<string, Tuple<string, bool>>? entry = filterCriteria.Where(pair => pair.Key == criterionName)
+            KeyValuePair<string, Tuple<string, bool>>? entry = _filterCriteria.Where(pair => pair.Key == criterionName)
                             .Select(pair => (KeyValuePair<string, Tuple<string, bool>>?)pair)
                             .FirstOrDefault();
 
             if (entry != null)
-                filterCriteria[entry.Value.Key] = Tuple.Create(filterCriteria[entry.Value.Key].Item1, !filterCriteria[entry.Value.Key].Item2);
+                _filterCriteria[entry.Value.Key] = Tuple.Create(_filterCriteria[entry.Value.Key].Item1, !_filterCriteria[entry.Value.Key].Item2);
             
-            if (chatLogLoaded)
-                TryToFilter(fastFilter: true);
+            if (_chatLogLoaded)
+                TryToFilter(true);
         }
 
+        /// <summary>
+        /// Tries to filter the currently loaded chat log
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Filter_Click(object sender, RoutedEventArgs e)
         {
-            TryToFilter(fastFilter: false);
+            TryToFilter();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fastFilter"></param>
         private void TryToFilter(bool fastFilter = false)
         {
-            if (!chatLogLoaded)
+            if (!_chatLogLoaded)
             {
                 MessageBox.Show(Strings.NoChatLogLoaded, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -208,110 +261,100 @@ namespace Assistant.UI
             string[] lines = logToCheck.Split('\n');
             string filtered = string.Empty;
 
+            // Simple filtering
             if (!usingAdvancedFilter)
             {
+                // Loop through every line in the
+                // loaded chat log
                 foreach (string line in lines)
                 {
+                    // Skip blank lines
                     if (string.IsNullOrWhiteSpace(line))
                         continue;
 
+                    // Assume the criterion is disabled
                     bool isCriterionEnabled = false;
                     bool matchedRegularCriterion = false;
-                    foreach (KeyValuePair<string, Tuple<string, bool>> keyValuePair in filterCriteria)
+                    
+                    // Loop through every criterion and check if the line matches any of them
+                    foreach (KeyValuePair<string, Tuple<string, bool>> keyValuePair in _filterCriteria.Where(keyValuePair => !string.IsNullOrWhiteSpace(keyValuePair.Key) && !string.IsNullOrWhiteSpace(keyValuePair.Value.Item1)).Where(keyValuePair => Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), keyValuePair.Value.Item1, RegexOptions.IgnoreCase)))
                     {
-                        if (string.IsNullOrWhiteSpace(keyValuePair.Key) || string.IsNullOrWhiteSpace(keyValuePair.Value.Item1))
-                            continue;
+                        matchedRegularCriterion = true;
 
-                        if (Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), keyValuePair.Value.Item1, RegexOptions.IgnoreCase))
-                        {
-                            matchedRegularCriterion = true;
-
-                            if (keyValuePair.Value.Item2 == true)
-                            {
-                                isCriterionEnabled = true;
-                                break;
-                            }
-                        }
+                        if (keyValuePair.Value.Item2 != true) continue;
+                        isCriterionEnabled = true;
+                        break;
                     }
 
-                    if (isCriterionEnabled || (!matchedRegularCriterion && OtherEnabled))
+                    // Add the line to the filtered chat log if the criterion is
+                    // enabled or if it didn't match any criterion and Other is enabled
+                    if (isCriterionEnabled || !matchedRegularCriterion && OtherEnabled)
                         filtered += line + "\n";
 
                     // Next line
                 }
             }
-            else
+            else // Advanced filtering
             {
+                // Get the words we need to look for
                 List<string> wordsToCheck = GetWordsToFilterIn();
                 if (wordsToCheck.Count == 0)
                 {
-                    if (!string.IsNullOrWhiteSpace(Words.Text))
-                        MessageBox.Show(Strings.FilterHint, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                    else
-                        MessageBox.Show(Strings.NoWordsToFilter, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(
+                        !string.IsNullOrWhiteSpace(Words.Text) ? Strings.FilterHint : Strings.NoWordsToFilter,
+                        Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
 
                     return;
                 }
 
+                // Loop through every line in the
+                // loaded chat log
                 foreach (string line in lines)
                 {
+                    // Skip blank lines
                     if (string.IsNullOrWhiteSpace(line))
                         continue;
 
-                    foreach (string word in wordsToCheck)
+                    // Skip the line if there are no words of
+                    // interest in it
+                    if (!wordsToCheck.Where(word => !string.IsNullOrWhiteSpace(word)).Any(word =>
+                        Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty).ToLower()
+                            .Contains(word.ToLower()))) continue;
+
+                    // Assume the criterion is disabled
+                    bool isCriterionEnabled = false;
+                    bool matchedRegularCriterion = false;
+
+                    // Loop through every criterion and check if the line matches any of them
+                    foreach (KeyValuePair<string, Tuple<string, bool>> keyValuePair in _filterCriteria.Where(keyValuePair => !string.IsNullOrWhiteSpace(keyValuePair.Key) && !string.IsNullOrWhiteSpace(keyValuePair.Value.Item1)).Where(keyValuePair => Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), keyValuePair.Value.Item1, RegexOptions.IgnoreCase)))
                     {
-                        if (string.IsNullOrWhiteSpace(word))
-                            continue;
+                        matchedRegularCriterion = true;
 
-                        // ONE (substring): Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty).ToLower().Contains(word.ToLower())
-                        // TWO (string): Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), $"\\b{word}\\b", RegexOptions.IgnoreCase)
-                        if (Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty).ToLower().Contains(word.ToLower()))
-                        {
-                            // If word found on line (advanced filter)
-                            // also check simple filter
-                            bool isCriterionEnabled = false;
-                            bool matchedRegularCriterion = false;
-                            foreach (KeyValuePair<string, Tuple<string, bool>> keyValuePair in filterCriteria)
-                            {
-                                if (string.IsNullOrWhiteSpace(keyValuePair.Key) || string.IsNullOrWhiteSpace(keyValuePair.Value.Item1))
-                                    continue;
-
-                                if (Regex.IsMatch(Regex.Replace(line, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty), keyValuePair.Value.Item1, RegexOptions.IgnoreCase))
-                                {
-                                    matchedRegularCriterion = true;
-
-                                    if (keyValuePair.Value.Item2 == true)
-                                    {
-                                        isCriterionEnabled = true;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            if (isCriterionEnabled || (!matchedRegularCriterion && OtherEnabled))
-                                filtered += line + "\n";
-
-                            // Next line
-                            break;
-                        }
-
-                        // Next word
+                        if (keyValuePair.Value.Item2 != true) continue;
+                        isCriterionEnabled = true;
+                        break;
                     }
+
+                    // Add the line to the filtered chat log if the criterion is
+                    // enabled or if it didn't match any criterion and Other is enabled
+                    if (isCriterionEnabled || !matchedRegularCriterion && OtherEnabled)
+                        filtered += line + "\n";
 
                     // Next line
                 }
             }
 
+            // Filter successful
             if (filtered.Length > 0)
             {
-                filtered = filtered.TrimEnd(new char[] { '\r', '\n' });
+                filtered = filtered.TrimEnd('\r', '\n');
 
                 if (RemoveTimestamps.IsChecked == true)
                     filtered = Regex.Replace(filtered, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
 
                 Filtered.Text = filtered;
             }
-            else
+            else // Nothing found
             {
                 if (RemoveTimestamps.IsChecked == true)
                     logToCheck = Regex.Replace(logToCheck, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
@@ -331,7 +374,11 @@ namespace Assistant.UI
                 MessageBox.Show(Strings.FilterHintSkipped, Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private static bool skippedWord = false;
+        /// <summary>
+        /// Returns a list of all valid words that are
+        /// in the Words text box to use for filtering
+        /// </summary>
+        /// <returns></returns>
         private List<string> GetWordsToFilterIn()
         {
             skippedWord = false;
@@ -339,33 +386,46 @@ namespace Assistant.UI
             string[] lines = words.Split('\n');
 
             List<string> finalWords = new List<string>();
-
+            // ReSharper disable once LoopCanBeConvertedToQuery
             foreach (string line in lines)
             {
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
-
+                
                 string newLine = line.Trim();
+                
+                // NEW: Add the words to the final list
+                finalWords.Add(newLine);
 
-                string[] splitWord = newLine.Split(new char[] { ' ', '_' });
+                // OLD: single words OR names, nothing larger
+                //string[] splitWord = newLine.Split(' ', '_');
 
-                if (splitWord.Length == 2)
-                {
-                    if (string.IsNullOrWhiteSpace(splitWord[0]) || string.IsNullOrWhiteSpace(splitWord[1]))
-                        continue;
-
-                    finalWords.Add($"{splitWord[0]} {splitWord[1]}");
-                    finalWords.Add($"{splitWord[0]}_{splitWord[1]}");
-                }
-                else if (splitWord.Length == 1 && !string.IsNullOrWhiteSpace(splitWord[0]))
-                    finalWords.Add(splitWord[0]);
-                else
-                    skippedWord = true;
+                //switch (splitWord.Length)
+                //{
+                //    case 2 when string.IsNullOrWhiteSpace(splitWord[0]) || string.IsNullOrWhiteSpace(splitWord[1]):
+                //        continue;
+                //    case 2: // Valid name (Ex: John Doe or John_Doe)
+                //        finalWords.Add($"{splitWord[0]} {splitWord[1]}");
+                //        finalWords.Add($"{splitWord[0]}_{splitWord[1]}");
+                //        break;
+                //    case 1 when !string.IsNullOrWhiteSpace(splitWord[0]):
+                //        finalWords.Add(splitWord[0]); // Valid word (Ex: Blue)
+                //        break;
+                //    default:
+                //        skippedWord = true;
+                //        break;
+                //}
             }
 
             return finalWords;
         }
 
+        /// <summary>
+        /// Displays a save file dialog to save the
+        /// contents of the Filtered text box to the disk
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveFiltered_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -384,12 +444,10 @@ namespace Assistant.UI
                     Filter = "Text File | *.txt"
                 };
 
-                if (dialog.ShowDialog() == true)
+                if (dialog.ShowDialog() != true) return;
+                using (StreamWriter sw = new StreamWriter(dialog.OpenFile()))
                 {
-                    using (StreamWriter sw = new StreamWriter(dialog.OpenFile()))
-                    {
-                        sw.Write(Filtered.Text.Replace("\n", Environment.NewLine));
-                    }
+                    sw.Write(Filtered.Text.Replace("\n", Environment.NewLine));
                 }
             }
             catch
@@ -398,6 +456,12 @@ namespace Assistant.UI
             }
         }
 
+        /// <summary>
+        /// Copies the contents of the
+        /// Filtered text box to the clipboard
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CopyFilteredToClipboard_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Filtered.Text) && !Properties.Settings.Default.DisableErrorPopups)
@@ -406,6 +470,11 @@ namespace Assistant.UI
                 Clipboard.SetText(Filtered.Text.Replace("\n", Environment.NewLine));
         }
 
+        /// <summary>
+        /// Toggles between simple filtering and advanced filtering
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FilterModeToggle_Click(object sender, RoutedEventArgs e)
         {
             usingAdvancedFilter = !usingAdvancedFilter;
@@ -413,22 +482,41 @@ namespace Assistant.UI
             FilterModeToggle.Content = usingAdvancedFilter ? Strings.SimpleFilter : Strings.AdvancedFilter;
             Width = usingAdvancedFilter ? 656 : 494;
 
-            if (chatLogLoaded && !usingAdvancedFilter)
-                TryToFilter(fastFilter: true);
+            if (_chatLogLoaded && !usingAdvancedFilter)
+                TryToFilter(true);
         }
 
+        /// <summary>
+        /// Saves the settings before the filter chat log window closes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChatLogFilter_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveSettings();
-            _mainWindow.GotKeyboardFocus -= GainFocus;
+            mainWindow.GotKeyboardFocus -= GainFocus;
         }
 
+        /// <summary>
+        /// Loops back to the start when tabbing over
+        /// to the advanced filtering options when
+        /// simple filtering is being used
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Words_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             if (!usingAdvancedFilter)
                 LoadUnparsed.Focus();
         }
 
+        /// <summary>
+        /// Loops back to the start when tabbing over
+        /// to the advanced filtering options when
+        /// simple filtering is being used
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Filter_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             if (!usingAdvancedFilter)

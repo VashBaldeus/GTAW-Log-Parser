@@ -82,9 +82,9 @@
                                    VerticalAlignment="Top"
                                    Visibility="Collapsed" Margin="210,145,0,0"/>
 
-            <Label x:Name="PathLabel" Content="RAGEMP Folder:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="298,0,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="PathLabel" Content="RAGEMP Directory:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="298,0,0,0" VerticalAlignment="Top"/>
             <TextBlock x:Name="Version" TextWrapping="NoWrap" Text="Version: 1.0" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="549,5,0,0" Height="26"/>
-            <TextBox x:Name="FolderPath" MouseLeftButtonUp="FolderPath_MouseLeftButtonUp" TextChanged="FolderPath_TextChanged" HorizontalAlignment="Left" Height="23" Margin="303,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="241" IsReadOnly="True" VerticalScrollBarVisibility="Disabled"/>
+            <TextBox x:Name="DirectoryPath" MouseLeftButtonUp="DirectoryPath_MouseLeftButtonUp" TextChanged="DirectoryPath_TextChanged" HorizontalAlignment="Left" Height="23" Margin="303,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="241" IsReadOnly="True" VerticalScrollBarVisibility="Disabled"/>
             <Button x:Name="Browse" Click="Browse_Click" Content="Browse" HorizontalAlignment="Left" Margin="549,23,0,0" VerticalAlignment="Top" Width="75"/>
             <TextBox x:Name="Parsed" TextChanged="Parsed_TextChanged" HorizontalAlignment="Left" Height="79" Margin="303,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321" AcceptsReturn="True"/>
             <Label x:Name="StatusLabel" Content="Automatic Backup: OFF" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="298,133,0,0" VerticalAlignment="Top" Width="160"/>

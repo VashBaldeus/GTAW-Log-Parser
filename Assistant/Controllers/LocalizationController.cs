@@ -3,12 +3,12 @@ using System.Threading;
 using System.Globalization;
 using System.Collections.Generic;
 
-namespace Parser.Controllers
+namespace Assistant.Controllers
 {
     public static class LocalizationController
     {
         private static string currentLanguage = string.Empty;
-        public enum Language {English, Spanish}
+        public enum Language { English, Spanish }
 
         // Link enum values to language codes
         private static readonly Dictionary<Language, string> Languages = new Dictionary<Language, string>
@@ -79,7 +79,6 @@ namespace Parser.Controllers
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
-        // ReSharper disable once UnusedMember.Global
         public static string GetCodeFromLanguage(Language language)
         {
             if (!Languages.ContainsKey(language))

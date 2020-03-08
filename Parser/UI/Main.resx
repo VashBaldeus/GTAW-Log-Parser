@@ -118,39 +118,39 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="FolderPath.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="DirectoryPath.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 49</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="FolderPath.MaxLength" type="System.Int32, mscorlib">
+  <data name="DirectoryPath.MaxLength" type="System.Int32, mscorlib">
     <value>1024</value>
   </data>
-  <data name="FolderPath.Multiline" type="System.Boolean, mscorlib">
+  <data name="DirectoryPath.Multiline" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="FolderPath.ScrollBars" type="System.Windows.Forms.RichTextBoxScrollBars, System.Windows.Forms">
+  <data name="DirectoryPath.ScrollBars" type="System.Windows.Forms.RichTextBoxScrollBars, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="FolderPath.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="DirectoryPath.Size" type="System.Drawing.Size, System.Drawing">
     <value>282, 22</value>
   </data>
-  <data name="FolderPath.TabIndex" type="System.Int32, mscorlib">
+  <data name="DirectoryPath.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="FolderPath.Text" xml:space="preserve">
+  <data name="DirectoryPath.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="&gt;&gt;FolderPath.Name" xml:space="preserve">
-    <value>FolderPath</value>
+  <data name="&gt;&gt;DirectoryPath.Name" xml:space="preserve">
+    <value>DirectoryPath</value>
   </data>
-  <data name="&gt;&gt;FolderPath.Type" xml:space="preserve">
+  <data name="&gt;&gt;DirectoryPath.Type" xml:space="preserve">
     <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;FolderPath.Parent" xml:space="preserve">
+  <data name="&gt;&gt;DirectoryPath.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;FolderPath.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;DirectoryPath.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
   <data name="Browse.Location" type="System.Drawing.Point, System.Drawing">
@@ -292,7 +292,7 @@
     <value>0</value>
   </data>
   <data name="PathLabel.Text" xml:space="preserve">
-    <value>RAGEMP Folder:</value>
+    <value>RAGEMP Directory:</value>
   </data>
   <data name="&gt;&gt;PathLabel.Name" xml:space="preserve">
     <value>PathLabel</value>
@@ -360,11 +360,11 @@
   <data name="&gt;&gt;RemoveTimestamps.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="FolderBrowserDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="DirectoryBrowserDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>148, 17</value>
   </metadata>
-  <data name="FolderBrowserDialog.Description" xml:space="preserve">
-    <value>RAGEMP Folder Path</value>
+  <data name="DirectoryBrowserDialog.Description" xml:space="preserve">
+    <value>RAGEMP Directory Path</value>
   </data>
   <metadata name="MenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>313, 17</value>
@@ -1190,10 +1190,10 @@
   <data name="&gt;&gt;SaveFileDialog.Type" xml:space="preserve">
     <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;FolderBrowserDialog.Name" xml:space="preserve">
-    <value>FolderBrowserDialog</value>
+  <data name="&gt;&gt;DirectoryBrowserDialog.Name" xml:space="preserve">
+    <value>DirectoryBrowserDialog</value>
   </data>
-  <data name="&gt;&gt;FolderBrowserDialog.Type" xml:space="preserve">
+  <data name="&gt;&gt;DirectoryBrowserDialog.Type" xml:space="preserve">
     <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ServerToolStripMenuItem.Name" xml:space="preserve">

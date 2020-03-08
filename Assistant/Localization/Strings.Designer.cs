@@ -85,11 +85,11 @@ namespace Assistant.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  because the &quot;{0}&quot; folder(s) already exist(s)..
+        ///   Looks up a localized string similar to  because the &quot;{0}&quot; directories already exist..
         /// </summary>
-        internal static string AlreadyExistingFoldersWarning {
+        internal static string AlreadyExistingDirectoriesWarning {
             get {
-                return ResourceManager.GetString("AlreadyExistingFoldersWarning", resourceCulture);
+                return ResourceManager.GetString("AlreadyExistingDirectoriesWarning", resourceCulture);
             }
         }
         
@@ -170,7 +170,7 @@ namespace Assistant.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please pick a non-root directory for your backup folder location..
+        ///   Looks up a localized string similar to Please pick a non-root directory for your backup directory location..
         /// </summary>
         internal static string BadBackupPath {
             get {
@@ -188,11 +188,11 @@ namespace Assistant.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please pick a non-root directory for your RAGEMP folder location..
+        ///   Looks up a localized string similar to Please pick a non-root directory for your RAGEMP directory location..
         /// </summary>
-        internal static string BadFolderPath {
+        internal static string BadDirectoryPath {
             get {
-                return ResourceManager.GetString("BadFolderPath", resourceCulture);
+                return ResourceManager.GetString("BadDirectoryPath", resourceCulture);
             }
         }
         
@@ -229,6 +229,44 @@ namespace Assistant.Localization {
         internal static string CurrentTime {
             get {
                 return ResourceManager.GetString("CurrentTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically found your RAGEMP directory at {0}
+        ///
+        ///Please browse for the correct path manually if this is incorrect or you have multiple RAGEMP installations..
+        /// </summary>
+        internal static string DirectoryFinder {
+            get {
+                return ResourceManager.GetString("DirectoryFinder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while trying to automatically find the location of your RAGEMP directory, please browse for it manually..
+        /// </summary>
+        internal static string DirectoryFinderError {
+            get {
+                return ResourceManager.GetString("DirectoryFinderError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t detect the path to your RAGEMP directory, please browse for it manually..
+        /// </summary>
+        internal static string DirectoryFinderNotFound {
+            get {
+                return ResourceManager.GetString("DirectoryFinderNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information (First Start).
+        /// </summary>
+        internal static string DirectoryFinderTitle {
+            get {
+                return ResourceManager.GetString("DirectoryFinderTitle", resourceCulture);
             }
         }
         
@@ -339,44 +377,6 @@ namespace Assistant.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Automatically found your RAGEMP folder at {0}
-        ///
-        ///Please browse for the correct path manually if this is incorrect or you have multiple RAGEMP installations..
-        /// </summary>
-        internal static string FolderFinder {
-            get {
-                return ResourceManager.GetString("FolderFinder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred while trying to automatically find the location of your RAGEMP folder, please browse for it manually..
-        /// </summary>
-        internal static string FolderFinderError {
-            get {
-                return ResourceManager.GetString("FolderFinderError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Couldn&apos;t detect the path to your RAGEMP folder, please browse for it manually..
-        /// </summary>
-        internal static string FolderFinderNotFound {
-            get {
-                return ResourceManager.GetString("FolderFinderNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Information (First Start).
-        /// </summary>
-        internal static string FolderFinderTitle {
-            get {
-                return ResourceManager.GetString("FolderFinderTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to https://forum.gta.world/en/.
         /// </summary>
         internal static string ForumsLink {
@@ -413,29 +413,29 @@ namespace Assistant.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid RAGEMP folder path..
+        ///   Looks up a localized string similar to Invalid RAGEMP directory path..
         /// </summary>
-        internal static string InvalidFolderPath {
+        internal static string InvalidDirectoryPath {
             get {
-                return ResourceManager.GetString("InvalidFolderPath", resourceCulture);
+                return ResourceManager.GetString("InvalidDirectoryPath", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please choose a valid RAGEMP folder location before trying to enable automatic backup..
+        ///   Looks up a localized string similar to Please choose a valid RAGEMP directory location before trying to enable automatic backup..
         /// </summary>
-        internal static string InvalidFolderPathBackup {
+        internal static string InvalidDirectoryPathBackup {
             get {
-                return ResourceManager.GetString("InvalidFolderPathBackup", resourceCulture);
+                return ResourceManager.GetString("InvalidDirectoryPathBackup", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please choose a valid RAGEMP folder location before trying to filter your chat log..
+        ///   Looks up a localized string similar to Please choose a valid RAGEMP directory location before trying to filter your chat log..
         /// </summary>
-        internal static string InvalidFolderPathFilter {
+        internal static string InvalidDirectoryPathFilter {
             get {
-                return ResourceManager.GetString("InvalidFolderPathFilter", resourceCulture);
+                return ResourceManager.GetString("InvalidDirectoryPathFilter", resourceCulture);
             }
         }
         
@@ -575,7 +575,7 @@ namespace Assistant.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Did not move any folders to the new location.
+        ///   Looks up a localized string similar to Did not move any directories to the new location.
         /// </summary>
         internal static string NothingMovedWarning {
             get {
@@ -643,7 +643,7 @@ namespace Assistant.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only moved the &quot;{0}&quot; folder(s) to the new location.
+        ///   Looks up a localized string similar to Only moved the &quot;{0}&quot; directories to the new location.
         /// </summary>
         internal static string PartialMoveWarning {
             get {
@@ -701,7 +701,7 @@ namespace Assistant.Localization {
         /// <summary>
         ///   Looks up a localized string similar to The same chat log has been backed up 3 or more times which means that the RAGEMP client script responsible for logging your chat is broken.
         ///
-        ///This usually happens when the server crashes and the only known way of fixing the issue is deleting the resource folder (or both) for the server you are playing on..
+        ///This usually happens when the server crashes and the only known way of fixing the issue is deleting the resource directory (or both) for the server you are playing on..
         /// </summary>
         internal static string SameHashWarning {
             get {

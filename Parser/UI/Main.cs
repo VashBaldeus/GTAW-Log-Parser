@@ -10,7 +10,7 @@ namespace Parser.UI
     public partial class Main : Form
     {
         /// <summary>
-        /// Constructor for the main user form
+        /// Initializes the main user form
         /// </summary>
         public Main()
         {
@@ -22,18 +22,18 @@ namespace Parser.UI
 
         /// <summary>
         /// Adds menu options under "Server" on the menu
-        /// strip for each Language in @LocalizationController
+        /// strip for each Language in LocalizationController
         /// </summary>
         private void SetupServerList()
         {
             // Get the current Language to add a check on
             // the option and loop through the Languages enum
-            var currentLanguage = LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage());
-            for (var i = 0; i < ((LocalizationController.Language[])Enum.GetValues(typeof(LocalizationController.Language))).Length; ++i)
+            string currentLanguage = LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage());
+            for (int i = 0; i < ((LocalizationController.Language[])Enum.GetValues(typeof(LocalizationController.Language))).Length; ++i)
             {
                 // Add the menu option and the click event
-                var language = (LocalizationController.Language)i;
-                var newLanguage = ServerToolStripMenuItem.DropDownItems.Add(language.ToString());
+                LocalizationController.Language language = (LocalizationController.Language)i;
+                ToolStripItem newLanguage = ServerToolStripMenuItem.DropDownItems.Add(language.ToString());
                 newLanguage.Click += (s, e) =>
                 {
                     // No need to do anything if the current language
@@ -47,7 +47,7 @@ namespace Parser.UI
                     LocalizationController.SetLanguage(language);
 
                     // Restart the program
-                    var startInfo = Process.GetCurrentProcess().StartInfo;
+                    ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;
                     startInfo.FileName = Application.ExecutablePath;
                     startInfo.Arguments = $"{ContinuityController.ParameterPrefix}restart";
                     var exit = typeof(Application).GetMethod("ExitInternal",
@@ -64,19 +64,17 @@ namespace Parser.UI
         }
 
         /// <summary>
-        /// Saves the dynamic information
-        /// on the main form to the settings
+        /// Saves the main settings
         /// </summary>
         private void SaveSettings()
         {
-            Properties.Settings.Default.DirectoryPath = FolderPath.Text;
+            Properties.Settings.Default.DirectoryPath = DirectoryPath.Text;
             Properties.Settings.Default.RemoveTimestamps = RemoveTimestamps.Checked;
             Properties.Settings.Default.Save();
         }
 
         /// <summary>
-        /// Loads the settings into the
-        /// dynamic controls on the main form
+        /// Loads the main settings
         /// </summary>
         private void LoadSettings()
         {
@@ -85,7 +83,7 @@ namespace Parser.UI
 #pragma warning disable 162
             Version.Text = string.Format(Strings.VersionInfo, ContinuityController.Version, ContinuityController.IsBetaVersion ? Strings.BetaShort : string.Empty);
 #pragma warning restore 162
-            FolderPath.Text = Properties.Settings.Default.DirectoryPath;
+            DirectoryPath.Text = Properties.Settings.Default.DirectoryPath;
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestamps;
         }
 
@@ -95,7 +93,7 @@ namespace Parser.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FolderPath_KeyDown(object sender, KeyEventArgs e)
+        private void DirectoryPath_KeyDown(object sender, KeyEventArgs e)
         {
             e.SuppressKeyPress = true;
         }
@@ -106,9 +104,9 @@ namespace Parser.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FolderPath_MouseClick(object sender, MouseEventArgs e)
+        private void DirectoryPath_MouseClick(object sender, MouseEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(FolderPath.Text))
+            if (string.IsNullOrWhiteSpace(DirectoryPath.Text))
                 Browse_Click(this, EventArgs.Empty);
         }
 
@@ -118,7 +116,7 @@ namespace Parser.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FolderPath_TextChanged(object sender, EventArgs e)
+        private void DirectoryPath_TextChanged(object sender, EventArgs e)
         {
             SaveSettings();
         }
@@ -131,20 +129,20 @@ namespace Parser.UI
         /// <param name="e"></param>
         private void Browse_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog.SelectedPath = Path.GetPathRoot(Environment.SystemDirectory);
+            DirectoryBrowserDialog.SelectedPath = Path.GetPathRoot(Environment.SystemDirectory);
 
-            var validLocation = false;
+            bool validLocation = false;
             while (!validLocation)
             {
-                if (FolderBrowserDialog.ShowDialog() == DialogResult.OK)
+                if (DirectoryBrowserDialog.ShowDialog() == DialogResult.OK)
                 {
-                    if (FolderBrowserDialog.SelectedPath[FolderBrowserDialog.SelectedPath.Length - 1] != '\\')
+                    if (DirectoryBrowserDialog.SelectedPath[DirectoryBrowserDialog.SelectedPath.Length - 1] != '\\')
                     {
-                        FolderPath.Text = FolderBrowserDialog.SelectedPath + @"\";
+                        DirectoryPath.Text = DirectoryBrowserDialog.SelectedPath + @"\";
                         validLocation = true;
                     }
                     else
-                        MessageBox.Show(Strings.BadFolderPath, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Strings.BadDirectoryPath, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                     validLocation = true;
@@ -163,19 +161,19 @@ namespace Parser.UI
             // started, we need to initialize the locations again
             ContinuityController.InitializeMemory();
 
-            if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
+            if (string.IsNullOrWhiteSpace(DirectoryPath.Text) || !Directory.Exists(DirectoryPath.Text + "client_resources\\"))
             {
-                MessageBox.Show(Strings.InvalidFolderPath, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Strings.InvalidDirectoryPath, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (!File.Exists(FolderPath.Text + ContinuityController.LogLocation))
+            if (!File.Exists(DirectoryPath.Text + ContinuityController.LogLocation))
             {
                 MessageBox.Show(Strings.NoChatLog, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            Parsed.Text = ProgramController.ParseChatLog(FolderPath.Text, RemoveTimestamps.Checked);
+            Parsed.Text = ProgramController.ParseChatLog(DirectoryPath.Text, RemoveTimestamps.Checked);
         }
 
         /// <summary>
@@ -195,7 +193,7 @@ namespace Parser.UI
                 SaveFileDialog.Filter = @"Text File | *.txt";
 
                 if (SaveFileDialog.ShowDialog() != DialogResult.OK) return;
-                using (var sw = new StreamWriter(SaveFileDialog.OpenFile()))
+                using (StreamWriter sw = new StreamWriter(SaveFileDialog.OpenFile()))
                 {
                     sw.Write(Parsed.Text.Replace("\n", Environment.NewLine));
                 }
@@ -231,7 +229,6 @@ namespace Parser.UI
 
         /// <summary>
         /// Displays some information about the program
-        /// when the About menu strip option is clicked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

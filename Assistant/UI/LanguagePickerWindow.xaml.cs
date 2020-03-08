@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
-using Assistant.Infrastructure;
-using Assistant.Utilities;
+using System.Diagnostics;
+using Assistant.Controllers;
+using System.Windows.Threading;
 
 namespace Assistant.UI
 {
@@ -11,47 +11,64 @@ namespace Assistant.UI
     /// </summary>
     public partial class LanguagePickerWindow
     {
-        private readonly System.Windows.Threading.DispatcherTimer Timer;
+        private bool _isStarting;
+        private readonly bool _handleListChange;
 
-        private bool isStarting = false;
-        private readonly bool handleListChange = false;
-
+        /// <summary>
+        /// Initializes the language picker window
+        /// </summary>
         public LanguagePickerWindow()
         {
             InitializeComponent();
 
-            Timer = new System.Windows.Threading.DispatcherTimer();
-            Timer.Tick += Timer_Tick;
-            Timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
-            Timer.Start();
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Tick += Timer_Tick;
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
+            timer.Start();
 
             foreach (LocalizationController.Language language in (LocalizationController.Language[])Enum.GetValues(typeof(LocalizationController.Language)))
                 LanguageList.Items.Add(language.ToString());
 
             LanguageList.SelectedIndex = 0;
-            handleListChange = true;
+            _handleListChange = true;
 
             StartButton.Focus();
         }
 
+        /// <summary>
+        /// Saves the chosen locale and restarts
+        /// the application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.LanguageCode = LocalizationController.GetLanguage();
             Properties.Settings.Default.HasPickedLanguage = true;
             Properties.Settings.Default.Save();
 
-            isStarting = true;
+            _isStarting = true;
             Close();
         }
 
+        /// <summary>
+        /// Sets the chosen locale
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LanguageList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (!handleListChange)
+            if (!_handleListChange)
                 return;
 
-            LocalizationController.SetLanguage((LocalizationController.Language)LanguageList.SelectedIndex, save: false);
+            LocalizationController.SetLanguage((LocalizationController.Language)LanguageList.SelectedIndex, false);
         }
 
+        /// <summary>
+        /// Translates the greeting label to the left every tick
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Timer_Tick(object sender, EventArgs e)
         {
             Thickness margin = WelcomeLabel.Margin;
@@ -70,13 +87,19 @@ namespace Assistant.UI
             WelcomeLabel.Margin = margin;
         }
 
+        /// <summary>
+        /// Quits the application if no locale has been chosen or
+        /// restarts the application if the start button was pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LanguagePicker_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (isStarting)
+            if (_isStarting)
             {
                 ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;
-                startInfo.FileName = Data.ExecutablePath;
-                startInfo.Arguments = $"{Data.ParameterPrefix}restart";
+                startInfo.FileName = ContinuityController.ExecutablePath;
+                startInfo.Arguments = $"{ContinuityController.ParameterPrefix}restart";
                 Process.Start(startInfo);
             }
 

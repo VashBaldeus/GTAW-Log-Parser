@@ -129,8 +129,8 @@ Secondary Server IP: {4}</value>
   <data name="AdvancedFilter" xml:space="preserve">
     <value>Advanced Filter</value>
   </data>
-  <data name="AlreadyExistingFoldersWarning" xml:space="preserve">
-    <value> because the "{0}" folder(s) already exist(s).</value>
+  <data name="AlreadyExistingDirectoriesWarning" xml:space="preserve">
+    <value> because the "{0}" directories already exist.</value>
   </data>
   <data name="AutoStartDisableError" xml:space="preserve">
     <value>An error occured while trying to disable the automatic startup function.</value>
@@ -161,13 +161,13 @@ Make sure you picked a non-system directory for your backup path.</value>
 Would you like to continue?</value>
   </data>
   <data name="BadBackupPath" xml:space="preserve">
-    <value>Please pick a non-root directory for your backup folder location.</value>
+    <value>Please pick a non-root directory for your backup directory location.</value>
   </data>
   <data name="BadBackupPathSave" xml:space="preserve">
     <value>Please choose a valid backup location or turn automatic backup off.</value>
   </data>
-  <data name="BadFolderPath" xml:space="preserve">
-    <value>Please pick a non-root directory for your RAGEMP folder location.</value>
+  <data name="BadDirectoryPath" xml:space="preserve">
+    <value>Please pick a non-root directory for your RAGEMP directory location.</value>
   </data>
   <data name="Beta" xml:space="preserve">
     <value>Beta</value>
@@ -221,18 +221,18 @@ Example: Boat, $500, John, John Doe or John_Doe</value>
   <data name="FilterReadError" xml:space="preserve">
     <value>An error occured while reading the selected file.</value>
   </data>
-  <data name="FolderFinder" xml:space="preserve">
-    <value>Automatically found your RAGEMP folder at {0}
+  <data name="DirectoryFinder" xml:space="preserve">
+    <value>Automatically found your RAGEMP directory at {0}
 
 Please browse for the correct path manually if this is incorrect or you have multiple RAGEMP installations.</value>
   </data>
-  <data name="FolderFinderError" xml:space="preserve">
-    <value>An error occurred while trying to automatically find the location of your RAGEMP folder, please browse for it manually.</value>
+  <data name="DirectoryFinderError" xml:space="preserve">
+    <value>An error occurred while trying to automatically find the location of your RAGEMP directory, please browse for it manually.</value>
   </data>
-  <data name="FolderFinderNotFound" xml:space="preserve">
-    <value>Couldn't detect the path to your RAGEMP folder, please browse for it manually.</value>
+  <data name="DirectoryFinderNotFound" xml:space="preserve">
+    <value>Couldn't detect the path to your RAGEMP directory, please browse for it manually.</value>
   </data>
-  <data name="FolderFinderTitle" xml:space="preserve">
+  <data name="DirectoryFinderTitle" xml:space="preserve">
     <value>Information (First Start)</value>
   </data>
   <data name="ForumsLink" xml:space="preserve">
@@ -247,14 +247,14 @@ Please browse for the correct path manually if this is incorrect or you have mul
   <data name="IntervalRecommended" xml:space="preserve">
     <value>{0}. (recommended)</value>
   </data>
-  <data name="InvalidFolderPath" xml:space="preserve">
-    <value>Invalid RAGEMP folder path.</value>
+  <data name="InvalidDirectoryPath" xml:space="preserve">
+    <value>Invalid RAGEMP directory path.</value>
   </data>
-  <data name="InvalidFolderPathBackup" xml:space="preserve">
-    <value>Please choose a valid RAGEMP folder location before trying to enable automatic backup.</value>
+  <data name="InvalidDirectoryPathBackup" xml:space="preserve">
+    <value>Please choose a valid RAGEMP directory location before trying to enable automatic backup.</value>
   </data>
-  <data name="InvalidFolderPathFilter" xml:space="preserve">
-    <value>Please choose a valid RAGEMP folder location before trying to filter your chat log.</value>
+  <data name="InvalidDirectoryPathFilter" xml:space="preserve">
+    <value>Please choose a valid RAGEMP directory location before trying to filter your chat log.</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
@@ -308,7 +308,7 @@ Installed Version: {0}</value>
     <value>You haven't filtered anything yet.</value>
   </data>
   <data name="NothingMovedWarning" xml:space="preserve">
-    <value>Did not move any folders to the new location</value>
+    <value>Did not move any directories to the new location</value>
   </data>
   <data name="NothingParsed" xml:space="preserve">
     <value>You haven't parsed anything yet.</value>
@@ -334,7 +334,7 @@ Would you like to delete these files?
     <value>An error occurred while parsing the chat log.</value>
   </data>
   <data name="PartialMoveWarning" xml:space="preserve">
-    <value>Only moved the "{0}" folder(s) to the new location</value>
+    <value>Only moved the "{0}" directories to the new location</value>
   </data>
   <data name="ProjectLink" xml:space="preserve">
     <value>https://github.com/davidcristian/GTAW-Log-Parser</value>
@@ -356,7 +356,7 @@ Installed Version: {0}</value>
   <data name="SameHashWarning" xml:space="preserve">
     <value>The same chat log has been backed up 3 or more times which means that the RAGEMP client script responsible for logging your chat is broken.
 
-This usually happens when the server crashes and the only known way of fixing the issue is deleting the resource folder (or both) for the server you are playing on.</value>
+This usually happens when the server crashes and the only known way of fixing the issue is deleting the resource directory (or both) for the server you are playing on.</value>
   </data>
   <data name="SaveError" xml:space="preserve">
     <value>An error occurred while trying to save the file.</value>

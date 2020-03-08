@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            this.FolderPath = new System.Windows.Forms.RichTextBox();
+            this.DirectoryPath = new System.Windows.Forms.RichTextBox();
             this.Browse = new System.Windows.Forms.Button();
             this.Parsed = new System.Windows.Forms.RichTextBox();
             this.CopyParsedToClipboard = new System.Windows.Forms.Button();
@@ -39,7 +39,7 @@
             this.PathLabel = new System.Windows.Forms.Label();
             this.Version = new System.Windows.Forms.Label();
             this.RemoveTimestamps = new System.Windows.Forms.CheckBox();
-            this.FolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.DirectoryBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.ServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,13 +48,13 @@
             // 
             // DirectoryPath
             // 
-            this.FolderPath.DetectUrls = false;
-            resources.ApplyResources(this.FolderPath, "FolderPath");
-            this.FolderPath.Name = "FolderPath";
-            this.FolderPath.ShortcutsEnabled = false;
-            this.FolderPath.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FolderPath_MouseClick);
-            this.FolderPath.TextChanged += new System.EventHandler(this.FolderPath_TextChanged);
-            this.FolderPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FolderPath_KeyDown);
+            this.DirectoryPath.DetectUrls = false;
+            resources.ApplyResources(this.DirectoryPath, "DirectoryPath");
+            this.DirectoryPath.Name = "DirectoryPath";
+            this.DirectoryPath.ShortcutsEnabled = false;
+            this.DirectoryPath.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DirectoryPath_MouseClick);
+            this.DirectoryPath.TextChanged += new System.EventHandler(this.DirectoryPath_TextChanged);
+            this.DirectoryPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DirectoryPath_KeyDown);
             // 
             // Browse
             // 
@@ -106,11 +106,11 @@
             this.RemoveTimestamps.Name = "RemoveTimestamps";
             this.RemoveTimestamps.UseVisualStyleBackColor = true;
             // 
-            // FolderBrowserDialog
+            // DirectoryBrowserDialog
             // 
-            resources.ApplyResources(this.FolderBrowserDialog, "FolderBrowserDialog");
-            this.FolderBrowserDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
-            this.FolderBrowserDialog.ShowNewFolderButton = false;
+            resources.ApplyResources(this.DirectoryBrowserDialog, "DirectoryBrowserDialog");
+            this.DirectoryBrowserDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            this.DirectoryBrowserDialog.ShowNewFolderButton = false;
             // 
             // MenuStrip
             // 
@@ -143,7 +143,7 @@
             this.Controls.Add(this.CopyParsedToClipboard);
             this.Controls.Add(this.Parsed);
             this.Controls.Add(this.Browse);
-            this.Controls.Add(this.FolderPath);
+            this.Controls.Add(this.DirectoryPath);
             this.Controls.Add(this.MenuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.MenuStrip;
@@ -158,7 +158,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.RichTextBox FolderPath;
+        private System.Windows.Forms.RichTextBox DirectoryPath;
         private System.Windows.Forms.Button Browse;
         private System.Windows.Forms.RichTextBox Parsed;
         private System.Windows.Forms.Button CopyParsedToClipboard;
@@ -168,7 +168,7 @@
         private System.Windows.Forms.Label PathLabel;
         private System.Windows.Forms.Label Version;
         private System.Windows.Forms.CheckBox RemoveTimestamps;
-        private System.Windows.Forms.FolderBrowserDialog FolderBrowserDialog;
+        private System.Windows.Forms.FolderBrowserDialog DirectoryBrowserDialog;
         private System.Windows.Forms.MenuStrip MenuStrip;
         private System.Windows.Forms.ToolStripMenuItem ServerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AboutToolStripMenuItem;

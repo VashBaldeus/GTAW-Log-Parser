@@ -26,12 +26,12 @@ namespace Assistant.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FolderPath {
+        public string DirectoryPath {
             get {
-                return ((string)(this["FolderPath"]));
+                return ((string)(this["DirectoryPath"]));
             }
             set {
-                this["FolderPath"] = value;
+                this["DirectoryPath"] = value;
             }
         }
         

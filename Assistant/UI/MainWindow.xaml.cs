@@ -6,12 +6,12 @@ using System.Threading;
 using System.Diagnostics;
 using System.Windows.Input;
 using System.Globalization;
-using System.Windows.Controls;
+using Assistant.Controllers;
 using Assistant.Localization;
-using System.Text.RegularExpressions;
+using System.Windows.Controls;
 using System.Collections.Generic;
-using Assistant.Infrastructure;
-using Assistant.Utilities;
+using System.Text.RegularExpressions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Assistant.UI
 {
@@ -20,27 +20,31 @@ namespace Assistant.UI
     /// </summary>
     public partial class MainWindow
     {
-        private static System.Windows.Forms.NotifyIcon TrayIcon;
+        private static System.Windows.Forms.NotifyIcon trayIcon;
 
-        private static GitHubClient client = new GitHubClient(new ProductHeaderValue(Data.ProductHeader));
-        private static bool isUpdateCheckRunning = false;
-        private static bool isUpdateCheckManual = false;
+        private static GitHubClient client = new GitHubClient(new ProductHeaderValue(ContinuityController.ProductHeader));
+        private static bool isUpdateCheckRunning;
+        private static bool isUpdateCheckManual;
         private static bool isLoading = true;
 
-        private static bool isRestarting = false;
+        private static bool isRestarting;
 
+        /// <summary>
+        /// Initializes the main window
+        /// </summary>
+        /// <param name="startMinimized"></param>
         public MainWindow(bool startMinimized)
         {
             client.SetRequestTimeout(new TimeSpan(0, 0, 0, Properties.Settings.Default.UpdateCheckTimeout));
-            StartupController.Initialize();
+            StartupController.InitializeShortcut();
 
             InitializeComponent();
             InitializeTrayIcon();
 
             if (startMinimized)
-                TrayIcon.Visible = true;
+                trayIcon.Visible = true;
 
-            // Also checks for the RAGEMP folder on the first start
+            // Also checks for the RAGEMP directory on the first start
             LoadSettings();
 
             SetupServerList();
@@ -48,6 +52,10 @@ namespace Assistant.UI
             isLoading = false;
         }
 
+        /// <summary>
+        /// Adds menu options under "Server" on the menu
+        /// strip for each Language in LocalizationController
+        /// </summary>
         private void SetupServerList()
         {
             string currentLanguage = LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage());
@@ -63,23 +71,23 @@ namespace Assistant.UI
                 LanguageToolStripMenuItem.Items.Add(menuItem);
                 menuItem.Click += (s, e) =>
                 {
-                    if (menuItem.IsChecked == true)
+                    if (menuItem.IsChecked)
                         return;
 
                     CultureInfo cultureInfo = new CultureInfo(LocalizationController.GetCodeFromLanguage(language));
-                    if (MessageBox.Show(Strings.ResourceManager.GetString("SwitchServer", cultureInfo), Strings.ResourceManager.GetString("Restart", cultureInfo), MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                    {
-                        LocalizationController.SetLanguage(language);
+                    if (MessageBox.Show(Strings.ResourceManager.GetString("SwitchServer", cultureInfo),
+                        Strings.ResourceManager.GetString("Restart", cultureInfo), MessageBoxButton.YesNo,
+                        MessageBoxImage.Question) != MessageBoxResult.Yes) return;
+                    LocalizationController.SetLanguage(language);
 
-                        isRestarting = true;
+                    isRestarting = true;
 
-                        ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;
-                        startInfo.FileName = Data.ExecutablePath;
-                        startInfo.Arguments = $"{Data.ParameterPrefix}restart";
-                        Process.Start(startInfo);
+                    ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;
+                    startInfo.FileName = ContinuityController.ExecutablePath;
+                    startInfo.Arguments = $"{ContinuityController.ParameterPrefix}restart";
+                    Process.Start(startInfo);
 
-                        System.Windows.Application.Current.Shutdown();
-                    }
+                    System.Windows.Application.Current.Shutdown();
                 };
 
                 if (currentLanguage == language.ToString())
@@ -87,16 +95,22 @@ namespace Assistant.UI
             }
         }
 
+        /// <summary>
+        /// Saves the main settings
+        /// </summary>
         private void SaveSettings()
         {
-            Properties.Settings.Default.FolderPath = FolderPath.Text;
+            Properties.Settings.Default.DirectoryPath = DirectoryPath.Text;
             Properties.Settings.Default.RemoveTimestamps = RemoveTimestamps.IsChecked == true;
             Properties.Settings.Default.CheckForUpdatesAutomatically = CheckForUpdatesOnStartup.IsChecked == true;
 
             Properties.Settings.Default.Save();
-            Data.Initialize();
+            ContinuityController.InitializeMemory();
         }
 
+        /// <summary>
+        /// Loads the main settings
+        /// </summary>
         private void LoadSettings()
         {
             OpenForums.Visibility = Properties.Settings.Default.DisableForumsButton ? Visibility.Collapsed : Visibility.Visible;
@@ -106,7 +120,11 @@ namespace Assistant.UI
             OpenGithubProject.Visibility = Properties.Settings.Default.DisableProjectButton ? Visibility.Collapsed : Visibility.Visible;
             UpdateCheckProgress.Foreground = StyleController.DarkMode ? System.Windows.Media.Brushes.White : System.Windows.Media.Brushes.Black;
 
-            Version.Text = string.Format(Strings.VersionInfo, Data.Version, Data.IsBetaVersion ? Strings.BetaShort : string.Empty);
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+            // ReSharper disable once UnreachableCode
+#pragma warning disable 162
+            Version.Text = string.Format(Strings.VersionInfo, ContinuityController.Version, ContinuityController.IsBetaVersion ? Strings.BetaShort : string.Empty);
+#pragma warning restore 162
             StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
             Counter.Text = string.Format(Strings.CharacterCounter, 0, 0);
 
@@ -118,54 +136,65 @@ namespace Assistant.UI
                 Properties.Settings.Default.FirstStart = false;
                 Properties.Settings.Default.Save();
 
-                LookForMainFolder();
+                LookForMainDirectory();
                 SaveSettings();
-
-                // Warning
-                //MessageBox.Show(Strings.LanguageInfo, Strings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
-                FolderPath.Text = Properties.Settings.Default.FolderPath;
+                DirectoryPath.Text = Properties.Settings.Default.DirectoryPath;
         }
 
-        private void LookForMainFolder()
+        /// <summary>
+        /// Looks for the main RAGEMP directory
+        /// path on the first start
+        /// </summary>
+        private void LookForMainDirectory()
         {
             try
             {
-                string folderPath = string.Empty;
+                string directoryPath = string.Empty;
 
+                // Loop through each drive (ex: C: D: E:)
                 foreach (DriveInfo drive in DriveInfo.GetDrives())
                 {
-                    foreach (string possibleFolder in Data.PossibleFolderLocations)
+                    // Look through every possible directory
+                    foreach (string possibleDirectory in ContinuityController.PossibleDirectoryLocations)
                     {
-                        if (Directory.Exists(drive.Name + possibleFolder))
-                        {
-                            folderPath = drive.Name + possibleFolder;
-                            break;
-                        }
+                        // Found one
+                        if (!Directory.Exists(drive.Name + possibleDirectory)) continue;
+                        directoryPath = drive.Name + possibleDirectory;
+                        break;
                     }
 
-                    if (!string.IsNullOrWhiteSpace(folderPath))
+                    // Found one, stop looking
+                    if (!string.IsNullOrWhiteSpace(directoryPath))
                         break;
                 }
 
-                if (string.IsNullOrWhiteSpace(folderPath))
+                // Didn't find a RAGEMP directory
+                if (string.IsNullOrWhiteSpace(directoryPath))
                 {
-                    MessageBox.Show(Strings.FolderFinderNotFound, Strings.FolderFinderTitle, MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(Strings.DirectoryFinderNotFound, Strings.DirectoryFinderTitle, MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
 
-                FolderPath.Text = folderPath;
-                MessageBox.Show(string.Format(Strings.FolderFinder, folderPath), Strings.FolderFinderTitle, MessageBoxButton.OK, MessageBoxImage.Information);
+                DirectoryPath.Text = directoryPath;
+                MessageBox.Show(string.Format(Strings.DirectoryFinder, directoryPath), Strings.DirectoryFinderTitle, MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch
             {
-                FolderPath.Text = string.Empty;
-                MessageBox.Show(Strings.FolderFinderError, Strings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
+                DirectoryPath.Text = string.Empty;
+                MessageBox.Show(Strings.DirectoryFinderError, Strings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
-        private void FolderPath_TextChanged(object sender, TextChangedEventArgs e)
+        /// <summary>
+        /// Saves the settings when the
+        /// value of the text box changes
+        /// and disables automatic backup
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DirectoryPath_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (isLoading)
                 return;
@@ -181,17 +210,29 @@ namespace Assistant.UI
             SaveSettings();
         }
 
-        private void FolderPath_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Opens the directory picker
+        /// when the text box is clicked on
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DirectoryPath_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(FolderPath.Text))
+            if (string.IsNullOrWhiteSpace(DirectoryPath.Text))
                 Browse_Click(this, null);
         }
 
+        /// <summary>
+        /// Displays a directory picker until
+        /// a non-root directory is selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Browse_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog
+            System.Windows.Forms.FolderBrowserDialog directoryBrowserDialog = new System.Windows.Forms.FolderBrowserDialog
             {
-                Description = "RAGEMP Folder Path",
+                Description = @"RAGEMP Directory Path",
                 RootFolder = Environment.SpecialFolder.MyComputer,
                 SelectedPath = Path.GetPathRoot(Environment.SystemDirectory),
                 ShowNewFolderButton = false
@@ -200,140 +241,52 @@ namespace Assistant.UI
             bool validLocation = false;
             while (!validLocation)
             {
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (directoryBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    if (dialog.SelectedPath[dialog.SelectedPath.Length - 1] != '\\')
+                    if (directoryBrowserDialog.SelectedPath[directoryBrowserDialog.SelectedPath.Length - 1] != '\\')
                     {
-                        FolderPath.Text = dialog.SelectedPath + "\\";
+                        DirectoryPath.Text = directoryBrowserDialog.SelectedPath + "\\";
                         validLocation = true;
                     }
                     else
-                        MessageBox.Show(Strings.BadFolderPath, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(Strings.BadDirectoryPath, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                     validLocation = true;
             }
         }
 
+        /// <summary>
+        /// Parses the current chat log and sets
+        /// the text of the main text box to it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Parse_Click(object sender, RoutedEventArgs e)
         {
-            //ToggleControls(enable: false);
-            Data.Initialize();
+            ContinuityController.InitializeMemory();
 
-            if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
+            if (string.IsNullOrWhiteSpace(DirectoryPath.Text) || !Directory.Exists(DirectoryPath.Text + "client_resources\\"))
             {
-                MessageBox.Show(Strings.InvalidFolderPath, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Strings.InvalidDirectoryPath, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            else if (!File.Exists(FolderPath.Text + Data.LogLocation))
+
+            if (!File.Exists(DirectoryPath.Text + ContinuityController.LogLocation))
             {
                 MessageBox.Show(Strings.NoChatLog, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            Parsed.Text = ParseChatLog(folderPath: FolderPath.Text, removeTimestamps: RemoveTimestamps.IsChecked == true, showError: true);
-            
-            //ToggleControls(enable: true);
+            Parsed.Text = AppController.ParseChatLog(DirectoryPath.Text, RemoveTimestamps.IsChecked == true, true);
         }
 
-        public static string ParseChatLog(string folderPath, bool removeTimestamps, bool showError = false)
-        {
-            Data.Initialize();
-
-            try
-            {
-                string log;
-                using (StreamReader sr = new StreamReader(folderPath + Data.LogLocation))
-                {
-                    log = sr.ReadToEnd();
-                }
-
-                bool oldLog = false;
-                string tempLog = Regex.Match(log, "\\\"chatlog\\\":\\\".+\\\\n\\\"").Value;
-                if (string.IsNullOrWhiteSpace(tempLog))
-                {
-                    tempLog = "\"chatlog\":" + log;
-                    tempLog = Regex.Match(tempLog, "\\\"chatlog\\\":\\\".+\\\\n\\\"").Value;
-
-                    if (!string.IsNullOrWhiteSpace(tempLog))
-                    {
-                        oldLog = true;
-
-                        if (showError)
-                        {
-                            if (MessageBox.Show(Strings.OldChatLog, Strings.Warning, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
-                            {
-                                try
-                                {
-                                    int foundDirectories = 0;
-
-                                    foreach (string ip in Data.ServerIPs)
-                                    {
-                                        if (Directory.Exists($"{folderPath}client_resources\\{ip}"))
-                                        {
-                                            foundDirectories++;
-
-                                            if (File.Exists($"{folderPath}client_resources\\{ip}\\.storage"))
-                                                File.Delete($"{folderPath}client_resources\\{ip}\\.storage");
-
-                                            foreach (string file in Data.PotentiallyOldFiles)
-                                            {
-                                                if (File.Exists($"{folderPath}client_resources\\{ip}\\gtalife\\{file}"))
-                                                    File.Delete($"{folderPath}client_resources\\{ip}\\gtalife\\{file}");
-                                            }
-                                        }
-                                    }
-
-                                    if (foundDirectories > 1)
-                                        MessageBox.Show(string.Format(Strings.MultipleChatLogs, Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
-                                }
-                                catch
-                                {
-                                    MessageBox.Show(Strings.FileDeleteError, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        throw new IndexOutOfRangeException();
-                    }
-                }
-
-                log = tempLog;
-
-                log = log.Replace("\"chatlog\":\"", string.Empty);  // Remove the chat log indicator
-                log = log.Replace("\\n", "\n");                     // Change all occurrences of `\n` into new lines
-                log = log.Remove(log.Length - 1, 1);                // Remove the `"` character from the end
-
-                if (oldLog)
-                {
-                    log = Regex.Replace(log, "<[^>]*>", string.Empty);                      // Remove the HTML tags that are added for the chat (example: `If the ingame menus are out of place, use <span style=\"color: dodgerblue\">/movemenu</span>`)
-
-                    log = Regex.Replace(log, "~[A-Za-z]~", string.Empty);                   // Remove the RAGEMP color tags (example: `~r~` for red)
-                    log = Regex.Replace(log, @"!{#(?:[0-9A-Fa-f]{3}){1,2}}", string.Empty); // Remove HEX color tags (example: `!{#FFEC8B}` for the yellow color picked for radio messages)
-                }
-
-                log = System.Net.WebUtility.HtmlDecode(log);    // Decode HTML symbols (example: `&apos;` into `'`)
-                log = log.TrimEnd(new char[] { '\r', '\n' });   // Remove the `new line` characters from the end
-
-                previousLog = log;
-
-                if (removeTimestamps)
-                    log = Regex.Replace(log, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
-
-                return log;
-            }
-            catch
-            {
-                if (showError)
-                    MessageBox.Show(Strings.ParseError, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-
-
-                return string.Empty;
-            }
-        }
-
+        /// <summary>
+        /// Displays a save file dialog to save the
+        /// contents of the main text box to the disk
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Parsed_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Counter == null)
@@ -348,6 +301,11 @@ namespace Assistant.UI
             Counter.Text = string.Format(Strings.CharacterCounter, Parsed.Text.Length, Parsed.Text.Split('\n').Length);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveParsed_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -366,12 +324,10 @@ namespace Assistant.UI
                     Filter = "Text File | *.txt"
                 };
 
-                if (dialog.ShowDialog() == true)
+                if (dialog.ShowDialog() != true) return;
+                using (StreamWriter sw = new StreamWriter(dialog.OpenFile()))
                 {
-                    using (StreamWriter sw = new StreamWriter(dialog.OpenFile()))
-                    {
-                        sw.Write(Parsed.Text.Replace("\n", Environment.NewLine));
-                    }
+                    sw.Write(Parsed.Text.Replace("\n", Environment.NewLine));
                 }
             }
             catch
@@ -380,6 +336,12 @@ namespace Assistant.UI
             }
         }
 
+        /// <summary>
+        /// Copies the contents of the
+        /// main text box to the clipboard
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CopyParsedToClipboard_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Parsed.Text) && !Properties.Settings.Default.DisableErrorPopups)
@@ -388,30 +350,43 @@ namespace Assistant.UI
                 Clipboard.SetText(Parsed.Text.Replace("\n", Environment.NewLine));
         }
 
+        /// <summary>
+        /// Toggles the "Check For Updates On Startup" option
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CheckForUpdatesOnStartup_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (CheckForUpdatesOnStartup.IsChecked == true)
-                TryCheckingForUpdates(manual: false);
+                TryCheckingForUpdates();
         }
 
-        private static string previousLog = string.Empty;
+        /// <summary>
+        /// Removes the timestamps from the parsed chat log
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveTimestamps_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Parsed.Text) || string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\") || !File.Exists(FolderPath.Text+ Data.LogLocation))
+            if (string.IsNullOrWhiteSpace(Parsed.Text) || string.IsNullOrWhiteSpace(DirectoryPath.Text) || !Directory.Exists(DirectoryPath.Text + "client_resources\\") || !File.Exists(DirectoryPath.Text+ ContinuityController.LogLocation))
                 return;
 
             if (RemoveTimestamps.IsChecked == true)
             {
-                previousLog = Parsed.Text;
-                Parsed.Text = Regex.Replace(previousLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
+                AppController.PreviousLog = Parsed.Text;
+                Parsed.Text = Regex.Replace(AppController.PreviousLog, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
             }
-            else if (!string.IsNullOrWhiteSpace(previousLog))
-                Parsed.Text = previousLog;
+            else if (!string.IsNullOrWhiteSpace(AppController.PreviousLog))
+                Parsed.Text = AppController.PreviousLog;
         }
 
+        /// <summary>
+        /// Toggles the controls on the main window
+        /// </summary>
+        /// <param name="enable"></param>
         private void ToggleControls(bool enable = false)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher?.Invoke(() =>
             {
                 IsMinButtonEnabled = enable;
                 //IsCloseButtonEnabled = enable;
@@ -419,7 +394,7 @@ namespace Assistant.UI
                 Parse.IsEnabled = enable;
                 SaveParsed.IsEnabled = enable;
                 CopyParsedToClipboard.IsEnabled = enable;
-                FolderPath.IsEnabled = enable;
+                DirectoryPath.IsEnabled = enable;
                 Browse.IsEnabled = enable;
                 Parsed.IsEnabled = enable;
                 CheckForUpdatesOnStartup.IsEnabled = enable;
@@ -440,11 +415,20 @@ namespace Assistant.UI
             });
         }
 
+        /// <summary>
+        /// Tries checking for updates
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CheckForUpdatesToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            TryCheckingForUpdates(manual: true);
+            TryCheckingForUpdates(true);
         }
 
+        /// <summary>
+        /// Disables the controls on the main window
+        /// and checks for updates
+        /// </summary>
         private readonly ManualResetEvent _resetEvent = new ManualResetEvent(false);
         private void TryCheckingForUpdates(bool manual = false)
         {
@@ -457,7 +441,7 @@ namespace Assistant.UI
                 UpdateCheckProgress.IsActive = true;
 
                 if (manual)
-                    ToggleControls(enable: false);
+                    ToggleControls();
 
                 isUpdateCheckManual = manual;
                 ThreadPool.QueueUserWorkItem(_ => CheckForUpdates(ref isUpdateCheckManual));
@@ -466,50 +450,74 @@ namespace Assistant.UI
             else if (manual && !isUpdateCheckManual)
             {
                 isUpdateCheckManual = true;
-                ToggleControls(enable: false);
+                ToggleControls();
             }
         }
 
+        /// <summary>
+        /// Enables the controls on the main window
+        /// and disables the progress ring
+        /// </summary>
         private void FinishUpdateCheck()
         {
             _resetEvent.WaitOne();
             
-            ToggleControls(enable: true);
+            ToggleControls(true);
             StopUpdateIndicator();
             
             isUpdateCheckRunning = false;
         }
 
+        /// <summary>
+        /// Disables the progress ring
+        /// </summary>
         private void StopUpdateIndicator()
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher?.Invoke(() =>
             {
                 UpdateCheckProgress.IsActive = false;
                 UpdateCheckProgress.Visibility = Visibility.Collapsed;
             });
         }
 
+        /// <summary>
+        /// Displays a message box
+        /// on the main UI thread
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="title"></param>
+        /// <param name="buttons"></param>
+        /// <param name="image"></param>
         private void DisplayUpdateMessage(string text, string title, MessageBoxButton buttons, MessageBoxImage image)
         {
-            ToggleControls(enable: true);
+            ToggleControls(true);
             StopUpdateIndicator();
 
-            Dispatcher.Invoke(() =>
+            Dispatcher?.Invoke(() =>
             {
                 if (MessageBox.Show(text, title, buttons, image) == MessageBoxResult.Yes)
                     Process.Start(Strings.ReleasesLink);
             });
         }
 
+        /// <summary>
+        /// Checks for updates
+        /// </summary>
+        /// <param name="manual"></param>
+#pragma warning disable 162
+        [SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalse")]
+        [SuppressMessage("ReSharper", "UnreachableCode")]
         private void CheckForUpdates(ref bool manual)
         {
             try
             {
-                string installedVersion = Data.Version;
-                IReadOnlyList<Release> releases = client.Repository.Release.GetAll("davidcristian", Data.ProductHeader).Result;
+                string installedVersion = ContinuityController.Version;
+                IReadOnlyList<Release> releases = client.Repository.Release.GetAll("davidcristian", ContinuityController.ProductHeader).Result;
 
                 string newVersion = string.Empty;
                 bool isNewVersionBeta = false;
+
+                // Prereleases are a go
                 if (!Properties.Settings.Default.IgnoreBetaVersions)
                 {
                     newVersion = releases[0].TagName;
@@ -531,31 +539,35 @@ namespace Assistant.UI
                     }
                 }
 
-                if ((Data.IsBetaVersion && !isNewVersionBeta && string.Compare(installedVersion, newVersion) == 0) || string.Compare(installedVersion, newVersion) < 0)
-                {
+                if (ContinuityController.IsBetaVersion && !isNewVersionBeta && string.CompareOrdinal(installedVersion, newVersion) == 0 || string.CompareOrdinal(installedVersion, newVersion) < 0)
+                { // Update available
                     if (Visibility != Visibility.Visible)
                         ResumeTrayStripMenuItem_Click(this, EventArgs.Empty);
 
-                    DisplayUpdateMessage(string.Format(Strings.UpdateAvailable, installedVersion + (Data.IsBetaVersion ? " Beta" : string.Empty), newVersion + (isNewVersionBeta ? " Beta" : string.Empty)), Strings.UpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
+                    DisplayUpdateMessage(string.Format(Strings.UpdateAvailable, installedVersion + (ContinuityController.IsBetaVersion ? " Beta" : string.Empty), newVersion + (isNewVersionBeta ? " Beta" : string.Empty)), Strings.UpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
                 }
-                else if (manual)
-                    DisplayUpdateMessage(string.Format(Strings.RunningLatest, installedVersion + (Data.IsBetaVersion ? " Beta" : string.Empty)), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+                else if (manual) // Latest version
+                    DisplayUpdateMessage(string.Format(Strings.RunningLatest, installedVersion + (ContinuityController.IsBetaVersion ? " Beta" : string.Empty)), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            catch
+            catch // No internet
             {
                 if (manual)
-                    DisplayUpdateMessage(string.Format(Strings.NoInternet, Data.Version + (Data.IsBetaVersion ? " Beta" : string.Empty)), Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    DisplayUpdateMessage(string.Format(Strings.NoInternet, ContinuityController.Version + (ContinuityController.IsBetaVersion ? " Beta" : string.Empty)), Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             _resetEvent.Set();
         }
+#pragma warning restore 162
 
+        /// <summary>
+        /// Opens the backup settings window
+        /// </summary>
         private static BackupSettingsWindow backupSettings;
         private void BackupSettingsToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
+            if (string.IsNullOrWhiteSpace(DirectoryPath.Text) || !Directory.Exists(DirectoryPath.Text + "client_resources\\"))
             {
-                MessageBox.Show(Strings.InvalidFolderPathBackup, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Strings.InvalidDirectoryPathBackup, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -578,11 +590,9 @@ namespace Assistant.UI
                 backupSettings = new BackupSettingsWindow(this);
                 backupSettings.IsVisibleChanged += (s, args) =>
                 {
-                    if ((bool)args.NewValue == false)
-                    {
-                        BackupController.Initialize();
-                        StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
-                    }
+                    if ((bool) args.NewValue) return;
+                    BackupController.Initialize();
+                    StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
                 };
                 backupSettings.Closed += (s, args) =>
                 {
@@ -593,12 +603,15 @@ namespace Assistant.UI
             backupSettings.ShowDialog();
         }
 
+        /// <summary>
+        /// Opens the chat log filter window
+        /// </summary>
         private static ChatLogFilterWindow chatLogFilter;
         private void FilterChatLogToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
+            if (string.IsNullOrWhiteSpace(DirectoryPath.Text) || !Directory.Exists(DirectoryPath.Text + "client_resources\\"))
             {
-                MessageBox.Show(Strings.InvalidFolderPathFilter, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Strings.InvalidDirectoryPathFilter, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -616,45 +629,70 @@ namespace Assistant.UI
             chatLogFilter.ShowDialog();
         }
 
+        /// <summary>
+        /// Displays some information about the application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AboutToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(string.Format(Strings.About, Data.Version, Data.IsBetaVersion ? Strings.Beta : string.Empty, LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
-
-            //if (MessageBox.Show(string.Format(Strings.About, Data.Version, LocalizationManager.GetLanguageFromCode(LocalizationManager.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-            //    Process.Start(Strings.ProjectLink);
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+            // ReSharper disable once UnreachableCode
+#pragma warning disable 162
+            MessageBox.Show(string.Format(Strings.About, ContinuityController.Version, ContinuityController.IsBetaVersion ? Strings.Beta : string.Empty, LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), ContinuityController.ServerIPs[0], ContinuityController.ServerIPs[1]), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+#pragma warning restore 162
         }
 
+        /// <summary>
+        /// Quits the application from the tool strip
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExitToolStripMenuItem_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
         }
 
+        /// <summary>
+        /// Handles clicks on the logo
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Logo_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             //if (MessageBox.Show(Strings.OpenDocumentation, Strings.Information, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             //    Process.Start(Strings.FeatureShowcaseLink);
         }
 
+        /// <summary>
+        /// Asks the user if they are sure they want to exit
+        /// if automatic backup is enabled.
+        /// Saves the settings before the main window closes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Main_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (!isRestarting)
             {
-                if (Properties.Settings.Default.BackupChatLogAutomatically && TrayIcon.Visible == false)
+                if (Properties.Settings.Default.BackupChatLogAutomatically && trayIcon.Visible == false)
                 {
                     MessageBoxResult result = MessageBoxResult.Yes;
                     if (!Properties.Settings.Default.AlwaysCloseToTray)
                         result = MessageBox.Show(Strings.MinimizeInsteadOfClose, Strings.Warning, MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
 
+                    // ReSharper disable once ConvertIfStatementToSwitchStatement
                     if (result == MessageBoxResult.Yes)
                     {
                         e.Cancel = true;
 
                         Hide();
-                        TrayIcon.Visible = true;
+                        trayIcon.Visible = true;
 
                         return;
                     }
-                    else if (result == MessageBoxResult.Cancel)
+
+                    if (result == MessageBoxResult.Cancel)
                     {
                         e.Cancel = true;
                         return;
@@ -663,53 +701,72 @@ namespace Assistant.UI
             }
 
             StyleController.StopWatchers();
-            BackupController.quitting = true;
+            BackupController.Quitting = true;
             SaveSettings();
 
             System.Windows.Application.Current.Shutdown();
         }
 
+        /// <summary>
+        /// Resumes and shows the main window by double clicking the tray icon
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TrayIcon_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             ResumeTrayStripMenuItem_Click(sender, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Resumes and shows the main window from the tray menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ResumeTrayStripMenuItem_Click(object sender, EventArgs e)
         {
             if (isRestarting)
                 return;
 
             Show();
-            TrayIcon.Visible = false;
+            trayIcon.Visible = false;
         }
 
-        private void ExitTrayToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Quits the application from the tray
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void ExitTrayToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //if (Visibility != Visibility.Visible)
-                BackupController.quitting = true;
+            BackupController.Quitting = true;
             StyleController.StopWatchers();
 
-            TrayIcon.Visible = false;
+            trayIcon.Visible = false;
             isRestarting = true;
             System.Windows.Application.Current.Shutdown();
         }
 
+        /// <summary>
+        /// Initializes the tray icon
+        /// </summary>
         private void InitializeTrayIcon()
         {
-            TrayIcon = new System.Windows.Forms.NotifyIcon
+            trayIcon = new System.Windows.Forms.NotifyIcon
             {
                 Visible = false,
                 Icon = Properties.Resources.AppIcon
             };
 
-            TrayIcon.MouseDoubleClick += TrayIcon_MouseDoubleClick;
+            trayIcon.MouseDoubleClick += TrayIcon_MouseDoubleClick;
 
-            ContextMenu menu = new ContextMenu();
-            TrayIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
-            TrayIcon.ContextMenuStrip.Items.Add("Open", null, ResumeTrayStripMenuItem_Click);
-            TrayIcon.ContextMenuStrip.Items.Add("Exit", null, ExitTrayToolStripMenuItem_Click);
+            trayIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+            trayIcon.ContextMenuStrip.Items.Add("Open", null, ResumeTrayStripMenuItem_Click);
+            trayIcon.ContextMenuStrip.Items.Add("Exit", null, ExitTrayToolStripMenuItem_Click);
         }
 
+        /// <summary>
+        /// Opens the program settings window
+        /// </summary>
         private static ProgramSettingsWindow programSettings;
         private void OpenProgramSettings_Click(object sender, RoutedEventArgs e)
         {
@@ -720,7 +777,7 @@ namespace Assistant.UI
                 programSettings = new ProgramSettingsWindow(this);
                 programSettings.Closed += (s, args) =>
                 {
-                    client = new GitHubClient(new ProductHeaderValue(Data.ProductHeader));
+                    client = new GitHubClient(new ProductHeaderValue(ContinuityController.ProductHeader));
                     client.SetRequestTimeout(new TimeSpan(0, 0, 0, Properties.Settings.Default.UpdateCheckTimeout));
 
                     programSettings = null;
@@ -730,26 +787,51 @@ namespace Assistant.UI
             programSettings.ShowDialog();
         }
 
+        /// <summary>
+        /// Opens the Github Project page in the default browser
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenGithubProject_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(Strings.ProjectLink);
         }
 
+        /// <summary>
+        /// Opens the Github Releases page in the default browser
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenGithubReleases_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(Strings.ReleasesLink);
         }
 
+        /// <summary>
+        /// Opens the UCP in the default browser
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenUCP_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(Strings.UCPLink);
         }
 
+        /// <summary>
+        /// Opens Facebrowser in the default browser
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenFacebrowser_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(Strings.FacebrowserLink);
         }
 
+        /// <summary>
+        /// Opens the Forums in the default browser
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenForums_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(Strings.ForumsLink);

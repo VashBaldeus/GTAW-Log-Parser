@@ -19,13 +19,13 @@ namespace Parser
         {
             // Get the command line arguments and check
             // if the current session is a restart
-            var args = Environment.GetCommandLineArgs();
+            string[] args = Environment.GetCommandLineArgs();
             if (args.Any(arg => arg == $"{ContinuityController.ParameterPrefix}restart"))
                 isRestarted = true;
 
             // Make sure only one instance is running
             // if the application is not currently restarting
-            var mutex = new Mutex(true, "UniqueAppId", out var isUnique);
+            Mutex mutex = new Mutex(true, "UniqueAppId", out bool isUnique);
             if (!isUnique && !isRestarted)
             {
                 MessageBox.Show(Strings.OtherInstanceRunning, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);

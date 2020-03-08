@@ -1,13 +1,15 @@
 ﻿using System;
 using System.IO;
-using Parser.Localization;
-using System.Windows.Forms;
+using System.Windows;
+using Assistant.Localization;
 using System.Text.RegularExpressions;
 
-namespace Parser.Controllers
+namespace Assistant.Controllers
 {
-    public static class ProgramController
+    public static class AppController
     {
+        public static string PreviousLog = string.Empty;
+
         /// <summary>
         /// Parses the most recent chat log found at the
         /// selected RAGEMP directory path and returns it.
@@ -16,9 +18,12 @@ namespace Parser.Controllers
         /// </summary>
         /// <param name="directoryPath"></param>
         /// <param name="removeTimestamps"></param>
+        /// <param name="showError"></param>
         /// <returns></returns>
-        public static string ParseChatLog(string directoryPath, bool removeTimestamps)
+        public static string ParseChatLog(string directoryPath, bool removeTimestamps, bool showError = false)
         {
+            ContinuityController.InitializeMemory();
+
             try
             {
                 // Read the chat log
@@ -41,6 +46,7 @@ namespace Parser.Controllers
                 log = System.Net.WebUtility.HtmlDecode(log);    // Decode HTML symbols (example: `&apos;` into `'`)
                 log = log.TrimEnd('\r', '\n');                  // Remove the `new line` characters from the end
 
+                PreviousLog = log;
                 if (removeTimestamps)
                     log = Regex.Replace(log, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
 
@@ -48,7 +54,9 @@ namespace Parser.Controllers
             }
             catch
             {
-                MessageBox.Show(Strings.ParseError, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (showError)
+                    MessageBox.Show(Strings.ParseError, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+
                 return string.Empty;
             }
         }

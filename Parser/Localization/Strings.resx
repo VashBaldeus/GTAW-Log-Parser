@@ -126,8 +126,8 @@ Parsing From: {2} Server
 Primary Server IP: {3}
 Secondary Server IP: {4}</value>
   </data>
-  <data name="BadFolderPath" xml:space="preserve">
-    <value>Please pick a non-root directory for your RAGEMP folder location.</value>
+  <data name="BadDirectoryPath" xml:space="preserve">
+    <value>Please pick a non-root directory for your RAGEMP directory location.</value>
   </data>
   <data name="Beta" xml:space="preserve">
     <value>Beta</value>
@@ -141,8 +141,8 @@ Secondary Server IP: {4}</value>
   <data name="Information" xml:space="preserve">
     <value>Information</value>
   </data>
-  <data name="InvalidFolderPath" xml:space="preserve">
-    <value>Invalid RAGEMP folder path.</value>
+  <data name="InvalidDirectoryPath" xml:space="preserve">
+    <value>Invalid RAGEMP directory path.</value>
   </data>
   <data name="MainIP" xml:space="preserve">
     <value>164.132.206.209_22005</value>

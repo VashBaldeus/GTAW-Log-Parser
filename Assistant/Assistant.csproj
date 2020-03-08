@@ -42,6 +42,9 @@
   <PropertyGroup>
     <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Assistant.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
@@ -104,8 +107,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Infrastructure\BackupController.cs" />
-    <Compile Include="Infrastructure\StyleController.cs" />
+    <Compile Include="Controllers\AppController.cs" />
+    <Compile Include="Controllers\BackupController.cs" />
+    <Compile Include="Controllers\StyleController.cs" />
     <Compile Include="UI\ProgramSettingsWindow.xaml.cs">
       <DependentUpon>ProgramSettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -123,7 +127,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Infrastructure\StartupController.cs" />
+    <Compile Include="Controllers\StartupController.cs" />
     <Page Include="UI\ProgramSettingsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -148,9 +152,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utilities\Cryptography.cs" />
-    <Compile Include="Utilities\Data.cs" />
-    <Compile Include="Infrastructure\LocalizationController.cs" />
+    <Compile Include="Utilities\HashGenerator.cs" />
+    <Compile Include="Controllers\ContinuityController.cs" />
+    <Compile Include="Controllers\LocalizationController.cs" />
     <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -174,6 +178,7 @@
     <EmbeddedResource Include="Localization\Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

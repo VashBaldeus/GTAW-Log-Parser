@@ -76,11 +76,11 @@ namespace Parser.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please pick a non-root directory for your RAGEMP folder location..
+        ///   Looks up a localized string similar to Please pick a non-root directory for your RAGEMP directory location..
         /// </summary>
-        internal static string BadFolderPath {
+        internal static string BadDirectoryPath {
             get {
-                return ResourceManager.GetString("BadFolderPath", resourceCulture);
+                return ResourceManager.GetString("BadDirectoryPath", resourceCulture);
             }
         }
         
@@ -121,11 +121,11 @@ namespace Parser.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid RAGEMP folder path..
+        ///   Looks up a localized string similar to Invalid RAGEMP directory path..
         /// </summary>
-        internal static string InvalidFolderPath {
+        internal static string InvalidDirectoryPath {
             get {
-                return ResourceManager.GetString("InvalidFolderPath", resourceCulture);
+                return ResourceManager.GetString("InvalidDirectoryPath", resourceCulture);
             }
         }
         
