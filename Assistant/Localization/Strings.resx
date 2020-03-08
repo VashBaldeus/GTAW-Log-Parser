@@ -405,7 +405,7 @@ Would you like to visit the releases page now?</value>
     <value>Update Available</value>
   </data>
   <data name="VersionInfo" xml:space="preserve">
-    <value>Version: {0}{1}</value>
+    <value>{0}{1}</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>

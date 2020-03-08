@@ -5,7 +5,8 @@ namespace Parser.Controllers
 {
     public static class ContinuityController
     {
-        public const string Version = "1.0.2";
+        public const string AssemblyVersion = "1.0.2";
+        public static readonly string Version = $"v{AssemblyVersion}";
         public const bool IsBetaVersion = false;
         public const string ParameterPrefix = "--";
         

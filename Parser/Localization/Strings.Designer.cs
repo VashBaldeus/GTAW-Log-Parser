@@ -213,7 +213,7 @@ namespace Parser.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Version: {0}{1}.
+        ///   Looks up a localized string similar to {0}{1}.
         /// </summary>
         internal static string VersionInfo {
             get {

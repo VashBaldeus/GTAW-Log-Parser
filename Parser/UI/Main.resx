@@ -61,7 +61,7 @@
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsContinuityControllerSet="true">
+    <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
@@ -286,7 +286,7 @@
     <value>12, 33</value>
   </data>
   <data name="PathLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 13</value>
+    <value>101, 13</value>
   </data>
   <data name="PathLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -316,7 +316,7 @@
     <value>0</value>
   </data>
   <data name="Version.Text" xml:space="preserve">
-    <value>Version: 1.0</value>
+    <value>v1.0.0</value>
   </data>
   <data name="Version.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
