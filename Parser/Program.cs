@@ -1,43 +1,48 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
-using System.Windows.Forms;
-using Parser.Utilities;
+using Parser.Controllers;
 using Parser.Localization;
+using System.Windows.Forms;
 
 namespace Parser
 {
-    static class Program
+    internal static class Program
     {
-        private static bool isRestarted = false;
+        private static bool isRestarted;
 
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
-            string[] args = Environment.GetCommandLineArgs();
-            if (args != null)
-            {
-                if (args.Any(arg => arg == $"{Data.ParameterPrefix}restart"))
-                    isRestarted = true;
-            }
+            // Get the command line arguments and check
+            // if the current session is a restart
+            var args = Environment.GetCommandLineArgs();
+            if (args.Any(arg => arg == $"{ContinuityController.ParameterPrefix}restart"))
+                isRestarted = true;
 
-            Mutex mutex = new Mutex(true, "UniqueAppId", out bool isUnique);
+            // Make sure only one instance is running
+            // if the application is not currently restarting
+            var mutex = new Mutex(true, "UniqueAppId", out var isUnique);
             if (!isUnique && !isRestarted)
             {
                 MessageBox.Show(Strings.OtherInstanceRunning, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
+            // Initialize the controllers and
+            // display the main user form
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Infrastructure.LocalizationController.Initialize();
-            Data.Initialize();
+            LocalizationController.InitializeLocale();
+            ContinuityController.InitializeMemory();
             Application.Run(new UI.Main());
 
+            // Don't let the garbage
+            // collector touch the Mutex
             GC.KeepAlive(mutex);
         }
     }

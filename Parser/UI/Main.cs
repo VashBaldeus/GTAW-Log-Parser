@@ -1,17 +1,17 @@
 ﻿using System;
 using System.IO;
-using System.Windows.Forms;
-using System.Text.RegularExpressions;
 using System.Diagnostics;
-using System.Globalization;
-using Parser.Infrastructure;
-using Parser.Utilities;
+using Parser.Controllers;
 using Parser.Localization;
+using System.Windows.Forms;
 
 namespace Parser.UI
 {
     public partial class Main : Form
     {
+        /// <summary>
+        /// Constructor for the main user form
+        /// </summary>
         public Main()
         {
             InitializeComponent();
@@ -20,82 +20,127 @@ namespace Parser.UI
             SetupServerList();
         }
 
+        /// <summary>
+        /// Adds menu options under "Server" on the menu
+        /// strip for each Language in @LocalizationController
+        /// </summary>
         private void SetupServerList()
         {
-            string currentLanguage = LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage());
-            for (int i = 0; i < ((LocalizationController.Language[])Enum.GetValues(typeof(LocalizationController.Language))).Length; ++i)
+            // Get the current Language to add a check on
+            // the option and loop through the Languages enum
+            var currentLanguage = LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage());
+            for (var i = 0; i < ((LocalizationController.Language[])Enum.GetValues(typeof(LocalizationController.Language))).Length; ++i)
             {
-                LocalizationController.Language language = (LocalizationController.Language)i;
-                ToolStripItem newLanguage = ServerToolStripMenuItem.DropDownItems.Add(language.ToString());
+                // Add the menu option and the click event
+                var language = (LocalizationController.Language)i;
+                var newLanguage = ServerToolStripMenuItem.DropDownItems.Add(language.ToString());
                 newLanguage.Click += (s, e) =>
                 {
-                    if (((ToolStripMenuItem)newLanguage).Checked == true)
+                    // No need to do anything if the current language
+                    // is clicked on since that won't change anything
+                    if (((ToolStripMenuItem)newLanguage).Checked)
                         return;
 
-                    CultureInfo cultureInfo = new CultureInfo(LocalizationController.GetCodeFromLanguage(language));
+                    // Make sure the user wants to switch
+                    if (MessageBox.Show(Strings.SwitchServer, Strings.Restart, MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) != DialogResult.Yes) return;
+                    LocalizationController.SetLanguage(language);
 
-                    if (MessageBox.Show(Strings.SwitchServer, Strings.Restart, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        LocalizationController.SetLanguage(language);
-
-                        ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;
-                        startInfo.FileName = Application.ExecutablePath;
-                        startInfo.Arguments = $"{Data.ParameterPrefix}restart";
-                        var exit = typeof(Application).GetMethod("ExitInternal",
-                                            System.Reflection.BindingFlags.NonPublic |
-                                            System.Reflection.BindingFlags.Static);
-                        exit.Invoke(null, null);
-                        Process.Start(startInfo);
-                    }
+                    // Restart the program
+                    var startInfo = Process.GetCurrentProcess().StartInfo;
+                    startInfo.FileName = Application.ExecutablePath;
+                    startInfo.Arguments = $"{ContinuityController.ParameterPrefix}restart";
+                    var exit = typeof(Application).GetMethod("ExitInternal",
+                        System.Reflection.BindingFlags.NonPublic |
+                        System.Reflection.BindingFlags.Static);
+                    exit?.Invoke(null, null);
+                    Process.Start(startInfo);
                 };
 
+                // Check the current Language
                 if (currentLanguage == language.ToString())
                     ((ToolStripMenuItem)ServerToolStripMenuItem.DropDownItems[i]).Checked = true;
             }
         }
 
+        /// <summary>
+        /// Saves the dynamic information
+        /// on the main form to the settings
+        /// </summary>
         private void SaveSettings()
         {
-            Properties.Settings.Default.FolderPath = FolderPath.Text;
+            Properties.Settings.Default.DirectoryPath = FolderPath.Text;
             Properties.Settings.Default.RemoveTimestamps = RemoveTimestamps.Checked;
             Properties.Settings.Default.Save();
         }
 
+        /// <summary>
+        /// Loads the settings into the
+        /// dynamic controls on the main form
+        /// </summary>
         private void LoadSettings()
         {
-            Version.Text = string.Format(Strings.VersionInfo, Data.Version, Data.IsBetaVersion ? Strings.BetaShort : string.Empty);
-            FolderPath.Text = Properties.Settings.Default.FolderPath;
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+            // ReSharper disable once UnreachableCode
+#pragma warning disable 162
+            Version.Text = string.Format(Strings.VersionInfo, ContinuityController.Version, ContinuityController.IsBetaVersion ? Strings.BetaShort : string.Empty);
+#pragma warning restore 162
+            FolderPath.Text = Properties.Settings.Default.DirectoryPath;
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestamps;
         }
 
+        /// <summary>
+        /// Doesn't allow input in the
+        /// directory path text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FolderPath_KeyDown(object sender, KeyEventArgs e)
         {
             e.SuppressKeyPress = true;
         }
 
+        /// <summary>
+        /// Opens the directory picker
+        /// when the text box is clicked on
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FolderPath_MouseClick(object sender, MouseEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(FolderPath.Text))
                 Browse_Click(this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Saves the settings when the
+        /// value of the text box changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FolderPath_TextChanged(object sender, EventArgs e)
         {
             SaveSettings();
         }
 
+        /// <summary>
+        /// Displays a directory picker until
+        /// a non-root directory is selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Browse_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog.SelectedPath = Path.GetPathRoot(Environment.SystemDirectory);
 
-            bool validLocation = false;
+            var validLocation = false;
             while (!validLocation)
             {
                 if (FolderBrowserDialog.ShowDialog() == DialogResult.OK)
                 {
                     if (FolderBrowserDialog.SelectedPath[FolderBrowserDialog.SelectedPath.Length - 1] != '\\')
                     {
-                        FolderPath.Text = FolderBrowserDialog.SelectedPath + "\\";
+                        FolderPath.Text = FolderBrowserDialog.SelectedPath + @"\";
                         validLocation = true;
                     }
                     else
@@ -106,58 +151,39 @@ namespace Parser.UI
             }
         }
 
+        /// <summary>
+        /// Attempts to parse the
+        /// current chat log
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Parse_Click(object sender, EventArgs e)
         {
-            Data.Initialize();
+            // The paths may have changed since the program has
+            // started, we need to initialize the locations again
+            ContinuityController.InitializeMemory();
 
             if (string.IsNullOrWhiteSpace(FolderPath.Text) || !Directory.Exists(FolderPath.Text + "client_resources\\"))
             {
                 MessageBox.Show(Strings.InvalidFolderPath, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            else if (!File.Exists(FolderPath.Text + Data.LogLocation))
+
+            if (!File.Exists(FolderPath.Text + ContinuityController.LogLocation))
             {
                 MessageBox.Show(Strings.NoChatLog, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            Parsed.Text = ParseChatLog(FolderPath.Text, RemoveTimestamps.Checked);
+            Parsed.Text = ProgramController.ParseChatLog(FolderPath.Text, RemoveTimestamps.Checked);
         }
 
-        public static string ParseChatLog(string folderPath, bool removeTimestamps)
-        {
-            try
-            {
-                string log;
-                using (StreamReader sr = new StreamReader(folderPath + Data.LogLocation))
-                {
-                    log = sr.ReadToEnd();
-                }
-
-                log = Regex.Match(log, "\\\"chatlog\\\":\\\".+\\\\n\\\"").Value;
-                if (string.IsNullOrWhiteSpace(log))
-                    throw new IndexOutOfRangeException();
-
-                log = log.Replace("\"chatlog\":\"", string.Empty);  // Remove the chat log indicator
-                log = log.Replace("\\n", "\n");                     // Change all occurrences of `\n` into new lines
-                log = log.Remove(log.Length - 1, 1);                // Remove the `"` character from the end
-
-
-                log = System.Net.WebUtility.HtmlDecode(log);    // Decode HTML symbols (example: `&apos;` into `'`)
-                log = log.TrimEnd(new char[] { '\r', '\n' });   // Remove the `new line` characters from the end
-
-                if (removeTimestamps)
-                    log = Regex.Replace(log, @"\[\d{1,2}:\d{1,2}:\d{1,2}\] ", string.Empty);
-
-                return log;
-            }
-            catch
-            {
-                MessageBox.Show(Strings.ParseError, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return string.Empty;
-            }
-        }
-
+        /// <summary>
+        /// Displays a save file dialog to save the
+        /// contents of the main text box to the disk
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveParsed_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Parsed.Text))
@@ -166,14 +192,12 @@ namespace Parser.UI
             try
             {
                 SaveFileDialog.FileName = "chatlog.txt";
-                SaveFileDialog.Filter = "Text File | *.txt";
+                SaveFileDialog.Filter = @"Text File | *.txt";
 
-                if (SaveFileDialog.ShowDialog() == DialogResult.OK)
+                if (SaveFileDialog.ShowDialog() != DialogResult.OK) return;
+                using (var sw = new StreamWriter(SaveFileDialog.OpenFile()))
                 {
-                    using (StreamWriter sw = new StreamWriter(SaveFileDialog.OpenFile()))
-                    {
-                        sw.Write(Parsed.Text.Replace("\n", Environment.NewLine));
-                    }
+                    sw.Write(Parsed.Text.Replace("\n", Environment.NewLine));
                 }
             }
             catch
@@ -182,20 +206,42 @@ namespace Parser.UI
             }
         }
 
+        /// <summary>
+        /// Copies the contents of the
+        /// main text box to the clipboard
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CopyParsedToClipboard_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(Parsed.Text))
                 Clipboard.SetText(Parsed.Text.Replace("\n", Environment.NewLine));
         }
 
+        /// <summary>
+        /// Saves the settings before
+        /// the main form closes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveSettings();
         }
 
+        /// <summary>
+        /// Displays some information about the program
+        /// when the About menu strip option is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(string.Format(Strings.About, Data.Version, Data.IsBetaVersion ? Strings.Beta : string.Empty, LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), Data.ServerIPs[0], Data.ServerIPs[1]), Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // ReSharper disable once UnreachableCode
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+#pragma warning disable 162
+            MessageBox.Show(string.Format(Strings.About, ContinuityController.Version, ContinuityController.IsBetaVersion ? Strings.Beta : string.Empty, LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), ContinuityController.ServerIPs[0], ContinuityController.ServerIPs[1]), Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
+#pragma warning restore 162
         }
     }
 }

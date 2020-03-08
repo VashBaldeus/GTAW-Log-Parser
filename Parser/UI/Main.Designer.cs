@@ -46,7 +46,7 @@
             this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // FolderPath
+            // DirectoryPath
             // 
             this.FolderPath.DetectUrls = false;
             resources.ApplyResources(this.FolderPath, "FolderPath");
