@@ -6,7 +6,7 @@ namespace Assistant.Controllers
 {
     public static class ContinuityController
     {
-        public const string AssemblyVersion = "4.0.2";
+        public const string AssemblyVersion = "4.0.3";
         public static readonly string Version = $"v{AssemblyVersion}";
         public const bool IsBetaVersion = false;
         public static bool CanFollowSystemColor = false;

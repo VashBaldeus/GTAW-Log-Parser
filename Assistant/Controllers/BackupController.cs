@@ -254,10 +254,11 @@ namespace Assistant.Controllers
                     if (!gameClosed) return;
                     if (!Properties.Settings.Default.SuppressNotifications)
                         DisplayBackupResultMessage(string.Format(Strings.SuccessfulBackup, path + fileName), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    // Save the MD5 hash of the chat log
-                    HashGenerator.SaveParsedHash(parsed);
                 }
+
+                // Save the MD5 hash of the chat log
+                if (gameClosed)
+                    HashGenerator.SaveParsedHash(parsed);
             }
             catch
             {
