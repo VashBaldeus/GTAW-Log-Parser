@@ -87,7 +87,7 @@ namespace Assistant
             // first start, or the main window
             // on subsequent starts
             LocalizationController.InitializeLocale();
-            ContinuityController.InitializeMemory();
+            ContinuityController.InitializeServerIp();
 
             if (!Settings.Default.HasPickedLanguage)
             {

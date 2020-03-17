@@ -38,7 +38,7 @@ namespace Parser
             Application.SetCompatibleTextRenderingDefault(false);
 
             LocalizationController.InitializeLocale();
-            ContinuityController.InitializeMemory();
+            ContinuityController.InitializeServerIp();
             Application.Run(new UI.Main());
 
             // Don't let the garbage

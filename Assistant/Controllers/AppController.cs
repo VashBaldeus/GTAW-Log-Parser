@@ -22,7 +22,7 @@ namespace Assistant.Controllers
         /// <returns></returns>
         public static string ParseChatLog(string directoryPath, bool removeTimestamps, bool showError = false)
         {
-            ContinuityController.InitializeMemory();
+            ContinuityController.InitializeServerIp();
 
             try
             {

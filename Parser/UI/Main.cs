@@ -159,7 +159,7 @@ namespace Parser.UI
         {
             // The paths may have changed since the program has
             // started, we need to initialize the locations again
-            ContinuityController.InitializeMemory();
+            ContinuityController.InitializeServerIp();
 
             if (string.IsNullOrWhiteSpace(DirectoryPath.Text) || !Directory.Exists(DirectoryPath.Text + "client_resources\\"))
             {

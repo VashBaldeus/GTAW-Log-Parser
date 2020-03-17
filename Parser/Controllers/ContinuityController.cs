@@ -19,7 +19,7 @@ namespace Parser.Controllers
         /// and determines the newest log file if multiple
         /// server IPs are used to connect to the server
         /// </summary>
-        public static void InitializeMemory()
+        public static void InitializeServerIp()
         {
             // Initialize the server IPs even if
             // no directory path has been chosen yet
@@ -34,8 +34,8 @@ namespace Parser.Controllers
             string mainStorage = $"{directoryPath}client_resources\\{ServerIPs[0]}\\.storage";
             string secondaryStorage = $"{directoryPath}client_resources\\{ServerIPs[1]}\\.storage";
 
-            // Store the server IP used to connect to the server
-            // in this variable, or "e" if both IPs are being used
+            // Store the server IP used to connect to the server in
+            // this variable, or "multi" if both IPs are being used
             string serverIp = ServerIPs[File.Exists(mainStorage) ? !File.Exists(secondaryStorage) ? 0 : 2 : File.Exists(secondaryStorage) ? 1 : 0 /* neither file exists in this case but we'll go with 0 */];
 
             // multi -> both storage files exist; check them to see which one's the latest

@@ -105,7 +105,7 @@ namespace Assistant.UI
             Properties.Settings.Default.CheckForUpdatesAutomatically = CheckForUpdatesOnStartup.IsChecked == true;
 
             Properties.Settings.Default.Save();
-            ContinuityController.InitializeMemory();
+            ContinuityController.InitializeServerIp();
         }
 
         /// <summary>
@@ -264,7 +264,7 @@ namespace Assistant.UI
         /// <param name="e"></param>
         private void Parse_Click(object sender, RoutedEventArgs e)
         {
-            ContinuityController.InitializeMemory();
+            ContinuityController.InitializeServerIp();
 
             if (string.IsNullOrWhiteSpace(DirectoryPath.Text) || !Directory.Exists(DirectoryPath.Text + "client_resources\\"))
             {
