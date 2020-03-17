@@ -102,7 +102,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\BackupController.cs" />
     <Compile Include="Controllers\StyleController.cs" />
     <Compile Include="UI\ProgramSettingsWindow.xaml.cs">
@@ -148,7 +147,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Utilities\HashGenerator.cs" />
-    <Compile Include="Controllers\ContinuityController.cs" />
+    <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\LocalizationController.cs" />
     <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

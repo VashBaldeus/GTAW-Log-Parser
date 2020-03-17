@@ -98,8 +98,8 @@ namespace Assistant.UI
             if (_isStarting)
             {
                 ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;
-                startInfo.FileName = ContinuityController.ExecutablePath;
-                startInfo.Arguments = $"{ContinuityController.ParameterPrefix}restart";
+                startInfo.FileName = AppController.ExecutablePath;
+                startInfo.Arguments = $"{AppController.ParameterPrefix}restart";
                 Process.Start(startInfo);
             }
 

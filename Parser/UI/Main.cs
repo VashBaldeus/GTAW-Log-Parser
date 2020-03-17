@@ -49,7 +49,7 @@ namespace Parser.UI
                     // Restart the program
                     ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;
                     startInfo.FileName = Application.ExecutablePath;
-                    startInfo.Arguments = $"{ContinuityController.ParameterPrefix}restart";
+                    startInfo.Arguments = $"{ProgramController.ParameterPrefix}restart";
                     var exit = typeof(Application).GetMethod("ExitInternal",
                         System.Reflection.BindingFlags.NonPublic |
                         System.Reflection.BindingFlags.Static);
@@ -81,7 +81,7 @@ namespace Parser.UI
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             // ReSharper disable once UnreachableCode
 #pragma warning disable 162
-            Version.Text = string.Format(Strings.VersionInfo, ContinuityController.Version, ContinuityController.IsBetaVersion ? Strings.BetaShort : string.Empty);
+            Version.Text = string.Format(Strings.VersionInfo, ProgramController.Version, ProgramController.IsBetaVersion ? Strings.BetaShort : string.Empty);
 #pragma warning restore 162
             DirectoryPath.Text = Properties.Settings.Default.DirectoryPath;
             RemoveTimestamps.Checked = Properties.Settings.Default.RemoveTimestamps;
@@ -159,7 +159,7 @@ namespace Parser.UI
         {
             // The paths may have changed since the program has
             // started, we need to initialize the locations again
-            ContinuityController.InitializeServerIp();
+            ProgramController.InitializeServerIp();
 
             if (string.IsNullOrWhiteSpace(DirectoryPath.Text) || !Directory.Exists(DirectoryPath.Text + "client_resources\\"))
             {
@@ -167,7 +167,7 @@ namespace Parser.UI
                 return;
             }
 
-            if (!File.Exists(DirectoryPath.Text + ContinuityController.LogLocation))
+            if (!File.Exists(DirectoryPath.Text + ProgramController.LogLocation))
             {
                 MessageBox.Show(Strings.NoChatLog, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -237,7 +237,7 @@ namespace Parser.UI
             // ReSharper disable once UnreachableCode
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
 #pragma warning disable 162
-            MessageBox.Show(string.Format(Strings.About, ContinuityController.Version, ContinuityController.IsBetaVersion ? Strings.Beta : string.Empty, LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), ContinuityController.ServerIPs[0], ContinuityController.ServerIPs[1]), Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(string.Format(Strings.About, ProgramController.Version, ProgramController.IsBetaVersion ? Strings.Beta : string.Empty, LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), ProgramController.ServerIPs[0], ProgramController.ServerIPs[1]), Strings.Information, MessageBoxButtons.OK, MessageBoxIcon.Information);
 #pragma warning restore 162
         }
     }

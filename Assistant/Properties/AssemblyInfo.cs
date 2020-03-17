@@ -53,6 +53,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion(Assistant.Controllers.ContinuityController.AssemblyVersion)]
-[assembly: AssemblyFileVersion(Assistant.Controllers.ContinuityController.AssemblyVersion)]
+[assembly: AssemblyVersion(Assistant.Controllers.AppController.AssemblyVersion)]
+[assembly: AssemblyFileVersion(Assistant.Controllers.AppController.AssemblyVersion)]
 [assembly: NeutralResourcesLanguage("en-US")]

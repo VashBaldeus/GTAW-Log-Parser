@@ -65,7 +65,6 @@
     <Compile Include="UI\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\ContinuityController.cs" />
     <EmbeddedResource Include="Localization\Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>

@@ -20,7 +20,7 @@ namespace Parser
             // Get the command line arguments and check
             // if the current session is a restart
             string[] args = Environment.GetCommandLineArgs();
-            if (args.Any(arg => arg == $"{ContinuityController.ParameterPrefix}restart"))
+            if (args.Any(arg => arg == $"{ProgramController.ParameterPrefix}restart"))
                 isRestarted = true;
 
             // Make sure only one instance is running
@@ -38,7 +38,7 @@ namespace Parser
             Application.SetCompatibleTextRenderingDefault(false);
 
             LocalizationController.InitializeLocale();
-            ContinuityController.InitializeServerIp();
+            ProgramController.InitializeServerIp();
             Application.Run(new UI.Main());
 
             // Don't let the garbage

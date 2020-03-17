@@ -129,7 +129,7 @@ namespace Assistant.Controllers
         {
             while (!Quitting && runBackgroundBackup)
             {
-                Process[] processes = Process.GetProcessesByName(ContinuityController.ProcessName);
+                Process[] processes = Process.GetProcessesByName(AppController.ProcessName);
 
                 if (!isGameRunning && processes.Length != 0)
                     isGameRunning = true;
@@ -152,7 +152,7 @@ namespace Assistant.Controllers
             {
                 int intervalTime = Properties.Settings.Default.IntervalTime;
 
-                if (isGameRunning && File.Exists(directoryPath + ContinuityController.LogLocation))
+                if (isGameRunning && File.Exists(directoryPath + AppController.LogLocation))
                     ParseThenSaveToFile();
 
                 for (int i = 0; i < intervalTime * 6; i++)

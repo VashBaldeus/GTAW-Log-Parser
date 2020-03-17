@@ -107,7 +107,7 @@ namespace Assistant.Controllers
                 var keyValue = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", null);
                 if (keyValue != null)
                 {
-                    ContinuityController.CanFollowSystemMode = true;
+                    AppController.CanFollowSystemMode = true;
 
                     WqlEventQuery appModeQuery = new WqlEventQuery("SELECT * FROM RegistryValueChangeEvent WHERE " +
                     "Hive='HKEY_USERS' " +
@@ -120,15 +120,15 @@ namespace Assistant.Controllers
             }
             catch
             {
-                ContinuityController.CanFollowSystemMode = false;
+                AppController.CanFollowSystemMode = false;
             }
 
             try
             {
                 var keyValue = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM", "ColorizationColor", null);
-                if (keyValue != null && ContinuityController.CanFollowSystemMode)
+                if (keyValue != null && AppController.CanFollowSystemMode)
                 {
-                    ContinuityController.CanFollowSystemColor = true;
+                    AppController.CanFollowSystemColor = true;
 
                     WqlEventQuery systemAccentQuery = new WqlEventQuery("SELECT * FROM RegistryValueChangeEvent WHERE " +
                     "Hive='HKEY_USERS' " +
@@ -141,7 +141,7 @@ namespace Assistant.Controllers
             }
             catch
             {
-                ContinuityController.CanFollowSystemColor = false;
+                AppController.CanFollowSystemColor = false;
             }
         }
 
@@ -247,7 +247,7 @@ namespace Assistant.Controllers
             }
             catch
             {
-                ContinuityController.CanFollowSystemColor = false;
+                AppController.CanFollowSystemColor = false;
                 ValidStyles.Remove("Windows");
 
                 Settings.Default.FollowSystemColor = false;
@@ -274,7 +274,7 @@ namespace Assistant.Controllers
             }
             catch
             {
-                ContinuityController.CanFollowSystemMode = false;
+                AppController.CanFollowSystemMode = false;
 
                 Settings.Default.FollowSystemMode = false;
                 Settings.Default.Save();

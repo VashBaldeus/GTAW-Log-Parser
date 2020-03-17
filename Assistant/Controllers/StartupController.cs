@@ -77,13 +77,13 @@ namespace Assistant.Controllers
                         WshShell wshShell = new WshShell();
 
                         if (!(wshShell.CreateShortcut(file.FullName) is IWshShortcut shortcut)) continue;
-                        if (shortcut.TargetPath != ContinuityController.ExecutablePath)
-                            shortcut.TargetPath = ContinuityController.ExecutablePath;
+                        if (shortcut.TargetPath != AppController.ExecutablePath)
+                            shortcut.TargetPath = AppController.ExecutablePath;
                         if (!shortcut.Arguments.ToLower()
-                            .Contains($"{ContinuityController.ParameterPrefix}minimized"))
-                            shortcut.Arguments = $"{ContinuityController.ParameterPrefix}minimized";
-                        if (shortcut.WorkingDirectory != ContinuityController.StartupPath)
-                            shortcut.WorkingDirectory = ContinuityController.StartupPath;
+                            .Contains($"{AppController.ParameterPrefix}minimized"))
+                            shortcut.Arguments = $"{AppController.ParameterPrefix}minimized";
+                        if (shortcut.WorkingDirectory != AppController.StartupPath)
+                            shortcut.WorkingDirectory = AppController.StartupPath;
 
                         shortcut.Save();
                         legit = false;
@@ -114,9 +114,9 @@ namespace Assistant.Controllers
 
                 WshShell wshShell = new WshShell();
                 if (!(wshShell.CreateShortcut(StartUpDirectory + ShortcutName) is IWshShortcut shortcut)) return;
-                shortcut.TargetPath = ContinuityController.ExecutablePath;
-                shortcut.Arguments = $"{ContinuityController.ParameterPrefix}minimized";
-                shortcut.WorkingDirectory = ContinuityController.StartupPath;
+                shortcut.TargetPath = AppController.ExecutablePath;
+                shortcut.Arguments = $"{AppController.ParameterPrefix}minimized";
+                shortcut.WorkingDirectory = AppController.StartupPath;
                 shortcut.Save();
             }
             catch

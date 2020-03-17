@@ -22,7 +22,7 @@ namespace Assistant.UI
     {
         private static System.Windows.Forms.NotifyIcon trayIcon;
 
-        private static GitHubClient client = new GitHubClient(new ProductHeaderValue(ContinuityController.ProductHeader));
+        private static GitHubClient client = new GitHubClient(new ProductHeaderValue(AppController.ProductHeader));
         private static bool isUpdateCheckRunning;
         private static bool isUpdateCheckManual;
         private static bool isLoading = true;
@@ -83,8 +83,8 @@ namespace Assistant.UI
                     isRestarting = true;
 
                     ProcessStartInfo startInfo = Process.GetCurrentProcess().StartInfo;
-                    startInfo.FileName = ContinuityController.ExecutablePath;
-                    startInfo.Arguments = $"{ContinuityController.ParameterPrefix}restart";
+                    startInfo.FileName = AppController.ExecutablePath;
+                    startInfo.Arguments = $"{AppController.ParameterPrefix}restart";
                     Process.Start(startInfo);
 
                     System.Windows.Application.Current.Shutdown();
@@ -105,7 +105,7 @@ namespace Assistant.UI
             Properties.Settings.Default.CheckForUpdatesAutomatically = CheckForUpdatesOnStartup.IsChecked == true;
 
             Properties.Settings.Default.Save();
-            ContinuityController.InitializeServerIp();
+            AppController.InitializeServerIp();
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Assistant.UI
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             // ReSharper disable once UnreachableCode
 #pragma warning disable 162
-            Version.Text = string.Format(Strings.VersionInfo, ContinuityController.Version, ContinuityController.IsBetaVersion ? Strings.BetaShort : string.Empty);
+            Version.Text = string.Format(Strings.VersionInfo, AppController.Version, AppController.IsBetaVersion ? Strings.BetaShort : string.Empty);
 #pragma warning restore 162
             StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
             Counter.Text = string.Format(Strings.CharacterCounter, 0, 0);
@@ -157,7 +157,7 @@ namespace Assistant.UI
                 foreach (DriveInfo drive in DriveInfo.GetDrives())
                 {
                     // Look through every possible directory
-                    foreach (string possibleDirectory in ContinuityController.PossibleDirectoryLocations)
+                    foreach (string possibleDirectory in AppController.PossibleDirectoryLocations)
                     {
                         // Found one
                         if (!Directory.Exists(drive.Name + possibleDirectory)) continue;
@@ -264,7 +264,7 @@ namespace Assistant.UI
         /// <param name="e"></param>
         private void Parse_Click(object sender, RoutedEventArgs e)
         {
-            ContinuityController.InitializeServerIp();
+            AppController.InitializeServerIp();
 
             if (string.IsNullOrWhiteSpace(DirectoryPath.Text) || !Directory.Exists(DirectoryPath.Text + "client_resources\\"))
             {
@@ -272,7 +272,7 @@ namespace Assistant.UI
                 return;
             }
 
-            if (!File.Exists(DirectoryPath.Text + ContinuityController.LogLocation))
+            if (!File.Exists(DirectoryPath.Text + AppController.LogLocation))
             {
                 MessageBox.Show(Strings.NoChatLog, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -368,7 +368,7 @@ namespace Assistant.UI
         /// <param name="e"></param>
         private void RemoveTimestamps_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Parsed.Text) || string.IsNullOrWhiteSpace(DirectoryPath.Text) || !Directory.Exists(DirectoryPath.Text + "client_resources\\") || !File.Exists(DirectoryPath.Text+ ContinuityController.LogLocation))
+            if (string.IsNullOrWhiteSpace(Parsed.Text) || string.IsNullOrWhiteSpace(DirectoryPath.Text) || !Directory.Exists(DirectoryPath.Text + "client_resources\\") || !File.Exists(DirectoryPath.Text+ AppController.LogLocation))
                 return;
 
             if (RemoveTimestamps.IsChecked == true)
@@ -511,8 +511,8 @@ namespace Assistant.UI
         {
             try
             {
-                string installedVersion = ContinuityController.Version;
-                IReadOnlyList<Release> releases = client.Repository.Release.GetAll("davidcristian", ContinuityController.ProductHeader).Result;
+                string installedVersion = AppController.Version;
+                IReadOnlyList<Release> releases = client.Repository.Release.GetAll("davidcristian", AppController.ProductHeader).Result;
 
                 string newVersion = string.Empty;
                 bool isNewVersionBeta = false;
@@ -539,20 +539,20 @@ namespace Assistant.UI
                     }
                 }
 
-                if (ContinuityController.IsBetaVersion && !isNewVersionBeta && string.CompareOrdinal(installedVersion, newVersion) == 0 || string.CompareOrdinal(installedVersion, newVersion) < 0)
+                if (AppController.IsBetaVersion && !isNewVersionBeta && string.CompareOrdinal(installedVersion, newVersion) == 0 || string.CompareOrdinal(installedVersion, newVersion) < 0)
                 { // Update available
                     if (Visibility != Visibility.Visible)
                         ResumeTrayStripMenuItem_Click(this, EventArgs.Empty);
 
-                    DisplayUpdateMessage(string.Format(Strings.UpdateAvailable, installedVersion + (ContinuityController.IsBetaVersion ? " Beta" : string.Empty), newVersion + (isNewVersionBeta ? " Beta" : string.Empty)), Strings.UpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
+                    DisplayUpdateMessage(string.Format(Strings.UpdateAvailable, installedVersion + (AppController.IsBetaVersion ? " Beta" : string.Empty), newVersion + (isNewVersionBeta ? " Beta" : string.Empty)), Strings.UpdateAvailableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information);
                 }
                 else if (manual) // Latest version
-                    DisplayUpdateMessage(string.Format(Strings.RunningLatest, installedVersion + (ContinuityController.IsBetaVersion ? " Beta" : string.Empty)), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+                    DisplayUpdateMessage(string.Format(Strings.RunningLatest, installedVersion + (AppController.IsBetaVersion ? " Beta" : string.Empty)), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch // No internet
             {
                 if (manual)
-                    DisplayUpdateMessage(string.Format(Strings.NoInternet, ContinuityController.Version + (ContinuityController.IsBetaVersion ? " Beta" : string.Empty)), Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    DisplayUpdateMessage(string.Format(Strings.NoInternet, AppController.Version + (AppController.IsBetaVersion ? " Beta" : string.Empty)), Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             _resetEvent.Set();
@@ -639,7 +639,7 @@ namespace Assistant.UI
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             // ReSharper disable once UnreachableCode
 #pragma warning disable 162
-            MessageBox.Show(string.Format(Strings.About, ContinuityController.Version, ContinuityController.IsBetaVersion ? Strings.Beta : string.Empty, LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), ContinuityController.ServerIPs[0], ContinuityController.ServerIPs[1]), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(string.Format(Strings.About, AppController.Version, AppController.IsBetaVersion ? Strings.Beta : string.Empty, LocalizationController.GetLanguageFromCode(LocalizationController.GetLanguage()), AppController.ServerIPs[0], AppController.ServerIPs[1]), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
 #pragma warning restore 162
         }
 
@@ -777,7 +777,7 @@ namespace Assistant.UI
                 programSettings = new ProgramSettingsWindow(this);
                 programSettings.Closed += (s, args) =>
                 {
-                    client = new GitHubClient(new ProductHeaderValue(ContinuityController.ProductHeader));
+                    client = new GitHubClient(new ProductHeaderValue(AppController.ProductHeader));
                     client.SetRequestTimeout(new TimeSpan(0, 0, 0, Properties.Settings.Default.UpdateCheckTimeout));
 
                     programSettings = null;

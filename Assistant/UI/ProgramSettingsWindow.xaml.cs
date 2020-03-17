@@ -86,8 +86,8 @@ namespace Assistant.UI
 
             FollowSystemColor.IsChecked = Properties.Settings.Default.FollowSystemColor;
             FollowSystemMode.IsChecked = Properties.Settings.Default.FollowSystemMode;
-            FollowSystemColor.IsEnabled = ContinuityController.CanFollowSystemColor;
-            FollowSystemMode.IsEnabled = ContinuityController.CanFollowSystemMode;
+            FollowSystemColor.IsEnabled = AppController.CanFollowSystemColor;
+            FollowSystemMode.IsEnabled = AppController.CanFollowSystemMode;
 
             ToggleDarkMode.IsChecked = StyleController.DarkMode;
             ToggleDarkMode.IsEnabled = !Properties.Settings.Default.FollowSystemMode;
@@ -127,11 +127,11 @@ namespace Assistant.UI
             Properties.Settings.Default.DisableWarningPopups = false;
             Properties.Settings.Default.DisableErrorPopups = false;
             Properties.Settings.Default.IgnoreBetaVersions = true;
-            Properties.Settings.Default.FollowSystemColor = ContinuityController.CanFollowSystemColor;
-            Properties.Settings.Default.FollowSystemMode = ContinuityController.CanFollowSystemMode;
+            Properties.Settings.Default.FollowSystemColor = AppController.CanFollowSystemColor;
+            Properties.Settings.Default.FollowSystemMode = AppController.CanFollowSystemMode;
 
-            StyleController.DarkMode = ContinuityController.CanFollowSystemMode && StyleController.GetAppMode();
-            StyleController.Style = ContinuityController.CanFollowSystemColor ? "Windows" : "Default";
+            StyleController.DarkMode = AppController.CanFollowSystemMode && StyleController.GetAppMode();
+            StyleController.Style = AppController.CanFollowSystemColor ? "Windows" : "Default";
 
             Properties.Settings.Default.Save();
         }

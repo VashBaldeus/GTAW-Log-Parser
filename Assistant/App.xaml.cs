@@ -30,7 +30,7 @@ namespace Assistant
             // on the "follow system eligibility"
             if (Settings.Default.FollowSystemMode)
             {
-                if (ContinuityController.CanFollowSystemMode)
+                if (AppController.CanFollowSystemMode)
                     StyleController.DarkMode = StyleController.GetAppMode();
                 else
                     Settings.Default.FollowSystemMode = false;
@@ -40,7 +40,7 @@ namespace Assistant
             // on the "follow system eligibility"
             if (Settings.Default.FollowSystemColor)
             {
-                if (ContinuityController.CanFollowSystemColor)
+                if (AppController.CanFollowSystemColor)
                 {
                     StyleController.ValidStyles.Add("Windows");
                     StyleController.Style = "Windows";
@@ -66,10 +66,10 @@ namespace Assistant
             // if the current session is a restart or
             // a minimized start
             string[] args = Environment.GetCommandLineArgs();
-            if (args.Any(arg => arg == $"{ContinuityController.ParameterPrefix}restart"))
+            if (args.Any(arg => arg == $"{AppController.ParameterPrefix}restart"))
                 isRestarted = true;
 
-            if (args.Any(arg => arg == $"{ContinuityController.ParameterPrefix}minimized"))
+            if (args.Any(arg => arg == $"{AppController.ParameterPrefix}minimized"))
                 startMinimized = true;
 
             // Make sure only one instance is running
@@ -87,7 +87,7 @@ namespace Assistant
             // first start, or the main window
             // on subsequent starts
             LocalizationController.InitializeLocale();
-            ContinuityController.InitializeServerIp();
+            AppController.InitializeServerIp();
 
             if (!Settings.Default.HasPickedLanguage)
             {
