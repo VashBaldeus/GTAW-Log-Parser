@@ -754,7 +754,8 @@ namespace Assistant.UI
             trayIcon = new System.Windows.Forms.NotifyIcon
             {
                 Visible = false,
-                Icon = Properties.Resources.AppIcon
+                Icon = Properties.Resources.AppIcon,
+                Text= @"GTA World Chat Log Assistant"
             };
 
             trayIcon.MouseDoubleClick += TrayIcon_MouseDoubleClick;
