@@ -16,6 +16,7 @@ namespace Assistant.UI
     public partial class BackupSettingsWindow
     {
         private readonly MainWindow _mainWindow;
+        private static bool isLoading = true;
 
         /// <summary>
         /// Focuses back on this window if
@@ -35,6 +36,7 @@ namespace Assistant.UI
         /// <param name="mainWindow"></param>
         public BackupSettingsWindow(MainWindow mainWindow)
         {
+            isLoading = true;
             _mainWindow = mainWindow;
             _mainWindow.GotKeyboardFocus += GainFocus;
             InitializeComponent();
@@ -43,6 +45,7 @@ namespace Assistant.UI
             Top = _mainWindow.Top + (_mainWindow.Height / 2 - Height / 2);
 
             LoadSettings();
+            isLoading = false;
         }
 
         /// <summary>
@@ -109,7 +112,7 @@ namespace Assistant.UI
         /// <param name="e"></param>
         private void BackupPath_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.BackupPath))
+            if (isLoading || string.IsNullOrWhiteSpace(Properties.Settings.Default.BackupPath))
                 return;
 
             try

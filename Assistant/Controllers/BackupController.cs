@@ -215,12 +215,6 @@ namespace Assistant.Controllers
                     {
                         sw.Write(parsed.Replace("\n", Environment.NewLine));
                     }
-
-                    if (!gameClosed) return;
-                    if (!Properties.Settings.Default.SuppressNotifications)
-                        DisplayBackupResultMessage(string.Format(Strings.SuccessfulBackup, path + fileName), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    HashGenerator.SaveParsedHash(parsed);
                 }
                 else
                 {
@@ -250,15 +244,14 @@ namespace Assistant.Controllers
                     }
                     else // Old file larger, delete the temporary file
                         File.Delete(path + ".temp");
-
-                    if (!gameClosed) return;
-                    if (!Properties.Settings.Default.SuppressNotifications)
-                        DisplayBackupResultMessage(string.Format(Strings.SuccessfulBackup, path + fileName), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
                 // Save the MD5 hash of the chat log
-                if (gameClosed)
-                    HashGenerator.SaveParsedHash(parsed);
+                if (!gameClosed) return;
+                if (!Properties.Settings.Default.SuppressNotifications)
+                    DisplayBackupResultMessage(string.Format(Strings.SuccessfulBackup, path + fileName), Strings.Information, MessageBoxButton.OK, MessageBoxImage.Information);
+
+                HashGenerator.SaveParsedHash(parsed);
             }
             catch
             {

@@ -71,6 +71,7 @@ namespace Assistant.UI
         /// <param name="mainWindow"></param>
         public ChatLogFilterWindow(MainWindow mainWindow)
         {
+            isLoading = true;
             ChatLogFilterWindow.mainWindow = mainWindow;
             ChatLogFilterWindow.mainWindow.GotKeyboardFocus += GainFocus;
             InitializeComponent();

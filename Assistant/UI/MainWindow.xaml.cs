@@ -590,9 +590,10 @@ namespace Assistant.UI
                 backupSettings = new BackupSettingsWindow(this);
                 backupSettings.IsVisibleChanged += (s, args) =>
                 {
-                    if ((bool) args.NewValue) return;
+                    if ((bool)args.NewValue) return;
                     BackupController.Initialize();
-                    StatusLabel.Content = string.Format(Strings.BackupStatus, Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
+                    StatusLabel.Content = string.Format(Strings.BackupStatus,
+                        Properties.Settings.Default.BackupChatLogAutomatically ? Strings.Enabled : Strings.Disabled);
                 };
                 backupSettings.Closed += (s, args) =>
                 {
@@ -761,8 +762,8 @@ namespace Assistant.UI
             trayIcon.MouseDoubleClick += TrayIcon_MouseDoubleClick;
 
             trayIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
-            trayIcon.ContextMenuStrip.Items.Add("Open", null, ResumeTrayStripMenuItem_Click);
-            trayIcon.ContextMenuStrip.Items.Add("Exit", null, ExitTrayToolStripMenuItem_Click);
+            trayIcon.ContextMenuStrip.Items.Add(@"Open", null, ResumeTrayStripMenuItem_Click);
+            trayIcon.ContextMenuStrip.Items.Add(@"Exit", null, ExitTrayToolStripMenuItem_Click);
         }
 
         /// <summary>
