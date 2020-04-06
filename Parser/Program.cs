@@ -25,7 +25,7 @@ namespace Parser
 
             // Make sure only one instance is running
             // if the application is not currently restarting
-            Mutex mutex = new Mutex(true, "UniqueAppId", out bool isUnique);
+            Mutex mutex = new Mutex(true, "ParserMini", out bool isUnique);
             if (!isUnique && !isRestarted)
             {
                 MessageBox.Show(Strings.OtherInstanceRunning, Strings.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);

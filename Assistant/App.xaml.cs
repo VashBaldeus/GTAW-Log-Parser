@@ -74,7 +74,7 @@ namespace Assistant
 
             // Make sure only one instance is running
             // if the application is not currently restarting
-            Mutex mutex = new Mutex(true, "UniqueAppId", out bool isUnique);
+            Mutex mutex = new Mutex(true, "GTAWAssistant", out bool isUnique);
             if (!isUnique && !isRestarted)
             {
                 MessageBox.Show(Localization.Strings.OtherInstanceRunning, Localization.Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
